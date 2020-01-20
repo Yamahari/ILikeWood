@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/template",
+  "textures": {
+    "planks": "block/oak_planks"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:oak_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:oak_panels_slab",
+    "count": 6
+  }
+}

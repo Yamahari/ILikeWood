@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:dark_oak_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:dark_oak_panels_stairs",
+    "count": 4
+  }
+}

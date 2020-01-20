@@ -1,0 +1,49 @@
+package yamahari.ilikewood.item;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.world.IWorldReader;
+import yamahari.ilikewood.util.WoodenObjectType;
+
+import java.util.Arrays;
+import java.util.Map;
+
+public class WoodenWallOrFloorItem extends WoodenBlockItem {
+    private final Block wallBlock;
+
+    public WoodenWallOrFloorItem(final WoodenObjectType objectType, final Block floorBlock, final Block wallBlock, final Item.Properties properties) {
+        super(objectType, floorBlock, properties);
+        this.wallBlock = wallBlock;
+    }
+
+    @Override
+    protected BlockState getStateForPlacement(final BlockItemUseContext context) {
+        final BlockState state0 = this.wallBlock.getStateForPlacement(context);
+        final IWorldReader world = context.getWorld();
+        final BlockPos pos = context.getPos();
+
+        return Arrays.stream(context.getNearestLookingDirections())
+                .map(direction -> direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : state0)
+                .filter(state -> state != null && state.isValidPosition(world, pos))
+                .findFirst()
+                .filter(state -> world.func_226663_a_(state, pos, ISelectionContext.dummy()))
+                .orElse(null);
+    }
+
+    @Override
+    public void addToBlockToItemMap(final Map<Block, Item> blockToItemMap, final Item item) {
+        super.addToBlockToItemMap(blockToItemMap, item);
+        blockToItemMap.put(this.wallBlock, item);
+    }
+
+    @Override
+    public void removeFromBlockToItemMap(final Map<Block, Item> blockToItemMap, final Item item) {
+        super.removeFromBlockToItemMap(blockToItemMap, item);
+        blockToItemMap.remove(this.wallBlock);
+    }
+}

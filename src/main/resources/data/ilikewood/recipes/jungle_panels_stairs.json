@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:jungle_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:jungle_panels_stairs",
+    "count": 4
+  }
+}
