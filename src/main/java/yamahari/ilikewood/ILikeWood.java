@@ -11,7 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import yamahari.ilikewood.config.ILikeWoodConfig;
+import yamahari.ilikewood.config.Config;
 import yamahari.ilikewood.provider.*;
 import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
@@ -25,9 +25,9 @@ public final class ILikeWood {
     private static final IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public ILikeWood() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ILikeWoodConfig.SERVER_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ILikeWoodConfig.COMMON_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ILikeWoodConfig.CLIENT_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(proxy::onFMLCommonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(proxy::onFMLClientSetup);

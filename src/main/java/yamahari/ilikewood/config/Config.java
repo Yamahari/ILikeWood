@@ -3,7 +3,7 @@ package yamahari.ilikewood.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-public final class ILikeWoodConfig {
+public final class Config {
     public static final ForgeConfigSpec SERVER_SPEC;
     public static final ForgeConfigSpec COMMON_SPEC;
     public static final ForgeConfigSpec CLIENT_SPEC;
@@ -27,7 +27,7 @@ public final class ILikeWoodConfig {
         CLIENT_CONFIG = client.getLeft();
     }
 
-    private ILikeWoodConfig() {
+    private Config() {
         // Nothing to do here!
     }
 }

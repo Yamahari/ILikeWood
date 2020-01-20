@@ -3,7 +3,7 @@ package yamahari.ilikewood.util;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import yamahari.ilikewood.config.ILikeWoodConfig;
+import yamahari.ilikewood.config.Config;
 
 import java.util.Arrays;
 import java.util.function.Function;
@@ -38,17 +38,17 @@ public final class WoodenItemTiers {
         return new WoodenItemTier(
                 path,
                 isWood,
-                ILikeWoodConfig.SERVER_CONFIG.HARVEST_LEVEL.get(path)::get,
-                ILikeWoodConfig.SERVER_CONFIG.MAX_USES.get(path)::get,
-                ILikeWoodConfig.SERVER_CONFIG.EFFICIENCY.get(path)::get,
-                ILikeWoodConfig.SERVER_CONFIG.ATTACK_DAMAGE.get(path)::get,
-                ILikeWoodConfig.SERVER_CONFIG.ENCHANTABILITY.get(path)::get,
+                Config.SERVER_CONFIG.HARVEST_LEVEL.get(path)::get,
+                Config.SERVER_CONFIG.MAX_USES.get(path)::get,
+                Config.SERVER_CONFIG.EFFICIENCY.get(path)::get,
+                Config.SERVER_CONFIG.ATTACK_DAMAGE.get(path)::get,
+                Config.SERVER_CONFIG.ENCHANTABILITY.get(path)::get,
                 repairMaterial,
                 Arrays.stream(WoodenTieredObjectType.values()).map(WoodenTieredObjectType::toString)
                         .collect(ImmutableMap.toImmutableMap(Function.identity(), tieredItemType -> new WoodenItemTier.Properties(
-                                ILikeWoodConfig.SERVER_CONFIG.TIERED_ATTACK_SPEED.get(path).get(tieredItemType)::get,
-                                ILikeWoodConfig.SERVER_CONFIG.TIERED_ATTACK_DAMAGE.get(path).get(tieredItemType)::get,
-                                isWood ? ILikeWoodConfig.SERVER_CONFIG.TIERED_BURN_TIME.get(path).get(tieredItemType)::get : defaultBurnTime
+                                Config.SERVER_CONFIG.TIERED_ATTACK_SPEED.get(path).get(tieredItemType)::get,
+                                Config.SERVER_CONFIG.TIERED_ATTACK_DAMAGE.get(path).get(tieredItemType)::get,
+                                isWood ? Config.SERVER_CONFIG.TIERED_BURN_TIME.get(path).get(tieredItemType)::get : defaultBurnTime
                         )))
         );
     }
