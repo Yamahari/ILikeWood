@@ -21,12 +21,12 @@ public class WoodenItem extends Item implements IWooden {
     }
 
     @Override
-    public WoodType getType() {
+    public WoodType getWoodType() {
         return this.type;
     }
 
     @Override
     public int getBurnTime(ItemStack itemStack) {
-        return this.getType().getProperties(this.getObjectType()).getBurnTime();
+        return this.getWoodType().getProperties(this.getObjectType()).getBurnTime();
     }
 }

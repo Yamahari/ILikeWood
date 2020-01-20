@@ -22,13 +22,13 @@ public class WoodenBlockItem extends BlockItem implements IWooden {
     }
 
     @Override
-    public WoodType getType() {
+    public WoodType getWoodType() {
         assert this.getBlock() instanceof IWooden;
-        return ((IWooden) this.getBlock()).getType();
+        return ((IWooden) this.getBlock()).getWoodType();
     }
 
     @Override
     public int getBurnTime(ItemStack itemStack) {
-        return this.getType().getProperties(this.getObjectType()).getBurnTime();
+        return this.getWoodType().getProperties(this.getObjectType()).getBurnTime();
     }
 }

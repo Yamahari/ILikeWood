@@ -8,6 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.commons.lang3.StringUtils;
+import yamahari.ilikewood.block.WoodenBarrelBlock;
 import yamahari.ilikewood.block.WoodenBlock;
 import yamahari.ilikewood.block.WoodenSlabBlock;
 import yamahari.ilikewood.block.WoodenStairsBlock;
@@ -39,10 +40,16 @@ public final class BlockRegistry {
 
         for (final WoodenBlock panel : panels) {
             registry.registerAll(
-                    panel.setRegistryName(makeRegistryName(panel.getType().toString(), WoodenObjectType.PANELS.toString())),
-                    new WoodenStairsBlock(panel.getType(), panel.getDefaultState(), Block.Properties.from(panel)).setRegistryName(makeRegistryName(panel.getType().toString(), WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString())),
-                    new WoodenSlabBlock(panel.getType(), Block.Properties.from(panel)).setRegistryName(makeRegistryName(panel.getType().toString(), WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString()))
+                    panel.setRegistryName(makeRegistryName(panel.getWoodType().toString(), WoodenObjectType.PANELS.toString())),
+                    new WoodenStairsBlock(panel.getWoodType(), panel.getDefaultState(), Block.Properties.from(panel)).setRegistryName(makeRegistryName(panel.getWoodType().toString(), WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString())),
+                    new WoodenSlabBlock(panel.getWoodType(), Block.Properties.from(panel)).setRegistryName(makeRegistryName(panel.getWoodType().toString(), WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString()))
             );
         }
+
+        WoodTypes.get().forEach(
+                woodType -> registry.registerAll(
+                        new WoodenBarrelBlock(woodType)
+                )
+        );
     }
 }

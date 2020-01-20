@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "ilikewood:acacia_panels"
+    },
+    "S": {
+      "item": "ilikewood:acacia_panels_slab"
+    }
+  },
+  "result": {
+    "item": "ilikewood:acacia_barrel"
+  }
+}

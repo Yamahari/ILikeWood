@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import org.apache.commons.lang3.StringUtils;
+import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -20,7 +21,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
     protected void registerModels() {
         Util.getBlocks(WoodenPanelsBlocks.class).forEach(
                 block -> {
-                    final String type = ((IWooden) block).getType().toString();
+                    final String type = ((IWooden) block).getWoodType().toString();
                     this.getBuilder(block.getRegistryName().getPath())
                             .parent(new ModelFile.UncheckedModelFile(modLoc(StringUtils.joinWith("/", BLOCK_FOLDER, "panels", type))));
                 }
@@ -28,7 +29,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
 
         Util.getBlocks(WoodenPanelsStairsBlocks.class).forEach(
                 block -> {
-                    final String type = ((IWooden) block).getType().toString();
+                    final String type = ((IWooden) block).getWoodType().toString();
                     this.getBuilder(block.getRegistryName().getPath())
                             .parent(new ModelFile.UncheckedModelFile(modLoc(StringUtils.joinWith("/", BLOCK_FOLDER, "panels", "stairs", type))));
                 }
@@ -36,9 +37,17 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
 
         Util.getBlocks(WoodenPanelsSlabBlocks.class).forEach(
                 block -> {
-                    final String type = ((IWooden) block).getType().toString();
+                    final String type = ((IWooden) block).getWoodType().toString();
                     this.getBuilder(block.getRegistryName().getPath())
                             .parent(new ModelFile.UncheckedModelFile(modLoc(StringUtils.joinWith("/", BLOCK_FOLDER, "panels", "slab", type))));
+                }
+        );
+
+        Util.getBlocks(WoodenBarrelBlocks.class).forEach(
+                block -> {
+                    final String type = ((IWooden) block).getWoodType().toString();
+                    this.getBuilder(block.getRegistryName().getPath())
+                            .parent(new ModelFile.UncheckedModelFile(modLoc(StringUtils.joinWith("/", BLOCK_FOLDER, "barrel", type))));
                 }
         );
     }

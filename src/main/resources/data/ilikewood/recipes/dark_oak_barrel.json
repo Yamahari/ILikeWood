@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "ilikewood:dark_oak_panels"
+    },
+    "S": {
+      "item": "ilikewood:dark_oak_panels_slab"
+    }
+  },
+  "result": {
+    "item": "ilikewood:dark_oak_barrel"
+  }
+}

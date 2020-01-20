@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "ilikewood:birch_panels"
+    },
+    "S": {
+      "item": "ilikewood:birch_panels_slab"
+    }
+  },
+  "result": {
+    "item": "ilikewood:birch_barrel"
+  }
+}

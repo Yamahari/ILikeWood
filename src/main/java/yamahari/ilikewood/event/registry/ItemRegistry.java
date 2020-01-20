@@ -9,6 +9,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import yamahari.ilikewood.item.WoodenBlockItem;
+import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -35,5 +36,9 @@ public final class ItemRegistry {
 
         Util.getBlocks(WoodenPanelsSlabBlocks.class)
                 .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.SLAB, block, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS))));
+
+        Util.getBlocks(WoodenBarrelBlocks.class)
+                .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.BARREL, block, (new Item.Properties()).group(ItemGroup.DECORATIONS))));
+
     }
 }

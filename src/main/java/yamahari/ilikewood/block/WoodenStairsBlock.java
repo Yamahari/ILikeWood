@@ -15,7 +15,7 @@ public class WoodenStairsBlock extends StairsBlock implements IWooden {
     }
 
     @Override
-    public WoodType getType() {
+    public WoodType getWoodType() {
         return this.type;
     }
 }

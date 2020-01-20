@@ -1,5 +1,6 @@
 package yamahari.ilikewood.provider;
 
+import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.data.DataGenerator;
@@ -7,6 +8,7 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import org.apache.commons.lang3.StringUtils;
+import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -24,7 +26,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
         Util.getBlocks(WoodenPanelsBlocks.class).forEach(
                 block -> {
-                    final String type = ((IWooden) block).getType().toString();
+                    final String type = ((IWooden) block).getWoodType().toString();
                     final ModelFile model = this.models().singleTexture(
                             StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", type),
                             modLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", "template")),
@@ -37,7 +39,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
         Util.getBlocks(WoodenPanelsStairsBlocks.class).forEach(
                 block -> {
-                    final String type = ((IWooden) block).getType().toString();
+                    final String type = ((IWooden) block).getWoodType().toString();
                     final String path = StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", "stairs");
                     final ModelFile stairs = this.models().singleTexture(
                             StringUtils.joinWith("/", path, type),
@@ -62,7 +64,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
         Util.getBlocks(WoodenPanelsSlabBlocks.class).forEach(
                 block -> {
-                    final String type = ((IWooden) block).getType().toString();
+                    final String type = ((IWooden) block).getWoodType().toString();
                     final String path = StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", "slab");
                     final ModelFile slabBottom = this.models().singleTexture(
                             StringUtils.joinWith("/", path, type),
@@ -79,6 +81,24 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                     final ModelFile slabDouble = new ModelFile.UncheckedModelFile(modLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", type)));
 
                     this.slabBlock((SlabBlock) block, slabBottom, slabTop, slabDouble);
+                }
+        );
+
+        Util.getBlocks(WoodenBarrelBlocks.class).forEach(
+                block -> {
+                    final String type = ((IWooden) block).getWoodType().toString();
+                    final String path = StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "barrel", "%s", type);
+                    this.directionalBlock(block,
+                            state -> {
+                                final boolean open = state.get(BarrelBlock.PROPERTY_OPEN);
+                                return this.models().cubeBottomTop(
+                                        String.format(path, (open ? "open" : "")),
+                                        modLoc(String.format(path, "side")),
+                                        modLoc(String.format(path, "bottom")),
+                                        modLoc(String.format(path, "top" + (open ? "/open" : "")))
+                                );
+                            }
+                    );
                 }
         );
     }

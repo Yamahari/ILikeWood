@@ -13,7 +13,7 @@ public class WoodenBlock extends Block implements IWooden {
     }
 
     @Override
-    public WoodType getType() {
+    public WoodType getWoodType() {
         return this.type;
     }
 }

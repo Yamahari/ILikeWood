@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "ilikewood:jungle_panels"
+    },
+    "S": {
+      "item": "ilikewood:jungle_panels_slab"
+    }
+  },
+  "result": {
+    "item": "ilikewood:jungle_barrel"
+  }
+}
