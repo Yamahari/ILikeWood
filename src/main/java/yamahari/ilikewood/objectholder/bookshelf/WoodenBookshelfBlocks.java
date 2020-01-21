@@ -20,6 +20,5 @@ public final class WoodenBookshelfBlocks {
     public static final WoodenBookshelfBlock SPRUCE = null;
 
     private WoodenBookshelfBlocks() {
-
     }
 }
