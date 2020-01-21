@@ -8,10 +8,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.IBlockReader;
 import yamahari.ilikewood.objectholder.WoodenTileEntityTypes;
 import yamahari.ilikewood.tileentity.WoodenBarrelTileEntity;
-import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.*;
 
 public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
     private final WoodType type;
@@ -19,7 +16,7 @@ public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
     public WoodenBarrelBlock(final WoodType type) {
         super(Block.Properties.from(Blocks.BARREL));
         this.type = type;
-        this.setRegistryName(Constants.MOD_ID, this.type.toString() + "_" + WoodenObjectType.BARREL.toString());
+        this.setRegistryName(Constants.MOD_ID, Util.toRegistryName(this.type.toString(), WoodenObjectType.BARREL.toString()));
     }
 
     public TileEntityType<WoodenBarrelTileEntity> getTileEntityType() {

@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/stairs/outer/template",
+  "textures": {
+    "planks": "block/spruce_planks"
+  }
+}

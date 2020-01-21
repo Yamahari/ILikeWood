@@ -2,6 +2,7 @@ package yamahari.ilikewood.util;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.registries.ObjectHolder;
+import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
 
 import java.lang.reflect.Field;
@@ -28,5 +29,13 @@ public final class Util {
             }
         }
         return blocks;
+    }
+
+    public static String toRegistryName(final String... elements) {
+        return StringUtils.join(elements, "_");
+    }
+
+    public static String toPath(final String... elements) {
+        return StringUtils.join(elements, "/");
     }
 }

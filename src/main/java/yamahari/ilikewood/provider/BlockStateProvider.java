@@ -7,8 +7,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
-import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
+import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -28,10 +28,10 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                 block -> {
                     final String type = ((IWooden) block).getWoodType().toString();
                     final ModelFile model = this.models().singleTexture(
-                            StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", type),
-                            modLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", "template")),
+                            Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", type),
+                            modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", "template")),
                             "planks",
-                            mcLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, type + "_planks")));
+                            mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks")));
 
                     this.simpleBlock(block, model);
                 }
@@ -40,24 +40,24 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
         Util.getBlocks(WoodenPanelsStairsBlocks.class).forEach(
                 block -> {
                     final String type = ((IWooden) block).getWoodType().toString();
-                    final String path = StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", "stairs");
+                    final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", "stairs");
                     final ModelFile stairs = this.models().singleTexture(
-                            StringUtils.joinWith("/", path, type),
-                            modLoc(StringUtils.joinWith("/", path, "template")),
+                            Util.toPath(path, type),
+                            modLoc(Util.toPath(path, "template")),
                             "planks",
-                            mcLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, type + "_planks")));
+                            mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks")));
 
                     final ModelFile stairsInner = this.models().singleTexture(
-                            StringUtils.joinWith("/", path, "inner", type),
-                            modLoc(StringUtils.joinWith("/", path, "inner", "template")),
+                            Util.toPath(path, "inner", type),
+                            modLoc(Util.toPath(path, "inner", "template")),
                             "planks",
-                            mcLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, type + "_planks")));
+                            mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks")));
 
                     final ModelFile stairsOuter = this.models().singleTexture(
-                            StringUtils.joinWith("/", path, "inner", type),
-                            modLoc(StringUtils.joinWith("/", path, "inner", "template")),
+                            Util.toPath(path, "outer", type),
+                            modLoc(Util.toPath(path, "outer", "template")),
                             "planks",
-                            mcLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, type + "_planks")));
+                            mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks")));
                     this.stairsBlock((StairsBlock) block, stairs, stairsInner, stairsOuter);
                 }
         );
@@ -65,20 +65,20 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
         Util.getBlocks(WoodenPanelsSlabBlocks.class).forEach(
                 block -> {
                     final String type = ((IWooden) block).getWoodType().toString();
-                    final String path = StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", "slab");
+                    final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", "slab");
                     final ModelFile slabBottom = this.models().singleTexture(
-                            StringUtils.joinWith("/", path, type),
-                            modLoc(StringUtils.joinWith("/", path, "template")),
+                            Util.toPath(path, type),
+                            modLoc(Util.toPath(path, "template")),
                             "planks",
-                            mcLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, type + "_planks")));
+                            mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks")));
 
                     final ModelFile slabTop = this.models().singleTexture(
-                            StringUtils.joinWith("/", path, "top", type),
-                            modLoc(StringUtils.joinWith("/", path, "top", "template")),
+                            Util.toPath(path, "top", type),
+                            modLoc(Util.toPath(path, "top", "template")),
                             "planks",
-                            mcLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, type + "_planks")));
+                            mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks")));
 
-                    final ModelFile slabDouble = new ModelFile.UncheckedModelFile(modLoc(StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "panels", type)));
+                    final ModelFile slabDouble = new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", type)));
 
                     this.slabBlock((SlabBlock) block, slabBottom, slabTop, slabDouble);
                 }
@@ -86,8 +86,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
         Util.getBlocks(WoodenBarrelBlocks.class).forEach(
                 block -> {
-                    final String type = ((IWooden) block).getWoodType().toString();
-                    final String path = StringUtils.joinWith("/", ModelProvider.BLOCK_FOLDER, "barrel", "%s", type);
+                    final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, "barrel", "%s", ((IWooden) block).getWoodType().toString());
                     this.directionalBlock(block,
                             state -> {
                                 final boolean open = state.get(BarrelBlock.PROPERTY_OPEN);
@@ -99,6 +98,19 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                                 );
                             }
                     );
+                }
+        );
+
+        Util.getBlocks(WoodenBookshelfBlocks.class).forEach(
+                block -> {
+                    final String type = ((IWooden) block).getWoodType().toString();
+                    final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, "bookshelf", type);
+                    this.simpleBlock(block,
+                            this.models().cubeColumn(
+                                    path,
+                                    modLoc(path),
+                                    mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks"))
+                            ));
                 }
         );
     }
