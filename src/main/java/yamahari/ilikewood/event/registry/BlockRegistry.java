@@ -15,7 +15,6 @@ import yamahari.ilikewood.util.WoodenObjectType;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class BlockRegistry {
     private BlockRegistry() {
-        // Nothing to do here!
     }
 
     @SubscribeEvent
@@ -42,7 +41,8 @@ public final class BlockRegistry {
         WoodTypes.get().forEach(
                 woodType -> registry.registerAll(
                         new WoodenBarrelBlock(woodType),
-                        new WoodenBookshelfBlock(woodType)
+                        new WoodenBookshelfBlock(woodType),
+                        new WoodenChestBlock(woodType)
                 )
         );
     }

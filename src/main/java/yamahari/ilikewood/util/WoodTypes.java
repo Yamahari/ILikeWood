@@ -7,38 +7,19 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public final class WoodTypes {
-    public static final WoodType ACACIA = new WoodType(
-            Constants.ACACIA,
-            createWoodTypeProperties(Constants.ACACIA),
-            Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(Constants.ACACIA)::get);
-
-    public static final WoodType BIRCH = new WoodType(
-            Constants.BIRCH,
-            createWoodTypeProperties(Constants.BIRCH),
-            Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(Constants.BIRCH)::get);
-
-    public static final WoodType DARK_OAK = new WoodType(
-            Constants.DARK_OAK,
-            createWoodTypeProperties(Constants.DARK_OAK),
-            Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(Constants.DARK_OAK)::get);
-
-    public static final WoodType JUNGLE = new WoodType(
-            Constants.JUNGLE,
-            createWoodTypeProperties(Constants.JUNGLE),
-            Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(Constants.JUNGLE)::get);
-
-    public static final WoodType OAK = new WoodType(
-            Constants.OAK,
-            createWoodTypeProperties(Constants.OAK),
-            Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(Constants.OAK)::get);
-
-    public static final WoodType SPRUCE = new WoodType(
-            Constants.SPRUCE,
-            createWoodTypeProperties(Constants.SPRUCE),
-            Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(Constants.SPRUCE)::get);
+    public static final WoodType ACACIA = createWoodType(Constants.ACACIA);
+    public static final WoodType BIRCH = createWoodType(Constants.BIRCH);
+    public static final WoodType DARK_OAK = createWoodType(Constants.DARK_OAK);
+    public static final WoodType JUNGLE = createWoodType(Constants.JUNGLE);
+    public static final WoodType OAK = createWoodType(Constants.OAK);
+    public static final WoodType SPRUCE = createWoodType(Constants.SPRUCE);
 
     private WoodTypes() {
         // Nothing to do here!
+    }
+
+    private static WoodType createWoodType(final String woodType) {
+        return new WoodType(woodType, createWoodTypeProperties(woodType), Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(woodType)::get);
     }
 
     private static Map<String, WoodType.Properties> createWoodTypeProperties(final String woodType) {

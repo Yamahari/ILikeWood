@@ -26,7 +26,7 @@ public final class ServerConfig {
     public final Map<String, Map<String, ForgeConfigSpec.DoubleValue>> TIERED_ATTACK_DAMAGE;
     public final Map<String, Map<String, ForgeConfigSpec.DoubleValue>> TIERED_ATTACK_SPEED;
 
-    protected ServerConfig(ForgeConfigSpec.Builder builder) {
+    protected ServerConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("item_tier");
 
         builder.push("harvest_level");

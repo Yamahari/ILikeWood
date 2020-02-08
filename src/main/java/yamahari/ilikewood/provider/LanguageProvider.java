@@ -5,6 +5,7 @@ import net.minecraft.data.DataGenerator;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
+import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -50,6 +51,15 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
 
         Util.getBlocks(WoodenBookshelfBlocks.class).forEach(
                 block -> this.add(block, getTranslationName(((IWooden) block).getWoodType().toString()) + " Bookshelf")
+        );
+
+        Util.getBlocks(WoodenChestBlocks.class).forEach(
+                block -> {
+                    final String type = ((IWooden) block).getWoodType().toString();
+                    final String name = getTranslationName(type) + " Chest";
+                    this.add(block, name);
+                    this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, type + "_" + WoodenObjectType.CHEST.toString()), name);
+                }
         );
     }
 }

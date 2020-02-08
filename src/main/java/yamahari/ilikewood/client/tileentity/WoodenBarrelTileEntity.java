@@ -1,23 +1,23 @@
-package yamahari.ilikewood.tileentity;
+package yamahari.ilikewood.client.tileentity;
 
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.BarrelTileEntity;
 import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.block.WoodenBarrelBlock;
-import yamahari.ilikewood.objectholder.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenBarrelTileEntity extends BarrelTileEntity implements IWooden {
-    public WoodenBarrelTileEntity() {
-        super(WoodenTileEntityTypes.BARREL);
+    public WoodenBarrelTileEntity(final TileEntityType<WoodenBarrelTileEntity> type) {
+        super(type);
     }
 
     @Override

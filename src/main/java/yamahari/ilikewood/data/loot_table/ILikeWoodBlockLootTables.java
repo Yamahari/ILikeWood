@@ -6,6 +6,7 @@ import net.minecraft.item.Items;
 import net.minecraft.world.storage.loot.ConstantRange;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
+import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 public final class ILikeWoodBlockLootTables extends BlockLootTables {
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return Stream.of(WoodenPanelsBlocks.class, WoodenPanelsSlabBlocks.class, WoodenPanelsStairsBlocks.class, WoodenBarrelBlocks.class, WoodenBookshelfBlocks.class)
+        return Stream.of(WoodenPanelsBlocks.class, WoodenPanelsSlabBlocks.class, WoodenPanelsStairsBlocks.class, WoodenBarrelBlocks.class, WoodenBookshelfBlocks.class, WoodenChestBlocks.class)
                 .map(Util::getBlocks)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
@@ -32,13 +33,12 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
         Stream.of(WoodenPanelsBlocks.class, WoodenPanelsStairsBlocks.class)
                 .forEach(blockClass -> Util.getBlocks(blockClass).forEach(this::func_218492_c));
 
-        Util.getBlocks(WoodenBarrelBlocks.class)
-                .forEach(block -> this.registerLootTable(block, BlockLootTables::func_218481_e));
+        Stream.of(WoodenBarrelBlocks.class, WoodenChestBlocks.class)
+                .forEach(blockClass -> Util.getBlocks(blockClass).forEach(
+                        block -> this.registerLootTable(block, BlockLootTables::func_218481_e)));
 
         Util.getBlocks(WoodenBookshelfBlocks.class).forEach(
                 block -> this.registerLootTable(block, b -> func_218530_a(b, Items.BOOK, ConstantRange.of(3)))
         );
     }
-
-
 }

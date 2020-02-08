@@ -1,20 +1,20 @@
 package yamahari.ilikewood.proxy;
 
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import yamahari.ilikewood.client.tileentity.renderer.WoodenChestTileEntityRenderer;
+import yamahari.ilikewood.objectholder.chest.WoodenChestTileEntityTypes;
+import yamahari.ilikewood.util.Util;
 
-public class ClientProxy implements IProxy {
-    private static final Logger logger = LogManager.getLogger(ClientProxy.class);
-
+public final class ClientProxy implements IProxy {
     @Override
-    public void onFMLClientSetup(FMLClientSetupEvent event) {
-        logger.info("client setup");
+    public void onFMLClientSetup(final FMLClientSetupEvent event) {
+        Util.getTileEntityTypes(WoodenChestTileEntityTypes.class).forEach(
+                type -> ClientRegistry.bindTileEntityRenderer(type, WoodenChestTileEntityRenderer::new));
     }
 
     @Override
-    public void onFMLCommonSetup(FMLCommonSetupEvent event) {
-        logger.info("common setup");
+    public void onFMLCommonSetup(final FMLCommonSetupEvent event) {
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
+import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -119,6 +120,20 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                             .addCriterion("has_book", this.hasItem(Items.BOOK))
                             .build(consumer);
                 });
+
+        Util.getBlocks(WoodenChestBlocks.class).forEach(
+                block -> {
+                    final IItemProvider panels = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase(), WoodenPanelsBlocks.class);
+                    assert panels != null;
+                    ShapedRecipeBuilder.shapedRecipe(block)
+                            .key('#', panels)
+                            .patternLine("###")
+                            .patternLine("# #")
+                            .patternLine("###")
+                            .addCriterion("has_panels", this.hasItem(panels))
+                            .build(consumer);
+                }
+        );
 
     }
 

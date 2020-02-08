@@ -6,11 +6,11 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import yamahari.ilikewood.client.tileentity.renderer.WoodenChestItemStackTileEntityRenderer;
 import yamahari.ilikewood.item.WoodenBlockItem;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
+import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -19,10 +19,7 @@ import yamahari.ilikewood.util.WoodenObjectType;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ItemRegistry {
-    private static final Logger logger = LogManager.getLogger(ItemRegistry.class);
-
     private ItemRegistry() {
-        // Nothing to do here!
     }
 
     @SubscribeEvent
@@ -42,6 +39,9 @@ public final class ItemRegistry {
                 .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.BARREL, block, (new Item.Properties()).group(ItemGroup.DECORATIONS))));
 
         Util.getBlocks(WoodenBookshelfBlocks.class)
-                .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.BOOKSHELF, block, (new Item.Properties()).group(ItemGroup.DECORATIONS))));
+                .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.BOOKSHELF, block, (new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS))));
+
+        Util.getBlocks(WoodenChestBlocks.class)
+                .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.CHEST, block, (new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
     }
 }
