@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/composter/template",
+  "textures": {
+    "top": "ilikewood:block/composter/top/dark_oak",
+    "side": "ilikewood:block/composter/side/dark_oak",
+    "bottom": "ilikewood:block/composter/bottom/dark_oak"
+  }
+}

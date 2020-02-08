@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F F",
+    "F F",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:birch_panels"
+    },
+    "F": {
+      "item": "minecraft:birch_fence"
+    }
+  },
+  "result": {
+    "item": "ilikewood:birch_composter"
+  }
+}

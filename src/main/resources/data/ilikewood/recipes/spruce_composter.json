@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F F",
+    "F F",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:spruce_panels"
+    },
+    "F": {
+      "item": "minecraft:spruce_fence"
+    }
+  },
+  "result": {
+    "item": "ilikewood:spruce_composter"
+  }
+}

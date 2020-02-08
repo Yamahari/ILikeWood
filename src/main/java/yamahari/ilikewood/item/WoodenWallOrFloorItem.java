@@ -23,15 +23,15 @@ public class WoodenWallOrFloorItem extends WoodenBlockItem {
 
     @Override
     protected BlockState getStateForPlacement(final BlockItemUseContext context) {
-        final BlockState state0 = this.wallBlock.getStateForPlacement(context);
+        final BlockState state = this.wallBlock.getStateForPlacement(context);
         final IWorldReader world = context.getWorld();
         final BlockPos pos = context.getPos();
 
         return Arrays.stream(context.getNearestLookingDirections())
-                .map(direction -> direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : state0)
-                .filter(state -> state != null && state.isValidPosition(world, pos))
+                .map(direction -> direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : state)
+                .filter(s -> s != null && s.isValidPosition(world, pos))
                 .findFirst()
-                .filter(state -> world.func_226663_a_(state, pos, ISelectionContext.dummy()))
+                .filter(s -> world.func_226663_a_(s, pos, ISelectionContext.dummy()))
                 .orElse(null);
     }
 

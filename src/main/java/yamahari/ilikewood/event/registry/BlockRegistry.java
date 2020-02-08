@@ -42,7 +42,8 @@ public final class BlockRegistry {
                 woodType -> registry.registerAll(
                         new WoodenBarrelBlock(woodType),
                         new WoodenBookshelfBlock(woodType),
-                        new WoodenChestBlock(woodType)
+                        new WoodenChestBlock(woodType),
+                        new WoodenComposterBlock(woodType)
                 )
         );
     }

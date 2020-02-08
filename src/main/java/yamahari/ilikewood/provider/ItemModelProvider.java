@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
 import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
+import yamahari.ilikewood.objectholder.composter.WoodenComposterBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -82,6 +83,10 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
                             .scale(0.4F)
                             .end();
                 }
+        );
+
+        Util.getBlocks(WoodenComposterBlocks.class).forEach(
+                block -> this.blockItem(block, WoodenObjectType.COMPOSTER.toString())
         );
     }
 

@@ -11,6 +11,7 @@ import yamahari.ilikewood.item.WoodenBlockItem;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
 import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
+import yamahari.ilikewood.objectholder.composter.WoodenComposterBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -43,5 +44,8 @@ public final class ItemRegistry {
 
         Util.getBlocks(WoodenChestBlocks.class)
                 .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.CHEST, block, (new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
+
+        Util.getBlocks(WoodenComposterBlocks.class)
+                .forEach(block -> registry.register(new WoodenBlockItem(WoodenObjectType.COMPOSTER, block, (new Item.Properties()).group(ItemGroup.MISC))));
     }
 }

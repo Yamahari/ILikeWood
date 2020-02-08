@@ -14,6 +14,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
 import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
+import yamahari.ilikewood.objectholder.composter.WoodenComposterBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -129,6 +130,24 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                             .key('#', panels)
                             .patternLine("###")
                             .patternLine("# #")
+                            .patternLine("###")
+                            .addCriterion("has_panels", this.hasItem(panels))
+                            .build(consumer);
+                }
+        );
+
+        Util.getBlocks(WoodenComposterBlocks.class).forEach(
+                block -> {
+                    final String type = ((IWooden) block).getWoodType().toString().toUpperCase();
+                    final IItemProvider panels = getIngredient(type, WoodenPanelsBlocks.class);
+                    final IItemProvider fence = getIngredient(type + "_FENCE", Blocks.class);
+                    assert panels != null;
+                    assert fence != null;
+                    ShapedRecipeBuilder.shapedRecipe(block)
+                            .key('#', panels)
+                            .key('F', fence)
+                            .patternLine("F F")
+                            .patternLine("F F")
                             .patternLine("###")
                             .addCriterion("has_panels", this.hasItem(panels))
                             .build(consumer);

@@ -1,15 +1,18 @@
 package yamahari.ilikewood.provider;
 
 import net.minecraft.block.BarrelBlock;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
 import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
 import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
+import yamahari.ilikewood.objectholder.composter.WoodenComposterBlocks;
 import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
 import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
 import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
@@ -17,6 +20,8 @@ import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodenObjectType;
+
+import java.util.stream.IntStream;
 
 public final class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
     public BlockStateProvider(DataGenerator generator, ExistingFileHelper helper) {
@@ -107,6 +112,31 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CHEST.toString(), type);
             this.simpleBlock(block, this.models().getBuilder(path)
                     .texture("particle", mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks"))));
+        });
+
+        Util.getBlocks(WoodenComposterBlocks.class).forEach(block -> {
+            final String type = ((IWooden) block).getWoodType().toString();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.COMPOSTER.toString());
+            final ModelFile template = this.models()
+                    .withExistingParent(Util.toPath(path, type), modLoc(Util.toPath(path, "template")))
+                    .texture("top", Util.toPath(path, "top", type))
+                    .texture("side", Util.toPath(path, "side", type))
+                    .texture("bottom", Util.toPath(path, "bottom", type));
+
+            final MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block)
+                    .part()
+                    .modelFile(template)
+                    .addModel()
+                    .end();
+
+            IntStream.range(1, 9).forEach(level -> {
+                final ModelFile content = new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, String.format("composter_contents%s", level != 8 ? level : "_ready"))));
+                builder.part()
+                        .modelFile(content)
+                        .addModel()
+                        .condition(ComposterBlock.field_220298_a, level)
+                        .end();
+            });
         });
     }
 

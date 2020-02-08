@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F F",
+    "F F",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:acacia_panels"
+    },
+    "F": {
+      "item": "minecraft:acacia_fence"
+    }
+  },
+  "result": {
+    "item": "ilikewood:acacia_composter"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F F",
+    "F F",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:dark_oak_panels"
+    },
+    "F": {
+      "item": "minecraft:dark_oak_fence"
+    }
+  },
+  "result": {
+    "item": "ilikewood:dark_oak_composter"
+  }
+}
