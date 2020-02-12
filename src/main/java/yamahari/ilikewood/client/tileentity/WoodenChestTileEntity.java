@@ -14,7 +14,7 @@ public final class WoodenChestTileEntity extends ChestTileEntity implements IWoo
     private final WoodType woodType;
     private final TranslationTextComponent defaultName;
 
-    public WoodenChestTileEntity(final WoodType woodType, final TileEntityType<WoodenChestTileEntity> type) {
+    public WoodenChestTileEntity(final WoodType woodType, final TileEntityType<?> type) {
         super(type);
         this.woodType = woodType;
         this.defaultName = new TranslationTextComponent(

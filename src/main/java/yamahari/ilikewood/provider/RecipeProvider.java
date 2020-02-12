@@ -11,16 +11,11 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
-import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
-import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
-import yamahari.ilikewood.objectholder.composter.WoodenComposterBlocks;
-import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
-import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
-import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
+import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.Util;
+import yamahari.ilikewood.util.WoodType;
+import yamahari.ilikewood.util.WoodenObjectType;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -47,113 +42,99 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
     @Override
     protected void registerRecipes(final Consumer<IFinishedRecipe> consumer) {
-        Util.getBlocks(WoodenPanelsBlocks.class).forEach(
-                block -> {
-                    final IItemProvider slab = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase() + "_SLAB", Blocks.class);
-                    assert slab != null;
-                    ShapedRecipeBuilder.shapedRecipe(block)
-                            .key('#', slab)
-                            .patternLine("#")
-                            .patternLine("#")
-                            .addCriterion("has_slab", this.hasItem(slab))
-                            .build(consumer);
-                });
+        WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
+            final IItemProvider slab = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase() + "_SLAB", Blocks.class);
+            assert slab != null;
 
-        Util.getBlocks(WoodenPanelsStairsBlocks.class).forEach(
-                block -> {
-                    final IItemProvider panels = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase(), WoodenPanelsBlocks.class);
-                    assert panels != null;
-                    ShapedRecipeBuilder.shapedRecipe(block, 4)
-                            .key('#', panels)
-                            .patternLine("#  ")
-                            .patternLine("## ")
-                            .patternLine("###")
-                            .addCriterion("has_panels", this.hasItem(panels))
-                            .build(consumer);
-                });
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('#', slab)
+                    .patternLine("#")
+                    .patternLine("#")
+                    .addCriterion("has_slab", this.hasItem(slab))
+                    .build(consumer);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> {
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, ((IWooden) block).getWoodType());
 
-        Util.getBlocks(WoodenPanelsSlabBlocks.class).forEach(
-                block -> {
-                    final IItemProvider ingredient = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase(), WoodenPanelsBlocks.class);
-                    final IItemProvider planks = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase() + "_PLANKS", Blocks.class);
-                    assert ingredient != null;
-                    ShapedRecipeBuilder.shapedRecipe(block, 6)
-                            .key('#', ingredient)
-                            .patternLine("###")
-                            .addCriterion("has_panels", this.hasItem(ingredient))
-                            .build(consumer);
+            ShapedRecipeBuilder.shapedRecipe(block, 4)
+                    .key('#', panels)
+                    .patternLine("#  ")
+                    .patternLine("## ")
+                    .patternLine("###")
+                    .addCriterion("has_panels", this.hasItem(panels))
+                    .build(consumer);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+            final IItemProvider planks = getIngredient(woodType.toString().toUpperCase() + "_PLANKS", Blocks.class);
+            assert planks != null;
 
-                    assert planks != null;
-                    ShapedRecipeBuilder.shapedRecipe(planks)
-                            .key('S', block)
-                            .patternLine("S")
-                            .patternLine("S")
-                            .addCriterion("has_panels_slab", this.hasItem(block))
-                            .build(consumer, Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" + block.getRegistryName().getPath());
-                });
+            ShapedRecipeBuilder.shapedRecipe(block, 6)
+                    .key('#', panels)
+                    .patternLine("###")
+                    .addCriterion("has_panels", this.hasItem(panels))
+                    .build(consumer);
 
-        Util.getBlocks(WoodenBarrelBlocks.class).forEach(
-                block -> {
-                    final IItemProvider panels = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase(), WoodenPanelsBlocks.class);
-                    final IItemProvider slab = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase(), WoodenPanelsSlabBlocks.class);
-                    assert panels != null;
-                    assert slab != null;
-                    ShapedRecipeBuilder.shapedRecipe(block)
-                            .key('P', panels)
-                            .key('S', slab)
-                            .patternLine("PSP")
-                            .patternLine("P P")
-                            .patternLine("PSP")
-                            .addCriterion("has_panels", this.hasItem(panels))
-                            .build(consumer);
-                });
+            ShapedRecipeBuilder.shapedRecipe(planks)
+                    .key('S', block)
+                    .patternLine("S")
+                    .patternLine("S")
+                    .addCriterion("has_panels_slab", this.hasItem(block))
+                    .build(consumer, Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" + block.getRegistryName().getPath());
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+            final IItemProvider slab = WoodenBlocks.getBlock(WoodenObjectType.SLAB, woodType);
 
-        Util.getBlocks(WoodenBookshelfBlocks.class).forEach(
-                block -> {
-                    final IItemProvider panels = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase(), WoodenPanelsBlocks.class);
-                    assert panels != null;
-                    ShapedRecipeBuilder.shapedRecipe(block)
-                            .key('#', panels)
-                            .key('X', Items.BOOK)
-                            .patternLine("###")
-                            .patternLine("XXX")
-                            .patternLine("###")
-                            .addCriterion("has_book", this.hasItem(Items.BOOK))
-                            .build(consumer);
-                });
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('P', panels)
+                    .key('S', slab)
+                    .patternLine("PSP")
+                    .patternLine("P P")
+                    .patternLine("PSP")
+                    .addCriterion("has_panels", this.hasItem(panels))
+                    .build(consumer);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> {
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, ((IWooden) block).getWoodType());
 
-        Util.getBlocks(WoodenChestBlocks.class).forEach(
-                block -> {
-                    final IItemProvider panels = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase(), WoodenPanelsBlocks.class);
-                    assert panels != null;
-                    ShapedRecipeBuilder.shapedRecipe(block)
-                            .key('#', panels)
-                            .patternLine("###")
-                            .patternLine("# #")
-                            .patternLine("###")
-                            .addCriterion("has_panels", this.hasItem(panels))
-                            .build(consumer);
-                }
-        );
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('#', panels)
+                    .key('X', Items.BOOK)
+                    .patternLine("###")
+                    .patternLine("XXX")
+                    .patternLine("###")
+                    .addCriterion("has_book", this.hasItem(Items.BOOK))
+                    .build(consumer);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, ((IWooden) block).getWoodType());
 
-        Util.getBlocks(WoodenComposterBlocks.class).forEach(
-                block -> {
-                    final String type = ((IWooden) block).getWoodType().toString().toUpperCase();
-                    final IItemProvider panels = getIngredient(type, WoodenPanelsBlocks.class);
-                    final IItemProvider fence = getIngredient(type + "_FENCE", Blocks.class);
-                    assert panels != null;
-                    assert fence != null;
-                    ShapedRecipeBuilder.shapedRecipe(block)
-                            .key('#', panels)
-                            .key('F', fence)
-                            .patternLine("F F")
-                            .patternLine("F F")
-                            .patternLine("###")
-                            .addCriterion("has_panels", this.hasItem(panels))
-                            .build(consumer);
-                }
-        );
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('#', panels)
+                    .patternLine("###")
+                    .patternLine("# #")
+                    .patternLine("###")
+                    .addCriterion("has_panels", this.hasItem(panels))
+                    .build(consumer);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+            final IItemProvider fence = getIngredient(woodType.toString().toUpperCase() + "_FENCE", Blocks.class);
+            assert fence != null;
 
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('#', panels)
+                    .key('F', fence)
+                    .patternLine("F F")
+                    .patternLine("F F")
+                    .patternLine("###")
+                    .addCriterion("has_panels", this.hasItem(panels))
+                    .build(consumer);
+        });
     }
 
     @Override

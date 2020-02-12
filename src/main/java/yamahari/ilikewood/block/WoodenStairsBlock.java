@@ -10,7 +10,7 @@ public class WoodenStairsBlock extends StairsBlock implements IWooden {
     private final WoodType type;
 
     public WoodenStairsBlock(final WoodType type, final BlockState blockState, final Block.Properties properties) {
-        super(blockState, properties);
+        super(blockState, properties); // TODO deprecated constructor!
         this.type = type;
     }
 

@@ -1,20 +1,31 @@
 package yamahari.ilikewood.util;
 
+import com.google.common.collect.ImmutableMap;
+import yamahari.ilikewood.config.Config;
+
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class WoodType {
+public enum WoodType {
+    ACACIA(Constants.ACACIA),
+    BIRCH(Constants.BIRCH),
+    DARK_OAK(Constants.DARK_OAK),
+    JUNGLE(Constants.JUNGLE),
+    OAK(Constants.OAK),
+    SPRUCE(Constants.SPRUCE);
+
     private final String name;
     private final Map<String, Properties> properties;
     private final Supplier<Double> enchantingPowerBonus;
 
-    public WoodType(final String name, final Map<String, Properties> properties, Supplier<Double> enchantingPowerBonus) {
+    WoodType(final String name) {
         this.name = name;
-        this.properties = properties;
-        this.enchantingPowerBonus = enchantingPowerBonus;
+        this.properties = Config.SERVER_CONFIG.BURN_TIME.get(name).entrySet().stream()
+                .collect(ImmutableMap.toImmutableMap(ImmutableMap.Entry::getKey, entry -> new Properties(entry.getValue()::get)));
+        this.enchantingPowerBonus = Config.SERVER_CONFIG.ENCHANTING_POWER_BONUS.get(name)::get;
     }
 
-    public Properties getProperties(WoodenObjectType objectType) {
+    public Properties getProperties(final WoodenObjectType objectType) {
         assert this.properties.containsKey(objectType.toString());
         return this.properties.get(objectType.toString());
     }

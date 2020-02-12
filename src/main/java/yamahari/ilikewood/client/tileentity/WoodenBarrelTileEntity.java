@@ -16,20 +16,25 @@ import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenBarrelTileEntity extends BarrelTileEntity implements IWooden {
-    public WoodenBarrelTileEntity(final TileEntityType<WoodenBarrelTileEntity> type) {
+    private final WoodType woodType;
+    private final TranslationTextComponent defaultName;
+
+    public WoodenBarrelTileEntity(final WoodType woodType, final TileEntityType<?> type) {
         super(type);
+        this.woodType = woodType;
+        this.defaultName = new TranslationTextComponent(
+                StringUtils.joinWith(".", "container", Constants.MOD_ID,
+                        this.getWoodType().toString() + "_" + WoodenObjectType.BARREL.toString()));
     }
 
     @Override
     public WoodType getWoodType() {
-        return ((IWooden) this.getBlockState().getBlock()).getWoodType();
+        return this.woodType;
     }
 
     @Override
     protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent(
-                StringUtils.joinWith(".", "container", Constants.MOD_ID,
-                        this.getWoodType().toString() + "_" + WoodenObjectType.BARREL.toString()));
+        return this.defaultName;
     }
 
     @Override

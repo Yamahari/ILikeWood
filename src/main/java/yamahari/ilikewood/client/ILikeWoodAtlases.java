@@ -10,8 +10,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodTypes;
+import yamahari.ilikewood.util.WoodType;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public final class ILikeWoodAtlases {
 
     static {
         final ImmutableMap.Builder<String, Map<ChestType, Material>> builder = new ImmutableMap.Builder<>();
-        WoodTypes.get().map(Object::toString).forEach(woodType -> builder.put(woodType, ImmutableMap.copyOf(makeChestMaterials(woodType))));
+        Arrays.stream(WoodType.values()).map(Object::toString).forEach(woodType -> builder.put(woodType, ImmutableMap.copyOf(makeChestMaterials(woodType))));
         CHESTS = builder.build();
     }
 

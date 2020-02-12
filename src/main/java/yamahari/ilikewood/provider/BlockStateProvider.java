@@ -9,13 +9,7 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
-import yamahari.ilikewood.objectholder.barrel.WoodenBarrelBlocks;
-import yamahari.ilikewood.objectholder.bookshelf.WoodenBookshelfBlocks;
-import yamahari.ilikewood.objectholder.chest.WoodenChestBlocks;
-import yamahari.ilikewood.objectholder.composter.WoodenComposterBlocks;
-import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
-import yamahari.ilikewood.objectholder.panels.slab.WoodenPanelsSlabBlocks;
-import yamahari.ilikewood.objectholder.panels.stairs.WoodenPanelsStairsBlocks;
+import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
@@ -30,8 +24,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
     @Override
     protected void registerStatesAndModels() {
-
-        Util.getBlocks(WoodenPanelsBlocks.class).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
             final String type = ((IWooden) block).getWoodType().toString();
             final ModelFile model = this.models().singleTexture(
                     Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString(), type),
@@ -41,8 +34,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
             this.simpleBlock(block, model);
         });
-
-        Util.getBlocks(WoodenPanelsStairsBlocks.class).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> {
             final String type = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString());
             final ModelFile stairs = this.models().singleTexture(
@@ -64,8 +56,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                     mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks")));
             this.stairsBlock((StairsBlock) block, stairs, stairsInner, stairsOuter);
         });
-
-        Util.getBlocks(WoodenPanelsSlabBlocks.class).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> {
             final String type = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString());
             final ModelFile slabBottom = this.models().singleTexture(
@@ -84,8 +75,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
             this.slabBlock((SlabBlock) block, slabBottom, slabTop, slabDouble);
         });
-
-        Util.getBlocks(WoodenBarrelBlocks.class).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> {
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BARREL.toString(), "%s", ((IWooden) block).getWoodType().toString());
             this.directionalBlock(block,
                     state -> {
@@ -99,22 +89,19 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                     }
             );
         });
-
-        Util.getBlocks(WoodenBookshelfBlocks.class).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> {
             final String type = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BOOKSHELF.toString(), type);
             this.simpleBlock(block, this.models().cubeColumn(
                     path, modLoc(path), mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks"))));
         });
-
-        Util.getBlocks(WoodenChestBlocks.class).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
             final String type = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CHEST.toString(), type);
             this.simpleBlock(block, this.models().getBuilder(path)
                     .texture("particle", mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, type + "_planks"))));
         });
-
-        Util.getBlocks(WoodenComposterBlocks.class).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> {
             final String type = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.COMPOSTER.toString());
             final ModelFile template = this.models()

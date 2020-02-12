@@ -13,9 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import yamahari.ilikewood.objectholder.chest.WoodenChestTileEntityTypes;
+import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
@@ -25,11 +24,12 @@ public final class WoodenChestBlock extends ChestBlock implements IWooden {
     private final WoodType woodType;
     private final LazyValue<TileEntityType<? extends ChestTileEntity>> tileEntityType;
 
+    @SuppressWarnings("unchecked")
     public WoodenChestBlock(final WoodType woodType) {
-        super(Block.Properties.from(Blocks.CHEST), () -> Util.getTileEntityType(woodType.toString().toUpperCase(), WoodenChestTileEntityTypes.class));
+        super(Block.Properties.from(Blocks.CHEST),
+                () -> (TileEntityType<? extends ChestTileEntity>) WoodenTileEntityTypes.getTileEntityType(WoodenObjectType.CHEST, woodType));
         this.woodType = woodType;
         this.tileEntityType = new LazyValue<>(this.field_226859_a_);
-        this.setRegistryName(Util.toRegistryName(this.getWoodType().toString(), WoodenObjectType.CHEST.toString()));
     }
 
     public TileEntityType<? extends ChestTileEntity> getTileEntityType() {

@@ -3,27 +3,29 @@ package yamahari.ilikewood.block;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.tileentity.BarrelTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.LazyValue;
 import net.minecraft.world.IBlockReader;
-import yamahari.ilikewood.client.tileentity.WoodenBarrelTileEntity;
-import yamahari.ilikewood.objectholder.WoodenTileEntityTypes;
+import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
-    private final WoodType type;
+    private final WoodType woodType;
+    private final LazyValue<TileEntityType<? extends BarrelTileEntity>> tileEntityType;
 
-    public WoodenBarrelBlock(final WoodType type) {
+    @SuppressWarnings("unchecked")
+    public WoodenBarrelBlock(final WoodType woodType) {
         super(Block.Properties.from(Blocks.BARREL));
-        this.type = type;
-        this.setRegistryName(Util.toRegistryName(this.getWoodType().toString(), WoodenObjectType.BARREL.toString()));
+        this.woodType = woodType;
+        this.tileEntityType = new LazyValue<>(() -> (TileEntityType<? extends BarrelTileEntity>) WoodenTileEntityTypes.getTileEntityType(WoodenObjectType.BARREL, woodType));
     }
 
-    public TileEntityType<WoodenBarrelTileEntity> getTileEntityType() {
-        return WoodenTileEntityTypes.BARREL;
+    public TileEntityType<? extends BarrelTileEntity> getTileEntityType() {
+        return this.tileEntityType.getValue();
     }
 
     @Override
@@ -33,6 +35,6 @@ public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
 
     @Override
     public WoodType getWoodType() {
-        return this.type;
+        return this.woodType;
     }
 }

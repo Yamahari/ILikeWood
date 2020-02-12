@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import yamahari.ilikewood.config.Config;
-import yamahari.ilikewood.objectholder.panels.WoodenPanelsBlocks;
+import yamahari.ilikewood.registry.WoodenBlocks;
 
 import java.util.Arrays;
 import java.util.function.Function;
@@ -14,12 +14,12 @@ import java.util.stream.Stream;
 public final class WoodenItemTiers {
     private static final Supplier<Integer> defaultBurnTime = () -> -1;
 
-    public static final WoodenItemTier ACACIA = createWoodenItemTier(Constants.ItemTiers.ACACIA, () -> Ingredient.fromItems(WoodenPanelsBlocks.ACACIA));
-    public static final WoodenItemTier BIRCH = createWoodenItemTier(Constants.ItemTiers.BIRCH, () -> Ingredient.fromItems(WoodenPanelsBlocks.BIRCH));
-    public static final WoodenItemTier DARK_OAK = createWoodenItemTier(Constants.ItemTiers.DARK_OAK, () -> Ingredient.fromItems(WoodenPanelsBlocks.DARK_OAK));
-    public static final WoodenItemTier JUNGLE = createWoodenItemTier(Constants.ItemTiers.JUNGLE, () -> Ingredient.fromItems(WoodenPanelsBlocks.JUNGLE));
-    public static final WoodenItemTier OAK = createWoodenItemTier(Constants.ItemTiers.OAK, () -> Ingredient.fromItems(WoodenPanelsBlocks.OAK));
-    public static final WoodenItemTier SPRUCE = createWoodenItemTier(Constants.ItemTiers.SPRUCE, () -> Ingredient.fromItems(WoodenPanelsBlocks.SPRUCE));
+    public static final WoodenItemTier ACACIA = createWoodenItemTier(Constants.ItemTiers.ACACIA, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.ACACIA)));
+    public static final WoodenItemTier BIRCH = createWoodenItemTier(Constants.ItemTiers.BIRCH, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.BIRCH)));
+    public static final WoodenItemTier DARK_OAK = createWoodenItemTier(Constants.ItemTiers.DARK_OAK, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.DARK_OAK)));
+    public static final WoodenItemTier JUNGLE = createWoodenItemTier(Constants.ItemTiers.JUNGLE, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.JUNGLE)));
+    public static final WoodenItemTier OAK = createWoodenItemTier(Constants.ItemTiers.OAK, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.OAK)));
+    public static final WoodenItemTier SPRUCE = createWoodenItemTier(Constants.ItemTiers.SPRUCE, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.SPRUCE)));
     public static final WoodenItemTier STONE = createWoodenItemTier(Constants.ItemTiers.STONE, () -> Ingredient.fromItems(Items.COBBLESTONE));
     public static final WoodenItemTier IRON = createWoodenItemTier(Constants.ItemTiers.IRON, () -> Ingredient.fromItems(Items.IRON_INGOT));
     public static final WoodenItemTier DIAMOND = createWoodenItemTier(Constants.ItemTiers.DIAMOND, () -> Ingredient.fromItems(Items.DIAMOND));

@@ -2,6 +2,7 @@ package yamahari.ilikewood;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -16,6 +17,9 @@ import yamahari.ilikewood.provider.*;
 import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
 import yamahari.ilikewood.proxy.IProxy;
+import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.WoodenItems;
+import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.Constants;
 
 @Mod(Constants.MOD_ID)
@@ -29,8 +33,14 @@ public final class ILikeWood {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(proxy::onFMLCommonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(proxy::onFMLClientSetup);
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        modEventBus.addListener(proxy::onFMLCommonSetup);
+        modEventBus.addListener(proxy::onFMLClientSetup);
+
+        WoodenBlocks.REGISTRY.register(modEventBus);
+        WoodenItems.REGISTRY.register(modEventBus);
+        WoodenTileEntityTypes.REGISTRY.register(modEventBus);
     }
 
     @SubscribeEvent

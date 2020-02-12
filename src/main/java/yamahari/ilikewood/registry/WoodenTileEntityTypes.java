@@ -1,0 +1,67 @@
+package yamahari.ilikewood.registry;
+
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import yamahari.ilikewood.client.tileentity.WoodenBarrelTileEntity;
+import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
+import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.Util;
+import yamahari.ilikewood.util.WoodType;
+import yamahari.ilikewood.util.WoodenObjectType;
+
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Stream;
+
+public final class WoodenTileEntityTypes {
+    public static final DeferredRegister<TileEntityType<?>> REGISTRY = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, Constants.MOD_ID);
+    private static final Map<WoodenObjectType, Map<WoodType, RegistryObject<TileEntityType<?>>>> REGISTRY_OBJECTS;
+
+    static {
+        final EnumMap<WoodenObjectType, Map<WoodType, RegistryObject<TileEntityType<?>>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
+
+        registryObjects.put(WoodenObjectType.BARREL, registerSimpleTileEntityTypes(WoodenTileEntityTypes::registerBarrelTileEntityType));
+        registryObjects.put(WoodenObjectType.CHEST, registerSimpleTileEntityTypes(WoodenTileEntityTypes::registerChestTileEntityType));
+
+        REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
+    }
+
+    private WoodenTileEntityTypes() {
+    }
+
+    public static TileEntityType<?> getTileEntityType(final WoodenObjectType objectType, final WoodType woodType) {
+        return REGISTRY_OBJECTS.get(objectType).get(woodType).get();
+    }
+
+    public static Stream<TileEntityType<?>> getTileEntityTypes(final WoodenObjectType objectType) {
+        return REGISTRY_OBJECTS.get(objectType).values().stream().map(RegistryObject::get);
+    }
+
+    private static Map<WoodType, RegistryObject<TileEntityType<?>>> registerSimpleTileEntityTypes(final Function<WoodType, RegistryObject<TileEntityType<?>>> function) {
+        final Map<WoodType, RegistryObject<TileEntityType<?>>> tileEntityTypes = new EnumMap<>(WoodType.class);
+        for (final WoodType woodType : WoodType.values()) {
+            tileEntityTypes.put(woodType, function.apply(woodType));
+        }
+        return Collections.unmodifiableMap(tileEntityTypes);
+    }
+
+    private static RegistryObject<TileEntityType<?>> registerBarrelTileEntityType(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.BARREL.toString()),
+                () -> TileEntityType.Builder
+                        .create(() -> new WoodenBarrelTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.BARREL).get(woodType).get()),
+                                WoodenBlocks.getBlock(WoodenObjectType.BARREL, woodType))
+                        .build(null));
+    }
+
+    private static RegistryObject<TileEntityType<?>> registerChestTileEntityType(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.CHEST.toString()),
+                () -> TileEntityType.Builder
+                        .create(() -> new WoodenChestTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.CHEST).get(woodType).get()),
+                                WoodenBlocks.getBlock(WoodenObjectType.CHEST, woodType))
+                        .build(null));
+    }
+}

@@ -14,7 +14,6 @@ public class WoodenBlockItem extends BlockItem implements IWooden {
     public WoodenBlockItem(final WoodenObjectType objectType, final Block block, final Item.Properties properties) {
         super(block, properties);
         this.objectType = objectType;
-        this.setRegistryName(block.getRegistryName());
     }
 
     public WoodenObjectType getObjectType() {
