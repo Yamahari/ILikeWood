@@ -135,6 +135,19 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .addCriterion("has_panels", this.hasItem(panels))
                     .build(consumer);
         });
+
+        WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider log = getIngredient(woodType.toString().toUpperCase() + "_LOG", Blocks.class);
+            assert log != null;
+
+            ShapedRecipeBuilder.shapedRecipe(block, 6)
+                    .key('#', log)
+                    .patternLine("###")
+                    .patternLine("###")
+                    .addCriterion("has_log", this.hasItem(log))
+                    .build(consumer);
+        });
     }
 
     @Override

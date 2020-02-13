@@ -1,0 +1,7 @@
+{
+  "parent": "ilikewood:block/wall/inventory/template",
+  "textures": {
+    "post": "block/jungle_log",
+    "side": "block/stripped_jungle_log"
+  }
+}

@@ -1,16 +1,18 @@
 modLoader="javafml" #mandatory
 loaderVersion="[30,)" #mandatory (28 is current forge version)
-#issueTrackerURL="http://my.issue.tracker/" #optional
+issueTrackerURL="https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
 [[mods]] #mandatory
 modId="ilikewood" #mandatory
-version="${file.jarVersion}" #mandatory
+version="1.15.2-2.0.0.0" #mandatory
 displayName="I Like Wood" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
-#displayURL="http://example.com/" #optional
-#logoFile="examplemod.png" #optional
-#credits="Thanks for this example mod goes to Java" #optional
-#authors="Love, Cheese and small house plants" #optional
+displayURL="https://www.curseforge.com/minecraft/mc-mods/i-like-wood" #optional
+logoFile="logo.png" #optional
+credits="Yamahari and the people of Forge" #optional
+authors="Yamahari" #optional
 description='''
+This mod adds wood variants for blocks that should have one but don't.
+It also adds a new wood related blocks.
 '''
 [[dependencies.ilikewood]] #optional
     # the modid of the dependency

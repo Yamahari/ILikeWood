@@ -1,7 +1,6 @@
 package yamahari.ilikewood.client;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.model.Material;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +16,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class ILikeWoodAtlases {
+public final class Atlases {
     private static final Map<String, Map<ChestType, Material>> CHESTS;
 
     static {
@@ -26,13 +25,13 @@ public final class ILikeWoodAtlases {
         CHESTS = builder.build();
     }
 
-    private ILikeWoodAtlases() {
+    private Atlases() {
     }
 
     private static Map<ChestType, Material> makeChestMaterials(final String woodType) {
         final EnumMap<ChestType, Material> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
-            materials.put(chestType, new Material(Atlases.field_228747_f_,
+            materials.put(chestType, new Material(net.minecraft.client.renderer.Atlases.field_228747_f_,
                     new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getName(), woodType))));
         }
         return materials;

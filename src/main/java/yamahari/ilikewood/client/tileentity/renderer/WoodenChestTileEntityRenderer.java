@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.tileentity.TileEntity;
-import yamahari.ilikewood.client.ILikeWoodAtlases;
+import yamahari.ilikewood.client.Atlases;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 
 import java.util.Map;
@@ -21,7 +21,7 @@ public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer
     @Override
     protected Material getMaterial(final TileEntity tileEntity, final ChestType chestType) {
         if (this.materials == null) {
-            this.materials = ILikeWoodAtlases.getChestMaterials(((WoodenChestTileEntity) tileEntity).getWoodType().toString());
+            this.materials = Atlases.getChestMaterials(((WoodenChestTileEntity) tileEntity).getWoodType().toString());
         }
         assert this.materials != null;
         return this.materials.get(chestType);

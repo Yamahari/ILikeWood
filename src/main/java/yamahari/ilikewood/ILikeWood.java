@@ -50,6 +50,8 @@ public final class ILikeWood {
         if (event.includeServer()) {
             generator.addProvider(new RecipeProvider(generator));
             generator.addProvider(new LootTableProvider(generator));
+            generator.addProvider(new BlockTagsProvider(generator));
+            generator.addProvider(new ItemTagsProvider(generator));
         }
 
         if (event.includeClient()) {

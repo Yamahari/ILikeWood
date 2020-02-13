@@ -39,5 +39,6 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
             this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, type + "_" + WoodenObjectType.CHEST.toString()), name);
         });
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.add(block, getTranslationName(((IWooden) block).getWoodType().toString()) + " Composter"));
+        WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> this.add(block, getTranslationName(((IWooden) block).getWoodType().toString()) + " Wall"));
     }
 }

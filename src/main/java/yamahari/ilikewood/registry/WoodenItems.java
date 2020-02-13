@@ -34,6 +34,7 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.BARREL, registerBlockItems(WoodenObjectType.BARREL, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.BOOKSHELF, registerBlockItems(WoodenObjectType.BOOKSHELF, simpleBuildingBlockItem));
         registryObjects.put(WoodenObjectType.COMPOSTER, registerBlockItems(WoodenObjectType.COMPOSTER, simpleMiscBlockItem));
+        registryObjects.put(WoodenObjectType.WALL, registerBlockItems(WoodenObjectType.WALL, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.CHEST, registerBlockItems(WoodenObjectType.CHEST, registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);

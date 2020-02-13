@@ -62,6 +62,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
                     .end();
         });
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.blockItem(block, WoodenObjectType.COMPOSTER.toString()));
+        WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.WALL.toString(), "inventory")));
     }
 
     @Override

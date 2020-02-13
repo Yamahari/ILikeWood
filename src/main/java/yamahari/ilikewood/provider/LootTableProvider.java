@@ -8,7 +8,7 @@ import net.minecraft.world.storage.loot.LootParameterSet;
 import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.ValidationTracker;
-import yamahari.ilikewood.data.loot_table.ILikeWoodBlockLootTables;
+import yamahari.ilikewood.data.loot_table.BlockLootTables;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public final class LootTableProvider extends net.minecraft.data.LootTableProvider {
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables =
-            ImmutableList.of(Pair.of(ILikeWoodBlockLootTables::new, LootParameterSets.BLOCK));
+            ImmutableList.of(Pair.of(BlockLootTables::new, LootParameterSets.BLOCK));
 
     public LootTableProvider(DataGenerator generator) {
         super(generator);
