@@ -175,6 +175,20 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .build(consumer);
         });
 
+        WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+            final Ingredient coals = Ingredient.fromTag(net.minecraft.tags.ItemTags.COALS);
+            ShapedRecipeBuilder.shapedRecipe(block, 4)
+                    .key('I', stick)
+                    .key('#', coals)
+                    .patternLine("#")
+                    .patternLine("I")
+                    .addCriterion("has_coal", this.hasItem(coals))
+                    .setGroup(BlockTags.TORCHES.getId().toString())
+                    .build(consumer);
+        });
+
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> {
             final WoodType woodType = ((IWooden) item).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);

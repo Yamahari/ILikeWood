@@ -9,11 +9,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.client.tileentity.renderer.WoodenChestItemStackTileEntityRenderer;
 import yamahari.ilikewood.item.WoodenBlockItem;
 import yamahari.ilikewood.item.WoodenItem;
+import yamahari.ilikewood.item.WoodenWallOrFloorItem;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
@@ -42,6 +44,10 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.CHEST, registerBlockItems(WoodenObjectType.CHEST, registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
         registryObjects.put(WoodenObjectType.LADDER, registerBlockItems(WoodenObjectType.LADDER, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.STICK, registerSimpleItems(WoodenItems::registerStickItem));
+
+        final Map<WoodType, RegistryObject<Item>> torches = new EnumMap<>(WoodType.class);
+        Arrays.stream(WoodType.values()).forEach(woodType -> torches.put(woodType, registerTorchItem(woodType)));
+        registryObjects.put(WoodenObjectType.TORCH, Collections.unmodifiableMap(torches));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }
@@ -80,5 +86,11 @@ public final class WoodenItems {
 
     private static RegistryObject<Item> registerStickItem(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.STICK.toString()), () -> new WoodenItem(woodType, WoodenObjectType.STICK, (new Item.Properties()).group(ItemGroup.MATERIALS)));
+    }
+
+    private static RegistryObject<Item> registerTorchItem(final WoodType woodType) {
+        final RegistryObject<Block> torch = WoodenBlocks.getRegistryObject(WoodenObjectType.TORCH, woodType);
+        final RegistryObject<Block> wallTorch = WoodenBlocks.getRegistryObject(WoodenObjectType.WALL_TORCH, woodType);
+        return REGISTRY.register(torch.getId().getPath(), () -> new WoodenWallOrFloorItem(WoodenObjectType.TORCH, torch.get(), wallTorch.get(), (new Item.Properties()).group(ItemGroup.DECORATIONS)));
     }
 }

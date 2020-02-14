@@ -14,7 +14,7 @@ public final class ClientProxy implements IProxy {
     @Override
     public void onFMLClientSetup(final FMLClientSetupEvent event) {
         WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.CHEST).forEach(type -> ClientRegistry.bindTileEntityRenderer(type, WoodenChestTileEntityRenderer::new));
-        WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.func_228643_e_()));
+        WoodenBlocks.getBlocks(WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.WALL_TORCH).forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.func_228643_e_()));
     }
 
     @Override

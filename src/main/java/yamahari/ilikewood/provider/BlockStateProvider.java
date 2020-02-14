@@ -140,9 +140,23 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
             final String woodType = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LADDER.toString());
             final ModelFile template = this.models()
-                    .withExistingParent(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")))
-                    .texture("ladder", modLoc(Util.toPath(path, woodType)));
+                    .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "ladder", modLoc(Util.toPath(path, woodType)));
             this.horizontalBlock(block, template);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> {
+            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.TORCH.toString());
+            final ModelFile template = this.models()
+                    .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "torch", modLoc(Util.toPath(path, woodType)));
+            this.simpleBlock(block, template);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.WALL_TORCH).forEach(block -> {
+            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.TORCH.toString());
+            final ModelFile template = this.models()
+                    .singleTexture(Util.toPath(path, "wall", woodType), modLoc(Util.toPath(path, "wall", "template")), "torch", modLoc(Util.toPath(path, woodType)));
+            this.horizontalBlock(block, template, 90);
+
         });
     }
 

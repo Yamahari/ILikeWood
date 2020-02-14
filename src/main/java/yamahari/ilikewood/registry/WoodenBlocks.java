@@ -6,6 +6,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.block.*;
+import yamahari.ilikewood.block.torch.WoodenTorchBlock;
+import yamahari.ilikewood.block.torch.WoodenWallTorchBlock;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
@@ -31,6 +33,8 @@ public final class WoodenBlocks {
         registryObjects.put(WoodenObjectType.COMPOSTER, registerSimpleBlocks(WoodenBlocks::registerComposterBlock));
         registryObjects.put(WoodenObjectType.WALL, registerSimpleBlocks(WoodenBlocks::registerWallBlock));
         registryObjects.put(WoodenObjectType.LADDER, registerSimpleBlocks(WoodenBlocks::registerLadderBlock));
+        registryObjects.put(WoodenObjectType.TORCH, registerSimpleBlocks(WoodenBlocks::registerTorchBlock));
+        registryObjects.put(WoodenObjectType.WALL_TORCH, registerSimpleBlocks(WoodenBlocks::registerWallTorchBlock));
 
         final Map<WoodType, RegistryObject<Block>> panels = new EnumMap<>(WoodType.class);
         panels.put(WoodType.ACACIA, registerPanelsBlock(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS)));
@@ -129,5 +133,16 @@ public final class WoodenBlocks {
 
     private static RegistryObject<Block> registerLadderBlock(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.LADDER.toString()), () -> new WoodenLadderBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerTorchBlock(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.TORCH.toString()), () -> new WoodenTorchBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerWallTorchBlock(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.WALL_TORCH.toString()), () -> {
+            final Block torch = REGISTRY_OBJECTS.get(WoodenObjectType.TORCH).get(woodType).get();
+            return new WoodenWallTorchBlock(woodType, Block.Properties.from(torch).lootFrom(torch));
+        });
     }
 }

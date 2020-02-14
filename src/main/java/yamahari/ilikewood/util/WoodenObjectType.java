@@ -18,7 +18,8 @@ public enum WoodenObjectType {
     STICK("stick"),
     STRIPPED_POST("stripped_post"),
     TORCH("torch"),
-    WALL("wall");
+    WALL("wall"),
+    WALL_TORCH("wall_torch");
 
     private final String name;
 

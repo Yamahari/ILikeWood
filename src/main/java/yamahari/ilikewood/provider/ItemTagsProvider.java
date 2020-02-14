@@ -18,6 +18,16 @@ public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider 
 
     @Override
     protected void registerTags() {
+        registerTag(WoodenObjectType.BARREL, this.getBuilder(ItemTags.BARRELS));
+        registerTag(WoodenObjectType.CHEST, this.getBuilder(ItemTags.CHESTS));
+        registerTag(WoodenObjectType.COMPOSTER, this.getBuilder(ItemTags.COMPOSTER));
+        registerTag(WoodenObjectType.BOOKSHELF, this.getBuilder(ItemTags.BOOKSHELFS));
+        registerTag(WoodenObjectType.SLAB, this.getBuilder(ItemTags.PANELS_SLABS));
+        registerTag(WoodenObjectType.STAIRS, this.getBuilder(ItemTags.PANELS_STAIRS));
+        registerTag(WoodenObjectType.PANELS, this.getBuilder(ItemTags.PANELS));
+        registerTag(WoodenObjectType.WALL, this.getBuilder(ItemTags.WALLS));
+        registerTag(WoodenObjectType.LADDER, this.getBuilder(ItemTags.LADDERS));
+        registerTag(WoodenObjectType.TORCH, this.getBuilder(ItemTags.TORCHES));
         registerTag(WoodenObjectType.STICK, this.getBuilder(ItemTags.STICKS));
     }
 
