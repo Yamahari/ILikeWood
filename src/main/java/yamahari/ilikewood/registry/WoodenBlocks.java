@@ -23,15 +23,16 @@ public final class WoodenBlocks {
     private static final Map<WoodenObjectType, Map<WoodType, RegistryObject<Block>>> REGISTRY_OBJECTS;
 
     static {
-        final EnumMap<WoodenObjectType, Map<WoodType, RegistryObject<Block>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
+        final Map<WoodenObjectType, Map<WoodType, RegistryObject<Block>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
 
         registryObjects.put(WoodenObjectType.BARREL, registerSimpleBlocks(WoodenBlocks::registerBarrelBlock));
         registryObjects.put(WoodenObjectType.BOOKSHELF, registerSimpleBlocks(WoodenBlocks::registerBookshelfBlock));
         registryObjects.put(WoodenObjectType.CHEST, registerSimpleBlocks(WoodenBlocks::registerChestBlock));
         registryObjects.put(WoodenObjectType.COMPOSTER, registerSimpleBlocks(WoodenBlocks::registerComposterBlock));
         registryObjects.put(WoodenObjectType.WALL, registerSimpleBlocks(WoodenBlocks::registerWallBlock));
+        registryObjects.put(WoodenObjectType.LADDER, registerSimpleBlocks(WoodenBlocks::registerLadderBlock));
 
-        final EnumMap<WoodType, RegistryObject<Block>> panels = new EnumMap<>(WoodType.class);
+        final Map<WoodType, RegistryObject<Block>> panels = new EnumMap<>(WoodType.class);
         panels.put(WoodType.ACACIA, registerPanelsBlock(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS)));
         panels.put(WoodType.BIRCH, registerPanelsBlock(WoodType.BIRCH, Block.Properties.from(Blocks.BIRCH_PLANKS)));
         panels.put(WoodType.DARK_OAK, registerPanelsBlock(WoodType.DARK_OAK, Block.Properties.from(Blocks.DARK_OAK_PLANKS)));
@@ -40,7 +41,7 @@ public final class WoodenBlocks {
         panels.put(WoodType.SPRUCE, registerPanelsBlock(WoodType.SPRUCE, Block.Properties.from(Blocks.SPRUCE_PLANKS)));
         registryObjects.put(WoodenObjectType.PANELS, Collections.unmodifiableMap(panels));
 
-        final EnumMap<WoodType, RegistryObject<Block>> panelsStairs = new EnumMap<>(WoodType.class);
+        final Map<WoodType, RegistryObject<Block>> panelsStairs = new EnumMap<>(WoodType.class);
         panelsStairs.put(WoodType.ACACIA, registerPanelsStairsBlock(WoodType.ACACIA, panels.get(WoodType.ACACIA), Block.Properties.from(Blocks.ACACIA_STAIRS)));
         panelsStairs.put(WoodType.BIRCH, registerPanelsStairsBlock(WoodType.BIRCH, panels.get(WoodType.BIRCH), Block.Properties.from(Blocks.BIRCH_STAIRS)));
         panelsStairs.put(WoodType.DARK_OAK, registerPanelsStairsBlock(WoodType.DARK_OAK, panels.get(WoodType.DARK_OAK), Block.Properties.from(Blocks.DARK_OAK_STAIRS)));
@@ -49,7 +50,7 @@ public final class WoodenBlocks {
         panelsStairs.put(WoodType.SPRUCE, registerPanelsStairsBlock(WoodType.SPRUCE, panels.get(WoodType.OAK), Block.Properties.from(Blocks.SPRUCE_STAIRS)));
         registryObjects.put(WoodenObjectType.STAIRS, Collections.unmodifiableMap(panelsStairs));
 
-        final EnumMap<WoodType, RegistryObject<Block>> panelsSlab = new EnumMap<>(WoodType.class);
+        final Map<WoodType, RegistryObject<Block>> panelsSlab = new EnumMap<>(WoodType.class);
         panelsSlab.put(WoodType.ACACIA, registerPanelsSlabBlock(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_SLAB)));
         panelsSlab.put(WoodType.BIRCH, registerPanelsSlabBlock(WoodType.BIRCH, Block.Properties.from(Blocks.BIRCH_SLAB)));
         panelsSlab.put(WoodType.DARK_OAK, registerPanelsSlabBlock(WoodType.DARK_OAK, Block.Properties.from(Blocks.DARK_OAK_SLAB)));
@@ -124,5 +125,9 @@ public final class WoodenBlocks {
 
     private static RegistryObject<Block> registerWallBlock(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.WALL.toString()), () -> new WoodenWallBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerLadderBlock(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.LADDER.toString()), () -> new WoodenLadderBlock(woodType));
     }
 }

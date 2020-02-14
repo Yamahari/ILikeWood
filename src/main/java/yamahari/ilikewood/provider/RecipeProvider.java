@@ -161,6 +161,20 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .build(consumer);
         });
 
+        WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+
+            ShapedRecipeBuilder.shapedRecipe(block, 3)
+                    .key('I', stick)
+                    .patternLine("I I")
+                    .patternLine("III")
+                    .patternLine("I I")
+                    .addCriterion("has_stick", this.hasItem(stick))
+                    .setGroup(BlockTags.LADDERS.getId().toString())
+                    .build(consumer);
+        });
+
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> {
             final WoodType woodType = ((IWooden) item).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);

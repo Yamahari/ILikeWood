@@ -40,12 +40,17 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.COMPOSTER, registerBlockItems(WoodenObjectType.COMPOSTER, simpleMiscBlockItem));
         registryObjects.put(WoodenObjectType.WALL, registerBlockItems(WoodenObjectType.WALL, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.CHEST, registerBlockItems(WoodenObjectType.CHEST, registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
+        registryObjects.put(WoodenObjectType.LADDER, registerBlockItems(WoodenObjectType.LADDER, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.STICK, registerSimpleItems(WoodenItems::registerStickItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }
 
     private WoodenItems() {
+    }
+
+    public static Item getItem(final WoodenObjectType objectType, final WoodType woodType) {
+        return REGISTRY_OBJECTS.get(objectType).get(woodType).get();
     }
 
     public static Stream<Item> getItems(final WoodenObjectType objectType) {

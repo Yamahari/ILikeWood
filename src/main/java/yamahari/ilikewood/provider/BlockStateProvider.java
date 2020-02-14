@@ -136,6 +136,14 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                     .texture("side", sideTexture);
             this.wallBlock((WallBlock) block, post, side);
         });
+        WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
+            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LADDER.toString());
+            final ModelFile template = this.models()
+                    .withExistingParent(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")))
+                    .texture("ladder", modLoc(Util.toPath(path, woodType)));
+            this.horizontalBlock(block, template);
+        });
     }
 
     @Override
