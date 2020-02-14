@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodType;
@@ -146,6 +147,18 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("###")
                     .patternLine("###")
                     .addCriterion("has_log", this.hasItem(log))
+                    .build(consumer);
+        });
+
+        WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> {
+            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+
+            ShapedRecipeBuilder.shapedRecipe(item, 4)
+                    .key('#', panels)
+                    .patternLine("#")
+                    .patternLine("#")
+                    .addCriterion("has_panels", this.hasItem(panels))
                     .build(consumer);
         });
     }

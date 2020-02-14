@@ -58,5 +58,11 @@
   "container.ilikewood.oak_barrel": "Oak Barrel",
   "container.ilikewood.oak_chest": "Oak Chest",
   "container.ilikewood.spruce_barrel": "Spruce Barrel",
-  "container.ilikewood.spruce_chest": "Spruce Chest"
+  "container.ilikewood.spruce_chest": "Spruce Chest",
+  "item.ilikewood.acacia_stick": "Acacia Stick",
+  "item.ilikewood.birch_stick": "Birch Stick",
+  "item.ilikewood.dark_oak_stick": "Dark Oak Stick",
+  "item.ilikewood.jungle_stick": "Jungle Stick",
+  "item.ilikewood.oak_stick": "Oak Stick",
+  "item.ilikewood.spruce_stick": "Spruce Stick"
 }

@@ -8,7 +8,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.client.tileentity.renderer.WoodenChestItemStackTileEntityRenderer;
 import yamahari.ilikewood.item.WoodenBlockItem;
+import yamahari.ilikewood.item.WoodenItem;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
@@ -16,6 +18,8 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 public final class WoodenItems {
     public static final DeferredRegister<Item> REGISTRY = new DeferredRegister<>(ForgeRegistries.ITEMS, Constants.MOD_ID);
@@ -36,11 +40,16 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.COMPOSTER, registerBlockItems(WoodenObjectType.COMPOSTER, simpleMiscBlockItem));
         registryObjects.put(WoodenObjectType.WALL, registerBlockItems(WoodenObjectType.WALL, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.CHEST, registerBlockItems(WoodenObjectType.CHEST, registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
+        registryObjects.put(WoodenObjectType.STICK, registerSimpleItems(WoodenItems::registerStickItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }
 
     private WoodenItems() {
+    }
+
+    public static Stream<Item> getItems(final WoodenObjectType objectType) {
+        return REGISTRY_OBJECTS.get(objectType).values().stream().map(RegistryObject::get);
     }
 
     private static Map<WoodType, RegistryObject<Item>> registerBlockItems(final WoodenObjectType objectType, final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> function) {
@@ -52,7 +61,19 @@ public final class WoodenItems {
         return Collections.unmodifiableMap(items);
     }
 
+    private static Map<WoodType, RegistryObject<Item>> registerSimpleItems(final Function<WoodType, RegistryObject<Item>> function) {
+        final Map<WoodType, RegistryObject<Item>> items = new EnumMap<>(WoodType.class);
+        for (final WoodType woodType : WoodType.values()) {
+            items.put(woodType, function.apply(woodType));
+        }
+        return Collections.unmodifiableMap(items);
+    }
+
     private static BiFunction<WoodenObjectType, RegistryObject<Block>, Item> registerSimpleBlockItem(final Item.Properties properties) {
         return (objectType, block) -> new WoodenBlockItem(objectType, block.get(), properties);
+    }
+
+    private static RegistryObject<Item> registerStickItem(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.STICK.toString()), () -> new WoodenItem(woodType, WoodenObjectType.STICK, (new Item.Properties()).group(ItemGroup.MATERIALS)));
     }
 }

@@ -4,6 +4,7 @@ package yamahari.ilikewood.provider;
 import net.minecraft.data.DataGenerator;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodenObjectType;
@@ -40,5 +41,6 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
         });
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.add(block, getTranslationName(((IWooden) block).getWoodType().toString()) + " Composter"));
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> this.add(block, getTranslationName(((IWooden) block).getWoodType().toString()) + " Wall"));
+        WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.add(item, getTranslationName(((IWooden) item).getWoodType().toString()) + " Stick"));
     }
 }

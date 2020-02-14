@@ -6,10 +6,13 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodenObjectType;
+
+import java.util.Objects;
 
 public final class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
     public ItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
@@ -18,7 +21,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
 
     private void blockItem(final Block block, final String path) {
         final String type = ((IWooden) block).getWoodType().toString();
-        this.getBuilder(block.getRegistryName().getPath())
+        this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null.").getPath())
                 .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, type))));
     }
 
@@ -31,7 +34,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.blockItem(block, WoodenObjectType.BOOKSHELF.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
             final String type = ((IWooden) block).getWoodType().toString();
-            this.getBuilder(block.getRegistryName().getPath())
+            this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath("builtin", "entity"))))
                     .texture("particle", mcLoc(Util.toPath(BLOCK_FOLDER, type + "_planks")))
                     .transforms()
@@ -63,6 +66,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
         });
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.blockItem(block, WoodenObjectType.COMPOSTER.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.WALL.toString(), "inventory")));
+        WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().toString()))));
     }
 
     @Override
