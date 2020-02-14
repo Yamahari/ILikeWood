@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:ladders",
+  "pattern": [
+    "I I",
+    "III",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:oak_stick"
+    }
+  },
+  "result": {
+    "item": "ilikewood:oak_ladder",
+    "count": 3
+  }
+}
