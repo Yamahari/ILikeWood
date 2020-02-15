@@ -38,13 +38,13 @@ public final class WoodenBarrelTileEntity extends BarrelTileEntity implements IW
     }
 
     @Override
-    public void func_213962_h() {
+    public void barrelTick() {
         final int x = this.pos.getX();
         final int y = this.pos.getY();
         final int z = this.pos.getZ();
-        this.field_213967_b = ChestTileEntity.func_213976_a(this.world, this, x, y, z);
-        if (this.field_213967_b > 0) {
-            this.func_213964_r();
+        this.numPlayersUsing = ChestTileEntity.calculatePlayersUsing(this.world, this, x, y, z);
+        if (this.numPlayersUsing > 0) {
+            this.scheduleTick();
         } else {
             final BlockState blockState = this.getBlockState();
             if (!(blockState.getBlock() instanceof WoodenBarrelBlock)) {
@@ -52,10 +52,10 @@ public final class WoodenBarrelTileEntity extends BarrelTileEntity implements IW
                 return;
             }
 
-            boolean open = blockState.get(BarrelBlock.PROPERTY_OPEN);
+            final boolean open = blockState.get(BarrelBlock.PROPERTY_OPEN);
             if (open) {
-                this.func_213965_a(blockState, SoundEvents.BLOCK_BARREL_CLOSE);
-                this.func_213963_a(blockState, false);
+                this.playSound(blockState, SoundEvents.BLOCK_BARREL_CLOSE);
+                this.setOpenProperty(blockState, false);
             }
         }
     }

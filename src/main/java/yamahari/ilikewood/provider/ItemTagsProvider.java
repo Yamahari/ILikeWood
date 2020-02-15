@@ -29,6 +29,7 @@ public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider 
         registerTag(WoodenObjectType.LADDER, this.getBuilder(ItemTags.LADDERS));
         registerTag(WoodenObjectType.TORCH, this.getBuilder(ItemTags.TORCHES));
         registerTag(WoodenObjectType.STICK, this.getBuilder(ItemTags.STICKS));
+        registerTag(WoodenObjectType.CRAFTING_TABLE, this.getBuilder(ItemTags.CRAFTING_TABLES));
     }
 
     @Override

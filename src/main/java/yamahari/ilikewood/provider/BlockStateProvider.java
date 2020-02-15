@@ -24,51 +24,34 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
     protected void registerStatesAndModels() {
         WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
             final String woodType = ((IWooden) block).getWoodType().toString();
-            final ModelFile model = this.models().singleTexture(
-                    Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString(), woodType),
-                    modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString(), "template")),
-                    "planks",
-                    mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks")));
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString());
+            final ResourceLocation planks = mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(woodType, "planks")));
+            final ModelFile model = this.models()
+                    .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "planks", planks);
 
             this.simpleBlock(block, model);
         });
         WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> {
             final String woodType = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString());
-            final ModelFile stairs = this.models().singleTexture(
-                    Util.toPath(path, woodType),
-                    modLoc(Util.toPath(path, "template")),
-                    "planks",
-                    mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks")));
+            final ResourceLocation planks = mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(woodType, "planks")));
+            final ModelFile stairs = this.models()
+                    .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "planks", planks);
+            final ModelFile stairsInner = this.models()
+                    .singleTexture(Util.toPath(path, "inner", woodType), modLoc(Util.toPath(path, "inner", "template")), "planks", planks);
+            final ModelFile stairsOuter = this.models()
+                    .singleTexture(Util.toPath(path, "outer", woodType), modLoc(Util.toPath(path, "outer", "template")), "planks", planks);
 
-            final ModelFile stairsInner = this.models().singleTexture(
-                    Util.toPath(path, "inner", woodType),
-                    modLoc(Util.toPath(path, "inner", "template")),
-                    "planks",
-                    mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks")));
-
-            final ModelFile stairsOuter = this.models().singleTexture(
-                    Util.toPath(path, "outer", woodType),
-                    modLoc(Util.toPath(path, "outer", "template")),
-                    "planks",
-                    mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks")));
             this.stairsBlock((StairsBlock) block, stairs, stairsInner, stairsOuter);
         });
         WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> {
             final String woodType = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString());
-            final ModelFile slabBottom = this.models().singleTexture(
-                    Util.toPath(path, woodType),
-                    modLoc(Util.toPath(path, "template")),
-                    "planks",
-                    mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks")));
-
-            final ModelFile slabTop = this.models().singleTexture(
-                    Util.toPath(path, "top", woodType),
-                    modLoc(Util.toPath(path, "top", "template")),
-                    "planks",
-                    mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks")));
-
+            final ResourceLocation planks = mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(woodType, "planks")));
+            final ModelFile slabBottom = this.models()
+                    .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "planks", planks);
+            final ModelFile slabTop = this.models()
+                    .singleTexture(Util.toPath(path, "top", woodType), modLoc(Util.toPath(path, "top", "template")), "planks", planks);
             final ModelFile slabDouble = new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", woodType)));
 
             this.slabBlock((SlabBlock) block, slabBottom, slabTop, slabDouble);
@@ -90,14 +73,17 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> {
             final String woodType = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BOOKSHELF.toString(), woodType);
-            this.simpleBlock(block, this.models().cubeColumn(
-                    path, modLoc(path), mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks"))));
+            final ResourceLocation planks = mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(woodType, "planks")));
+
+            this.simpleBlock(block, this.models().cubeColumn(path, modLoc(path), planks));
         });
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
             final String woodType = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CHEST.toString(), woodType);
+            final ResourceLocation planks = mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(woodType, "planks")));
+
             this.simpleBlock(block, this.models().getBuilder(path)
-                    .texture("particle", mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, woodType + "_planks"))));
+                    .texture("particle", planks));
         });
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> {
             final String woodType = ((IWooden) block).getWoodType().toString();
@@ -119,7 +105,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                 builder.part()
                         .modelFile(content)
                         .addModel()
-                        .condition(ComposterBlock.field_220298_a, level)
+                        .condition(ComposterBlock.LEVEL, level)
                         .end();
             });
         });
@@ -134,6 +120,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                     .withExistingParent(Util.toPath(path, "inventory", woodType), modLoc(Util.toPath(path, "inventory", "template")))
                     .texture("post", postTexture)
                     .texture("side", sideTexture);
+
             this.wallBlock((WallBlock) block, post, side);
         });
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
@@ -157,6 +144,15 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                     .singleTexture(Util.toPath(path, "wall", woodType), modLoc(Util.toPath(path, "wall", "template")), "torch", modLoc(Util.toPath(path, woodType)));
             this.horizontalBlock(block, template, 90);
 
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> {
+            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CRAFTING_TABLE.toString());
+            final ResourceLocation planks = mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(woodType, "planks")));
+            final ModelFile template = this.models()
+                    .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "planks", planks);
+
+            this.simpleBlock(block, template);
         });
     }
 

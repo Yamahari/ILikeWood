@@ -31,7 +31,7 @@ public final class Atlases {
     private static Map<ChestType, Material> makeChestMaterials(final String woodType) {
         final EnumMap<ChestType, Material> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
-            materials.put(chestType, new Material(net.minecraft.client.renderer.Atlases.field_228747_f_,
+            materials.put(chestType, new Material(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
                     new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getName(), woodType))));
         }
         return materials;
@@ -43,11 +43,11 @@ public final class Atlases {
 
     @SubscribeEvent
     public static void onTextureStitchPre(final TextureStitchEvent.Pre event) {
-        final ResourceLocation atlas = event.getMap().func_229223_g_();
+        final ResourceLocation atlas = event.getMap().getTextureLocation();
         CHESTS.values().stream()
                 .flatMap(materials -> materials.values().stream())
-                .filter(material -> material.func_229310_a_().equals(atlas))
-                .forEach(material -> event.addSprite(material.func_229313_b_()));
+                .filter(material -> material.getAtlasLocation().equals(atlas))
+                .forEach(material -> event.addSprite(material.getTextureLocation()));
 
     }
 }

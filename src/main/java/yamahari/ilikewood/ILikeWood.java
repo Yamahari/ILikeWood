@@ -18,6 +18,7 @@ import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
 import yamahari.ilikewood.proxy.IProxy;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.WoodenContainerTypes;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.Constants;
@@ -41,6 +42,7 @@ public final class ILikeWood {
         WoodenBlocks.REGISTRY.register(modEventBus);
         WoodenItems.REGISTRY.register(modEventBus);
         WoodenTileEntityTypes.REGISTRY.register(modEventBus);
+        WoodenContainerTypes.REGISTRY.register(modEventBus);
     }
 
     @SubscribeEvent

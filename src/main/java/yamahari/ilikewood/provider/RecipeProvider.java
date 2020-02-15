@@ -146,7 +146,6 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.COMPOSTER.getId().toString())
                     .build(consumer);
         });
-
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider log = getIngredient(woodType.toString().toUpperCase() + "_LOG", Blocks.class);
@@ -160,7 +159,6 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.WALLS.getId().toString())
                     .build(consumer);
         });
-
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
@@ -174,11 +172,11 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.LADDERS.getId().toString())
                     .build(consumer);
         });
-
         WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
             final Ingredient coals = Ingredient.fromTag(net.minecraft.tags.ItemTags.COALS);
+
             ShapedRecipeBuilder.shapedRecipe(block, 4)
                     .key('I', stick)
                     .key('#', coals)
@@ -186,6 +184,18 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("I")
                     .addCriterion("has_coal", this.hasItem(coals))
                     .setGroup(BlockTags.TORCHES.getId().toString())
+                    .build(consumer);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('#', panels)
+                    .patternLine("##")
+                    .patternLine("##")
+                    .addCriterion("has_panels", this.hasItem(panels))
+                    .setGroup(BlockTags.CRAFTING_TABLES.getId().toString())
                     .build(consumer);
         });
 

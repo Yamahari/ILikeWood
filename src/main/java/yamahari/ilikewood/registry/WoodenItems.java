@@ -15,7 +15,6 @@ import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
@@ -44,10 +43,8 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.CHEST, registerBlockItems(WoodenObjectType.CHEST, registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
         registryObjects.put(WoodenObjectType.LADDER, registerBlockItems(WoodenObjectType.LADDER, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.STICK, registerSimpleItems(WoodenItems::registerStickItem));
-
-        final Map<WoodType, RegistryObject<Item>> torches = new EnumMap<>(WoodType.class);
-        Arrays.stream(WoodType.values()).forEach(woodType -> torches.put(woodType, registerTorchItem(woodType)));
-        registryObjects.put(WoodenObjectType.TORCH, Collections.unmodifiableMap(torches));
+        registryObjects.put(WoodenObjectType.TORCH, registerSimpleItems(WoodenItems::registerTorchItem));
+        registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlockItems(WoodenObjectType.CRAFTING_TABLE, simpleDecorationBlockItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }

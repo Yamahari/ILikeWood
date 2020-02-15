@@ -17,6 +17,7 @@ public final class ItemTags {
     public static final Tag<Item> LADDERS = makeWrapperTag("ladders");
     public static final Tag<Item> TORCHES = makeWrapperTag("torches");
     public static final Tag<Item> STICKS = makeWrapperTag("sticks");
+    public static final Tag<Item> CRAFTING_TABLES = makeWrapperTag("crafting_tables");
 
     private ItemTags() {
     }

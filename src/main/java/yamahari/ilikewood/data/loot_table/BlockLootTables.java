@@ -24,11 +24,11 @@ public final class BlockLootTables extends net.minecraft.data.loot.BlockLootTabl
 
     @Override
     protected void addTables() {
-        WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> this.registerLootTable(block, net.minecraft.data.loot.BlockLootTables::func_218513_d));
-        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH).forEach(this::func_218492_c);
-        WoodenBlocks.getBlocks(WoodenObjectType.BARREL, WoodenObjectType.CHEST).forEach(block -> this.registerLootTable(block, net.minecraft.data.loot.BlockLootTables::func_218481_e));
-        WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.registerLootTable(block, b -> func_218530_a(b, Items.BOOK, ConstantRange.of(3))));
-        WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.registerLootTable(block, b -> LootTable.builder().addLootPool(LootPool.builder().addEntry(ItemLootEntry.builder(block).acceptFunction(ExplosionDecay.func_215863_b()))).addLootPool(LootPool.builder().addEntry(ItemLootEntry.builder(Items.BONE_MEAL)).acceptCondition(BlockStateProperty.builder(b).func_227567_a_(StatePropertiesPredicate.Builder.func_227191_a_().func_227192_a_(ComposterBlock.field_220298_a, 8))))));
+        WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> this.registerLootTable(block, net.minecraft.data.loot.BlockLootTables::droppingSlab));
+        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH).forEach(this::registerDropSelfLootTable);
+        WoodenBlocks.getBlocks(WoodenObjectType.BARREL, WoodenObjectType.CHEST).forEach(block -> this.registerLootTable(block, net.minecraft.data.loot.BlockLootTables::droppingWithName));
+        WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.registerLootTable(block, b -> droppingWithSilkTouchOrRandomly(b, Items.BOOK, ConstantRange.of(3))));
+        WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.registerLootTable(block, b -> LootTable.builder().addLootPool(LootPool.builder().addEntry(ItemLootEntry.builder(block).acceptFunction(ExplosionDecay.builder()))).addLootPool(LootPool.builder().addEntry(ItemLootEntry.builder(Items.BONE_MEAL)).acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(ComposterBlock.LEVEL, 8))))));
 
     }
 }
