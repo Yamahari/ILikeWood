@@ -3,6 +3,7 @@ package yamahari.ilikewood.client;
 import net.minecraft.client.renderer.model.Material;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,7 +15,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class Atlases {
     private static final Map<WoodType, Map<ChestType, Material>> CHESTS;
 
