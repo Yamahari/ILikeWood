@@ -24,7 +24,7 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
 
     @Override
     protected void addTranslations() {
-        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.SLAB, WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.CRAFTING_TABLE)
+        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.SLAB, WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH)
                 .forEach(block -> this.add(block, getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
         WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> {
@@ -38,6 +38,13 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
             final String name = getTranslationName(type) + " Chest";
             this.add(block, name);
             this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, type + "_" + WoodenObjectType.CHEST.toString()), name);
+        });
+
+        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> {
+            final String path = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final String name = getTranslationName(path);
+            this.add(block, name);
+            this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, path), name);
         });
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.add(item, getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));

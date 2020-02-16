@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:crafting_tables",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:dark_oak_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:dark_oak_crafting_table"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:crafting_tables",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:birch_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:birch_crafting_table"
+  }
+}
