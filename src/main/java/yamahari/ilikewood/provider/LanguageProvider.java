@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import java.util.Arrays;
@@ -24,23 +23,10 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
 
     @Override
     protected void addTranslations() {
-        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.SLAB, WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH)
+        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.SLAB, WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.SCAFFOLDING)
                 .forEach(block -> this.add(block, getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
-        WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> {
-            final String type = ((IWooden) block).getWoodType().toString();
-            final String name = getTranslationName(type) + " Barrel";
-            this.add(block, name);
-            this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, type + "_" + WoodenObjectType.BARREL.toString()), name);
-        });
-        WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
-            final String type = ((IWooden) block).getWoodType().toString();
-            final String name = getTranslationName(type) + " Chest";
-            this.add(block, name);
-            this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, type + "_" + WoodenObjectType.CHEST.toString()), name);
-        });
-
-        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.BARREL, WoodenObjectType.CHEST).forEach(block -> {
             final String path = Objects.requireNonNull(block.getRegistryName()).getPath();
             final String name = getTranslationName(path);
             this.add(block, name);

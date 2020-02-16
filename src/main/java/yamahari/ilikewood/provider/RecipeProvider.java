@@ -198,6 +198,20 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.CRAFTING_TABLES.getId().toString())
                     .build(consumer);
         });
+        WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('I', stick)
+                    .key('~', Items.STRING)
+                    .patternLine("I~I")
+                    .patternLine("I I")
+                    .patternLine("I I")
+                    .addCriterion("has_stick", this.hasItem(stick))
+                    .setGroup(BlockTags.SCAFFOLDINGS.getId().toString())
+                    .build(consumer);
+        });
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> {
             final WoodType woodType = ((IWooden) item).getWoodType();

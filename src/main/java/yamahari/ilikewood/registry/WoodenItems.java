@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.client.tileentity.renderer.WoodenChestItemStackTileEntityRenderer;
 import yamahari.ilikewood.item.WoodenBlockItem;
 import yamahari.ilikewood.item.WoodenItem;
+import yamahari.ilikewood.item.WoodenScaffoldingItem;
 import yamahari.ilikewood.item.WoodenWallOrFloorItem;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
@@ -45,6 +46,7 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.STICK, registerSimpleItems(WoodenItems::registerStickItem));
         registryObjects.put(WoodenObjectType.TORCH, registerSimpleItems(WoodenItems::registerTorchItem));
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlockItems(WoodenObjectType.CRAFTING_TABLE, simpleDecorationBlockItem));
+        registryObjects.put(WoodenObjectType.SCAFFOLDING, registerBlockItems(WoodenObjectType.SCAFFOLDING, (objectType, block) -> new WoodenScaffoldingItem(objectType, block.get(), (new Item.Properties()).group(ItemGroup.DECORATIONS))));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }

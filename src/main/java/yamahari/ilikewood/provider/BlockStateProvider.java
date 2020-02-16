@@ -3,10 +3,7 @@ package yamahari.ilikewood.provider;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.minecraftforge.client.model.generators.*;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
@@ -153,6 +150,19 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                     .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "planks", planks);
 
             this.simpleBlock(block, template);
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> {
+            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.SCAFFOLDING.toString());
+            this.getVariantBuilder(block).forAllStates(blockState -> {
+                final String stable = blockState.get(ScaffoldingBlock.field_220120_c) ? "unstable" : "stable";
+                final ModelFile template = this.models()
+                        .withExistingParent(Util.toPath(path, stable, woodType), modLoc(Util.toPath(path, stable, "template")))
+                        .texture("top", modLoc(Util.toPath(path, "top", woodType)))
+                        .texture("side", modLoc(Util.toPath(path, "side", woodType)))
+                        .texture("bottom", modLoc(Util.toPath(path, "bottom", woodType)));
+                return ConfiguredModel.builder().modelFile(template).build();
+            });
         });
     }
 
