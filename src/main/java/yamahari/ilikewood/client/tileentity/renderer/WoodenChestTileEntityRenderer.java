@@ -21,7 +21,7 @@ public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer
     @Override
     protected Material getMaterial(final TileEntity tileEntity, final ChestType chestType) {
         if (this.materials == null) {
-            this.materials = Atlases.getChestMaterials(((WoodenChestTileEntity) tileEntity).getWoodType().toString());
+            this.materials = Atlases.getChestMaterials(((WoodenChestTileEntity) tileEntity).getWoodType());
         }
         assert this.materials != null;
         return this.materials.get(chestType);

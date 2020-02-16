@@ -1,6 +1,5 @@
 package yamahari.ilikewood.client;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.renderer.model.Material;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.util.ResourceLocation;
@@ -11,34 +10,36 @@ import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class Atlases {
-    private static final Map<String, Map<ChestType, Material>> CHESTS;
+    private static final Map<WoodType, Map<ChestType, Material>> CHESTS;
 
     static {
-        final ImmutableMap.Builder<String, Map<ChestType, Material>> builder = new ImmutableMap.Builder<>();
-        Arrays.stream(WoodType.values()).map(Object::toString).forEach(woodType -> builder.put(woodType, ImmutableMap.copyOf(makeChestMaterials(woodType))));
-        CHESTS = builder.build();
+        final Map<WoodType, Map<ChestType, Material>> chests = new EnumMap<>(WoodType.class);
+        for (final WoodType woodType : WoodType.values()) {
+            chests.put(woodType, makeChestMaterials(woodType));
+        }
+        CHESTS = Collections.unmodifiableMap(chests);
     }
 
     private Atlases() {
     }
 
-    private static Map<ChestType, Material> makeChestMaterials(final String woodType) {
+    private static Map<ChestType, Material> makeChestMaterials(final WoodType woodType) {
         final EnumMap<ChestType, Material> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
             materials.put(chestType, new Material(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
-                    new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getName(), woodType))));
+                    new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getName(), woodType.toString()))));
         }
         return materials;
     }
 
-    public static Map<ChestType, Material> getChestMaterials(final String type) {
-        return CHESTS.get(type);
+    public static Map<ChestType, Material> getChestMaterials(final WoodType woodType) {
+        return CHESTS.get(woodType);
     }
 
     @SubscribeEvent
