@@ -31,6 +31,7 @@ public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider 
         registerTag(WoodenObjectType.STICK, this.getBuilder(ItemTags.STICKS));
         registerTag(WoodenObjectType.CRAFTING_TABLE, this.getBuilder(ItemTags.CRAFTING_TABLES));
         registerTag(WoodenObjectType.SCAFFOLDING, this.getBuilder(ItemTags.SCAFFOLDINGS));
+        registerTag(WoodenObjectType.LECTERN, this.getBuilder(ItemTags.LECTERNS));
     }
 
     @Override

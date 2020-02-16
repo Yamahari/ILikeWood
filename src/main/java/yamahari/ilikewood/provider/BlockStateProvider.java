@@ -125,6 +125,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LADDER.toString());
             final ModelFile template = this.models()
                     .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "ladder", modLoc(Util.toPath(path, woodType)));
+
             this.horizontalBlock(block, template);
         });
         WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> {
@@ -163,6 +164,20 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
                         .texture("bottom", modLoc(Util.toPath(path, "bottom", woodType)));
                 return ConfiguredModel.builder().modelFile(template).build();
             });
+        });
+        WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> {
+            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LECTERN.toString());
+            final ResourceLocation planks = mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(woodType, "planks")));
+            final ModelFile template = this.models()
+                    .withExistingParent(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")))
+                    .texture("top", modLoc(Util.toPath(path, "top", woodType)))
+                    .texture("sides", modLoc(Util.toPath(path, "sides", woodType)))
+                    .texture("bottom", planks)
+                    .texture("base", modLoc(Util.toPath(path, "base", woodType)))
+                    .texture("front", modLoc(Util.toPath(path, "front", woodType)));
+
+            this.horizontalBlock(block, template);
         });
     }
 

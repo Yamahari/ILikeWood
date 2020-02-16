@@ -33,6 +33,7 @@ public final class WoodenItems {
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleBuildingBlockItem = registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS));
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleDecorationBlockItem = registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS));
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleMiscBlockItem = registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.MISC));
+        final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleRedstoneBlockItem = registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.REDSTONE));
 
         registryObjects.put(WoodenObjectType.PANELS, registerBlockItems(WoodenObjectType.PANELS, simpleBuildingBlockItem));
         registryObjects.put(WoodenObjectType.STAIRS, registerBlockItems(WoodenObjectType.STAIRS, simpleBuildingBlockItem));
@@ -47,6 +48,7 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.TORCH, registerSimpleItems(WoodenItems::registerTorchItem));
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlockItems(WoodenObjectType.CRAFTING_TABLE, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.SCAFFOLDING, registerBlockItems(WoodenObjectType.SCAFFOLDING, (objectType, block) -> new WoodenScaffoldingItem(objectType, block.get(), (new Item.Properties()).group(ItemGroup.DECORATIONS))));
+        registryObjects.put(WoodenObjectType.LECTERN, registerBlockItems(WoodenObjectType.LECTERN, simpleRedstoneBlockItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }

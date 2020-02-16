@@ -19,6 +19,7 @@ public final class BlockTags {
     public static final Tag<Block> WALL_TORCHES = makeWrapperTag("wall_torches");
     public static final Tag<Block> CRAFTING_TABLES = makeWrapperTag("crafting_tables");
     public static final Tag<Block> SCAFFOLDINGS = makeWrapperTag("scaffoldings");
+    public static final Tag<Block> LECTERNS = makeWrapperTag("lecterns");
 
     private BlockTags() {
     }

@@ -32,6 +32,7 @@ public final class BlockTagsProvider extends net.minecraft.data.BlockTagsProvide
         registerTag(WoodenObjectType.WALL_TORCH, this.getBuilder(BlockTags.WALL_TORCHES));
         registerTag(WoodenObjectType.CRAFTING_TABLE, this.getBuilder(BlockTags.CRAFTING_TABLES));
         registerTag(WoodenObjectType.SCAFFOLDING, this.getBuilder(BlockTags.SCAFFOLDINGS));
+        registerTag(WoodenObjectType.LECTERN, this.getBuilder(BlockTags.LECTERNS));
     }
 
     @Override

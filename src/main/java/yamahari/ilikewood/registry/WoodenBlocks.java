@@ -37,6 +37,7 @@ public final class WoodenBlocks {
         registryObjects.put(WoodenObjectType.WALL_TORCH, registerSimpleBlocks(WoodenBlocks::registerWallTorchBlock));
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerSimpleBlocks(WoodenBlocks::registerCraftingTableBlock));
         registryObjects.put(WoodenObjectType.SCAFFOLDING, registerSimpleBlocks(WoodenBlocks::registerScaffoldingBlock));
+        registryObjects.put(WoodenObjectType.LECTERN, registerSimpleBlocks(WoodenBlocks::registerLecternBlock));
 
         final Map<WoodType, RegistryObject<Block>> panels = new EnumMap<>(WoodType.class);
         panels.put(WoodType.ACACIA, registerPanelsBlock(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS)));
@@ -154,5 +155,9 @@ public final class WoodenBlocks {
 
     private static RegistryObject<Block> registerScaffoldingBlock(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.SCAFFOLDING.toString()), () -> new WoodenScaffoldingBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerLecternBlock(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString()), () -> new WoodenLecternBlock(woodType));
     }
 }

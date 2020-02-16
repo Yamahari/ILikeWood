@@ -212,6 +212,21 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.SCAFFOLDINGS.getId().toString())
                     .build(consumer);
         });
+        WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider slab = WoodenBlocks.getBlock(WoodenObjectType.LECTERN, woodType);
+            final IItemProvider bookshelf = WoodenBlocks.getBlock(WoodenObjectType.BOOKSHELF, woodType);
+
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('S', slab)
+                    .key('B', bookshelf)
+                    .patternLine("SSS")
+                    .patternLine(" B ")
+                    .patternLine(" S ")
+                    .addCriterion("has_book", this.hasItem(Items.BOOK))
+                    .setGroup(BlockTags.LECTERNS.getId().toString())
+                    .build(consumer);
+        });
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> {
             final WoodType woodType = ((IWooden) item).getWoodType();

@@ -1,0 +1,10 @@
+{
+  "parent": "ilikewood:block/lectern/template",
+  "textures": {
+    "top": "ilikewood:block/lectern/top/jungle",
+    "sides": "ilikewood:block/lectern/sides/jungle",
+    "bottom": "block/jungle_planks",
+    "base": "ilikewood:block/lectern/base/jungle",
+    "front": "ilikewood:block/lectern/front/jungle"
+  }
+}

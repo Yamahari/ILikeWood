@@ -1,0 +1,10 @@
+{
+  "parent": "ilikewood:block/lectern/template",
+  "textures": {
+    "top": "ilikewood:block/lectern/top/oak",
+    "sides": "ilikewood:block/lectern/sides/oak",
+    "bottom": "block/oak_planks",
+    "base": "ilikewood:block/lectern/base/oak",
+    "front": "ilikewood:block/lectern/front/oak"
+  }
+}

@@ -75,6 +75,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
         WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> this.blockItem(block, WoodenObjectType.TORCH.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> this.blockItem(block, WoodenObjectType.CRAFTING_TABLE.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.SCAFFOLDING.toString(), "stable")));
+        WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> this.blockItem(block, WoodenObjectType.LECTERN.toString()));
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().toString()))));
     }

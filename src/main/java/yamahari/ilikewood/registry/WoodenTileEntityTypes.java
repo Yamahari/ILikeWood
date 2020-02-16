@@ -6,6 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.client.tileentity.WoodenBarrelTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
+import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
@@ -26,6 +27,7 @@ public final class WoodenTileEntityTypes {
 
         registryObjects.put(WoodenObjectType.BARREL, registerSimpleTileEntityTypes(WoodenTileEntityTypes::registerBarrelTileEntityType));
         registryObjects.put(WoodenObjectType.CHEST, registerSimpleTileEntityTypes(WoodenTileEntityTypes::registerChestTileEntityType));
+        registryObjects.put(WoodenObjectType.LECTERN, registerSimpleTileEntityTypes(WoodenTileEntityTypes::registerLecternTileEntityType));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }
@@ -34,11 +36,15 @@ public final class WoodenTileEntityTypes {
     }
 
     public static TileEntityType<?> getTileEntityType(final WoodenObjectType objectType, final WoodType woodType) {
-        return REGISTRY_OBJECTS.get(objectType).get(woodType).get();
+        return getRegistryObject(objectType, woodType).get();
     }
 
     public static Stream<TileEntityType<?>> getTileEntityTypes(final WoodenObjectType objectType) {
         return REGISTRY_OBJECTS.get(objectType).values().stream().map(RegistryObject::get);
+    }
+
+    public static RegistryObject<TileEntityType<?>> getRegistryObject(final WoodenObjectType objectType, final WoodType woodType) {
+        return REGISTRY_OBJECTS.get(objectType).get(woodType);
     }
 
     private static Map<WoodType, RegistryObject<TileEntityType<?>>> registerSimpleTileEntityTypes(final Function<WoodType, RegistryObject<TileEntityType<?>>> function) {
@@ -62,6 +68,14 @@ public final class WoodenTileEntityTypes {
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenChestTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.CHEST).get(woodType).get()),
                                 WoodenBlocks.getBlock(WoodenObjectType.CHEST, woodType))
+                        .build(null));
+    }
+
+    private static RegistryObject<TileEntityType<?>> registerLecternTileEntityType(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString()),
+                () -> TileEntityType.Builder
+                        .create(() -> new WoodenLecternTileEntity(woodType),
+                                WoodenBlocks.getBlock(WoodenObjectType.LECTERN, woodType))
                         .build(null));
     }
 }

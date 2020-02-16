@@ -26,7 +26,7 @@ public final class BlockLootTables extends net.minecraft.data.loot.BlockLootTabl
     protected void addTables() {
         WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> this.registerLootTable(block, net.minecraft.data.loot.BlockLootTables::droppingSlab));
         WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.SCAFFOLDING).forEach(this::registerDropSelfLootTable);
-        WoodenBlocks.getBlocks(WoodenObjectType.BARREL, WoodenObjectType.CHEST).forEach(block -> this.registerLootTable(block, net.minecraft.data.loot.BlockLootTables::droppingWithName));
+        WoodenBlocks.getBlocks(WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN).forEach(block -> this.registerLootTable(block, net.minecraft.data.loot.BlockLootTables::droppingWithName));
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.registerLootTable(block, b -> droppingWithSilkTouchOrRandomly(b, Items.BOOK, ConstantRange.of(3))));
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.registerLootTable(block, b -> LootTable.builder().addLootPool(LootPool.builder().addEntry(ItemLootEntry.builder(block).acceptFunction(ExplosionDecay.builder()))).addLootPool(LootPool.builder().addEntry(ItemLootEntry.builder(Items.BONE_MEAL)).acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(ComposterBlock.LEVEL, 8))))));
     }
