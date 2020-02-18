@@ -21,6 +21,12 @@ public final class ItemTags {
     public static final Tag<Item> SCAFFOLDINGS = makeWrapperTag("scaffoldings");
     public static final Tag<Item> LECTERNS = makeWrapperTag("lecterns");
 
+    public static final Tag<Item> AXES = makeWrapperTag("axes");
+    public static final Tag<Item> HOES = makeWrapperTag("hoes");
+    public static final Tag<Item> PICKAXES = makeWrapperTag("pickaxes");
+    public static final Tag<Item> SHOVELS = makeWrapperTag("shovels");
+    public static final Tag<Item> SWORDS = makeWrapperTag("swords");
+
     private ItemTags() {
     }
 

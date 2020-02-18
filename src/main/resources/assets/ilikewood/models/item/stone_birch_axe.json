@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "ilikewood:item/stick/axe/birch",
+    "layer1": "ilikewood:item/axe/stone"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:shovels",
+  "pattern": [
+    "#",
+    "I",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:dark_oak_stick"
+    },
+    "#": {
+      "item": "ilikewood:dark_oak_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:dark_oak_shovel"
+  }
+}

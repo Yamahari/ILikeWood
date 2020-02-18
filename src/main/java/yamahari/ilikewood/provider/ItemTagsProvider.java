@@ -6,6 +6,7 @@ import net.minecraft.tags.Tag;
 import yamahari.ilikewood.data.tag.ItemTags;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.WoodenTieredObjectType;
 
 public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider {
     public ItemTagsProvider(final DataGenerator generator) {
@@ -14,6 +15,10 @@ public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider 
 
     private static void registerTag(final WoodenObjectType objectType, final Tag.Builder<Item> builder) {
         builder.add(WoodenItems.getItems(objectType).toArray(Item[]::new));
+    }
+
+    private static void registerTieredTag(final WoodenTieredObjectType tieredObjectType, final Tag.Builder<Item> builder) {
+        builder.add(WoodenItems.getTieredItems(tieredObjectType).toArray(Item[]::new));
     }
 
     @Override
@@ -32,6 +37,12 @@ public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider 
         registerTag(WoodenObjectType.CRAFTING_TABLE, this.getBuilder(ItemTags.CRAFTING_TABLES));
         registerTag(WoodenObjectType.SCAFFOLDING, this.getBuilder(ItemTags.SCAFFOLDINGS));
         registerTag(WoodenObjectType.LECTERN, this.getBuilder(ItemTags.LECTERNS));
+
+        registerTieredTag(WoodenTieredObjectType.AXE, this.getBuilder(ItemTags.AXES));
+        registerTieredTag(WoodenTieredObjectType.HOE, this.getBuilder(ItemTags.HOES));
+        registerTieredTag(WoodenTieredObjectType.PICKAXE, this.getBuilder(ItemTags.PICKAXES));
+        registerTieredTag(WoodenTieredObjectType.SHOVEL, this.getBuilder(ItemTags.SHOVELS));
+        registerTieredTag(WoodenTieredObjectType.SWORD, this.getBuilder(ItemTags.SWORDS));
     }
 
     @Override

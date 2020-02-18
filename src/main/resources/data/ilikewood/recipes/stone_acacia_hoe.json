@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:hoes",
+  "pattern": [
+    "##",
+    " I",
+    " I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:acacia_stick"
+    },
+    "#": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "ilikewood:stone_acacia_hoe"
+  }
+}

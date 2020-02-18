@@ -2,15 +2,14 @@ package yamahari.ilikewood.provider;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
+import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
-import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.*;
 
 import java.util.Objects;
 
@@ -23,6 +22,15 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
         final String woodType = ((IWooden) block).getWoodType().toString();
         this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null.").getPath())
                 .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, woodType))));
+    }
+
+    private void tieredItem(final Item item, final String path) {
+        final String woodType = ((IWooden) item).getWoodType().toString();
+        final String tier = ((IWoodenTieredItem) item).getWoodenItemTier().toString();
+        final boolean isWood = ((IWoodenTieredItem) item).getWoodenItemTier().isWood();
+        this.withExistingParent(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")))
+                .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), path, woodType)))
+                .texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/wooden" : ""), tier)));
     }
 
     @Override
@@ -78,6 +86,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
         WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> this.blockItem(block, WoodenObjectType.LECTERN.toString()));
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().toString()))));
+        WoodenItems.getTieredItems(WoodenTieredObjectType.values()).forEach(item -> this.tieredItem(item, ((IWoodenTieredItem) item).getWoodenTieredObjectType().toString()));
     }
 
     @Override

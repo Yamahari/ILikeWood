@@ -7,6 +7,7 @@ import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.WoodenTieredObjectType;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -34,5 +35,6 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
         });
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.add(item, getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
+        WoodenItems.getTieredItems(WoodenTieredObjectType.values()).forEach(item -> this.add(item, getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
     }
 }

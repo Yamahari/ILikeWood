@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:pickaxes",
+  "pattern": [
+    "###",
+    " I ",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:birch_stick"
+    },
+    "#": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "ilikewood:iron_birch_pickaxe"
+  }
+}

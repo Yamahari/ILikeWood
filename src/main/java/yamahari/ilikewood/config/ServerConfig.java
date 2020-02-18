@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.WoodenItemTier;
 import yamahari.ilikewood.util.WoodenObjectType;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 
@@ -170,8 +171,8 @@ public final class ServerConfig {
                 )
         );
 
-        for (final Constants.ItemTiers itemTiers : Constants.ItemTiers.values()) {
-            buildTieredConfigValues(itemTiers, builder, attackSpeeds, defaultTieredAttackSpeed);
+        for (final WoodenItemTier itemTier : WoodenItemTier.values()) {
+            buildTieredConfigValues(itemTier, builder, attackSpeeds, defaultTieredAttackSpeed);
         }
         TIERED_ATTACK_SPEED = attackSpeeds.build();
 
@@ -218,7 +219,7 @@ public final class ServerConfig {
                 )
         );
 
-        for (final Constants.ItemTiers itemTier : Constants.ItemTiers.values()) {
+        for (final WoodenItemTier itemTier : WoodenItemTier.values()) {
             buildTieredConfigValues(itemTier, builder, attackDamages, defaultTieredAttackDamage);
         }
         TIERED_ATTACK_DAMAGE = attackDamages.build();
@@ -231,7 +232,7 @@ public final class ServerConfig {
     }
 
     private static <T extends ForgeConfigSpec.ConfigValue> ImmutableMap<String, T> buildItemTierConfigValues(final BiFunction<String, Boolean, T> functor) {
-        return Arrays.stream(Constants.ItemTiers.values()).collect(ImmutableMap.toImmutableMap(Objects::toString, itemTier -> functor.apply(itemTier.toString(), Constants.IS_WOOD.contains(itemTier))));
+        return Arrays.stream(WoodenItemTier.values()).collect(ImmutableMap.toImmutableMap(Objects::toString, itemTier -> functor.apply(itemTier.toString(), itemTier.isWood())));
     }
 
     private static <T extends ForgeConfigSpec.ConfigValue> ImmutableMap<String, T> buildConfigValues(final Function<String, T> functor) {
@@ -276,14 +277,14 @@ public final class ServerConfig {
         tieredBurnTimes.put(woodType, tieredBurnTime.build());
     }
 
-    private static void buildTieredConfigValues(final Constants.ItemTiers itemTier, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.DoubleValue>> builder, final Map<String, Map<String, Double>> defaultConfigs) {
+    private static void buildTieredConfigValues(final WoodenItemTier itemTier, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.DoubleValue>> builder, final Map<String, Map<String, Double>> defaultConfigs) {
         final ImmutableMap.Builder<String, ForgeConfigSpec.DoubleValue> defaultConfig = new ImmutableMap.Builder<>();
         final String path = itemTier.toString();
 
         spec.push(StringUtils.lowerCase(path));
 
         Arrays.stream(WoodenTieredObjectType.values()).map(WoodenTieredObjectType::toString)
-                .forEach(type -> defaultConfig.put(type, spec.defineInRange(type.toLowerCase(), defaultConfigs.get(Constants.IS_WOOD.contains(itemTier) ? Constants.WOOD : path).get(type), -Float.MAX_VALUE, Float.MAX_VALUE)));
+                .forEach(type -> defaultConfig.put(type, spec.defineInRange(type.toLowerCase(), defaultConfigs.get(itemTier.isWood() ? Constants.WOOD : path).get(type), -Float.MAX_VALUE, Float.MAX_VALUE)));
 
         spec.pop(); // path
 

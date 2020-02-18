@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:swords",
+  "pattern": [
+    "#",
+    "#",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:acacia_stick"
+    },
+    "#": {
+      "item": "ilikewood:acacia_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:acacia_sword"
+  }
+}
