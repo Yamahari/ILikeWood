@@ -171,9 +171,7 @@ public final class ServerConfig {
                 )
         );
 
-        for (final WoodenItemTier itemTier : WoodenItemTier.values()) {
-            buildTieredConfigValues(itemTier, builder, attackSpeeds, defaultTieredAttackSpeed);
-        }
+        WoodenItemTier.getLoadedValues().forEach(itemTier -> buildTieredConfigValues(itemTier, builder, attackSpeeds, defaultTieredAttackSpeed));
         TIERED_ATTACK_SPEED = attackSpeeds.build();
 
         builder.pop(); // attack_speed
@@ -219,9 +217,7 @@ public final class ServerConfig {
                 )
         );
 
-        for (final WoodenItemTier itemTier : WoodenItemTier.values()) {
-            buildTieredConfigValues(itemTier, builder, attackDamages, defaultTieredAttackDamage);
-        }
+        WoodenItemTier.getLoadedValues().forEach(itemTier -> buildTieredConfigValues(itemTier, builder, attackDamages, defaultTieredAttackDamage));
         TIERED_ATTACK_DAMAGE = attackDamages.build();
 
         builder.pop(); // attack_damage
@@ -232,7 +228,7 @@ public final class ServerConfig {
     }
 
     private static <T extends ForgeConfigSpec.ConfigValue> ImmutableMap<String, T> buildItemTierConfigValues(final BiFunction<String, Boolean, T> functor) {
-        return Arrays.stream(WoodenItemTier.values()).collect(ImmutableMap.toImmutableMap(Objects::toString, itemTier -> functor.apply(itemTier.toString(), itemTier.isWood())));
+        return WoodenItemTier.getLoadedValues().collect(ImmutableMap.toImmutableMap(Objects::toString, itemTier -> functor.apply(itemTier.toString(), itemTier.isWood())));
     }
 
     private static <T extends ForgeConfigSpec.ConfigValue> ImmutableMap<String, T> buildConfigValues(final Function<String, T> functor) {

@@ -4,13 +4,17 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
+import net.minecraftforge.fml.ModList;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.config.Config;
 import yamahari.ilikewood.registry.WoodenBlocks;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public enum WoodenItemTier implements IItemTier {
     ACACIA(Constants.ACACIA, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.ACACIA))),
@@ -22,9 +26,21 @@ public enum WoodenItemTier implements IItemTier {
     STONE(Constants.STONE, false, () -> Ingredient.fromItems(Items.COBBLESTONE)),
     IRON(Constants.IRON, false, () -> Ingredient.fromItems(Items.IRON_INGOT)),
     DIAMOND(Constants.DIAMOND, false, () -> Ingredient.fromItems(Items.DIAMOND)),
-    GOLDEN(Constants.GOLDEN, false, () -> Ingredient.fromItems(Items.GOLD_INGOT));
+    GOLDEN(Constants.GOLDEN, false, () -> Ingredient.fromItems(Items.GOLD_INGOT)),
+    CHERRY(Constants.CHERRY, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.CHERRY))),
+    DEAD(Constants.DEAD, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.DEAD))),
+    FIR(Constants.FIR, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.FIR))),
+    HELLBARK(Constants.HELLBARK, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.HELLBARK))),
+    JACARANDA(Constants.JACARANDA, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.JACARANDA))),
+    MAGIC(Constants.MAGIC, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.MAGIC))),
+    MAHOGANY(Constants.MAHOGANY, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.MAHOGANY))),
+    PALM(Constants.PALM, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.PALM))),
+    REDWOOD(Constants.REDWOOD, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.REDWOOD))),
+    UMBRAN(Constants.UMBRAN, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.UMBRAN))),
+    WILLOW(Constants.WILLOW, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.WILLOW)));
 
     private final String name;
+    private final String modId;
     private final boolean isWood;
     private final LazyValue<Supplier<Integer>> harvestLevel;
     private final LazyValue<Supplier<Integer>> maxUses;
@@ -35,7 +51,12 @@ public enum WoodenItemTier implements IItemTier {
     private final Map<WoodenTieredObjectType, Properties> properties;
 
     WoodenItemTier(final String name, final boolean isWood, final Supplier<Ingredient> repairMaterial) {
+        this(name, Constants.MOD_ID, isWood, repairMaterial);
+    }
+
+    WoodenItemTier(final String name, final String modId, final boolean isWood, final Supplier<Ingredient> repairMaterial) {
         this.name = name;
+        this.modId = modId;
         this.isWood = isWood;
         this.harvestLevel = new LazyValue<>(() -> Config.SERVER_CONFIG.HARVEST_LEVEL.get(name)::get);
         this.maxUses = new LazyValue<>(() -> Config.SERVER_CONFIG.MAX_USES.get(name)::get);
@@ -53,6 +74,18 @@ public enum WoodenItemTier implements IItemTier {
             ));
         }
         this.properties = Collections.unmodifiableMap(properties);
+    }
+
+    public static Stream<WoodenItemTier> getLoadedValues() {
+        try {
+            final String dataModId = System.getProperty("ilikewood.datagen.modid");
+            if (dataModId != null) {
+                return Arrays.stream(values()).filter(itemTier -> itemTier.getModId().equals(dataModId));
+            }
+        } catch (NullPointerException | SecurityException | IllegalArgumentException e) {
+            ILikeWood.LOGGER.error(e.getMessage());
+        }
+        return Arrays.stream(values()).filter(itemTier -> ModList.get().isLoaded(itemTier.getModId()));
     }
 
     public boolean isWood() {
@@ -86,6 +119,10 @@ public enum WoodenItemTier implements IItemTier {
     public Properties getProperties(final WoodenTieredObjectType tieredObjectType) {
         assert this.properties.containsKey(tieredObjectType);
         return properties.get(tieredObjectType);
+    }
+
+    public String getModId() {
+        return this.modId;
     }
 
     @Override

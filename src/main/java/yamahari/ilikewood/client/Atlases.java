@@ -21,9 +21,7 @@ public final class Atlases {
 
     static {
         final Map<WoodType, Map<ChestType, Material>> chests = new EnumMap<>(WoodType.class);
-        for (final WoodType woodType : WoodType.values()) {
-            chests.put(woodType, makeChestMaterials(woodType));
-        }
+        WoodType.getLoadedValues().forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
         CHESTS = Collections.unmodifiableMap(chests);
     }
 

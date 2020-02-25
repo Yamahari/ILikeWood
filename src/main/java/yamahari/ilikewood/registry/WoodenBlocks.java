@@ -2,6 +2,9 @@ package yamahari.ilikewood.registry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -39,31 +42,38 @@ public final class WoodenBlocks {
         registryObjects.put(WoodenObjectType.SCAFFOLDING, registerSimpleBlocks(WoodenBlocks::registerScaffoldingBlock));
         registryObjects.put(WoodenObjectType.LECTERN, registerSimpleBlocks(WoodenBlocks::registerLecternBlock));
 
+        final Map<WoodType, Block.Properties> woodProperties = new EnumMap<>(WoodType.class);
+        woodProperties.put(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS));
+        woodProperties.put(WoodType.BIRCH, Block.Properties.from(Blocks.BIRCH_PLANKS));
+        woodProperties.put(WoodType.DARK_OAK, Block.Properties.from(Blocks.DARK_OAK_PLANKS));
+        woodProperties.put(WoodType.JUNGLE, Block.Properties.from(Blocks.JUNGLE_PLANKS));
+        woodProperties.put(WoodType.OAK, Block.Properties.from(Blocks.OAK_PLANKS));
+        woodProperties.put(WoodType.SPRUCE, Block.Properties.from(Blocks.SPRUCE_PLANKS));
+        woodProperties.put(WoodType.CHERRY, Block.Properties.create(Material.WOOD, MaterialColor.RED).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.DEAD, Block.Properties.create(Material.WOOD, MaterialColor.STONE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.FIR, Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.HELLBARK, Block.Properties.create(Material.WOOD, MaterialColor.GRAY_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.JACARANDA, Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.MAGIC, Block.Properties.create(Material.WOOD, MaterialColor.BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.MAHOGANY, Block.Properties.create(Material.WOOD, MaterialColor.PINK_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.PALM, Block.Properties.create(Material.WOOD, MaterialColor.YELLOW_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.REDWOOD, Block.Properties.create(Material.WOOD, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.UMBRAN, Block.Properties.create(Material.WOOD, MaterialColor.BLUE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.WILLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIME_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+
         final Map<WoodType, RegistryObject<Block>> panels = new EnumMap<>(WoodType.class);
-        panels.put(WoodType.ACACIA, registerPanelsBlock(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS)));
-        panels.put(WoodType.BIRCH, registerPanelsBlock(WoodType.BIRCH, Block.Properties.from(Blocks.BIRCH_PLANKS)));
-        panels.put(WoodType.DARK_OAK, registerPanelsBlock(WoodType.DARK_OAK, Block.Properties.from(Blocks.DARK_OAK_PLANKS)));
-        panels.put(WoodType.JUNGLE, registerPanelsBlock(WoodType.JUNGLE, Block.Properties.from(Blocks.JUNGLE_PLANKS)));
-        panels.put(WoodType.OAK, registerPanelsBlock(WoodType.OAK, Block.Properties.from(Blocks.OAK_PLANKS)));
-        panels.put(WoodType.SPRUCE, registerPanelsBlock(WoodType.SPRUCE, Block.Properties.from(Blocks.SPRUCE_PLANKS)));
-        registryObjects.put(WoodenObjectType.PANELS, Collections.unmodifiableMap(panels));
-
         final Map<WoodType, RegistryObject<Block>> panelsStairs = new EnumMap<>(WoodType.class);
-        panelsStairs.put(WoodType.ACACIA, registerPanelsStairsBlock(WoodType.ACACIA, panels.get(WoodType.ACACIA), Block.Properties.from(Blocks.ACACIA_STAIRS)));
-        panelsStairs.put(WoodType.BIRCH, registerPanelsStairsBlock(WoodType.BIRCH, panels.get(WoodType.BIRCH), Block.Properties.from(Blocks.BIRCH_STAIRS)));
-        panelsStairs.put(WoodType.DARK_OAK, registerPanelsStairsBlock(WoodType.DARK_OAK, panels.get(WoodType.DARK_OAK), Block.Properties.from(Blocks.DARK_OAK_STAIRS)));
-        panelsStairs.put(WoodType.JUNGLE, registerPanelsStairsBlock(WoodType.JUNGLE, panels.get(WoodType.JUNGLE), Block.Properties.from(Blocks.JUNGLE_STAIRS)));
-        panelsStairs.put(WoodType.OAK, registerPanelsStairsBlock(WoodType.OAK, panels.get(WoodType.OAK), Block.Properties.from(Blocks.OAK_STAIRS)));
-        panelsStairs.put(WoodType.SPRUCE, registerPanelsStairsBlock(WoodType.SPRUCE, panels.get(WoodType.OAK), Block.Properties.from(Blocks.SPRUCE_STAIRS)));
-        registryObjects.put(WoodenObjectType.STAIRS, Collections.unmodifiableMap(panelsStairs));
-
         final Map<WoodType, RegistryObject<Block>> panelsSlab = new EnumMap<>(WoodType.class);
-        panelsSlab.put(WoodType.ACACIA, registerPanelsSlabBlock(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_SLAB)));
-        panelsSlab.put(WoodType.BIRCH, registerPanelsSlabBlock(WoodType.BIRCH, Block.Properties.from(Blocks.BIRCH_SLAB)));
-        panelsSlab.put(WoodType.DARK_OAK, registerPanelsSlabBlock(WoodType.DARK_OAK, Block.Properties.from(Blocks.DARK_OAK_SLAB)));
-        panelsSlab.put(WoodType.JUNGLE, registerPanelsSlabBlock(WoodType.JUNGLE, Block.Properties.from(Blocks.JUNGLE_SLAB)));
-        panelsSlab.put(WoodType.OAK, registerPanelsSlabBlock(WoodType.OAK, Block.Properties.from(Blocks.OAK_SLAB)));
-        panelsSlab.put(WoodType.SPRUCE, registerPanelsSlabBlock(WoodType.SPRUCE, Block.Properties.from(Blocks.SPRUCE_SLAB)));
+
+        WoodType.getLoadedValues().forEach(woodType -> {
+            final Block.Properties properties = woodProperties.get(woodType);
+            final RegistryObject<Block> panel = panels.computeIfAbsent(woodType, w -> registerPanelsBlock(w, properties));
+            panelsStairs.put(woodType, registerPanelsStairsBlock(woodType, panel, properties));
+            panelsSlab.put(woodType, registerPanelsSlabBlock(woodType, properties));
+        });
+
+        registryObjects.put(WoodenObjectType.PANELS, Collections.unmodifiableMap(panels));
+        registryObjects.put(WoodenObjectType.STAIRS, Collections.unmodifiableMap(panelsStairs));
         registryObjects.put(WoodenObjectType.SLAB, Collections.unmodifiableMap(panelsSlab));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
@@ -94,9 +104,7 @@ public final class WoodenBlocks {
 
     private static Map<WoodType, RegistryObject<Block>> registerSimpleBlocks(final Function<WoodType, RegistryObject<Block>> function) {
         final Map<WoodType, RegistryObject<Block>> blocks = new EnumMap<>(WoodType.class);
-        for (final WoodType woodType : WoodType.values()) {
-            blocks.put(woodType, function.apply(woodType));
-        }
+        WoodType.getLoadedValues().forEach(woodType -> blocks.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(blocks);
     }
 
@@ -116,17 +124,17 @@ public final class WoodenBlocks {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.COMPOSTER.toString()), () -> new WoodenComposterBlock(woodType));
     }
 
-    private static RegistryObject<Block> registerPanelsBlock(final WoodType woodType, final Block.Properties properties) {
+    private static RegistryObject<Block> registerPanelsBlock(final WoodType woodType, Block.Properties properties) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.PANELS.toString()), () -> new WoodenBlock(woodType, properties));
     }
 
-    private static RegistryObject<Block> registerPanelsStairsBlock(final WoodType woodType, final RegistryObject<Block> modelBlock, final Block.Properties properties) {
+    private static RegistryObject<Block> registerPanelsStairsBlock(final WoodType woodType, final RegistryObject<Block> modelBlock, Block.Properties properties) {
         return REGISTRY.register(
                 Util.toRegistryName(woodType.toString(), WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString()),
                 () -> new WoodenStairsBlock(woodType, modelBlock.get().getDefaultState(), properties));
     }
 
-    private static RegistryObject<Block> registerPanelsSlabBlock(final WoodType woodType, final Block.Properties properties) {
+    private static RegistryObject<Block> registerPanelsSlabBlock(final WoodType woodType, Block.Properties properties) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString()), () -> new WoodenSlabBlock(woodType, properties));
     }
 

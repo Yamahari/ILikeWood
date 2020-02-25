@@ -45,9 +45,7 @@ public final class WoodenContainerTypes {
 
     private static Map<WoodType, RegistryObject<ContainerType<?>>> registerContainerTypes(final Function<WoodType, RegistryObject<ContainerType<?>>> function) {
         final Map<WoodType, RegistryObject<ContainerType<?>>> containerTypes = new EnumMap<>(WoodType.class);
-        for (final WoodType woodType : WoodType.values()) {
-            containerTypes.put(woodType, function.apply(woodType));
-        }
+        WoodType.getLoadedValues().forEach(woodType -> containerTypes.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(containerTypes);
     }
 

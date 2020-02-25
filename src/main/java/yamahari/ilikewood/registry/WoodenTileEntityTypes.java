@@ -49,9 +49,7 @@ public final class WoodenTileEntityTypes {
 
     private static Map<WoodType, RegistryObject<TileEntityType<?>>> registerSimpleTileEntityTypes(final Function<WoodType, RegistryObject<TileEntityType<?>>> function) {
         final Map<WoodType, RegistryObject<TileEntityType<?>>> tileEntityTypes = new EnumMap<>(WoodType.class);
-        for (final WoodType woodType : WoodType.values()) {
-            tileEntityTypes.put(woodType, function.apply(woodType));
-        }
+        WoodType.getLoadedValues().forEach(woodType -> tileEntityTypes.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(tileEntityTypes);
     }
 

@@ -1,5 +1,6 @@
 package yamahari.ilikewood.provider;
 
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
@@ -44,7 +45,19 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
     @Override
     protected void registerRecipes(final Consumer<IFinishedRecipe> consumer) {
         WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
-            final IItemProvider slab = getIngredient(((IWooden) block).getWoodType().toString().toUpperCase() + "_SLAB", Blocks.class);
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider slab;
+            switch (woodType.getModId()) {
+                case Constants.MOD_ID:
+                    slab = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "SLAB"), Blocks.class);
+                    break;
+                case Constants.BOP_MOD_ID:
+                    slab = getIngredient(Util.toRegistryName(woodType.toString(), "slab"), BOPBlocks.class);
+                    break;
+                default:
+                    slab = null;
+                    break;
+            }
             assert slab != null;
 
             ShapedRecipeBuilder.shapedRecipe(block)
@@ -70,7 +83,18 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
         WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
-            final IItemProvider planks = getIngredient(woodType.toString().toUpperCase() + "_PLANKS", Blocks.class);
+            final IItemProvider planks;
+            switch (woodType.getModId()) {
+                case Constants.MOD_ID:
+                    planks = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "PLANKS"), Blocks.class);
+                    break;
+                case Constants.BOP_MOD_ID:
+                    planks = getIngredient(Util.toRegistryName(woodType.toString(), "planks"), BOPBlocks.class);
+                    break;
+                default:
+                    planks = null;
+                    break;
+            }
             assert planks != null;
 
             ShapedRecipeBuilder.shapedRecipe(block, 6)
@@ -131,7 +155,18 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
-            final IItemProvider fence = getIngredient(woodType.toString().toUpperCase() + "_FENCE", Blocks.class);
+            final IItemProvider fence;
+            switch (woodType.getModId()) {
+                case Constants.MOD_ID:
+                    fence = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "FENCE"), Blocks.class);
+                    break;
+                case Constants.BOP_MOD_ID:
+                    fence = getIngredient(Util.toRegistryName(woodType.toString(), "fence"), BOPBlocks.class);
+                    break;
+                default:
+                    fence = null;
+                    break;
+            }
             assert fence != null;
 
             ShapedRecipeBuilder.shapedRecipe(block)
@@ -146,7 +181,18 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
         });
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
-            final IItemProvider log = getIngredient(woodType.toString().toUpperCase() + "_LOG", Blocks.class);
+            final IItemProvider log;
+            switch (woodType.getModId()) {
+                case Constants.MOD_ID:
+                    log = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "LOG"), Blocks.class);
+                    break;
+                case Constants.BOP_MOD_ID:
+                    log = getIngredient(Util.toRegistryName(woodType.toString(), "log"), BOPBlocks.class);
+                    break;
+                default:
+                    log = null;
+                    break;
+            }
             assert log != null;
 
             ShapedRecipeBuilder.shapedRecipe(block, 6)
@@ -212,7 +258,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
         });
         WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
-            final IItemProvider slab = WoodenBlocks.getBlock(WoodenObjectType.LECTERN, woodType);
+            final IItemProvider slab = WoodenBlocks.getBlock(WoodenObjectType.SLAB, woodType);
             final IItemProvider bookshelf = WoodenBlocks.getBlock(WoodenObjectType.BOOKSHELF, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(block)

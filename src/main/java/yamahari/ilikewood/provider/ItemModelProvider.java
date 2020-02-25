@@ -41,10 +41,10 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
         WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> this.blockItem(block, WoodenObjectType.BARREL.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.blockItem(block, WoodenObjectType.BOOKSHELF.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
-            final String type = ((IWooden) block).getWoodType().toString();
+            final WoodType woodType = ((IWooden) block).getWoodType();
             this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath("builtin", "entity"))))
-                    .texture("particle", mcLoc(Util.toPath(BLOCK_FOLDER, type + "_planks")))
+                    .texture("particle", BlockStateProvider.getPlanks(woodType))
                     .transforms()
                     .transform(ModelBuilder.Perspective.GUI)
                     .rotation(30, 45, 0)

@@ -92,31 +92,29 @@ public final class WoodenItems {
 
     private static Map<WoodType, RegistryObject<Item>> registerBlockItems(final WoodenObjectType objectType, final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> function) {
         final Map<WoodType, RegistryObject<Item>> items = new EnumMap<>(WoodType.class);
-        for (final WoodType woodType : WoodType.values()) {
+        WoodType.getLoadedValues().forEach(woodType -> {
             final RegistryObject<Block> block = WoodenBlocks.getRegistryObject(objectType, woodType);
             items.put(woodType, REGISTRY.register(block.getId().getPath(), () -> function.apply(objectType, block)));
-        }
+        });
         return Collections.unmodifiableMap(items);
     }
 
     private static Map<WoodType, RegistryObject<Item>> registerSimpleItems(final Function<WoodType, RegistryObject<Item>> function) {
         final Map<WoodType, RegistryObject<Item>> items = new EnumMap<>(WoodType.class);
-        for (final WoodType woodType : WoodType.values()) {
-            items.put(woodType, function.apply(woodType));
-        }
+        WoodType.getLoadedValues().forEach(woodType -> items.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(items);
     }
 
     private static Map<WoodType, Map<WoodenItemTier, RegistryObject<Item>>> registerTieredItems(final BiFunction<WoodType, WoodenItemTier, RegistryObject<Item>> function) {
         final Map<WoodType, Map<WoodenItemTier, RegistryObject<Item>>> tieredItems = new EnumMap<>(WoodType.class);
-        for (final WoodType woodType : WoodType.values()) {
+        WoodType.getLoadedValues().forEach(woodType -> {
             final Map<WoodenItemTier, RegistryObject<Item>> items = new EnumMap<>(WoodenItemTier.class);
             for (final WoodenItemTier itemTier : WoodenItemTier.values()) {
                 if (itemTier.isWood() && !itemTier.toString().equals(woodType.toString())) continue;
                 items.put(itemTier, function.apply(woodType, itemTier));
             }
             tieredItems.put(woodType, Collections.unmodifiableMap(items));
-        }
+        });
         return Collections.unmodifiableMap(tieredItems);
     }
 
