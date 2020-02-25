@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ilikewood:block/panels/slab/top/jacaranda"
+    },
+    "type=bottom": {
+      "model": "ilikewood:block/panels/slab/jacaranda"
+    },
+    "type=double": {
+      "model": "ilikewood:block/panels/jacaranda"
+    }
+  }
+}

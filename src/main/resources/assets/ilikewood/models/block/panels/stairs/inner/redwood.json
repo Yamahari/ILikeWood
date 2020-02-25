@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/stairs/inner/template",
+  "textures": {
+    "planks": "biomesoplenty:block/redwood_planks"
+  }
+}

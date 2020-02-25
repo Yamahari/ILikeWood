@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "ilikewood:block/bookshelf/mahogany",
+    "end": "biomesoplenty:block/mahogany_planks"
+  }
+}

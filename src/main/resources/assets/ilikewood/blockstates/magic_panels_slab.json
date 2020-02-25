@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ilikewood:block/panels/slab/top/magic"
+    },
+    "type=bottom": {
+      "model": "ilikewood:block/panels/slab/magic"
+    },
+    "type=double": {
+      "model": "ilikewood:block/panels/magic"
+    }
+  }
+}

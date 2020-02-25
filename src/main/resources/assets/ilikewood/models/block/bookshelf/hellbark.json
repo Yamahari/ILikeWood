@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "ilikewood:block/bookshelf/hellbark",
+    "end": "biomesoplenty:block/hellbark_planks"
+  }
+}

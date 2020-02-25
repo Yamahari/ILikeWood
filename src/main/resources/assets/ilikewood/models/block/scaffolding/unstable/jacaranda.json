@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/scaffolding/unstable/template",
+  "textures": {
+    "top": "ilikewood:block/scaffolding/top/jacaranda",
+    "side": "ilikewood:block/scaffolding/side/jacaranda",
+    "bottom": "ilikewood:block/scaffolding/bottom/jacaranda"
+  }
+}

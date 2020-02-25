@@ -1,0 +1,209 @@
+{
+  "variants": {
+    "facing=north,half=top,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=bottom,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=straight": {
+      "model": "ilikewood:block/panels/stairs/hellbark"
+    },
+    "facing=north,half=top,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark"
+    },
+    "facing=west,half=bottom,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=inner_left": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=north,half=top,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=bottom,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=inner_right": {
+      "model": "ilikewood:block/panels/stairs/inner/hellbark"
+    },
+    "facing=north,half=top,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark"
+    },
+    "facing=west,half=bottom,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=outer_left": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=north,half=top,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=bottom,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=outer_right": {
+      "model": "ilikewood:block/panels/stairs/outer/hellbark"
+    }
+  }
+}

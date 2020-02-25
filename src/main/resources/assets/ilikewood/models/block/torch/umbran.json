@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/torch/template",
+  "textures": {
+    "torch": "ilikewood:block/torch/umbran"
+  }
+}

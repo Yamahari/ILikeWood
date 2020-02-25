@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ilikewood:block/panels/slab/top/dead"
+    },
+    "type=bottom": {
+      "model": "ilikewood:block/panels/slab/dead"
+    },
+    "type=double": {
+      "model": "ilikewood:block/panels/dead"
+    }
+  }
+}

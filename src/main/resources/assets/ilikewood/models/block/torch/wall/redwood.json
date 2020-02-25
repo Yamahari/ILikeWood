@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/torch/wall/template",
+  "textures": {
+    "torch": "ilikewood:block/torch/redwood"
+  }
+}

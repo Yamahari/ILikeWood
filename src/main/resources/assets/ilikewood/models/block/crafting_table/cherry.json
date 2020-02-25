@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/crafting_table/template",
+  "textures": {
+    "planks": "biomesoplenty:block/cherry_planks"
+  }
+}

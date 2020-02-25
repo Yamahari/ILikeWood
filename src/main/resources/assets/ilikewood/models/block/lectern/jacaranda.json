@@ -1,0 +1,10 @@
+{
+  "parent": "ilikewood:block/lectern/template",
+  "textures": {
+    "top": "ilikewood:block/lectern/top/jacaranda",
+    "sides": "ilikewood:block/lectern/sides/jacaranda",
+    "bottom": "biomesoplenty:block/jacaranda_planks",
+    "base": "ilikewood:block/lectern/base/jacaranda",
+    "front": "ilikewood:block/lectern/front/jacaranda"
+  }
+}

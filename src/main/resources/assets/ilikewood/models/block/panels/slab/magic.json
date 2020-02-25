@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/slab/template",
+  "textures": {
+    "planks": "biomesoplenty:block/magic_planks"
+  }
+}

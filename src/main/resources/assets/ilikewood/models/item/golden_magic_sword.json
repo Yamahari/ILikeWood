@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "ilikewood:item/stick/sword/magic",
+    "layer1": "ilikewood:item/sword/golden"
+  }
+}

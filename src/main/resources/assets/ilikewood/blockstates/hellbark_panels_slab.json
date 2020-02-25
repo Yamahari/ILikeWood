@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ilikewood:block/panels/slab/top/hellbark"
+    },
+    "type=bottom": {
+      "model": "ilikewood:block/panels/slab/hellbark"
+    },
+    "type=double": {
+      "model": "ilikewood:block/panels/hellbark"
+    }
+  }
+}

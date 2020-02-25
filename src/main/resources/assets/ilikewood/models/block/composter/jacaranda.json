@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/composter/template",
+  "textures": {
+    "top": "ilikewood:block/composter/top/jacaranda",
+    "side": "ilikewood:block/composter/side/jacaranda",
+    "bottom": "ilikewood:block/composter/bottom/jacaranda"
+  }
+}
