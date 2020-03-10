@@ -3,10 +3,7 @@ package yamahari.ilikewood.config;
 import com.google.common.collect.ImmutableMap;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.StringUtils;
-import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.WoodenItemTier;
-import yamahari.ilikewood.util.WoodenObjectType;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.*;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -118,10 +115,10 @@ public final class ServerConfig {
         final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> burnTime = new ImmutableMap.Builder<>();
         final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> tieredBurnTime = new ImmutableMap.Builder<>();
 
-        for (final String woodType : Arrays.asList(Constants.ACACIA, Constants.BIRCH, Constants.DARK_OAK, Constants.JUNGLE, Constants.OAK, Constants.SPRUCE)) {
+        WoodType.getLoadedValues().forEach(woodType -> {
             buildBurnTimes(woodType, builder, burnTime);
             buildTieredBurnTimes(woodType, builder, tieredBurnTime);
-        }
+        });
 
         BURN_TIME = burnTime.build();
         TIERED_BURN_TIME = tieredBurnTime.build();
@@ -232,13 +229,15 @@ public final class ServerConfig {
     }
 
     private static <T extends ForgeConfigSpec.ConfigValue> ImmutableMap<String, T> buildConfigValues(final Function<String, T> functor) {
-        return Stream.of(Constants.ACACIA, Constants.BIRCH, Constants.DARK_OAK, Constants.JUNGLE, Constants.OAK, Constants.SPRUCE).collect(ImmutableMap.toImmutableMap(Function.identity(), functor));
+        return WoodType.getLoadedValues().map(WoodType::toString).collect(ImmutableMap.toImmutableMap(Function.identity(), functor));
     }
 
-    private static void buildBurnTimes(final String woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> burnTimes) {
+    private static void buildBurnTimes(final WoodType woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> burnTimes) {
         final ImmutableMap.Builder<String, ForgeConfigSpec.IntValue> burnTime = new ImmutableMap.Builder<>();
 
-        spec.push(StringUtils.lowerCase(woodType));
+        final String name = woodType.toString();
+
+        spec.push(StringUtils.lowerCase(name));
 
         Stream.of(WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN, WoodenObjectType.PANELS,
                 WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER,
@@ -257,20 +256,22 @@ public final class ServerConfig {
 
         spec.pop(); // woodType
 
-        burnTimes.put(woodType, burnTime.build());
+        burnTimes.put(name, burnTime.build());
     }
 
-    private static void buildTieredBurnTimes(final String woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> tieredBurnTimes) {
+    private static void buildTieredBurnTimes(final WoodType woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> tieredBurnTimes) {
         final ImmutableMap.Builder<String, ForgeConfigSpec.IntValue> tieredBurnTime = new ImmutableMap.Builder<>();
 
-        spec.push(StringUtils.lowerCase(woodType));
+        final String name = woodType.toString();
+
+        spec.push(StringUtils.lowerCase(name));
 
         Arrays.stream(WoodenTieredObjectType.values()).map(WoodenTieredObjectType::toString)
                 .forEach(path -> tieredBurnTime.put(path, spec.defineInRange(path, 200, -1, Integer.MAX_VALUE)));
 
         spec.pop(); // woodType
 
-        tieredBurnTimes.put(woodType, tieredBurnTime.build());
+        tieredBurnTimes.put(name, tieredBurnTime.build());
     }
 
     private static void buildTieredConfigValues(final WoodenItemTier itemTier, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.DoubleValue>> builder, final Map<String, Map<String, Double>> defaultConfigs) {
