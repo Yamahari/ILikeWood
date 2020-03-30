@@ -3,7 +3,7 @@ loaderVersion="[30,)" #mandatory (28 is current forge version)
 issueTrackerURL="https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
 [[mods]] #mandatory
 modId="ilikewood" #mandatory
-version="1.15.2-2.2.0.1" #mandatory
+version="1.15.2-2.2.1.0" #mandatory
 displayName="I Like Wood" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 displayURL="https://www.curseforge.com/minecraft/mc-mods/i-like-wood" #optional
