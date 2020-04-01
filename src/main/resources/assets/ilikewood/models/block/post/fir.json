@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/post/template",
+  "textures": {
+    "wall": "biomesoplenty:block/fir_log"
+  }
+}

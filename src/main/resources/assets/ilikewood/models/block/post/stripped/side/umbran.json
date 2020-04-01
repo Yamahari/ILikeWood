@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/post/side/template",
+  "textures": {
+    "texture": "ilikewood:block/post/stripped/umbran"
+  }
+}

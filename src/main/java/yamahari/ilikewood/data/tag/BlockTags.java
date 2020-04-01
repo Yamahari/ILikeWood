@@ -20,6 +20,8 @@ public final class BlockTags {
     public static final Tag<Block> CRAFTING_TABLES = makeWrapperTag("crafting_tables");
     public static final Tag<Block> SCAFFOLDINGS = makeWrapperTag("scaffoldings");
     public static final Tag<Block> LECTERNS = makeWrapperTag("lecterns");
+    public static final Tag<Block> POSTS = makeWrapperTag("posts");
+    public static final Tag<Block> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
 
     private BlockTags() {
     }

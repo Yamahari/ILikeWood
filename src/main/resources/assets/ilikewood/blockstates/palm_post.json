@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "axis": "y"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/palm"
+      }
+    },
+    {
+      "when": {
+        "axis": "x"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/palm",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "axis": "z"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/palm",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/side/palm",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/side/palm",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/side/palm"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/side/palm",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/side/palm",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/side/palm",
+        "y": 90
+      }
+    }
+  ]
+}

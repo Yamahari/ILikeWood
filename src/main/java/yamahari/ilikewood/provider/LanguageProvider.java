@@ -24,7 +24,7 @@ public final class LanguageProvider extends net.minecraftforge.common.data.Langu
 
     @Override
     protected void addTranslations() {
-        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.SLAB, WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.SCAFFOLDING)
+        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.SLAB, WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.SCAFFOLDING, WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST)
                 .forEach(block -> this.add(block, getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
         WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN).forEach(block -> {

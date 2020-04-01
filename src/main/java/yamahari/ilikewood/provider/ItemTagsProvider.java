@@ -37,6 +37,8 @@ public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider 
         registerTag(WoodenObjectType.CRAFTING_TABLE, this.getBuilder(ItemTags.CRAFTING_TABLES));
         registerTag(WoodenObjectType.SCAFFOLDING, this.getBuilder(ItemTags.SCAFFOLDINGS));
         registerTag(WoodenObjectType.LECTERN, this.getBuilder(ItemTags.LECTERNS));
+        registerTag(WoodenObjectType.POST, this.getBuilder(ItemTags.POSTS));
+        registerTag(WoodenObjectType.STRIPPED_POST, this.getBuilder(ItemTags.STRIPPED_POSTS));
 
         registerTieredTag(WoodenTieredObjectType.AXE, this.getBuilder(ItemTags.AXES));
         registerTieredTag(WoodenTieredObjectType.HOE, this.getBuilder(ItemTags.HOES));

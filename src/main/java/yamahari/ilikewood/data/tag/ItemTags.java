@@ -20,6 +20,8 @@ public final class ItemTags {
     public static final Tag<Item> CRAFTING_TABLES = makeWrapperTag("crafting_tables");
     public static final Tag<Item> SCAFFOLDINGS = makeWrapperTag("scaffoldings");
     public static final Tag<Item> LECTERNS = makeWrapperTag("lecterns");
+    public static final Tag<Item> POSTS = makeWrapperTag("posts");
+    public static final Tag<Item> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
 
     public static final Tag<Item> AXES = makeWrapperTag("axes");
     public static final Tag<Item> HOES = makeWrapperTag("hoes");

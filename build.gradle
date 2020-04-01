@@ -52,7 +52,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             property 'ilikewood.datagen.modid', 'ilikewood'
-            args '--mod', 'ilikewood', '--all', '--output', file('src/generated/resources/'), '--existing', file("src/main/resources")
+            args '--mod', 'ilikewood', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
                 ilikewood {
                     source sourceSets.main

@@ -44,7 +44,7 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
             final WoodType woodType = ((IWooden) block).getWoodType();
             this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath("builtin", "entity"))))
-                    .texture("particle", BlockStateProvider.getPlanks(woodType))
+                    .texture("particle", Util.getPlanks(woodType))
                     .transforms()
                     .transform(ModelBuilder.Perspective.GUI)
                     .rotation(30, 45, 0)
@@ -87,6 +87,9 @@ public final class ItemModelProvider extends net.minecraftforge.client.model.gen
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().toString()))));
         WoodenItems.getTieredItems(WoodenTieredObjectType.values()).forEach(item -> this.tieredItem(item, ((IWoodenTieredItem) item).getWoodenTieredObjectType().toString()));
+
+        WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "inventory")));
+        WoodenBlocks.getBlocks(WoodenObjectType.STRIPPED_POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "stripped", "inventory")));
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/post/template",
+  "textures": {
+    "wall": "block/stripped_spruce_log"
+  }
+}

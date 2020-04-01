@@ -9,6 +9,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.block.*;
+import yamahari.ilikewood.block.post.WoodenPostBlock;
+import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
 import yamahari.ilikewood.block.torch.WoodenTorchBlock;
 import yamahari.ilikewood.block.torch.WoodenWallTorchBlock;
 import yamahari.ilikewood.util.Constants;
@@ -41,6 +43,8 @@ public final class WoodenBlocks {
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerSimpleBlocks(WoodenBlocks::registerCraftingTableBlock));
         registryObjects.put(WoodenObjectType.SCAFFOLDING, registerSimpleBlocks(WoodenBlocks::registerScaffoldingBlock));
         registryObjects.put(WoodenObjectType.LECTERN, registerSimpleBlocks(WoodenBlocks::registerLecternBlock));
+        registryObjects.put(WoodenObjectType.POST, registerSimpleBlocks(WoodenBlocks::registerPostBlock));
+        registryObjects.put(WoodenObjectType.STRIPPED_POST, registerSimpleBlocks(WoodenBlocks::registerStrippedPostBlock));
 
         final Map<WoodType, Block.Properties> woodProperties = new EnumMap<>(WoodType.class);
         woodProperties.put(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS));
@@ -167,5 +171,13 @@ public final class WoodenBlocks {
 
     private static RegistryObject<Block> registerLecternBlock(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString()), () -> new WoodenLecternBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerPostBlock(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.POST.toString()), () -> new WoodenPostBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerStrippedPostBlock(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName("stripped", woodType.toString(), WoodenObjectType.POST.toString()), () -> new WoodenStrippedPostBlock(woodType));
     }
 }

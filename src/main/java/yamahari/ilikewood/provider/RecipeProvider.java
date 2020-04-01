@@ -38,6 +38,39 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
         return null;
     }
 
+    private static IItemProvider getIngredient(final WoodType woodType, final String name) {
+        final IItemProvider ingredient;
+        switch (woodType.getModId()) {
+            case Constants.MOD_ID:
+                ingredient = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), name.toUpperCase()), Blocks.class);
+                break;
+            case Constants.BOP_MOD_ID:
+                ingredient = getIngredient(Util.toRegistryName(woodType.toString(), name), BOPBlocks.class);
+                break;
+            default:
+                ingredient = null;
+                break;
+        }
+        assert ingredient != null;
+        return ingredient;
+    }
+
+    private static IItemProvider getLog(final WoodType woodType) {
+        return getIngredient(woodType, "log");
+    }
+
+    private static IItemProvider getSlab(final WoodType woodType) {
+        return getIngredient(woodType, "slab");
+    }
+
+    private static IItemProvider getPlanks(final WoodType woodType) {
+        return getIngredient(woodType, "planks");
+    }
+
+    private static IItemProvider getFence(final WoodType woodType) {
+        return getIngredient(woodType, "fence");
+    }
+
     private InventoryChangeTrigger.Instance hasItem(Ingredient ingredientIn) {
         return InventoryChangeTrigger.Instance.forItems(Arrays.stream(ingredientIn.getMatchingStacks()).map(ItemStack::getItem).toArray(Item[]::new));
     }
@@ -45,20 +78,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
     @Override
     protected void registerRecipes(final Consumer<IFinishedRecipe> consumer) {
         WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
-            final IItemProvider slab;
-            switch (woodType.getModId()) {
-                case Constants.MOD_ID:
-                    slab = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "SLAB"), Blocks.class);
-                    break;
-                case Constants.BOP_MOD_ID:
-                    slab = getIngredient(Util.toRegistryName(woodType.toString(), "slab"), BOPBlocks.class);
-                    break;
-                default:
-                    slab = null;
-                    break;
-            }
-            assert slab != null;
+            final IItemProvider slab = getSlab(((IWooden) block).getWoodType());
 
             ShapedRecipeBuilder.shapedRecipe(block)
                     .key('#', slab)
@@ -68,6 +88,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.PANELS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> {
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, ((IWooden) block).getWoodType());
 
@@ -80,22 +101,11 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.PANELS_STAIRS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
-            final IItemProvider planks;
-            switch (woodType.getModId()) {
-                case Constants.MOD_ID:
-                    planks = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "PLANKS"), Blocks.class);
-                    break;
-                case Constants.BOP_MOD_ID:
-                    planks = getIngredient(Util.toRegistryName(woodType.toString(), "planks"), BOPBlocks.class);
-                    break;
-                default:
-                    planks = null;
-                    break;
-            }
-            assert planks != null;
+            final IItemProvider planks = getPlanks(woodType);
 
             ShapedRecipeBuilder.shapedRecipe(block, 6)
                     .key('#', panels)
@@ -112,6 +122,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup("ilikewood:planks")
                     .build(consumer, Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" + block.getRegistryName().getPath());
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
@@ -127,6 +138,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.BARRELS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> {
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, ((IWooden) block).getWoodType());
 
@@ -140,6 +152,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.BOOKSHELFS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, ((IWooden) block).getWoodType());
 
@@ -152,22 +165,11 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.CHESTS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
-            final IItemProvider fence;
-            switch (woodType.getModId()) {
-                case Constants.MOD_ID:
-                    fence = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "FENCE"), Blocks.class);
-                    break;
-                case Constants.BOP_MOD_ID:
-                    fence = getIngredient(Util.toRegistryName(woodType.toString(), "fence"), BOPBlocks.class);
-                    break;
-                default:
-                    fence = null;
-                    break;
-            }
-            assert fence != null;
+            final IItemProvider fence = getFence(woodType);
 
             ShapedRecipeBuilder.shapedRecipe(block)
                     .key('#', panels)
@@ -179,21 +181,9 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.COMPOSTER.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
-            final IItemProvider log;
-            switch (woodType.getModId()) {
-                case Constants.MOD_ID:
-                    log = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), "LOG"), Blocks.class);
-                    break;
-                case Constants.BOP_MOD_ID:
-                    log = getIngredient(Util.toRegistryName(woodType.toString(), "log"), BOPBlocks.class);
-                    break;
-                default:
-                    log = null;
-                    break;
-            }
-            assert log != null;
+            final IItemProvider log = getLog(((IWooden) block).getWoodType());
 
             ShapedRecipeBuilder.shapedRecipe(block, 6)
                     .key('#', log)
@@ -203,6 +193,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.WALLS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
@@ -216,6 +207,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.LADDERS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
@@ -230,6 +222,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.TORCHES.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
@@ -242,6 +235,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.CRAFTING_TABLES.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
@@ -256,6 +250,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .setGroup(BlockTags.SCAFFOLDINGS.getId().toString())
                     .build(consumer);
         });
+
         WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider slab = WoodenBlocks.getBlock(WoodenObjectType.SLAB, woodType);
@@ -269,6 +264,19 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine(" S ")
                     .addCriterion("has_book", this.hasItem(Items.BOOK))
                     .setGroup(BlockTags.LECTERNS.getId().toString())
+                    .build(consumer);
+        });
+
+        WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> {
+            final IItemProvider log = getLog(((IWooden) block).getWoodType());
+
+            ShapedRecipeBuilder.shapedRecipe(block, 6)
+                    .key('#', log)
+                    .patternLine("#")
+                    .patternLine("#")
+                    .patternLine("#")
+                    .addCriterion("has_log", this.hasItem(log))
+                    .setGroup(BlockTags.POSTS.getId().toString())
                     .build(consumer);
         });
 

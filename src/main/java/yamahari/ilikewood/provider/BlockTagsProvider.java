@@ -25,6 +25,8 @@ public final class BlockTagsProvider extends net.minecraft.data.BlockTagsProvide
         registerTag(WoodenObjectType.SLAB, this.getBuilder(BlockTags.PANELS_SLABS));
         registerTag(WoodenObjectType.STAIRS, this.getBuilder(BlockTags.PANELS_STAIRS));
         registerTag(WoodenObjectType.PANELS, this.getBuilder(BlockTags.PANELS));
+        registerTag(WoodenObjectType.POST, this.getBuilder(BlockTags.POSTS));
+        registerTag(WoodenObjectType.STRIPPED_POST, this.getBuilder(BlockTags.STRIPPED_POSTS));
         registerTag(WoodenObjectType.WALL, this.getBuilder(BlockTags.WALLS));
         registerTag(WoodenObjectType.WALL, this.getBuilder(net.minecraft.tags.BlockTags.WALLS));
         registerTag(WoodenObjectType.LADDER, this.getBuilder(BlockTags.LADDERS));

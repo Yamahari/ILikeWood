@@ -22,11 +22,23 @@ public final class ClientProxy implements IProxy {
     @SuppressWarnings("unchecked")
     @Override
     public void onFMLClientSetup(final FMLClientSetupEvent event) {
-        WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.CHEST).forEach(type -> ClientRegistry.bindTileEntityRenderer(type, WoodenChestTileEntityRenderer::new));
-        WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.LECTERN).forEach(type -> ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) type, LecternTileEntityRenderer::new));
-        WoodenBlocks.getBlocks(WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.WALL_TORCH, WoodenObjectType.SCAFFOLDING).forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
-        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutoutMipped()));
-        WoodenContainerTypes.getContainerTypes(WoodenObjectType.CRAFTING_TABLE).forEach(type -> ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) type, CraftingScreen::new));
+        WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.CHEST)
+                .forEach(type -> ClientRegistry.bindTileEntityRenderer(type, WoodenChestTileEntityRenderer::new));
+
+        WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.LECTERN)
+                .forEach(type -> ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) type, LecternTileEntityRenderer::new));
+
+        WoodenBlocks.getBlocks(WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST)
+                .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getSolid()));
+
+        WoodenBlocks.getBlocks(WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.WALL_TORCH, WoodenObjectType.SCAFFOLDING)
+                .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
+
+        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE)
+                .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutoutMipped()));
+
+        WoodenContainerTypes.getContainerTypes(WoodenObjectType.CRAFTING_TABLE)
+                .forEach(type -> ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) type, CraftingScreen::new));
     }
 
     @Override

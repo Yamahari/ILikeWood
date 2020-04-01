@@ -53,6 +53,8 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlockItems(WoodenObjectType.CRAFTING_TABLE, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.SCAFFOLDING, registerBlockItems(WoodenObjectType.SCAFFOLDING, (objectType, block) -> new WoodenScaffoldingItem(objectType, block.get(), (new Item.Properties()).group(ItemGroup.DECORATIONS))));
         registryObjects.put(WoodenObjectType.LECTERN, registerBlockItems(WoodenObjectType.LECTERN, simpleRedstoneBlockItem));
+        registryObjects.put(WoodenObjectType.POST, registerBlockItems(WoodenObjectType.POST, simpleDecorationBlockItem));
+        registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlockItems(WoodenObjectType.STRIPPED_POST, simpleDecorationBlockItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
 
