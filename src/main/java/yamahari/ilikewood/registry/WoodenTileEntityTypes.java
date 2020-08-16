@@ -19,7 +19,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class WoodenTileEntityTypes {
-    public static final DeferredRegister<TileEntityType<?>> REGISTRY = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, Constants.MOD_ID);
+    public static final DeferredRegister<TileEntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Constants.MOD_ID);
     private static final Map<WoodenObjectType, Map<WoodType, RegistryObject<TileEntityType<?>>>> REGISTRY_OBJECTS;
 
     static {

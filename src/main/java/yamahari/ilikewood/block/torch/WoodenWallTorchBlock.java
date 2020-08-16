@@ -16,7 +16,7 @@ public final class WoodenWallTorchBlock extends WallTorchBlock implements IWoode
     private final WoodType woodType;
 
     public WoodenWallTorchBlock(final WoodType woodType, final Block.Properties properties) {
-        super(properties);
+        super(properties, ParticleTypes.FLAME);
         this.woodType = woodType;
     }
 

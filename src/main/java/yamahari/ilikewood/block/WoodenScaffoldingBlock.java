@@ -33,7 +33,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     public static int getDistance(final IBlockReader reader, final BlockPos pos) {
-        final BlockPos.Mutable mutable = (new BlockPos.Mutable(pos)).move(Direction.DOWN);
+        final BlockPos.Mutable mutable = (new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ())).move(Direction.DOWN);
         final BlockState state = reader.getBlockState(mutable);
         int distance = 7;
         if (state.getBlock() instanceof ScaffoldingBlock) {
@@ -60,7 +60,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         if (context instanceof EntitySelectionContext) {
             flag = ((EntitySelectionContext) context).item instanceof WoodenScaffoldingItem;
         } else {
-            flag = ItemTags.SCAFFOLDINGS.getAllElements().stream().anyMatch(context::hasItem);
+            flag = ItemTags.SCAFFOLDINGS.func_230236_b_().stream().anyMatch(context::hasItem);
         }
         if (flag) {
             return VoxelShapes.fullCube();
