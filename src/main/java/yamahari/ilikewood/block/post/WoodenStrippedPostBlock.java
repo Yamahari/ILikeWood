@@ -2,8 +2,8 @@ package yamahari.ilikewood.block.post;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -130,7 +130,7 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
 
     @SuppressWarnings({"NullableProblems", "deprecation"})
     @Override
-    public IFluidState getFluidState(final BlockState blockState) {
+    public FluidState getFluidState(final BlockState blockState) {
         return blockState.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(blockState);
     }
 
@@ -163,7 +163,7 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
         final Block south = blockReader.getBlockState(blockPos.south()).getBlock();
         final Block west = blockReader.getBlockState(blockPos.west()).getBlock();
 
-        final IFluidState fluidState = blockItemUseContext.getWorld().getFluidState(blockItemUseContext.getPos());
+        final FluidState fluidState = blockItemUseContext.getWorld().getFluidState(blockItemUseContext.getPos());
 
         final Direction.Axis axis = blockItemUseContext.getFace().getAxis();
         return this.getDefaultState().with(AXIS, blockItemUseContext.getFace().getAxis())

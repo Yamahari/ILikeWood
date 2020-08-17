@@ -20,7 +20,7 @@ public final class WoodenTorchBlock extends TorchBlock implements IWooden {
     private final WoodType woodType;
 
     public WoodenTorchBlock(final WoodType woodType) {
-        super(Block.Properties.from(Blocks.TORCH));
+        super(Block.Properties.from(Blocks.TORCH), ParticleTypes.FLAME);
         this.woodType = woodType;
     }
 

@@ -106,15 +106,17 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.WALL.toString());
             final ResourceLocation postTexture = Util.getLog(woodType);
             final ResourceLocation sideTexture = Util.getStrippedLog(woodType);
+            final ResourceLocation sideTallTexture = Util.getStrippedLog(woodType);
 
             final ModelFile post = this.models().wallPost(Util.toPath(path, "post", name), postTexture);
             final ModelFile side = this.models().wallSide(Util.toPath(path, "side", name), sideTexture);
+            final ModelFile sideTall = this.models().wallSide(Util.toPath(path, "side_tall", name), sideTexture);
             this.models()
                     .withExistingParent(Util.toPath(path, "inventory", name), modLoc(Util.toPath(path, "inventory", "template")))
                     .texture("post", postTexture)
                     .texture("side", sideTexture);
 
-            this.wallBlock((WallBlock) block, post, side);
+            this.wallBlock((WallBlock) block, post, side, sideTall); //Todo: TEST THIS
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
@@ -149,7 +151,7 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
             final String woodType = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.SCAFFOLDING.toString());
             this.getVariantBuilder(block).forAllStates(blockState -> {
-                final String stable = blockState.get(ScaffoldingBlock.field_220120_c) ? "unstable" : "stable";
+                final String stable = blockState.get(ScaffoldingBlock.BOTTOM) ? "unstable" : "stable";
                 final ModelFile template = this.models()
                         .withExistingParent(Util.toPath(path, stable, woodType), modLoc(Util.toPath(path, stable, "template")))
                         .texture("top", modLoc(Util.toPath(path, "top", woodType)))

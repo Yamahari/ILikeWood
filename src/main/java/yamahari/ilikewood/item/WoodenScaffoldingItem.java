@@ -8,6 +8,8 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.network.play.server.SChatPacket;
 import net.minecraft.util.Direction;
+import net.minecraft.util.UUIDCodec;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TextFormatting;
@@ -17,6 +19,7 @@ import yamahari.ilikewood.block.WoodenScaffoldingBlock;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public final class WoodenScaffoldingItem extends WoodenBlockItem {
     public WoodenScaffoldingItem(final WoodenObjectType objectType, final Block block, final Item.Properties properties) {
@@ -41,14 +44,14 @@ public final class WoodenScaffoldingItem extends WoodenBlockItem {
             }
 
             int distance = 0;
-            BlockPos.Mutable mutable = (new BlockPos.Mutable(pos)).move(direction);
+            BlockPos.Mutable mutable = (new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ())).move(direction);
 
             while (distance < 7) {
                 if (!world.isRemote && !World.isValid(mutable)) {
                     PlayerEntity player = context.getPlayer();
                     int height = world.getHeight();
                     if (player instanceof ServerPlayerEntity && mutable.getY() >= height) {
-                        SChatPacket packet = new SChatPacket((new TranslationTextComponent("build.tooHigh", height)).applyTextStyle(TextFormatting.RED), ChatType.GAME_INFO);
+                        SChatPacket packet = new SChatPacket((new TranslationTextComponent("build.tooHigh", height)).func_240701_a_(TextFormatting.RED), ChatType.GAME_INFO, Util.field_240973_b_);
                         ((ServerPlayerEntity) player).connection.sendPacket(packet);
                     }
                     break;

@@ -49,7 +49,7 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
         } else {
             final ItemStack held = player.getHeldItem(hand);
             if (!held.isEmpty()) {
-                return held.getItem().isIn(ItemTags.field_226160_P_) && tryPlaceBook(world, pos, state, held) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+                return held.getItem().isIn(ItemTags.LECTERN_BOOKS) && tryPlaceBook(world, pos, state, held) ? ActionResultType.SUCCESS : ActionResultType.PASS;
             }
             return ActionResultType.CONSUME;
         }

@@ -33,11 +33,11 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     public static int getDistance(final IBlockReader reader, final BlockPos pos) {
-        final BlockPos.Mutable mutable = (new BlockPos.Mutable(pos)).move(Direction.DOWN);
+        final BlockPos.Mutable mutable = (new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ())).move(Direction.DOWN);
         final BlockState state = reader.getBlockState(mutable);
         int distance = 7;
         if (state.getBlock() instanceof ScaffoldingBlock) {
-            distance = state.get(field_220118_a);
+            distance = state.get(DISTANCE);
         } else if (state.isSolidSide(reader, mutable, Direction.UP)) {
             return 0;
         }
@@ -45,7 +45,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         for (final Direction direction : Direction.Plane.HORIZONTAL) {
             final BlockState translatedState = reader.getBlockState(mutable.setPos(pos).move(direction));
             if (translatedState.getBlock() instanceof ScaffoldingBlock) {
-                distance = Math.min(distance, translatedState.get(field_220118_a) + 1);
+                distance = Math.min(distance, translatedState.get(DISTANCE) + 1);
                 if (distance == 1) {
                     break;
                 }
@@ -60,12 +60,12 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         if (context instanceof EntitySelectionContext) {
             flag = ((EntitySelectionContext) context).item instanceof WoodenScaffoldingItem;
         } else {
-            flag = ItemTags.SCAFFOLDINGS.getAllElements().stream().anyMatch(context::hasItem);
+            flag = ItemTags.SCAFFOLDINGS.func_230236_b_().stream().anyMatch(context::hasItem);
         }
         if (flag) {
             return VoxelShapes.fullCube();
         }
-        return state.get(field_220120_c) ? field_220122_e : field_220121_d;
+        return state.get(BOTTOM) ? BOTTOM_SHAPE : NORMAL_SHAPE;
     }
 
     @Override
@@ -76,9 +76,9 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     @Override
     public void tick(final BlockState state, final ServerWorld world, final BlockPos pos, final Random rand) {
         final int distance = getDistance(world, pos);
-        final BlockState blockState = state.with(field_220118_a, distance).with(field_220120_c, this.func_220116_a(world, pos, distance));
-        if (blockState.get(field_220118_a) == 7) {
-            if (state.get(field_220118_a) == 7) {
+        final BlockState blockState = state.with(DISTANCE, distance).with(BOTTOM, this.func_220116_a(world, pos, distance));
+        if (blockState.get(DISTANCE) == 7) {
+            if (state.get(DISTANCE) == 7) {
                 world.addEntity(new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, blockState.with(WATERLOGGED, Boolean.FALSE)));
             } else {
                 world.destroyBlock(pos, true);
@@ -100,8 +100,8 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         final int distance = getDistance(world, blockpos);
         return this.getDefaultState()
                 .with(WATERLOGGED, world.getFluidState(blockpos).getFluid() == Fluids.WATER)
-                .with(field_220118_a, distance)
-                .with(field_220120_c, this.func_220116_a(world, blockpos, distance));
+                .with(DISTANCE, distance)
+                .with(BOTTOM, this.func_220116_a(world, blockpos, distance));
     }
 
     @Override
