@@ -27,7 +27,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class WoodenItems {
-    public static final DeferredRegister<Item> REGISTRY = new DeferredRegister<>(ForgeRegistries.ITEMS, Constants.MOD_ID);
+    public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
     private static final Map<WoodenObjectType, Map<WoodType, RegistryObject<Item>>> REGISTRY_OBJECTS;
     private static final Map<WoodenTieredObjectType, Map<WoodType, Map<WoodenItemTier, RegistryObject<Item>>>> TIERED_REGISTRY_OBJECTS;
 

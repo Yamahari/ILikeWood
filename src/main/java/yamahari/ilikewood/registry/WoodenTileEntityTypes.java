@@ -1,6 +1,7 @@
 package yamahari.ilikewood.registry;
 
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.datafix.TypeReferences;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -54,26 +55,29 @@ public final class WoodenTileEntityTypes {
     }
 
     private static RegistryObject<TileEntityType<?>> registerBarrelTileEntityType(final WoodType woodType) {
-        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.BARREL.toString()),
+        String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.BARREL.toString());
+        return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenBarrelTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.BARREL).get(woodType).get()),
                                 WoodenBlocks.getBlock(WoodenObjectType.BARREL, woodType))
-                        .build(null));
+                        .build(net.minecraft.util.Util.func_240976_a_(TypeReferences.BLOCK_ENTITY, name)));
     }
 
     private static RegistryObject<TileEntityType<?>> registerChestTileEntityType(final WoodType woodType) {
-        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.CHEST.toString()),
+        String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.CHEST.toString());
+        return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenChestTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.CHEST).get(woodType).get()),
                                 WoodenBlocks.getBlock(WoodenObjectType.CHEST, woodType))
-                        .build(null));
+                        .build(net.minecraft.util.Util.func_240976_a_(TypeReferences.BLOCK_ENTITY, name)));
     }
 
     private static RegistryObject<TileEntityType<?>> registerLecternTileEntityType(final WoodType woodType) {
-        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString()),
+        String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString());
+        return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenLecternTileEntity(woodType),
                                 WoodenBlocks.getBlock(WoodenObjectType.LECTERN, woodType))
-                        .build(null));
+                        .build(net.minecraft.util.Util.func_240976_a_(TypeReferences.BLOCK_ENTITY, name)));
     }
 }

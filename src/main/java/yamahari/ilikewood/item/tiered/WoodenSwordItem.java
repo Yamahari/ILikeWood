@@ -2,8 +2,9 @@ package yamahari.ilikewood.item.tiered;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import yamahari.ilikewood.util.IWooden;
@@ -64,11 +65,11 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(final EquipmentSlotType equipmentSlot) {
-        final Multimap<String, AttributeModifier> attributeModifiers = HashMultimap.create();
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(final EquipmentSlotType equipmentSlot) {
+        final Multimap<Attribute, AttributeModifier> attributeModifiers = HashMultimap.create();
         if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-            attributeModifiers.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getAttackDamage(), AttributeModifier.Operation.ADDITION));
-            attributeModifiers.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getAttackSpeed(), AttributeModifier.Operation.ADDITION));
+            attributeModifiers.put(Attributes.field_233823_f_, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getAttackDamage(), AttributeModifier.Operation.ADDITION));
+            attributeModifiers.put(Attributes.field_233825_h_, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getAttackSpeed(), AttributeModifier.Operation.ADDITION));
         }
         return attributeModifiers;
     }

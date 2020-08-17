@@ -1,6 +1,6 @@
 package yamahari.ilikewood.client.tileentity.renderer;
 
-import net.minecraft.client.renderer.model.Material;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.state.properties.ChestType;
@@ -11,7 +11,7 @@ import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import java.util.Map;
 
 public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer {
-    private Map<ChestType, Material> materials;
+    private Map<ChestType, RenderMaterial> materials;
 
     public WoodenChestTileEntityRenderer(final TileEntityRendererDispatcher dispatcher) {
         super(dispatcher);
@@ -19,7 +19,7 @@ public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer
     }
 
     @Override
-    protected Material getMaterial(final TileEntity tileEntity, final ChestType chestType) {
+    protected RenderMaterial getMaterial(final TileEntity tileEntity, final ChestType chestType) {
         if (this.materials == null) {
             this.materials = Atlases.getChestMaterials(((WoodenChestTileEntity) tileEntity).getWoodType());
         }

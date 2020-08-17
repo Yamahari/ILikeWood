@@ -17,7 +17,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class WoodenContainerTypes {
-    public static final DeferredRegister<ContainerType<?>> REGISTRY = new DeferredRegister<>(ForgeRegistries.CONTAINERS, Constants.MOD_ID);
+    public static final DeferredRegister<ContainerType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.CONTAINERS, Constants.MOD_ID);
     private static final Map<WoodenObjectType, Map<WoodType, RegistryObject<ContainerType<?>>>> REGISTRY_OBJECTS;
 
     static {

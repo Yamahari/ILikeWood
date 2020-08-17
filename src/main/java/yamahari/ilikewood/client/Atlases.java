@@ -1,6 +1,6 @@
 package yamahari.ilikewood.client;
 
-import net.minecraft.client.renderer.model.Material;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,10 +17,10 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class Atlases {
-    private static final Map<WoodType, Map<ChestType, Material>> CHESTS;
+    private static final Map<WoodType, Map<ChestType, RenderMaterial>> CHESTS;
 
     static {
-        final Map<WoodType, Map<ChestType, Material>> chests = new EnumMap<>(WoodType.class);
+        final Map<WoodType, Map<ChestType, RenderMaterial>> chests = new EnumMap<>(WoodType.class);
         WoodType.getLoadedValues().forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
         CHESTS = Collections.unmodifiableMap(chests);
     }
@@ -28,16 +28,16 @@ public final class Atlases {
     private Atlases() {
     }
 
-    private static Map<ChestType, Material> makeChestMaterials(final WoodType woodType) {
-        final EnumMap<ChestType, Material> materials = new EnumMap<>(ChestType.class);
+    private static Map<ChestType, RenderMaterial> makeChestMaterials(final WoodType woodType) {
+        final EnumMap<ChestType, RenderMaterial> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
-            materials.put(chestType, new Material(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
+            materials.put(chestType, new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
                     new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getName(), woodType.toString()))));
         }
         return materials;
     }
 
-    public static Map<ChestType, Material> getChestMaterials(final WoodType woodType) {
+    public static Map<ChestType, RenderMaterial> getChestMaterials(final WoodType woodType) {
         return CHESTS.get(woodType);
     }
 

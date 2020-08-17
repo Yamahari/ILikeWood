@@ -31,7 +31,7 @@ public final class WoodenWorkBenchContainer extends WorkbenchContainer implement
 
     @Override
     public boolean canInteractWith(final PlayerEntity player) {
-        return isWithinUsableDistance(this.field_217070_e, player, this.targetBlock.getValue());
+        return isWithinUsableDistance(this.worldPosCallable, player, this.targetBlock.getValue());
     }
 
     @Override

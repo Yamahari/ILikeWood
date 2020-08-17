@@ -27,7 +27,7 @@ import yamahari.ilikewood.util.Constants;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ILikeWood {
     public static final Logger LOGGER = LogManager.getLogger(ILikeWood.class);
-    private static final IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    private static final IProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public ILikeWood() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
@@ -52,8 +52,9 @@ public final class ILikeWood {
         if (event.includeServer()) {
             generator.addProvider(new RecipeProvider(generator));
             generator.addProvider(new LootTableProvider(generator));
-            generator.addProvider(new BlockTagsProvider(generator));
-            generator.addProvider(new ItemTagsProvider(generator));
+            BlockTagsProvider blockTagsProvider = new BlockTagsProvider(generator);
+            generator.addProvider(blockTagsProvider);
+            generator.addProvider(new ItemTagsProvider(generator, blockTagsProvider));
         }
 
         if (event.includeClient()) {

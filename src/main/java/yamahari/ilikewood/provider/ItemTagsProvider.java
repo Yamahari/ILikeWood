@@ -2,6 +2,7 @@ package yamahari.ilikewood.provider;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import yamahari.ilikewood.data.tag.ItemTags;
 import yamahari.ilikewood.registry.WoodenItems;
@@ -9,42 +10,42 @@ import yamahari.ilikewood.util.WoodenObjectType;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 
 public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider {
-    public ItemTagsProvider(final DataGenerator generator) {
-        super(generator);
+    public ItemTagsProvider(final DataGenerator generator, BlockTagsProvider blockTagsProvider) {
+        super(generator, blockTagsProvider);
     }
 
-    private static void registerTag(final WoodenObjectType objectType, final Tag.Builder<Item> builder) {
-        builder.add(WoodenItems.getItems(objectType).toArray(Item[]::new));
+    private void registerTag(ITag.INamedTag<Item> tag, WoodenObjectType blocktype){
+        this.func_240522_a_(tag).func_240534_a_(WoodenItems.getItems(blocktype).toArray(Item[]::new));
     }
 
-    private static void registerTieredTag(final WoodenTieredObjectType tieredObjectType, final Tag.Builder<Item> builder) {
-        builder.add(WoodenItems.getTieredItems(tieredObjectType).toArray(Item[]::new));
+    private void registerTag(ITag.INamedTag<Item> tag, WoodenTieredObjectType blocktype){
+        this.func_240522_a_(tag).func_240534_a_(WoodenItems.getTieredItems(blocktype).toArray(Item[]::new));
     }
 
     @Override
     protected void registerTags() {
-        registerTag(WoodenObjectType.BARREL, this.getBuilder(ItemTags.BARRELS));
-        registerTag(WoodenObjectType.CHEST, this.getBuilder(ItemTags.CHESTS));
-        registerTag(WoodenObjectType.COMPOSTER, this.getBuilder(ItemTags.COMPOSTER));
-        registerTag(WoodenObjectType.BOOKSHELF, this.getBuilder(ItemTags.BOOKSHELFS));
-        registerTag(WoodenObjectType.SLAB, this.getBuilder(ItemTags.PANELS_SLABS));
-        registerTag(WoodenObjectType.STAIRS, this.getBuilder(ItemTags.PANELS_STAIRS));
-        registerTag(WoodenObjectType.PANELS, this.getBuilder(ItemTags.PANELS));
-        registerTag(WoodenObjectType.WALL, this.getBuilder(ItemTags.WALLS));
-        registerTag(WoodenObjectType.LADDER, this.getBuilder(ItemTags.LADDERS));
-        registerTag(WoodenObjectType.TORCH, this.getBuilder(ItemTags.TORCHES));
-        registerTag(WoodenObjectType.STICK, this.getBuilder(ItemTags.STICKS));
-        registerTag(WoodenObjectType.CRAFTING_TABLE, this.getBuilder(ItemTags.CRAFTING_TABLES));
-        registerTag(WoodenObjectType.SCAFFOLDING, this.getBuilder(ItemTags.SCAFFOLDINGS));
-        registerTag(WoodenObjectType.LECTERN, this.getBuilder(ItemTags.LECTERNS));
-        registerTag(WoodenObjectType.POST, this.getBuilder(ItemTags.POSTS));
-        registerTag(WoodenObjectType.STRIPPED_POST, this.getBuilder(ItemTags.STRIPPED_POSTS));
+        registerTag(ItemTags.BARRELS, WoodenObjectType.BARREL);
+        registerTag(ItemTags.CHESTS, WoodenObjectType.CHEST);
+        registerTag(ItemTags.COMPOSTER, WoodenObjectType.COMPOSTER);
+        registerTag(ItemTags.BOOKSHELFS, WoodenObjectType.BOOKSHELF);
+        registerTag(ItemTags.PANELS_SLABS, WoodenObjectType.SLAB);
+        registerTag(ItemTags.PANELS_STAIRS, WoodenObjectType.STAIRS);
+        registerTag(ItemTags.PANELS, WoodenObjectType.PANELS);
+        registerTag(ItemTags.WALLS, WoodenObjectType.WALL);
+        registerTag(ItemTags.LADDERS, WoodenObjectType.LADDER);
+        registerTag(ItemTags.TORCHES, WoodenObjectType.TORCH);
+        registerTag(ItemTags.STICKS, WoodenObjectType.STICK);
+        registerTag(ItemTags.CRAFTING_TABLES, WoodenObjectType.CRAFTING_TABLE);
+        registerTag(ItemTags.SCAFFOLDINGS, WoodenObjectType.SCAFFOLDING);
+        registerTag(ItemTags.LECTERNS, WoodenObjectType.LECTERN);
+        registerTag(ItemTags.POSTS, WoodenObjectType.POST);
+        registerTag(ItemTags.STRIPPED_POSTS, WoodenObjectType.STRIPPED_POST);
 
-        registerTieredTag(WoodenTieredObjectType.AXE, this.getBuilder(ItemTags.AXES));
-        registerTieredTag(WoodenTieredObjectType.HOE, this.getBuilder(ItemTags.HOES));
-        registerTieredTag(WoodenTieredObjectType.PICKAXE, this.getBuilder(ItemTags.PICKAXES));
-        registerTieredTag(WoodenTieredObjectType.SHOVEL, this.getBuilder(ItemTags.SHOVELS));
-        registerTieredTag(WoodenTieredObjectType.SWORD, this.getBuilder(ItemTags.SWORDS));
+        registerTag(ItemTags.AXES, WoodenTieredObjectType.AXE);
+        registerTag(ItemTags.HOES, WoodenTieredObjectType.HOE);
+        registerTag(ItemTags.PICKAXES, WoodenTieredObjectType.PICKAXE);
+        registerTag(ItemTags.SHOVELS, WoodenTieredObjectType.SHOVEL);
+        registerTag(ItemTags.SWORDS, WoodenTieredObjectType.SWORD);
     }
 
     @Override
