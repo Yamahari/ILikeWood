@@ -1,6 +1,6 @@
 {
   "parent": "ilikewood:block/post/inventory/template",
   "textures": {
-    "wall": "block/birch_log"
+    "wall": "minecraft:block/birch_log"
   }
 }

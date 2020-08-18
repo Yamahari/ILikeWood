@@ -82,8 +82,9 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.2-33.0.5'
 
+    // TODO update to 1.16.2 once it comes out
     compileOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.1-11.0.0.391:api')
-    // runtimeOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.1-11.0.0.391:universal')
+    //runtimeOnly 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.1-11.0.0.391:universal'
 
     compileOnly fg.deobf('mezz.jei:jei-1.16.2:7.+:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.16.2:7.+')

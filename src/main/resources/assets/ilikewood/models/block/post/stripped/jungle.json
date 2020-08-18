@@ -1,6 +1,6 @@
 {
   "parent": "ilikewood:block/post/template",
   "textures": {
-    "wall": "block/stripped_jungle_log"
+    "wall": "minecraft:block/stripped_jungle_log"
   }
 }

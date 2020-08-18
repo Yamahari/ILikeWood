@@ -15,8 +15,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public final class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
-    public BlockStateProvider(DataGenerator generator, ExistingFileHelper helper) {
+public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
+    public ILikeWoodBlockStateProvider(DataGenerator generator, ExistingFileHelper helper) {
         super(generator, Constants.MOD_ID, helper);
     }
 
@@ -110,7 +110,8 @@ public final class BlockStateProvider extends net.minecraftforge.client.model.ge
 
             final ModelFile post = this.models().wallPost(Util.toPath(path, "post", name), postTexture);
             final ModelFile side = this.models().wallSide(Util.toPath(path, "side", name), sideTexture);
-            final ModelFile sideTall = this.models().wallSide(Util.toPath(path, "side_tall", name), sideTexture);
+            final ModelFile sideTall = this.models().wallSideTall(Util.toPath(path, "side_tall", name), sideTallTexture);
+
             this.models()
                     .withExistingParent(Util.toPath(path, "inventory", name), modLoc(Util.toPath(path, "inventory", "template")))
                     .texture("post", postTexture)

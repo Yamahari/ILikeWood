@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "ilikewood:axes",
+  "group": "axes",
   "pattern": [
     "##",
     "#I",

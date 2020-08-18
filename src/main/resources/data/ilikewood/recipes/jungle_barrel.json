@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "ilikewood:barrels",
+  "group": "barrels",
   "pattern": [
     "PSP",
     "P P",

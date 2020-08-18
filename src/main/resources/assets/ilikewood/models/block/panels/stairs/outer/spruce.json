@@ -1,6 +1,6 @@
 {
   "parent": "ilikewood:block/panels/stairs/outer/template",
   "textures": {
-    "planks": "block/spruce_planks"
+    "planks": "minecraft:block/spruce_planks"
   }
 }

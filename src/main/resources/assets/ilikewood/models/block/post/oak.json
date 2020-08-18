@@ -1,6 +1,6 @@
 {
   "parent": "ilikewood:block/post/template",
   "textures": {
-    "wall": "block/oak_log"
+    "wall": "minecraft:block/oak_log"
   }
 }

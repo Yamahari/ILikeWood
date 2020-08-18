@@ -55,7 +55,7 @@ public final class WoodenTileEntityTypes {
     }
 
     private static RegistryObject<TileEntityType<?>> registerBarrelTileEntityType(final WoodType woodType) {
-        String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.BARREL.toString());
+        final String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.BARREL.toString());
         return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenBarrelTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.BARREL).get(woodType).get()),
@@ -64,7 +64,7 @@ public final class WoodenTileEntityTypes {
     }
 
     private static RegistryObject<TileEntityType<?>> registerChestTileEntityType(final WoodType woodType) {
-        String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.CHEST.toString());
+        final String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.CHEST.toString());
         return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenChestTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.CHEST).get(woodType).get()),
@@ -73,7 +73,7 @@ public final class WoodenTileEntityTypes {
     }
 
     private static RegistryObject<TileEntityType<?>> registerLecternTileEntityType(final WoodType woodType) {
-        String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString());
+        final String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString());
         return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenLecternTileEntity(woodType),

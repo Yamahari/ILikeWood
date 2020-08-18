@@ -1,6 +1,6 @@
 {
   "parent": "ilikewood:block/post/template",
   "textures": {
-    "wall": "block/spruce_log"
+    "wall": "minecraft:block/spruce_log"
   }
 }

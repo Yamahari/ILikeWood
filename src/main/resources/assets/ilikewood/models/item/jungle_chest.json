@@ -1,5 +1,5 @@
 {
-  "parent": "builtin/entity",
+  "parent": "minecraft:builtin/entity",
   "display": {
     "gui": {
       "rotation": [
@@ -75,6 +75,6 @@
     }
   },
   "textures": {
-    "particle": "block/jungle_planks"
+    "particle": "minecraft:block/jungle_planks"
   }
 }

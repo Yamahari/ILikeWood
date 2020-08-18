@@ -2,6 +2,7 @@ package yamahari.ilikewood.provider;
 
 
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.common.data.LanguageProvider;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
@@ -13,8 +14,8 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public final class LanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
-    public LanguageProvider(final DataGenerator generator, final String locale) {
+public final class ILikeWoodLanguageProvider extends LanguageProvider {
+    public ILikeWoodLanguageProvider(final DataGenerator generator, final String locale) {
         super(generator, Constants.MOD_ID, locale);
     }
 

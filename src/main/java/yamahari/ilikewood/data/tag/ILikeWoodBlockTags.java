@@ -2,8 +2,14 @@ package yamahari.ilikewood.data.tag;
 
 import net.minecraft.block.Block;
 import net.minecraft.tags.ITag.INamedTag;
+import net.minecraft.tags.ITagCollectionSupplier;
+import net.minecraft.tags.TagRegistry;
+import net.minecraft.tags.TagRegistryManager;
+import net.minecraft.util.ResourceLocation;
+import yamahari.ilikewood.util.Constants;
 
-public final class BlockTags {
+public final class ILikeWoodBlockTags {
+    public static final TagRegistry<Block> COLLECTION = TagRegistryManager.func_242196_a(new ResourceLocation(Constants.MOD_ID, "block"), ITagCollectionSupplier::func_241835_a);
     public static final INamedTag<Block> PANELS = makeWrapperTag("panels");
     public static final INamedTag<Block> PANELS_SLABS = makeWrapperTag("panels_slab");
     public static final INamedTag<Block> PANELS_STAIRS = makeWrapperTag("panels_stairs");
@@ -21,10 +27,10 @@ public final class BlockTags {
     public static final INamedTag<Block> POSTS = makeWrapperTag("posts");
     public static final INamedTag<Block> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
 
-    private BlockTags() {
+    private ILikeWoodBlockTags() {
     }
 
     private static INamedTag<Block> makeWrapperTag(final String id) {
-        return net.minecraft.tags.BlockTags.makeWrapperTag(id);
+        return COLLECTION.func_232937_a_(id);
     }
 }

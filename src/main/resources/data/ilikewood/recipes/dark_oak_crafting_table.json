@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "ilikewood:crafting_tables",
+  "group": "crafting_tables",
   "pattern": [
     "##",
     "##"

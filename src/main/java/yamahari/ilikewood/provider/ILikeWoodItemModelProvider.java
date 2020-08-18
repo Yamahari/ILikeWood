@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
@@ -13,8 +14,8 @@ import yamahari.ilikewood.util.*;
 
 import java.util.Objects;
 
-public final class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
-    public ItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
+public final class ILikeWoodItemModelProvider extends ItemModelProvider {
+    public ILikeWoodItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
         super(generator, Constants.MOD_ID, helper);
     }
 

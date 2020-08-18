@@ -50,19 +50,19 @@ public final class ILikeWood {
         final DataGenerator generator = event.getGenerator();
 
         if (event.includeServer()) {
-            generator.addProvider(new RecipeProvider(generator));
-            generator.addProvider(new LootTableProvider(generator));
-            BlockTagsProvider blockTagsProvider = new BlockTagsProvider(generator);
+            generator.addProvider(new ILikeWoodRecipeProvider(generator));
+            generator.addProvider(new ILikeWoodLootTableProvider(generator));
+            final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator);
             generator.addProvider(blockTagsProvider);
-            generator.addProvider(new ItemTagsProvider(generator, blockTagsProvider));
+            generator.addProvider(new ILikeWoodItemTagsProvider(generator, blockTagsProvider));
         }
 
         if (event.includeClient()) {
             final ExistingFileHelper helper = event.getExistingFileHelper();
 
-            generator.addProvider(new BlockStateProvider(generator, helper));
-            generator.addProvider(new ItemModelProvider(generator, helper));
-            generator.addProvider(new LanguageProvider(generator, "en_us"));
+            generator.addProvider(new ILikeWoodBlockStateProvider(generator, helper));
+            generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
+            generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
         }
     }
 }

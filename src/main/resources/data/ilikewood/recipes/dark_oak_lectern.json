@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "ilikewood:lecterns",
+  "group": "lecterns",
   "pattern": [
     "SSS",
     " B ",

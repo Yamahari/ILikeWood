@@ -3,7 +3,7 @@
   "textures": {
     "top": "ilikewood:block/lectern/top/spruce",
     "sides": "ilikewood:block/lectern/sides/spruce",
-    "bottom": "block/spruce_planks",
+    "bottom": "minecraft:block/spruce_planks",
     "base": "ilikewood:block/lectern/base/spruce",
     "front": "ilikewood:block/lectern/front/spruce"
   }

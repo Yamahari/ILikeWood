@@ -3,7 +3,7 @@
   "textures": {
     "top": "ilikewood:block/lectern/top/acacia",
     "sides": "ilikewood:block/lectern/sides/acacia",
-    "bottom": "block/acacia_planks",
+    "bottom": "minecraft:block/acacia_planks",
     "base": "ilikewood:block/lectern/base/acacia",
     "front": "ilikewood:block/lectern/front/acacia"
   }

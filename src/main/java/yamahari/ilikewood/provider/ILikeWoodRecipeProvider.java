@@ -5,6 +5,7 @@ import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,8 +13,8 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.data.tag.BlockTags;
-import yamahari.ilikewood.data.tag.ItemTags;
+import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
+import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
@@ -23,8 +24,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
-    public RecipeProvider(DataGenerator generator) {
+public final class ILikeWoodRecipeProvider extends RecipeProvider {
+    public ILikeWoodRecipeProvider(DataGenerator generator) {
         super(generator);
     }
 
@@ -71,7 +72,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
         return getIngredient(woodType, "fence");
     }
 
-    private InventoryChangeTrigger.Instance hasItem(Ingredient ingredientIn) {
+    private InventoryChangeTrigger.Instance hasItem(final Ingredient ingredientIn) {
         return InventoryChangeTrigger.Instance.forItems(Arrays.stream(ingredientIn.getMatchingStacks()).map(ItemStack::getItem).toArray(Item[]::new));
     }
 
@@ -85,7 +86,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("#")
                     .patternLine("#")
                     .addCriterion("has_slab", hasItem(slab))
-                    .setGroup(BlockTags.PANELS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
                     .build(consumer);
         });
 
@@ -98,7 +99,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("## ")
                     .patternLine("###")
                     .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(BlockTags.PANELS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
                     .build(consumer);
         });
 
@@ -111,7 +112,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .key('#', panels)
                     .patternLine("###")
                     .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(BlockTags.PANELS_SLABS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.PANELS_SLABS.getName().getPath())
                     .build(consumer);
 
             ShapedRecipeBuilder.shapedRecipe(planks)
@@ -135,7 +136,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("P P")
                     .patternLine("PSP")
                     .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(BlockTags.BARRELS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.BARRELS.getName().getPath())
                     .build(consumer);
         });
 
@@ -149,7 +150,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("XXX")
                     .patternLine("###")
                     .addCriterion("has_book", hasItem(Items.BOOK))
-                    .setGroup(BlockTags.BOOKSHELFS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.BOOKSHELFS.getName().getPath())
                     .build(consumer);
         });
 
@@ -162,7 +163,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("# #")
                     .patternLine("###")
                     .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(BlockTags.CHESTS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.CHESTS.getName().getPath())
                     .build(consumer);
         });
 
@@ -178,7 +179,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("F F")
                     .patternLine("###")
                     .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(BlockTags.COMPOSTER.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.COMPOSTER.getName().getPath())
                     .build(consumer);
         });
 
@@ -190,7 +191,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("###")
                     .patternLine("###")
                     .addCriterion("has_log", hasItem(log))
-                    .setGroup(BlockTags.WALLS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.WALLS.getName().getPath())
                     .build(consumer);
         });
 
@@ -204,7 +205,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("III")
                     .patternLine("I I")
                     .addCriterion("has_stick", hasItem(stick))
-                    .setGroup(BlockTags.LADDERS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.LADDERS.getName().getPath())
                     .build(consumer);
         });
 
@@ -218,8 +219,8 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .key('#', coals)
                     .patternLine("#")
                     .patternLine("I")
-                    .addCriterion("has_coal", hasItem(coals))
-                    .setGroup(BlockTags.TORCHES.getName().getPath())
+                    .addCriterion("has_coal", hasItem(net.minecraft.tags.ItemTags.COALS))
+                    .setGroup(ILikeWoodBlockTags.TORCHES.getName().getPath())
                     .build(consumer);
         });
 
@@ -232,7 +233,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("##")
                     .patternLine("##")
                     .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(BlockTags.CRAFTING_TABLES.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.CRAFTING_TABLES.getName().getPath())
                     .build(consumer);
         });
 
@@ -247,7 +248,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("I I")
                     .patternLine("I I")
                     .addCriterion("has_stick", hasItem(stick))
-                    .setGroup(BlockTags.SCAFFOLDINGS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.SCAFFOLDINGS.getName().getPath())
                     .build(consumer);
         });
 
@@ -263,7 +264,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine(" B ")
                     .patternLine(" S ")
                     .addCriterion("has_book", hasItem(Items.BOOK))
-                    .setGroup(BlockTags.LECTERNS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.LECTERNS.getName().getPath())
                     .build(consumer);
         });
 
@@ -276,7 +277,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("#")
                     .patternLine("#")
                     .addCriterion("has_log", hasItem(log))
-                    .setGroup(BlockTags.POSTS.getName().getPath())
+                    .setGroup(ILikeWoodBlockTags.POSTS.getName().getPath())
                     .build(consumer);
         });
 
@@ -289,7 +290,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("#")
                     .patternLine("#")
                     .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(ItemTags.STICKS.getName().getPath())
+                    .setGroup(ILikeWoodItemTags.STICKS.getName().getPath())
                     .build(consumer);
         });
 
@@ -305,7 +306,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("#I")
                     .patternLine(" I")
                     .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ItemTags.AXES.getName().getPath())
+                    .setGroup(ILikeWoodItemTags.AXES.getName().getPath())
                     .build(consumer);
         });
 
@@ -321,7 +322,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine(" I")
                     .patternLine(" I")
                     .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ItemTags.HOES.getName().getPath())
+                    .setGroup(ILikeWoodItemTags.HOES.getName().getPath())
                     .build(consumer);
         });
 
@@ -337,7 +338,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine(" I ")
                     .patternLine(" I ")
                     .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ItemTags.PICKAXES.getName().getPath())
+                    .setGroup(ILikeWoodItemTags.PICKAXES.getName().getPath())
                     .build(consumer);
         });
 
@@ -353,7 +354,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("I")
                     .patternLine("I")
                     .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ItemTags.SHOVELS.getName().getPath())
+                    .setGroup(ILikeWoodItemTags.SHOVELS.getName().getPath())
                     .build(consumer);
         });
 
@@ -369,7 +370,7 @@ public final class RecipeProvider extends net.minecraft.data.RecipeProvider {
                     .patternLine("#")
                     .patternLine("I")
                     .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ItemTags.SWORDS.getName().getPath())
+                    .setGroup(ILikeWoodItemTags.SWORDS.getName().getPath())
                     .build(consumer);
         });
     }

@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "ilikewood:composter",
+  "group": "composter",
   "pattern": [
     "F F",
     "F F",

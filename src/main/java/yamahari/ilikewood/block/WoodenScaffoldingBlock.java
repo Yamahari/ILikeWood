@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import yamahari.ilikewood.data.tag.ItemTags;
+import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.WoodenScaffoldingItem;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodType;
@@ -60,7 +60,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         if (context instanceof EntitySelectionContext) {
             flag = ((EntitySelectionContext) context).item instanceof WoodenScaffoldingItem;
         } else {
-            flag = ItemTags.SCAFFOLDINGS.getAllElements().stream().anyMatch(context::hasItem);
+            flag = ILikeWoodItemTags.SCAFFOLDINGS.getAllElements().stream().anyMatch(context::hasItem);
         }
         if (flag) {
             return VoxelShapes.fullCube();

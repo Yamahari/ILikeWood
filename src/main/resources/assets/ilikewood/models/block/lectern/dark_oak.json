@@ -3,7 +3,7 @@
   "textures": {
     "top": "ilikewood:block/lectern/top/dark_oak",
     "sides": "ilikewood:block/lectern/sides/dark_oak",
-    "bottom": "block/dark_oak_planks",
+    "bottom": "minecraft:block/dark_oak_planks",
     "base": "ilikewood:block/lectern/base/dark_oak",
     "front": "ilikewood:block/lectern/front/dark_oak"
   }
