@@ -3,7 +3,6 @@ package yamahari.ilikewood.provider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
-import net.minecraft.tags.Tag;
 import yamahari.ilikewood.data.tag.ItemTags;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.WoodenObjectType;
@@ -15,11 +14,11 @@ public final class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider 
     }
 
     private void registerTag(ITag.INamedTag<Item> tag, WoodenObjectType blocktype){
-        this.func_240522_a_(tag).func_240534_a_(WoodenItems.getItems(blocktype).toArray(Item[]::new));
+        this.getOrCreateBuilder(tag).add(WoodenItems.getItems(blocktype).toArray(Item[]::new));
     }
 
     private void registerTag(ITag.INamedTag<Item> tag, WoodenTieredObjectType blocktype){
-        this.func_240522_a_(tag).func_240534_a_(WoodenItems.getTieredItems(blocktype).toArray(Item[]::new));
+        this.getOrCreateBuilder(tag).add(WoodenItems.getTieredItems(blocktype).toArray(Item[]::new));
     }
 
     @Override

@@ -60,12 +60,12 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         if (context instanceof EntitySelectionContext) {
             flag = ((EntitySelectionContext) context).item instanceof WoodenScaffoldingItem;
         } else {
-            flag = ItemTags.SCAFFOLDINGS.func_230236_b_().stream().anyMatch(context::hasItem);
+            flag = ItemTags.SCAFFOLDINGS.getAllElements().stream().anyMatch(context::hasItem);
         }
         if (flag) {
             return VoxelShapes.fullCube();
         }
-        return state.get(BOTTOM) ? BOTTOM_SHAPE : NORMAL_SHAPE;
+        return state.get(BOTTOM) ? field_220122_e : field_220121_d;
     }
 
     @Override

@@ -60,7 +60,7 @@ public final class WoodenTileEntityTypes {
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenBarrelTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.BARREL).get(woodType).get()),
                                 WoodenBlocks.getBlock(WoodenObjectType.BARREL, woodType))
-                        .build(net.minecraft.util.Util.func_240976_a_(TypeReferences.BLOCK_ENTITY, name)));
+                        .build(net.minecraft.util.Util.attemptDataFix(TypeReferences.BLOCK_ENTITY, name)));
     }
 
     private static RegistryObject<TileEntityType<?>> registerChestTileEntityType(final WoodType woodType) {
@@ -69,7 +69,7 @@ public final class WoodenTileEntityTypes {
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenChestTileEntity(woodType, REGISTRY_OBJECTS.get(WoodenObjectType.CHEST).get(woodType).get()),
                                 WoodenBlocks.getBlock(WoodenObjectType.CHEST, woodType))
-                        .build(net.minecraft.util.Util.func_240976_a_(TypeReferences.BLOCK_ENTITY, name)));
+                        .build(net.minecraft.util.Util.attemptDataFix(TypeReferences.BLOCK_ENTITY, name)));
     }
 
     private static RegistryObject<TileEntityType<?>> registerLecternTileEntityType(final WoodType woodType) {
@@ -78,6 +78,6 @@ public final class WoodenTileEntityTypes {
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenLecternTileEntity(woodType),
                                 WoodenBlocks.getBlock(WoodenObjectType.LECTERN, woodType))
-                        .build(net.minecraft.util.Util.func_240976_a_(TypeReferences.BLOCK_ENTITY, name)));
+                        .build(net.minecraft.util.Util.attemptDataFix(TypeReferences.BLOCK_ENTITY, name)));
     }
 }

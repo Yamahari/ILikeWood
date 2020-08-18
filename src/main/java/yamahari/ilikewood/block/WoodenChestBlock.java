@@ -13,14 +13,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import java.util.function.BiPredicate;
-import java.util.function.Supplier;
 
 public final class WoodenChestBlock extends ChestBlock implements IWooden {
     private final WoodType woodType;
@@ -52,7 +50,7 @@ public final class WoodenChestBlock extends ChestBlock implements IWooden {
             predicate = ChestBlock::isBlocked;
         }
 
-        return TileEntityMerger.func_226924_a_(this.tileEntityType.getValue(), ChestBlock::func_226919_h_, ChestBlock::getDirectionToAttached, FACING, blockState, world, blockPos, predicate);
+        return TileEntityMerger.func_226924_a_(this.tileEntityType.getValue(), ChestBlock::getChestMergerType, ChestBlock::getDirectionToAttached, FACING, blockState, world, blockPos, predicate);
     }
 
     @Override

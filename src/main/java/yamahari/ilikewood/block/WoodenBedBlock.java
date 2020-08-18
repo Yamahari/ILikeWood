@@ -17,7 +17,7 @@ public final class WoodenBedBlock extends BedBlock implements IWooden {
         super(color, getProperties(color));
         this.type = type;
         this.color = color;
-        this.setRegistryName(Util.toRegistryName(this.getDyeColor().getName(), this.getWoodType().toString(), WoodenObjectType.BED.toString()));
+        this.setRegistryName(Util.toRegistryName(this.getDyeColor().getString(), this.getWoodType().toString(), WoodenObjectType.BED.toString()));
     }
 
     private static Block.Properties getProperties(final DyeColor color) {

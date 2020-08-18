@@ -1,9 +1,10 @@
 modLoader="javafml" #mandatory
-loaderVersion="[30,)" #mandatory (28 is current forge version)
+loaderVersion="[33,)" #mandatory (28 is current forge version)
 issueTrackerURL="https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
+license="MIT"
 [[mods]] #mandatory
 modId="ilikewood" #mandatory
-version="1.15.2-2.2.2.0" #mandatory
+version="1.16.2-2.3.0.0" #mandatory
 displayName="I Like Wood" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 displayURL="https://www.curseforge.com/minecraft/mc-mods/i-like-wood" #optional
@@ -25,6 +26,6 @@ It also adds a new wood related blocks.
 [[dependencies.ilikewood]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.16.2]"
     ordering="NONE"
     side="BOTH"
