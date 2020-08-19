@@ -26,10 +26,22 @@ public final class Util {
     }
 
     public static ResourceLocation getLog(final WoodType woodType) {
-        return getResource(woodType, "%s_log");
+        switch (woodType) {
+            case CRIMSON:
+            case WARPED:
+                return getResource(woodType, "%s_stem");
+            default:
+                return getResource(woodType, "%s_log");
+        }
     }
 
     public static ResourceLocation getStrippedLog(final WoodType woodType) {
-        return getResource(woodType, "stripped_%s_log");
+        switch (woodType) {
+            case CRIMSON:
+            case WARPED:
+                return getResource(woodType, "stripped_%s_stem");
+            default:
+                return getResource(woodType, "stripped_%s_log");
+        }
     }
 }

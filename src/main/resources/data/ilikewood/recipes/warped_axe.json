@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "axes",
+  "pattern": [
+    "##",
+    "#I",
+    " I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:warped_stick"
+    },
+    "#": {
+      "item": "ilikewood:warped_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:warped_axe"
+  }
+}

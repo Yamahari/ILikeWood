@@ -15,10 +15,12 @@ import java.util.stream.Stream;
 public enum WoodType {
     ACACIA(Constants.ACACIA),
     BIRCH(Constants.BIRCH),
+    CRIMSON(Constants.CRIMSON),
     DARK_OAK(Constants.DARK_OAK),
     JUNGLE(Constants.JUNGLE),
     OAK(Constants.OAK),
     SPRUCE(Constants.SPRUCE),
+    WARPED(Constants.WARPED),
     CHERRY(Constants.CHERRY, Constants.BOP_MOD_ID),
     DEAD(Constants.DEAD, Constants.BOP_MOD_ID),
     FIR(Constants.FIR, Constants.BOP_MOD_ID),

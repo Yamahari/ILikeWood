@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/slab/top/template",
+  "textures": {
+    "planks": "minecraft:block/crimson_planks"
+  }
+}

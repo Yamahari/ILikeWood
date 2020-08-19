@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "scaffoldings",
+  "pattern": [
+    "I~I",
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:crimson_stick"
+    },
+    "~": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "ilikewood:crimson_scaffolding"
+  }
+}

@@ -57,7 +57,13 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
     }
 
     private static IItemProvider getLog(final WoodType woodType) {
-        return getIngredient(woodType, "log");
+        switch (woodType) {
+            case CRIMSON:
+            case WARPED:
+                return getIngredient(woodType, "stem");
+            default:
+                return getIngredient(woodType, "log");
+        }
     }
 
     private static IItemProvider getSlab(final WoodType woodType) {

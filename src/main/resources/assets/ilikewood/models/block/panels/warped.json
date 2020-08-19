@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/template",
+  "textures": {
+    "planks": "minecraft:block/warped_planks"
+  }
+}

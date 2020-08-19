@@ -1,0 +1,7 @@
+{
+  "parent": "ilikewood:block/wall/inventory/template",
+  "textures": {
+    "post": "minecraft:block/crimson_stem",
+    "side": "minecraft:block/stripped_crimson_stem"
+  }
+}

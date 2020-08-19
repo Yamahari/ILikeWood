@@ -19,10 +19,12 @@ import java.util.stream.Stream;
 public enum WoodenItemTier implements IItemTier {
     ACACIA(Constants.ACACIA, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.ACACIA))),
     BIRCH(Constants.BIRCH, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.BIRCH))),
+    CRIMSON(Constants.CRIMSON, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.CRIMSON))),
     DARK_OAK(Constants.DARK_OAK, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.DARK_OAK))),
     JUNGLE(Constants.JUNGLE, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.JUNGLE))),
     OAK(Constants.OAK, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.OAK))),
     SPRUCE(Constants.SPRUCE, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.SPRUCE))),
+    WARPED(Constants.WARPED, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.WARPED))),
     STONE(Constants.STONE, false, () -> Ingredient.fromItems(Items.COBBLESTONE)),
     IRON(Constants.IRON, false, () -> Ingredient.fromItems(Items.IRON_INGOT)),
     DIAMOND(Constants.DIAMOND, false, () -> Ingredient.fromItems(Items.DIAMOND)),

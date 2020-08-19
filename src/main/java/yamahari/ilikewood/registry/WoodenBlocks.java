@@ -49,10 +49,12 @@ public final class WoodenBlocks {
         final Map<WoodType, Block.Properties> woodProperties = new EnumMap<>(WoodType.class);
         woodProperties.put(WoodType.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS));
         woodProperties.put(WoodType.BIRCH, Block.Properties.from(Blocks.BIRCH_PLANKS));
+        woodProperties.put(WoodType.CRIMSON, Block.Properties.from(Blocks.CRIMSON_PLANKS));
         woodProperties.put(WoodType.DARK_OAK, Block.Properties.from(Blocks.DARK_OAK_PLANKS));
         woodProperties.put(WoodType.JUNGLE, Block.Properties.from(Blocks.JUNGLE_PLANKS));
         woodProperties.put(WoodType.OAK, Block.Properties.from(Blocks.OAK_PLANKS));
         woodProperties.put(WoodType.SPRUCE, Block.Properties.from(Blocks.SPRUCE_PLANKS));
+        woodProperties.put(WoodType.WARPED, Block.Properties.from(Blocks.WARPED_PLANKS));
         woodProperties.put(WoodType.CHERRY, Block.Properties.create(Material.WOOD, MaterialColor.RED).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
         woodProperties.put(WoodType.DEAD, Block.Properties.create(Material.WOOD, MaterialColor.STONE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
         woodProperties.put(WoodType.FIR, Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));

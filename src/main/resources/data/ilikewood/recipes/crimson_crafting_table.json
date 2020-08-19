@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "crafting_tables",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:crimson_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:crimson_crafting_table"
+  }
+}
