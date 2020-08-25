@@ -40,6 +40,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.LECTERNS, WoodenObjectType.LECTERN);
         registerTag(ILikeWoodItemTags.POSTS, WoodenObjectType.POST);
         registerTag(ILikeWoodItemTags.STRIPPED_POSTS, WoodenObjectType.STRIPPED_POST);
+        registerTag(ILikeWoodItemTags.BOWS, WoodenObjectType.BOW);
 
         registerTag(ILikeWoodItemTags.AXES, WoodenTieredObjectType.AXE);
         registerTag(ILikeWoodItemTags.HOES, WoodenTieredObjectType.HOE);

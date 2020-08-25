@@ -379,6 +379,21 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .setGroup(ILikeWoodItemTags.SWORDS.getName().getPath())
                     .build(consumer);
         });
+
+        WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
+            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+
+            ShapedRecipeBuilder.shapedRecipe(item)
+                    .key('#', stick)
+                    .key('X', Items.STRING)
+                    .patternLine(" #X")
+                    .patternLine("# X")
+                    .patternLine(" #X")
+                    .addCriterion("has_string", hasItem(Items.STRING))
+                    .setGroup(ILikeWoodItemTags.BOWS.getName().getPath())
+                    .build(consumer);
+        });
     }
 
     @Override

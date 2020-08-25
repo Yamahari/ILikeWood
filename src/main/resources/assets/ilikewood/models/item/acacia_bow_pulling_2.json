@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/acacia_bow",
+  "textures": {
+    "layer0": "ilikewood:item/bow/pulling/2/acacia"
+  }
+}

@@ -26,6 +26,7 @@ public final class ILikeWoodItemTags {
     public static final INamedTag<Item> LECTERNS = makeWrapperTag("lecterns");
     public static final INamedTag<Item> POSTS = makeWrapperTag("posts");
     public static final INamedTag<Item> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
+    public static final INamedTag<Item> BOWS = makeWrapperTag("bows");
 
     public static final INamedTag<Item> AXES = makeWrapperTag("axes");
     public static final INamedTag<Item> HOES = makeWrapperTag("hoes");

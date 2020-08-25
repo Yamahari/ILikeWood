@@ -13,6 +13,7 @@ import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.*;
 
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public final class ILikeWoodItemModelProvider extends ItemModelProvider {
     public ILikeWoodItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
@@ -71,6 +72,7 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                     .transform(ModelBuilder.Perspective.FIRSTPERSON_RIGHT)
                     .rotation(0, 315, 0)
                     .scale(0.4F)
+                    .end()
                     .end();
         });
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.blockItem(block, WoodenObjectType.COMPOSTER.toString()));
@@ -91,10 +93,52 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
 
         WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "inventory")));
         WoodenBlocks.getBlocks(WoodenObjectType.STRIPPED_POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "stripped", "inventory")));
-    }
+        WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
+            final String woodType = ((IWooden) item).getWoodType().toString();
+            this.getBuilder(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath())
+                    .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
+                    .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.BOW.toString(), woodType)))
+                    .transforms()
+                    .transform(ModelBuilder.Perspective.THIRDPERSON_RIGHT)
+                    .rotation(-80.0F, 260.0F, -40.F)
+                    .translation(-1.0F, -2.0F, 2.5F)
+                    .scale(0.9F)
+                    .end()
+                    .transform(ModelBuilder.Perspective.THIRDPERSON_LEFT)
+                    .rotation(-80.0F, 280.0F, 40.F)
+                    .translation(-1.0F, -2.0F, 2.5F)
+                    .scale(0.9F)
+                    .end()
+                    .transform(ModelBuilder.Perspective.FIRSTPERSON_RIGHT)
+                    .rotation(0.0F, -90.0F, 25.F)
+                    .translation(1.13F, 3.2F, 1.13F)
+                    .scale(0.68F)
+                    .end()
+                    .transform(ModelBuilder.Perspective.FIRSTPERSON_LEFT)
+                    .rotation(0.0F, 90.0F, -25.F)
+                    .translation(1.13F, 3.2F, 1.13F)
+                    .scale(0.68F)
+                    .end()
+                    .end()
+                    .override()
+                    .predicate(mcLoc("pulling"), 1.0F)
+                    .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(woodType, WoodenObjectType.BOW.toString(), "pulling", "0")))))
+                    .end()
+                    .override()
+                    .predicate(mcLoc("pulling"), 1.0F)
+                    .predicate(mcLoc("pull"), 0.65F)
+                    .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(woodType, WoodenObjectType.BOW.toString(), "pulling", "1")))))
+                    .end()
+                    .override()
+                    .predicate(mcLoc("pulling"), 1.0F)
+                    .predicate(mcLoc("pull"), 0.9F)
+                    .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(woodType, WoodenObjectType.BOW.toString(), "pulling", "2")))))
+                    .end();
 
-    @Override
-    public String getName() {
-        return "I Like Wood - Item Models";
+            IntStream.range(0, 3).forEach(i -> this.getBuilder(Util.toRegistryName(woodType, WoodenObjectType.BOW.toString(), "pulling", Integer.toString(i)))
+                    .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER, Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath()))))
+                    .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.BOW.toString(), "pulling", Integer.toString(i), woodType))));
+
+        });
     }
 }

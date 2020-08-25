@@ -7,10 +7,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.client.tileentity.renderer.WoodenChestItemStackTileEntityRenderer;
-import yamahari.ilikewood.item.WoodenBlockItem;
-import yamahari.ilikewood.item.WoodenItem;
-import yamahari.ilikewood.item.WoodenScaffoldingItem;
-import yamahari.ilikewood.item.WoodenWallOrFloorItem;
+import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.item.tiered.WoodenHoeItem;
 import yamahari.ilikewood.item.tiered.WoodenSwordItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenAxeItem;
@@ -55,6 +52,7 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.LECTERN, registerBlockItems(WoodenObjectType.LECTERN, simpleRedstoneBlockItem));
         registryObjects.put(WoodenObjectType.POST, registerBlockItems(WoodenObjectType.POST, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlockItems(WoodenObjectType.STRIPPED_POST, simpleDecorationBlockItem));
+        registryObjects.put(WoodenObjectType.BOW, registerSimpleItems(WoodenItems::registerBowItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
 
@@ -78,6 +76,10 @@ public final class WoodenItems {
 
     public static Stream<Item> getItems(final WoodenObjectType objectType) {
         return REGISTRY_OBJECTS.get(objectType).values().stream().map(RegistryObject::get);
+    }
+
+    public static Stream<Item> getItems(final WoodenObjectType... objectTypes) {
+        return Arrays.stream(objectTypes).flatMap(WoodenItems::getItems);
     }
 
     public static Item getTieredItem(final WoodenTieredObjectType tieredObjectType, final WoodType woodType, final WoodenItemTier itemTier) {
@@ -152,5 +154,9 @@ public final class WoodenItems {
 
     private static RegistryObject<Item> registerShovelItem(final WoodType woodType, final WoodenItemTier itemTier) {
         return REGISTRY.register(Util.toRegistryName((itemTier.isWood() ? "" : itemTier.toString() + "_") + woodType.toString(), WoodenTieredObjectType.SHOVEL.toString()), () -> new WoodenShovelItem(woodType, itemTier));
+    }
+
+    private static RegistryObject<Item> registerBowItem(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.BOW.toString()), () -> new WoodenBowItem(woodType));
     }
 }

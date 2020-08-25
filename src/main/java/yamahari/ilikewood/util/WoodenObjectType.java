@@ -4,6 +4,7 @@ public enum WoodenObjectType {
     BARREL("barrel"),
     BED("bed"),
     BOOKSHELF("bookshelf"),
+    BOW("bow"),
     CHEST("chest"),
     COMPOSTER("composter"),
     CRAFTING_TABLE("crafting_table"),
