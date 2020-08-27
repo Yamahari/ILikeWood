@@ -53,6 +53,7 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.POST, registerBlockItems(WoodenObjectType.POST, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlockItems(WoodenObjectType.STRIPPED_POST, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.BOW, registerSimpleItems(WoodenItems::registerBowItem));
+        registryObjects.put(WoodenObjectType.CROSSBOW, registerSimpleItems(WoodenItems::registerCrossbowItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
 
@@ -158,5 +159,9 @@ public final class WoodenItems {
 
     private static RegistryObject<Item> registerBowItem(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.BOW.toString()), () -> new WoodenBowItem(woodType));
+    }
+
+    private static RegistryObject<Item> registerCrossbowItem(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.CROSSBOW.toString()), () -> new WoodenCrossbowItem(woodType));
     }
 }

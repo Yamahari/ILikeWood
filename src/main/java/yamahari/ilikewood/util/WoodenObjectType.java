@@ -8,6 +8,7 @@ public enum WoodenObjectType {
     CHEST("chest"),
     COMPOSTER("composter"),
     CRAFTING_TABLE("crafting_table"),
+    CROSSBOW("crossbow"),
     LADDER("ladder"),
     LECTERN("lectern"),
     LOG_PILE("log_pile"),

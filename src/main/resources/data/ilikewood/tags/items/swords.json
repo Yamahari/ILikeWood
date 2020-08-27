@@ -11,6 +11,11 @@
     "ilikewood:iron_birch_sword",
     "ilikewood:diamond_birch_sword",
     "ilikewood:golden_birch_sword",
+    "ilikewood:crimson_sword",
+    "ilikewood:stone_crimson_sword",
+    "ilikewood:iron_crimson_sword",
+    "ilikewood:diamond_crimson_sword",
+    "ilikewood:golden_crimson_sword",
     "ilikewood:dark_oak_sword",
     "ilikewood:stone_dark_oak_sword",
     "ilikewood:iron_dark_oak_sword",
@@ -30,6 +35,11 @@
     "ilikewood:stone_spruce_sword",
     "ilikewood:iron_spruce_sword",
     "ilikewood:diamond_spruce_sword",
-    "ilikewood:golden_spruce_sword"
+    "ilikewood:golden_spruce_sword",
+    "ilikewood:warped_sword",
+    "ilikewood:stone_warped_sword",
+    "ilikewood:iron_warped_sword",
+    "ilikewood:diamond_warped_sword",
+    "ilikewood:golden_warped_sword"
   ]
 }

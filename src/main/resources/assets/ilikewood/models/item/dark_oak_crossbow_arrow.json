@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/dark_oak_crossbow",
+  "textures": {
+    "layer0": "ilikewood:item/crossbow/arrow/dark_oak"
+  }
+}

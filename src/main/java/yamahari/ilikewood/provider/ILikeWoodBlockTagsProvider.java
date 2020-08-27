@@ -14,8 +14,8 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         super(generator);
     }
 
-    private void registerTag(final ITag.INamedTag<Block> tag, final WoodenObjectType blocktype) {
-        this.getOrCreateBuilder(tag).add(WoodenBlocks.getBlocks(blocktype).toArray(Block[]::new));
+    private void registerTag(final ITag.INamedTag<Block> tag, final WoodenObjectType objectType) {
+        this.getOrCreateBuilder(tag).add(WoodenBlocks.getBlocks(objectType).toArray(Block[]::new));
     }
 
     @Override
@@ -29,12 +29,6 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         registerTag(ILikeWoodBlockTags.PANELS, WoodenObjectType.PANELS);
         registerTag(ILikeWoodBlockTags.POSTS, WoodenObjectType.POST);
         registerTag(ILikeWoodBlockTags.STRIPPED_POSTS, WoodenObjectType.STRIPPED_POST);
-        registerTag(ILikeWoodBlockTags.COMPOSTER, WoodenObjectType.COMPOSTER);
-        registerTag(ILikeWoodBlockTags.BOOKSHELFS, WoodenObjectType.BOOKSHELF);
-        registerTag(ILikeWoodBlockTags.PANELS_SLABS, WoodenObjectType.SLAB);
-        registerTag(ILikeWoodBlockTags.PANELS_STAIRS, WoodenObjectType.STAIRS);
-        registerTag(ILikeWoodBlockTags.PANELS, WoodenObjectType.PANELS);
-        registerTag(ILikeWoodBlockTags.POSTS, WoodenObjectType.POST);
         registerTag(ILikeWoodBlockTags.WALLS, WoodenObjectType.WALL);
         registerTag(BlockTags.WALLS, WoodenObjectType.WALL);
         registerTag(ILikeWoodBlockTags.LADDERS, WoodenObjectType.LADDER);

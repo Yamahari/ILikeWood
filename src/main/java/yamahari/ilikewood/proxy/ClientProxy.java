@@ -7,7 +7,9 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.tileentity.LecternTileEntityRenderer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.WorkbenchContainer;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.item.Items;
 import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -53,6 +55,27 @@ public final class ClientProxy implements IProxy {
             });
             ItemModelsProperties.func_239418_a_(item, new ResourceLocation("pulling"),
                     (itemStack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
+        });
+
+        WoodenItems.getItems(WoodenObjectType.CROSSBOW).forEach(item -> {
+
+
+            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
+                if (entity == null) {
+                    return 0.0F;
+                } else {
+                    return CrossbowItem.isCharged(itemStack) ? 0.0F : (float) (itemStack.getUseDuration() - entity.getItemInUseCount()) / (float) CrossbowItem.getChargeTime(itemStack);
+                }
+            });
+            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("pulling"),
+                    (itemStack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack && !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
+
+            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("charged"),
+                    (itemStack, world, entity) -> entity != null && CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
+
+            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("firework"), (
+                    itemStack, world, entity) -> entity != null && CrossbowItem.isCharged(itemStack) && CrossbowItem.hasChargedProjectile(itemStack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
+
         });
     }
 

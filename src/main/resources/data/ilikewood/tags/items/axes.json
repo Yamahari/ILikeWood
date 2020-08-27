@@ -11,6 +11,11 @@
     "ilikewood:iron_birch_axe",
     "ilikewood:diamond_birch_axe",
     "ilikewood:golden_birch_axe",
+    "ilikewood:crimson_axe",
+    "ilikewood:stone_crimson_axe",
+    "ilikewood:iron_crimson_axe",
+    "ilikewood:diamond_crimson_axe",
+    "ilikewood:golden_crimson_axe",
     "ilikewood:dark_oak_axe",
     "ilikewood:stone_dark_oak_axe",
     "ilikewood:iron_dark_oak_axe",
@@ -30,6 +35,11 @@
     "ilikewood:stone_spruce_axe",
     "ilikewood:iron_spruce_axe",
     "ilikewood:diamond_spruce_axe",
-    "ilikewood:golden_spruce_axe"
+    "ilikewood:golden_spruce_axe",
+    "ilikewood:warped_axe",
+    "ilikewood:stone_warped_axe",
+    "ilikewood:iron_warped_axe",
+    "ilikewood:diamond_warped_axe",
+    "ilikewood:golden_warped_axe"
   ]
 }

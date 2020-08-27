@@ -14,12 +14,12 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         super(generator, blockTagsProvider);
     }
 
-    private void registerTag(ITag.INamedTag<Item> tag, WoodenObjectType blocktype) {
-        this.getOrCreateBuilder(tag).add(WoodenItems.getItems(blocktype).toArray(Item[]::new));
+    private void registerTag(final ITag.INamedTag<Item> tag, final WoodenObjectType objectType) {
+        this.getOrCreateBuilder(tag).add(WoodenItems.getItems(objectType).toArray(Item[]::new));
     }
 
-    private void registerTag(ITag.INamedTag<Item> tag, WoodenTieredObjectType blocktype) {
-        this.getOrCreateBuilder(tag).add(WoodenItems.getTieredItems(blocktype).toArray(Item[]::new));
+    private void registerTag(final ITag.INamedTag<Item> tag, final WoodenTieredObjectType objectType) {
+        this.getOrCreateBuilder(tag).add(WoodenItems.getTieredItems(objectType).toArray(Item[]::new));
     }
 
     @Override
@@ -41,6 +41,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.POSTS, WoodenObjectType.POST);
         registerTag(ILikeWoodItemTags.STRIPPED_POSTS, WoodenObjectType.STRIPPED_POST);
         registerTag(ILikeWoodItemTags.BOWS, WoodenObjectType.BOW);
+        registerTag(ILikeWoodItemTags.CROSSBOWS, WoodenObjectType.CROSSBOW);
 
         registerTag(ILikeWoodItemTags.AXES, WoodenTieredObjectType.AXE);
         registerTag(ILikeWoodItemTags.HOES, WoodenTieredObjectType.HOE);

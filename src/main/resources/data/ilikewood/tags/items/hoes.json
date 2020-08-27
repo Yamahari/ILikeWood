@@ -11,6 +11,11 @@
     "ilikewood:iron_birch_hoe",
     "ilikewood:diamond_birch_hoe",
     "ilikewood:golden_birch_hoe",
+    "ilikewood:crimson_hoe",
+    "ilikewood:stone_crimson_hoe",
+    "ilikewood:iron_crimson_hoe",
+    "ilikewood:diamond_crimson_hoe",
+    "ilikewood:golden_crimson_hoe",
     "ilikewood:dark_oak_hoe",
     "ilikewood:stone_dark_oak_hoe",
     "ilikewood:iron_dark_oak_hoe",
@@ -30,6 +35,11 @@
     "ilikewood:stone_spruce_hoe",
     "ilikewood:iron_spruce_hoe",
     "ilikewood:diamond_spruce_hoe",
-    "ilikewood:golden_spruce_hoe"
+    "ilikewood:golden_spruce_hoe",
+    "ilikewood:warped_hoe",
+    "ilikewood:stone_warped_hoe",
+    "ilikewood:iron_warped_hoe",
+    "ilikewood:diamond_warped_hoe",
+    "ilikewood:golden_warped_hoe"
   ]
 }

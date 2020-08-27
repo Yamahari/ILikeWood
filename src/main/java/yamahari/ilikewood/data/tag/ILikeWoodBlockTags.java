@@ -31,6 +31,6 @@ public final class ILikeWoodBlockTags {
     }
 
     private static INamedTag<Block> makeWrapperTag(final String id) {
-        return COLLECTION.func_232937_a_(id);
+        return COLLECTION.createOptional(new ResourceLocation(Constants.MOD_ID, id), null);
     }
 }

@@ -241,7 +241,8 @@ public final class ServerConfig {
 
         Stream.of(WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN, WoodenObjectType.PANELS,
                 WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER,
-                WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST, WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.STAIRS)
+                WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST, WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.STAIRS,
+                WoodenObjectType.BOW, WoodenObjectType.CROSSBOW)
                 .map(WoodenObjectType::toString)
                 .forEach(path -> burnTime.put(path, spec.defineInRange(path, 300, -1, Integer.MAX_VALUE)));
 

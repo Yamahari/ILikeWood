@@ -11,6 +11,11 @@
     "ilikewood:iron_birch_pickaxe",
     "ilikewood:diamond_birch_pickaxe",
     "ilikewood:golden_birch_pickaxe",
+    "ilikewood:crimson_pickaxe",
+    "ilikewood:stone_crimson_pickaxe",
+    "ilikewood:iron_crimson_pickaxe",
+    "ilikewood:diamond_crimson_pickaxe",
+    "ilikewood:golden_crimson_pickaxe",
     "ilikewood:dark_oak_pickaxe",
     "ilikewood:stone_dark_oak_pickaxe",
     "ilikewood:iron_dark_oak_pickaxe",
@@ -30,6 +35,11 @@
     "ilikewood:stone_spruce_pickaxe",
     "ilikewood:iron_spruce_pickaxe",
     "ilikewood:diamond_spruce_pickaxe",
-    "ilikewood:golden_spruce_pickaxe"
+    "ilikewood:golden_spruce_pickaxe",
+    "ilikewood:warped_pickaxe",
+    "ilikewood:stone_warped_pickaxe",
+    "ilikewood:iron_warped_pickaxe",
+    "ilikewood:diamond_warped_pickaxe",
+    "ilikewood:golden_warped_pickaxe"
   ]
 }

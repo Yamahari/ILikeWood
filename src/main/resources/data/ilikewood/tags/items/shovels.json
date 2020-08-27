@@ -11,6 +11,11 @@
     "ilikewood:iron_birch_shovel",
     "ilikewood:diamond_birch_shovel",
     "ilikewood:golden_birch_shovel",
+    "ilikewood:crimson_shovel",
+    "ilikewood:stone_crimson_shovel",
+    "ilikewood:iron_crimson_shovel",
+    "ilikewood:diamond_crimson_shovel",
+    "ilikewood:golden_crimson_shovel",
     "ilikewood:dark_oak_shovel",
     "ilikewood:stone_dark_oak_shovel",
     "ilikewood:iron_dark_oak_shovel",
@@ -30,6 +35,11 @@
     "ilikewood:stone_spruce_shovel",
     "ilikewood:iron_spruce_shovel",
     "ilikewood:diamond_spruce_shovel",
-    "ilikewood:golden_spruce_shovel"
+    "ilikewood:golden_spruce_shovel",
+    "ilikewood:warped_shovel",
+    "ilikewood:stone_warped_shovel",
+    "ilikewood:iron_warped_shovel",
+    "ilikewood:diamond_warped_shovel",
+    "ilikewood:golden_warped_shovel"
   ]
 }

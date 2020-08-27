@@ -27,6 +27,7 @@ public final class ILikeWoodItemTags {
     public static final INamedTag<Item> POSTS = makeWrapperTag("posts");
     public static final INamedTag<Item> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
     public static final INamedTag<Item> BOWS = makeWrapperTag("bows");
+    public static final INamedTag<Item> CROSSBOWS = makeWrapperTag("crossbows");
 
     public static final INamedTag<Item> AXES = makeWrapperTag("axes");
     public static final INamedTag<Item> HOES = makeWrapperTag("hoes");
@@ -38,6 +39,6 @@ public final class ILikeWoodItemTags {
     }
 
     private static INamedTag<Item> makeWrapperTag(final String id) {
-        return COLLECTION.func_232937_a_(id);
+        return COLLECTION.createOptional(new ResourceLocation(Constants.MOD_ID, id), null);
     }
 }
