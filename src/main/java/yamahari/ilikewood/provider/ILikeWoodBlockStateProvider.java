@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.*;
 
@@ -215,6 +216,19 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
                     .texture("wall", strippedLog);
 
             this.postBlock(this.getMultipartBuilder(block), post, side);
+        });
+
+        WoodenItems.getItems(WoodenObjectType.ITEM_FRAME).forEach(item -> {
+            final WoodType woodType = ((IWooden) item).getWoodType();
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
+            final ResourceLocation planks = Util.getPlanks(woodType);
+            final ModelFile itemFrame = this.models()
+                    .withExistingParent(Util.toPath(path, woodType.toString()), modLoc(Util.toPath(path, "template")))
+                    .texture("planks", planks);
+
+            final ModelFile itemFrameMap = this.models()
+                    .withExistingParent(Util.toPath(path, "map", woodType.toString()), modLoc(Util.toPath(path, "map", "template")))
+                    .texture("planks", planks);
         });
     }
 

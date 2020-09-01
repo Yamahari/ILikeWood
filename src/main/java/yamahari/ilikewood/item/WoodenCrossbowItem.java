@@ -8,7 +8,7 @@ import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
-public class WoodenCrossbowItem extends CrossbowItem implements IWooden {
+public final class WoodenCrossbowItem extends CrossbowItem implements IWooden {
     private final WoodType woodType;
 
     public WoodenCrossbowItem(final WoodType woodType) {

@@ -204,5 +204,12 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                     .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER, Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath()))))
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.CROSSBOW.toString(), "firework", woodType)));
         });
+
+        WoodenItems.getItems(WoodenObjectType.ITEM_FRAME).forEach(item -> {
+            final WoodType woodType = ((IWooden) item).getWoodType();
+            this.getBuilder(Util.toRegistryName(woodType.toString(), WoodenObjectType.ITEM_FRAME.toString()))
+                    .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
+                    .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.toString())));
+        });
     }
 }

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import yamahari.ilikewood.client.tileentity.renderer.WoodenChestItemStackTileEntityRenderer;
+import yamahari.ilikewood.client.renderer.tileentity.WoodenChestItemStackTileEntityRenderer;
 import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.item.tiered.WoodenHoeItem;
 import yamahari.ilikewood.item.tiered.WoodenSwordItem;
@@ -54,6 +54,7 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlockItems(WoodenObjectType.STRIPPED_POST, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.BOW, registerSimpleItems(WoodenItems::registerBowItem));
         registryObjects.put(WoodenObjectType.CROSSBOW, registerSimpleItems(WoodenItems::registerCrossbowItem));
+        registryObjects.put(WoodenObjectType.ITEM_FRAME, registerSimpleItems(WoodenItems::registerItemFrameItem));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
 
@@ -93,6 +94,10 @@ public final class WoodenItems {
 
     public static Stream<Item> getTieredItems(final WoodenTieredObjectType... tieredObjectTypes) {
         return Arrays.stream(tieredObjectTypes).flatMap(WoodenItems::getTieredItems);
+    }
+
+    public static RegistryObject<Item> getRegistryObject(final WoodenObjectType objectType, final WoodType woodType) {
+        return REGISTRY_OBJECTS.get(objectType).get(woodType);
     }
 
     private static Map<WoodType, RegistryObject<Item>> registerBlockItems(final WoodenObjectType objectType, final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> function) {
@@ -163,5 +168,9 @@ public final class WoodenItems {
 
     private static RegistryObject<Item> registerCrossbowItem(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.CROSSBOW.toString()), () -> new WoodenCrossbowItem(woodType));
+    }
+
+    private static RegistryObject<Item> registerItemFrameItem(final WoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.ITEM_FRAME.toString()), () -> new WoodenItemFrameItem(woodType));
     }
 }

@@ -1,10 +1,12 @@
 package yamahari.ilikewood.proxy;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.inventory.CraftingScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.tileentity.LecternTileEntityRenderer;
+import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.item.CrossbowItem;
@@ -14,13 +16,13 @@ import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import yamahari.ilikewood.client.tileentity.renderer.WoodenChestTileEntityRenderer;
-import yamahari.ilikewood.registry.WoodenBlocks;
-import yamahari.ilikewood.registry.WoodenContainerTypes;
-import yamahari.ilikewood.registry.WoodenItems;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
+import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
+import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
+import yamahari.ilikewood.entity.WoodenItemFrameEntity;
+import yamahari.ilikewood.registry.*;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class ClientProxy implements IProxy {
@@ -32,6 +34,15 @@ public final class ClientProxy implements IProxy {
 
         WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.LECTERN)
                 .forEach(type -> ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) type, LecternTileEntityRenderer::new));
+
+        WoodenEntityTypes.getEntityTypes(WoodenObjectType.ITEM_FRAME)
+                .forEach(type -> {
+
+                    RenderingRegistry.registerEntityRenderingHandler((EntityType<WoodenItemFrameEntity>) type,
+                            m -> new WoodenItemFrameRenderer(m, Minecraft.getInstance().getItemRenderer()));
+
+                    //manager.register((EntityType<WoodenItemFrameEntity>) type, new WoodenItemFrameRenderer(manager, Minecraft.getInstance().getItemRenderer()));
+                });
 
         WoodenBlocks.getBlocks(WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST)
                 .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getSolid()));

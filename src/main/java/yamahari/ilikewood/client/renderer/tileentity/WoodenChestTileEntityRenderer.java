@@ -1,4 +1,4 @@
-package yamahari.ilikewood.client.tileentity.renderer;
+package yamahari.ilikewood.client.renderer.tileentity;
 
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;

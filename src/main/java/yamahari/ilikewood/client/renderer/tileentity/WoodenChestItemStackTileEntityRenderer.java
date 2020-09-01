@@ -1,4 +1,4 @@
-package yamahari.ilikewood.client.tileentity.renderer;
+package yamahari.ilikewood.client.renderer.tileentity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
