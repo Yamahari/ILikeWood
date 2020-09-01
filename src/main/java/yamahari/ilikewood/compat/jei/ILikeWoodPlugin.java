@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.container.WoodenWorkBenchContainer;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 @JeiPlugin
@@ -29,12 +30,11 @@ public final class ILikeWoodPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(final IRecipeCatalystRegistration registration) {
-        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE)
-                .forEach(block -> registration.addRecipeCatalyst(new ItemStack(block), VanillaRecipeCategoryUid.CRAFTING));
+        registration.addRecipeCatalyst(new ItemStack(WoodenBlocks.getBlock(WoodenObjectType.CRAFTING_TABLE, WoodType.OAK)), VanillaRecipeCategoryUid.CRAFTING);
+        // WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> registration.addRecipeCatalyst(new ItemStack(block), VanillaRecipeCategoryUid.CRAFTING));
     }
 
     @Override
     public void registerGuiHandlers(final IGuiHandlerRegistration registration) {
-
     }
 }
