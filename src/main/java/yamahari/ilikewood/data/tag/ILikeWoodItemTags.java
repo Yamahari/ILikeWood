@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodItemTags {
-    public static final TagRegistry<Item> COLLECTION = TagRegistryManager.func_242196_a(new ResourceLocation(Constants.MOD_ID, "item"), ITagCollectionSupplier::func_241836_b);
+    public static final TagRegistry<Item> COLLECTION = TagRegistryManager.create(new ResourceLocation(Constants.MOD_ID, "item"), ITagCollectionSupplier::getItemTags);
     public static final INamedTag<Item> PANELS = makeWrapperTag("panels");
     public static final INamedTag<Item> PANELS_SLABS = makeWrapperTag("panels_slab");
     public static final INamedTag<Item> PANELS_STAIRS = makeWrapperTag("panels_stairs");

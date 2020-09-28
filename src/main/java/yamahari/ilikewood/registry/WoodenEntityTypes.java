@@ -56,7 +56,7 @@ public final class WoodenEntityTypes {
                 () -> EntityType.Builder.<WoodenItemFrameEntity>create(
                         (entityType, world) -> new WoodenItemFrameEntity(woodType, entityType, world), EntityClassification.MISC)
                         .size(0.5F, 0.5F)
-                        .func_233606_a_(10)
+                        .trackingRange(10)
                         .func_233608_b_(Integer.MAX_VALUE)
                         // .setCustomClientFactory(((spawnEntity, world) -> new WoodenItemFrameEntity(woodType, (EntityType<? extends ItemFrameEntity>)spawnEntity.getEntity().getType(), world)))
                         .build(name));

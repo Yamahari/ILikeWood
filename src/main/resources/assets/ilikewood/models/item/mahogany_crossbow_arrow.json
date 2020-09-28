@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/mahogany_crossbow",
+  "textures": {
+    "layer0": "ilikewood:item/crossbow/arrow/mahogany"
+  }
+}

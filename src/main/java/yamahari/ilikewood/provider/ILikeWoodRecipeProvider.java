@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 
 public final class ILikeWoodRecipeProvider extends RecipeProvider {
-    public ILikeWoodRecipeProvider(DataGenerator generator) {
+    public ILikeWoodRecipeProvider(final DataGenerator generator) {
         super(generator);
     }
 

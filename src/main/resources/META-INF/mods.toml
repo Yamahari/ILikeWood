@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
 license="MIT"
 [[mods]] #mandatory
 modId = "ilikewood" #mandatory
-version = "1.16.2-3.0.4.0" #mandatory
+version = "1.16.3-4.0.0.0" #mandatory
 displayName = "I Like Wood" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/i-like-wood" #optional
@@ -16,16 +16,16 @@ This mod adds wood variants for blocks that should have one but don't.
 It also adds a new wood related blocks.
 '''
 [[dependencies.ilikewood]] #optional
-    # the modid of the dependency
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[30,)" #mandatory
-    ordering="NONE"
-    side="BOTH"
+# the modid of the dependency
+modId = "forge" #mandatory
+mandatory = true #mandatory
+versionRange = "[34,)" #mandatory
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.ilikewood]]
     modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.2]"
-    ordering="NONE"
+mandatory = true
+versionRange = "[1.16.3]"
+ordering = "NONE"
     side="BOTH"

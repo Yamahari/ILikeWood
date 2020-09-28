@@ -35,7 +35,7 @@ public final class WoodenScaffoldingItem extends WoodenBlockItem {
             return WoodenScaffoldingBlock.getDistance(world, pos) == 7 ? null : context;
         } else {
             Direction direction;
-            if (context.func_225518_g_()) {
+            if (context.hasSecondaryUseForPlayer()) {
                 direction = context.isInside() ? context.getFace().getOpposite() : context.getFace();
             } else {
                 direction = context.getFace() == Direction.UP ? context.getPlacementHorizontalFacing() : Direction.UP;

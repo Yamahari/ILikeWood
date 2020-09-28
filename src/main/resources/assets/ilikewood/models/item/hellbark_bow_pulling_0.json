@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/hellbark_bow",
+  "textures": {
+    "layer0": "ilikewood:item/bow/pulling/0/hellbark"
+  }
+}

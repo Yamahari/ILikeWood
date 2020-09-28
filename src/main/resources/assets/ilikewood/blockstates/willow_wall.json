@@ -10,7 +10,27 @@
     },
     {
       "when": {
-        "north": "true"
+        "east": "low"
+      },
+      "apply": {
+        "model": "ilikewood:block/wall/side/willow",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "tall"
+      },
+      "apply": {
+        "model": "ilikewood:block/wall/side_tall/willow",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "low"
       },
       "apply": {
         "model": "ilikewood:block/wall/side/willow",
@@ -19,7 +39,16 @@
     },
     {
       "when": {
-        "south": "true"
+        "north": "tall"
+      },
+      "apply": {
+        "model": "ilikewood:block/wall/side_tall/willow",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "low"
       },
       "apply": {
         "model": "ilikewood:block/wall/side/willow",
@@ -29,7 +58,17 @@
     },
     {
       "when": {
-        "west": "true"
+        "south": "tall"
+      },
+      "apply": {
+        "model": "ilikewood:block/wall/side_tall/willow",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "low"
       },
       "apply": {
         "model": "ilikewood:block/wall/side/willow",
@@ -39,11 +78,11 @@
     },
     {
       "when": {
-        "east": "true"
+        "west": "tall"
       },
       "apply": {
-        "model": "ilikewood:block/wall/side/willow",
-        "y": 90,
+        "model": "ilikewood:block/wall/side_tall/willow",
+        "y": 270,
         "uvlock": true
       }
     }

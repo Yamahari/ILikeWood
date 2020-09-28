@@ -31,7 +31,7 @@ public class WoodenWallOrFloorItem extends WoodenBlockItem {
                 .map(direction -> direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : state)
                 .filter(s -> s != null && s.isValidPosition(world, pos))
                 .findFirst()
-                .filter(s -> world.func_226663_a_(s, pos, ISelectionContext.dummy()))
+                .filter(s -> world.placedBlockCollides(s, pos, ISelectionContext.dummy()))
                 .orElse(null);
     }
 

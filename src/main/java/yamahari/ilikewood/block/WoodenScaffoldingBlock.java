@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ScaffoldingBlock;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
@@ -65,7 +66,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         if (flag) {
             return VoxelShapes.fullCube();
         }
-        return state.get(BOTTOM) ? field_220122_e : field_220121_d;
+        return state.get(BOTTOM) ? FULL_SHAPE : TOP_SLAB_SHAPE;
     }
 
     @Override
@@ -76,7 +77,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     @Override
     public void tick(final BlockState state, final ServerWorld world, final BlockPos pos, final Random rand) {
         final int distance = getDistance(world, pos);
-        final BlockState blockState = state.with(DISTANCE, distance).with(BOTTOM, this.func_220116_a(world, pos, distance));
+        final BlockState blockState = state.with(DISTANCE, distance).with(BOTTOM, this.hasScaffoldingBelow(world, pos, distance));
         if (blockState.get(DISTANCE) == 7) {
             if (state.get(DISTANCE) == 7) {
                 world.addEntity(new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, blockState.with(WATERLOGGED, Boolean.FALSE)));
@@ -101,7 +102,12 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         return this.getDefaultState()
                 .with(WATERLOGGED, world.getFluidState(blockpos).getFluid() == Fluids.WATER)
                 .with(DISTANCE, distance)
-                .with(BOTTOM, this.func_220116_a(world, blockpos, distance));
+                .with(BOTTOM, this.hasScaffoldingBelow(world, blockpos, distance));
+    }
+
+    @Override
+    public boolean isScaffolding(final BlockState state, final IWorldReader world, final BlockPos pos, final LivingEntity entity) {
+        return true;
     }
 
     @Override

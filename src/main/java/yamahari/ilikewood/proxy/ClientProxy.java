@@ -57,34 +57,34 @@ public final class ClientProxy implements IProxy {
                 .forEach(type -> ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) type, CraftingScreen::new));
 
         WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
-            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
+            ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
                 } else {
                     return entity.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - entity.getItemInUseCount()) / 20.0F;
                 }
             });
-            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("pulling"),
+            ItemModelsProperties.registerProperty(item, new ResourceLocation("pulling"),
                     (itemStack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
         });
 
         WoodenItems.getItems(WoodenObjectType.CROSSBOW).forEach(item -> {
 
 
-            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
+            ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
                 } else {
                     return CrossbowItem.isCharged(itemStack) ? 0.0F : (float) (itemStack.getUseDuration() - entity.getItemInUseCount()) / (float) CrossbowItem.getChargeTime(itemStack);
                 }
             });
-            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("pulling"),
+            ItemModelsProperties.registerProperty(item, new ResourceLocation("pulling"),
                     (itemStack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack && !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
 
-            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("charged"),
+            ItemModelsProperties.registerProperty(item, new ResourceLocation("charged"),
                     (itemStack, world, entity) -> entity != null && CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
 
-            ItemModelsProperties.func_239418_a_(item, new ResourceLocation("firework"), (
+            ItemModelsProperties.registerProperty(item, new ResourceLocation("firework"), (
                     itemStack, world, entity) -> entity != null && CrossbowItem.isCharged(itemStack) && CrossbowItem.hasChargedProjectile(itemStack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
 
         });
