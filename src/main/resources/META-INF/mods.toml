@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
 license="MIT"
 [[mods]] #mandatory
 modId = "ilikewood" #mandatory
-version = "1.16.3-4.0.0.0" #mandatory
+version = "1.16.3-4.0.1.0" #mandatory
 displayName = "I Like Wood" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/i-like-wood" #optional
@@ -24,8 +24,8 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ilikewood]]
-    modId="minecraft"
+modId = "minecraft"
 mandatory = true
 versionRange = "[1.16.3]"
 ordering = "NONE"
-    side="BOTH"
+side = "BOTH"
