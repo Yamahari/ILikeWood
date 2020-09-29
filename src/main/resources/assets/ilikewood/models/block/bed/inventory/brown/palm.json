@@ -1,0 +1,11 @@
+{
+  "parent": "ilikewood:block/bed/inventory/template",
+  "textures": {
+    "planks": "biomesoplenty:block/palm_planks",
+    "frame": "ilikewood:block/bed/frame/palm",
+    "head_top": "ilikewood:block/bed/sheets/head/top/brown",
+    "head_sides": "ilikewood:block/bed/sheets/head/sides/brown",
+    "foot_top": "ilikewood:block/bed/sheets/foot/top/brown",
+    "foot_sides": "ilikewood:block/bed/sheets/foot/sides/brown"
+  }
+}

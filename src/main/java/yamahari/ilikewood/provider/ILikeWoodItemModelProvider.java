@@ -7,6 +7,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
@@ -211,5 +212,7 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.toString())));
         });
+
+        WoodenBlocks.getBedBlocks().forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.BED.toString(), "inventory", ((WoodenBedBlock) block).getDyeColor().toString())));
     }
 }

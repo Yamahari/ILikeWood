@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/bed/foot/template",
+  "textures": {
+    "planks": "minecraft:block/jungle_planks",
+    "frame": "ilikewood:block/bed/frame/jungle",
+    "top": "ilikewood:block/bed/sheets/foot/top/black",
+    "sides": "ilikewood:block/bed/sheets/foot/sides/black"
+  }
+}

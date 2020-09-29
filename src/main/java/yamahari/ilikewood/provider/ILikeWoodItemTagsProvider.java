@@ -15,7 +15,11 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
     }
 
     private void registerTag(final ITag.INamedTag<Item> tag, final WoodenObjectType objectType) {
-        this.getOrCreateBuilder(tag).add(WoodenItems.getItems(objectType).toArray(Item[]::new));
+        if (objectType.equals(WoodenObjectType.BED)) {
+            this.getOrCreateBuilder(tag).add(WoodenItems.getBedItems().toArray(Item[]::new));
+        } else {
+            this.getOrCreateBuilder(tag).add(WoodenItems.getItems(objectType).toArray(Item[]::new));
+        }
     }
 
     private void registerTag(final ITag.INamedTag<Item> tag, final WoodenTieredObjectType objectType) {
@@ -43,6 +47,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.BOWS, WoodenObjectType.BOW);
         registerTag(ILikeWoodItemTags.CROSSBOWS, WoodenObjectType.CROSSBOW);
         registerTag(ILikeWoodItemTags.ITEM_FRAMES, WoodenObjectType.ITEM_FRAME);
+        registerTag(ILikeWoodItemTags.BEDS, WoodenObjectType.BED);
 
         registerTag(ILikeWoodItemTags.AXES, WoodenTieredObjectType.AXE);
         registerTag(ILikeWoodItemTags.HOES, WoodenTieredObjectType.HOE);

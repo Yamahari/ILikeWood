@@ -1,13 +1,15 @@
 package yamahari.ilikewood.block;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodType;
-import yamahari.ilikewood.util.WoodenObjectType;
+
+import javax.annotation.Nullable;
 
 public final class WoodenBedBlock extends BedBlock implements IWooden {
     private final WoodType type;
@@ -17,7 +19,6 @@ public final class WoodenBedBlock extends BedBlock implements IWooden {
         super(color, getProperties(color));
         this.type = type;
         this.color = color;
-        this.setRegistryName(Util.toRegistryName(this.getDyeColor().getString(), this.getWoodType().toString(), WoodenObjectType.BED.toString()));
     }
 
     private static Block.Properties getProperties(final DyeColor color) {
@@ -75,5 +76,10 @@ public final class WoodenBedBlock extends BedBlock implements IWooden {
     @Override
     public BlockRenderType getRenderType(final BlockState blockState) {
         return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public boolean isBed(final BlockState state, final IBlockReader world, final BlockPos pos, @Nullable final Entity player) {
+        return true;
     }
 }

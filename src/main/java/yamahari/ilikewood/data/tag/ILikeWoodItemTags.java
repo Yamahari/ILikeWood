@@ -29,6 +29,7 @@ public final class ILikeWoodItemTags {
     public static final INamedTag<Item> BOWS = makeWrapperTag("bows");
     public static final INamedTag<Item> CROSSBOWS = makeWrapperTag("crossbows");
     public static final INamedTag<Item> ITEM_FRAMES = makeWrapperTag("item_frames");
+    public static final INamedTag<Item> BEDS = makeWrapperTag("beds");
 
     public static final INamedTag<Item> AXES = makeWrapperTag("axes");
     public static final INamedTag<Item> HOES = makeWrapperTag("hoes");

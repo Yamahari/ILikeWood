@@ -4,6 +4,7 @@ import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -11,6 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
@@ -383,10 +385,10 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                             .patternLine("#")
                             .patternLine("#")
                             .patternLine("I")
-                    .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ILikeWoodItemTags.SWORDS.getName().getPath())
-                    .build(consumer);
-        });
+                            .addCriterion("has_material", hasItem(repair))
+                            .setGroup(ILikeWoodItemTags.SWORDS.getName().getPath())
+                            .build(consumer);
+                });
 
         WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
             final WoodType woodType = ((IWooden) item).getWoodType();
@@ -445,6 +447,49 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                             .addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
                             .build(consumer, new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(output.getRegistryName().getPath(), "smithing")));
                 });
+
+        WoodenBlocks.getBedBlocks().forEach(block -> {
+            final WoodType woodType = ((IWooden) block).getWoodType();
+            final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
+            final IItemProvider wool = getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "WOOL"), Blocks.class);
+            final IItemProvider planks = getPlanks(woodType);
+            final IItemProvider dye = getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "DYE"), Items.class);
+            final IItemProvider whiteBed = WoodenBlocks.getBedBlock(woodType, DyeColor.WHITE);
+
+            assert wool != null;
+            assert dye != null;
+
+            ShapedRecipeBuilder.shapedRecipe(block)
+                    .key('#', wool)
+                    .key('X', planks)
+                    .patternLine("###")
+                    .patternLine("XXX")
+                    .addCriterion("has_wool", hasItem(wool))
+                    .setGroup(ILikeWoodBlockTags.BEDS.getName().getPath())
+                    .build(consumer);
+
+            if (!color.equals(DyeColor.WHITE)) {
+                ShapelessRecipeBuilder.shapelessRecipe(block)
+                        .addIngredient(whiteBed)
+                        .addIngredient(dye)
+                        .addCriterion("has_dye", hasItem(dye))
+                        .setGroup(ILikeWoodBlockTags.BEDS.getName().getPath())
+                        .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                                Util.toRegistryName(block.getRegistryName().getPath(), "from", whiteBed.asItem().getRegistryName().getPath())));
+            } else {
+                Arrays.stream(DyeColor.values()).filter(c -> !c.equals(DyeColor.WHITE))
+                        .forEach(c -> {
+                            final IItemProvider coloredBed = WoodenBlocks.getBedBlock(woodType, c);
+                            ShapelessRecipeBuilder.shapelessRecipe(block)
+                                    .addIngredient(coloredBed)
+                                    .addIngredient(dye)
+                                    .addCriterion("has_dye", hasItem(dye))
+                                    .setGroup(ILikeWoodBlockTags.BEDS.getName().getPath())
+                                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                                            Util.toRegistryName(block.getRegistryName().getPath(), "from", coloredBed.asItem().getRegistryName().getPath())));
+                        });
+            }
+        });
     }
 
     @Override

@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.item.DyeColor;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -28,6 +29,7 @@ import java.util.stream.Stream;
 public final class WoodenBlocks {
     public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MOD_ID);
     private static final Map<WoodenObjectType, Map<WoodType, RegistryObject<Block>>> REGISTRY_OBJECTS;
+    private static final Map<WoodType, Map<DyeColor, RegistryObject<Block>>> BED_REGISTRY_OBJECTS;
 
     static {
         final Map<WoodenObjectType, Map<WoodType, RegistryObject<Block>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
@@ -83,6 +85,16 @@ public final class WoodenBlocks {
         registryObjects.put(WoodenObjectType.SLAB, Collections.unmodifiableMap(panelsSlab));
 
         REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
+
+        final Map<WoodType, Map<DyeColor, RegistryObject<Block>>> bedRegistryObjects = new EnumMap<>(WoodType.class);
+        WoodType.getLoadedValues().forEach(woodType -> {
+            final Map<DyeColor, RegistryObject<Block>> beds = new EnumMap<>(DyeColor.class);
+            for (final DyeColor color : DyeColor.values())
+                beds.put(color, registerBedBlock(woodType, color));
+            bedRegistryObjects.put(woodType, beds);
+        });
+
+        BED_REGISTRY_OBJECTS = Collections.unmodifiableMap(bedRegistryObjects);
     }
 
     private WoodenBlocks() {
@@ -106,6 +118,30 @@ public final class WoodenBlocks {
 
     public static Stream<RegistryObject<Block>> getRegistryObjects(final WoodenObjectType objectType) {
         return REGISTRY_OBJECTS.get(objectType).values().stream();
+    }
+
+    public static Stream<Block> getBedBlocks() {
+        return getBedRegistryObjects().map(RegistryObject::get);
+    }
+
+    public static Stream<Block> getBedBlocks(final WoodType woodType) {
+        return getBedRegistryObjects(woodType).map(RegistryObject::get);
+    }
+
+    public static Block getBedBlock(final WoodType woodType, final DyeColor color) {
+        return getBedRegistryObject(woodType, color).get();
+    }
+
+    public static Stream<RegistryObject<Block>> getBedRegistryObjects() {
+        return WoodType.getLoadedValues().flatMap(WoodenBlocks::getBedRegistryObjects);
+    }
+
+    public static Stream<RegistryObject<Block>> getBedRegistryObjects(final WoodType woodType) {
+        return Arrays.stream(DyeColor.values()).map(color -> getBedRegistryObject(woodType, color));
+    }
+
+    public static RegistryObject<Block> getBedRegistryObject(final WoodType woodType, final DyeColor color) {
+        return BED_REGISTRY_OBJECTS.get(woodType).get(color);
     }
 
     private static Map<WoodType, RegistryObject<Block>> registerSimpleBlocks(final Function<WoodType, RegistryObject<Block>> function) {
@@ -181,5 +217,9 @@ public final class WoodenBlocks {
 
     private static RegistryObject<Block> registerStrippedPostBlock(final WoodType woodType) {
         return REGISTRY.register(Util.toRegistryName("stripped", woodType.toString(), WoodenObjectType.POST.toString()), () -> new WoodenStrippedPostBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerBedBlock(final WoodType woodType, final DyeColor color) {
+        return REGISTRY.register(Util.toRegistryName(color.toString(), woodType.toString(), WoodenObjectType.BED.toString()), () -> new WoodenBedBlock(woodType, color));
     }
 }

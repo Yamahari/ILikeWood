@@ -1,0 +1,11 @@
+{
+  "parent": "ilikewood:block/bed/inventory/template",
+  "textures": {
+    "planks": "minecraft:block/jungle_planks",
+    "frame": "ilikewood:block/bed/frame/jungle",
+    "head_top": "ilikewood:block/bed/sheets/head/top/light_blue",
+    "head_sides": "ilikewood:block/bed/sheets/head/sides/light_blue",
+    "foot_top": "ilikewood:block/bed/sheets/foot/top/light_blue",
+    "foot_sides": "ilikewood:block/bed/sheets/foot/sides/light_blue"
+  }
+}

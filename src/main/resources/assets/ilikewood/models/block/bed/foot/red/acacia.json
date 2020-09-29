@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/bed/foot/template",
+  "textures": {
+    "planks": "minecraft:block/acacia_planks",
+    "frame": "ilikewood:block/bed/frame/acacia",
+    "top": "ilikewood:block/bed/sheets/foot/top/red",
+    "sides": "ilikewood:block/bed/sheets/foot/sides/red"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beds",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:light_blue_wool"
+    },
+    "X": {
+      "item": "minecraft:warped_planks"
+    }
+  },
+  "result": {
+    "item": "ilikewood:light_blue_warped_bed"
+  }
+}

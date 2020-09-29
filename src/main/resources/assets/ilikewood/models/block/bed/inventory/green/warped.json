@@ -1,0 +1,11 @@
+{
+  "parent": "ilikewood:block/bed/inventory/template",
+  "textures": {
+    "planks": "minecraft:block/warped_planks",
+    "frame": "ilikewood:block/bed/frame/warped",
+    "head_top": "ilikewood:block/bed/sheets/head/top/green",
+    "head_sides": "ilikewood:block/bed/sheets/head/sides/green",
+    "foot_top": "ilikewood:block/bed/sheets/foot/top/green",
+    "foot_sides": "ilikewood:block/bed/sheets/foot/sides/green"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/bed/foot/template",
+  "textures": {
+    "planks": "biomesoplenty:block/willow_planks",
+    "frame": "ilikewood:block/bed/frame/willow",
+    "top": "ilikewood:block/bed/sheets/foot/top/blue",
+    "sides": "ilikewood:block/bed/sheets/foot/sides/blue"
+  }
+}
