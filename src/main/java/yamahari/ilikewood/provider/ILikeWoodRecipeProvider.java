@@ -452,7 +452,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
             final WoodType woodType = ((IWooden) block).getWoodType();
             final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
             final IItemProvider wool = getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "WOOL"), Blocks.class);
-            final IItemProvider planks = getPlanks(woodType);
+            final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
             final IItemProvider dye = getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "DYE"), Items.class);
             final IItemProvider whiteBed = WoodenBlocks.getBedBlock(woodType, DyeColor.WHITE);
 
@@ -461,7 +461,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
 
             ShapedRecipeBuilder.shapedRecipe(block)
                     .key('#', wool)
-                    .key('X', planks)
+                    .key('X', panels)
                     .patternLine("###")
                     .patternLine("XXX")
                     .addCriterion("has_wool", hasItem(wool))
