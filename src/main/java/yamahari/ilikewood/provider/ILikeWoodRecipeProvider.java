@@ -3,15 +3,13 @@ package yamahari.ilikewood.provider;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
@@ -300,81 +298,91 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .build(consumer);
         });
 
-        WoodenItems.getTieredItems(WoodenTieredObjectType.AXE).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
-            final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
-            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+        WoodenItems.getTieredItems(WoodenTieredObjectType.AXE)
+                .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
+                .forEach(item -> {
+                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
+                    final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
-            ShapedRecipeBuilder.shapedRecipe(item)
-                    .key('I', stick)
-                    .key('#', repair)
-                    .patternLine("##")
-                    .patternLine("#I")
-                    .patternLine(" I")
-                    .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ILikeWoodItemTags.AXES.getName().getPath())
-                    .build(consumer);
-        });
+                    ShapedRecipeBuilder.shapedRecipe(item)
+                            .key('I', stick)
+                            .key('#', repair)
+                            .patternLine("##")
+                            .patternLine("#I")
+                            .patternLine(" I")
+                            .addCriterion("has_material", hasItem(repair))
+                            .setGroup(ILikeWoodItemTags.AXES.getName().getPath())
+                            .build(consumer);
+                });
 
-        WoodenItems.getTieredItems(WoodenTieredObjectType.HOE).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
-            final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
-            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+        WoodenItems.getTieredItems(WoodenTieredObjectType.HOE)
+                .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
+                .forEach(item -> {
+                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
+                    final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
-            ShapedRecipeBuilder.shapedRecipe(item)
-                    .key('I', stick)
-                    .key('#', repair)
-                    .patternLine("##")
-                    .patternLine(" I")
-                    .patternLine(" I")
-                    .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ILikeWoodItemTags.HOES.getName().getPath())
-                    .build(consumer);
-        });
+                    ShapedRecipeBuilder.shapedRecipe(item)
+                            .key('I', stick)
+                            .key('#', repair)
+                            .patternLine("##")
+                            .patternLine(" I")
+                            .patternLine(" I")
+                            .addCriterion("has_material", hasItem(repair))
+                            .setGroup(ILikeWoodItemTags.HOES.getName().getPath())
+                            .build(consumer);
+                });
 
-        WoodenItems.getTieredItems(WoodenTieredObjectType.PICKAXE).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
-            final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
-            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+        WoodenItems.getTieredItems(WoodenTieredObjectType.PICKAXE)
+                .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
+                .forEach(item -> {
+                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
+                    final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
-            ShapedRecipeBuilder.shapedRecipe(item)
-                    .key('I', stick)
-                    .key('#', repair)
-                    .patternLine("###")
-                    .patternLine(" I ")
-                    .patternLine(" I ")
-                    .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ILikeWoodItemTags.PICKAXES.getName().getPath())
-                    .build(consumer);
-        });
+                    ShapedRecipeBuilder.shapedRecipe(item)
+                            .key('I', stick)
+                            .key('#', repair)
+                            .patternLine("###")
+                            .patternLine(" I ")
+                            .patternLine(" I ")
+                            .addCriterion("has_material", hasItem(repair))
+                            .setGroup(ILikeWoodItemTags.PICKAXES.getName().getPath())
+                            .build(consumer);
+                });
 
-        WoodenItems.getTieredItems(WoodenTieredObjectType.SHOVEL).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
-            final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
-            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+        WoodenItems.getTieredItems(WoodenTieredObjectType.SHOVEL)
+                .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
+                .forEach(item -> {
+                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
+                    final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
-            ShapedRecipeBuilder.shapedRecipe(item)
-                    .key('I', stick)
-                    .key('#', repair)
-                    .patternLine("#")
-                    .patternLine("I")
-                    .patternLine("I")
-                    .addCriterion("has_material", hasItem(repair))
-                    .setGroup(ILikeWoodItemTags.SHOVELS.getName().getPath())
-                    .build(consumer);
-        });
+                    ShapedRecipeBuilder.shapedRecipe(item)
+                            .key('I', stick)
+                            .key('#', repair)
+                            .patternLine("#")
+                            .patternLine("I")
+                            .patternLine("I")
+                            .addCriterion("has_material", hasItem(repair))
+                            .setGroup(ILikeWoodItemTags.SHOVELS.getName().getPath())
+                            .build(consumer);
+                });
 
-        WoodenItems.getTieredItems(WoodenTieredObjectType.SWORD).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
-            final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
-            final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+        WoodenItems.getTieredItems(WoodenTieredObjectType.SWORD)
+                .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
+                .forEach(item -> {
+                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
+                    final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
-            ShapedRecipeBuilder.shapedRecipe(item)
-                    .key('I', stick)
-                    .key('#', repair)
-                    .patternLine("#")
-                    .patternLine("#")
-                    .patternLine("I")
+                    ShapedRecipeBuilder.shapedRecipe(item)
+                            .key('I', stick)
+                            .key('#', repair)
+                            .patternLine("#")
+                            .patternLine("#")
+                            .patternLine("I")
                     .addCriterion("has_material", hasItem(repair))
                     .setGroup(ILikeWoodItemTags.SWORDS.getName().getPath())
                     .build(consumer);
@@ -426,6 +434,17 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .setGroup(ILikeWoodItemTags.ITEM_FRAMES.getName().getPath())
                     .build(consumer);
         });
+
+        WoodenItems.getTieredItems(WoodenTieredObjectType.AXE, WoodenTieredObjectType.PICKAXE, WoodenTieredObjectType.SHOVEL, WoodenTieredObjectType.HOE, WoodenTieredObjectType.SWORD)
+                .filter(item -> ((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.DIAMOND))
+                .forEach(item -> {
+                    final IWoodenTieredItem tieredItem = ((IWoodenTieredItem) item);
+                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final Item output = WoodenItems.getTieredItem(tieredItem.getWoodenTieredObjectType(), woodType, WoodenItemTier.NETHERITE);
+                    SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(item), Ingredient.fromItems(Items.NETHERITE_INGOT), output)
+                            .addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
+                            .build(consumer, new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(output.getRegistryName().getPath(), "smithing")));
+                });
     }
 
     @Override

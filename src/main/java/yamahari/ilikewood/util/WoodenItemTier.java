@@ -29,6 +29,7 @@ public enum WoodenItemTier implements IItemTier {
     IRON(Constants.IRON, false, () -> Ingredient.fromItems(Items.IRON_INGOT)),
     DIAMOND(Constants.DIAMOND, false, () -> Ingredient.fromItems(Items.DIAMOND)),
     GOLDEN(Constants.GOLDEN, false, () -> Ingredient.fromItems(Items.GOLD_INGOT)),
+    NETHERITE(Constants.NETHERITE, false, () -> Ingredient.fromItems(Items.NETHERITE_INGOT)),
     CHERRY(Constants.CHERRY, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.CHERRY))),
     DEAD(Constants.DEAD, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.DEAD))),
     FIR(Constants.FIR, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.FIR))),
@@ -82,7 +83,7 @@ public enum WoodenItemTier implements IItemTier {
         try {
             final String dataModId = System.getProperty("ilikewood.datagen.modid");
             if (dataModId != null) {
-                return Arrays.stream(values()).filter(itemTier -> itemTier.getModId().equals(dataModId));
+                return Arrays.stream(values()).filter(itemTier -> !itemTier.isWood() || itemTier.getModId().equals(dataModId));
             }
         } catch (NullPointerException | SecurityException | IllegalArgumentException e) {
             ILikeWood.LOGGER.error(e.getMessage());

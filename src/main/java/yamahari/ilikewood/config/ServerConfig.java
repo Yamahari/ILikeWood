@@ -29,13 +29,14 @@ public final class ServerConfig {
 
         builder.push("harvest_level");
 
-        final Map<String, Integer> defaultHarvestLevel = ImmutableMap.of(
-                Constants.WOOD, 0,
-                Constants.STONE, 1,
-                Constants.IRON, 2,
-                Constants.DIAMOND, 3,
-                Constants.GOLDEN, 0
-        );
+        final Map<String, Integer> defaultHarvestLevel = new ImmutableMap.Builder<String, Integer>()
+                .put(Constants.WOOD, 0)
+                .put(Constants.STONE, 1)
+                .put(Constants.IRON, 2)
+                .put(Constants.DIAMOND, 3)
+                .put(Constants.GOLDEN, 0)
+                .put(Constants.NETHERITE, 4)
+                .build();
 
         HARVEST_LEVEL = buildItemTierConfigValues(
                 (path, isWood) -> builder.defineInRange(path, defaultHarvestLevel.get(isWood ? Constants.WOOD : path), 0, Integer.MAX_VALUE));
@@ -43,13 +44,14 @@ public final class ServerConfig {
 
         builder.push("max_uses");
 
-        final Map<String, Integer> defaultMaxUses = ImmutableMap.of(
-                Constants.WOOD, 59,
-                Constants.STONE, 131,
-                Constants.IRON, 250,
-                Constants.DIAMOND, 1561,
-                Constants.GOLDEN, 32
-        );
+        final Map<String, Integer> defaultMaxUses = new ImmutableMap.Builder<String, Integer>()
+                .put(Constants.WOOD, 59)
+                .put(Constants.STONE, 131)
+                .put(Constants.IRON, 250)
+                .put(Constants.DIAMOND, 1561)
+                .put(Constants.GOLDEN, 32)
+                .put(Constants.NETHERITE, 2031)
+                .build();
 
         MAX_USES = buildItemTierConfigValues(
                 (path, isWood) -> builder.defineInRange(path, defaultMaxUses.get(isWood ? Constants.WOOD : path), 0, Integer.MAX_VALUE));
@@ -57,13 +59,14 @@ public final class ServerConfig {
 
         builder.push("efficiency");
 
-        final Map<String, Double> defaultEfficiency = ImmutableMap.of(
-                Constants.WOOD, 2.0D,
-                Constants.STONE, 4.0D,
-                Constants.IRON, 6.0D,
-                Constants.DIAMOND, 8.0D,
-                Constants.GOLDEN, 12.0D
-        );
+        final Map<String, Double> defaultEfficiency = new ImmutableMap.Builder<String, Double>()
+                .put(Constants.WOOD, 2.0D)
+                .put(Constants.STONE, 4.0D)
+                .put(Constants.IRON, 6.0D)
+                .put(Constants.DIAMOND, 8.0D)
+                .put(Constants.GOLDEN, 12.0D)
+                .put(Constants.NETHERITE, 9.0D)
+                .build();
 
         EFFICIENCY = buildItemTierConfigValues(
                 (path, isWood) -> builder.defineInRange(path, defaultEfficiency.get(isWood ? Constants.WOOD : path), 0.0D, Float.MAX_VALUE));
@@ -71,13 +74,14 @@ public final class ServerConfig {
 
         builder.push("attack_damage");
 
-        final Map<String, Double> defaultAttackDamage = ImmutableMap.of(
-                Constants.WOOD, 0.0D,
-                Constants.STONE, 1.0D,
-                Constants.IRON, 2.0D,
-                Constants.DIAMOND, 3.0D,
-                Constants.GOLDEN, 0.0D
-        );
+        final Map<String, Double> defaultAttackDamage = new ImmutableMap.Builder<String, Double>()
+                .put(Constants.WOOD, 0.0D)
+                .put(Constants.STONE, 1.0D)
+                .put(Constants.IRON, 2.0D)
+                .put(Constants.DIAMOND, 3.0D)
+                .put(Constants.GOLDEN, 0.0D)
+                .put(Constants.NETHERITE, 4.0D)
+                .build();
 
         ATTACK_DAMAGE = buildItemTierConfigValues(
                 (path, isWood) -> builder.defineInRange(path, defaultAttackDamage.get(isWood ? Constants.WOOD : path), 0.0D, Float.MAX_VALUE));
@@ -85,13 +89,14 @@ public final class ServerConfig {
 
         builder.push("enchantability");
 
-        final Map<String, Integer> defaultEnchantability = ImmutableMap.of(
-                Constants.WOOD, 15,
-                Constants.STONE, 5,
-                Constants.IRON, 14,
-                Constants.DIAMOND, 10,
-                Constants.GOLDEN, 22
-        );
+        final Map<String, Integer> defaultEnchantability = new ImmutableMap.Builder<String, Integer>()
+                .put(Constants.WOOD, 15)
+                .put(Constants.STONE, 5)
+                .put(Constants.IRON, 14)
+                .put(Constants.DIAMOND, 10)
+                .put(Constants.GOLDEN, 22)
+                .put(Constants.NETHERITE, 15)
+                .build();
 
         ENCHANTABILITY = buildItemTierConfigValues(
                 (path, isWood) -> builder.defineInRange(path, defaultEnchantability.get(isWood ? Constants.WOOD : path), 0, Integer.MAX_VALUE));
@@ -130,43 +135,44 @@ public final class ServerConfig {
         builder.push("attack_speed");
 
         final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.DoubleValue>> attackSpeeds = new ImmutableMap.Builder<>();
-        final Map<String, Map<String, Double>> defaultTieredAttackSpeed = ImmutableMap.of(
-                Constants.WOOD, ImmutableMap.of(
+        final Map<String, Map<String, Double>> defaultTieredAttackSpeed = new ImmutableMap.Builder<String, Map<String, Double>>()
+                .put(Constants.WOOD, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), -3.2D,
                         WoodenTieredObjectType.HOE.toString(), -3.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), -2.8D,
                         WoodenTieredObjectType.SHOVEL.toString(), -3.0D,
-                        WoodenTieredObjectType.SWORD.toString(), -2.4D
-                ),
-                Constants.STONE, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), -2.4D))
+                .put(Constants.STONE, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), -3.2D,
                         WoodenTieredObjectType.HOE.toString(), -2.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), -2.8D,
                         WoodenTieredObjectType.SHOVEL.toString(), -3.0D,
-                        WoodenTieredObjectType.SWORD.toString(), -2.4D
-                ),
-                Constants.IRON, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), -2.4D))
+                .put(Constants.IRON, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), -3.1D,
                         WoodenTieredObjectType.HOE.toString(), -1.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), -2.8D,
                         WoodenTieredObjectType.SHOVEL.toString(), -3.0D,
-                        WoodenTieredObjectType.SWORD.toString(), -2.4D
-                ),
-                Constants.DIAMOND, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), -2.4D))
+                .put(Constants.DIAMOND, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), -3.0D,
                         WoodenTieredObjectType.HOE.toString(), 0.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), -2.8D,
                         WoodenTieredObjectType.SHOVEL.toString(), -3.0D,
-                        WoodenTieredObjectType.SWORD.toString(), -2.4D
-                ),
-                Constants.GOLDEN, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), -2.4D))
+                .put(Constants.GOLDEN, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), -3.0D,
                         WoodenTieredObjectType.HOE.toString(), -3.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), -2.8D,
                         WoodenTieredObjectType.SHOVEL.toString(), -3.0D,
-                        WoodenTieredObjectType.SWORD.toString(), -2.4D
-                )
-        );
+                        WoodenTieredObjectType.SWORD.toString(), -2.4D))
+                .put(Constants.NETHERITE, ImmutableMap.of(
+                        WoodenTieredObjectType.AXE.toString(), -3.0D,
+                        WoodenTieredObjectType.HOE.toString(), 0.0D,
+                        WoodenTieredObjectType.PICKAXE.toString(), -2.8D,
+                        WoodenTieredObjectType.SHOVEL.toString(), -3.0D,
+                        WoodenTieredObjectType.SWORD.toString(), -2.4D))
+                .build();
 
         WoodenItemTier.getLoadedValues().forEach(itemTier -> buildTieredConfigValues(itemTier, builder, attackSpeeds, defaultTieredAttackSpeed));
         TIERED_ATTACK_SPEED = attackSpeeds.build();
@@ -176,43 +182,44 @@ public final class ServerConfig {
         builder.push("attack_damage");
 
         final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.DoubleValue>> attackDamages = new ImmutableMap.Builder<>();
-        final Map<String, Map<String, Double>> defaultTieredAttackDamage = ImmutableMap.of(
-                Constants.WOOD, ImmutableMap.of(
+        final Map<String, Map<String, Double>> defaultTieredAttackDamage = new ImmutableMap.Builder<String, Map<String, Double>>()
+                .put(Constants.WOOD, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), 6.0D,
                         WoodenTieredObjectType.HOE.toString(), 0.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), 1.0D,
                         WoodenTieredObjectType.SHOVEL.toString(), 1.5D,
-                        WoodenTieredObjectType.SWORD.toString(), 3.0D
-                ),
-                Constants.STONE, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), 3.0D))
+                .put(Constants.STONE, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), 7.0D,
-                        WoodenTieredObjectType.HOE.toString(), 0.0D,
+                        WoodenTieredObjectType.HOE.toString(), -1.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), 1.0D,
                         WoodenTieredObjectType.SHOVEL.toString(), 1.5D,
-                        WoodenTieredObjectType.SWORD.toString(), 3.0D
-                ),
-                Constants.IRON, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), 3.0D))
+                .put(Constants.IRON, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), 6.0D,
-                        WoodenTieredObjectType.HOE.toString(), 0.0D,
+                        WoodenTieredObjectType.HOE.toString(), -2.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), 1.0D,
                         WoodenTieredObjectType.SHOVEL.toString(), 1.5D,
-                        WoodenTieredObjectType.SWORD.toString(), 3.0D
-                ),
-                Constants.DIAMOND, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), 3.0D))
+                .put(Constants.DIAMOND, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), 5.0D,
-                        WoodenTieredObjectType.HOE.toString(), 0.0D,
+                        WoodenTieredObjectType.HOE.toString(), -3.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), 1.0D,
                         WoodenTieredObjectType.SHOVEL.toString(), 1.5D,
-                        WoodenTieredObjectType.SWORD.toString(), 3.0D
-                ),
-                Constants.GOLDEN, ImmutableMap.of(
+                        WoodenTieredObjectType.SWORD.toString(), 3.0D))
+                .put(Constants.GOLDEN, ImmutableMap.of(
                         WoodenTieredObjectType.AXE.toString(), 6.0D,
                         WoodenTieredObjectType.HOE.toString(), 0.0D,
                         WoodenTieredObjectType.PICKAXE.toString(), 1.0D,
                         WoodenTieredObjectType.SHOVEL.toString(), 1.5D,
-                        WoodenTieredObjectType.SWORD.toString(), 3.0D
-                )
-        );
+                        WoodenTieredObjectType.SWORD.toString(), 3.0D))
+                .put(Constants.NETHERITE, ImmutableMap.of(
+                        WoodenTieredObjectType.AXE.toString(), 5.0D,
+                        WoodenTieredObjectType.HOE.toString(), -4.0D,
+                        WoodenTieredObjectType.PICKAXE.toString(), 1.0D,
+                        WoodenTieredObjectType.SHOVEL.toString(), 1.5D,
+                        WoodenTieredObjectType.SWORD.toString(), 3.0D))
+                .build();
 
         WoodenItemTier.getLoadedValues().forEach(itemTier -> buildTieredConfigValues(itemTier, builder, attackDamages, defaultTieredAttackDamage));
         TIERED_ATTACK_DAMAGE = attackDamages.build();

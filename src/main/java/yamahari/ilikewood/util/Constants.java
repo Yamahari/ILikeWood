@@ -15,6 +15,7 @@ public final class Constants {
     public static final String DIAMOND = "diamond";
     public static final String GOLDEN = "golden";
     public static final String WOOD = "wood";
+    public static final String NETHERITE = "netherite";
 
     public static final String BOP_MOD_ID = "biomesoplenty";
     public static final String CHERRY = "cherry";

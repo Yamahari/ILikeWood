@@ -31,7 +31,7 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
         final String tier = ((IWoodenTieredItem) item).getWoodenItemTier().toString();
         final boolean isWood = ((IWoodenTieredItem) item).getWoodenItemTier().isWood();
         this.withExistingParent(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")))
-                .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), path, woodType)))
+                .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), path + (tier.equals(WoodenItemTier.NETHERITE.toString()) ? "/netherite" : ""), woodType)))
                 .texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/wooden" : ""), tier)));
     }
 
