@@ -1,9 +1,9 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "ilikewood:block/torch/fire",
-    "1": "#torch",
-    "2": "ilikewood:block/torch/coal",
+    "fire": "ilikewood:block/torch/fire",
+    "torch": "#torch",
+    "coal": "ilikewood:block/torch/coal",
     "particle": "#torch"
   },
   "elements": [
@@ -21,21 +21,21 @@
       "faces": {
         "north": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            4,
+            4,
+            12,
+            12
           ],
-          "texture": "#0"
+          "texture": "#fire"
         },
         "south": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            4,
+            4,
+            12,
+            12
           ],
-          "texture": "#0"
+          "texture": "#fire"
         }
       }
     },
@@ -53,21 +53,21 @@
       "faces": {
         "east": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            4,
+            4,
+            12,
+            12
           ],
-          "texture": "#0"
+          "texture": "#fire"
         },
         "west": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            4,
+            4,
+            12,
+            12
           ],
-          "texture": "#0"
+          "texture": "#fire"
         }
       }
     },
@@ -90,7 +90,7 @@
             9,
             2
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "east": {
           "uv": [
@@ -99,7 +99,7 @@
             6,
             2
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "south": {
           "uv": [
@@ -108,7 +108,7 @@
             3,
             2
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "west": {
           "uv": [
@@ -117,16 +117,16 @@
             12,
             2
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "up": {
           "uv": [
-            0,
-            0,
-            16,
-            16
+            5,
+            5,
+            11,
+            11
           ],
-          "texture": "#2"
+          "texture": "#coal"
         },
         "down": {
           "uv": [
@@ -135,7 +135,7 @@
             16,
             3
           ],
-          "texture": "#1"
+          "texture": "#torch"
         }
       }
     },
@@ -158,7 +158,7 @@
             4,
             16
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "east": {
           "uv": [
@@ -167,7 +167,7 @@
             2,
             16
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "south": {
           "uv": [
@@ -176,7 +176,7 @@
             4,
             16
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "west": {
           "uv": [
@@ -185,7 +185,7 @@
             2,
             16
           ],
-          "texture": "#1"
+          "texture": "#torch"
         },
         "down": {
           "uv": [
@@ -194,39 +194,14 @@
             3,
             12
           ],
-          "texture": "#1"
+          "texture": "#torch"
         }
       }
     }
   ],
-  "groups": [
-    {
-      "name": "torch",
-      "children": [
-        {
-          "name": "fire",
-          "children": [
-            0,
-            1
-          ]
-        },
-        {
-          "name": "group",
-          "children": [
-            2,
-            3
-          ]
-        }
-      ]
-    }
-  ],
+  "gui_light": "front",
   "display": {
     "ground": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
       "translation": [
         0,
         3,
@@ -239,21 +214,47 @@
       ]
     },
     "fixed": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
       "scale": [
         0.5,
         0.5,
         0.5
       ]
     }
-  }
+  },
+  "groups": [
+    {
+      "name": "torch",
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "children": [
+        {
+          "name": "fire",
+          "origin": [
+            8,
+            8,
+            8
+          ],
+          "children": [
+            0,
+            1
+          ]
+        },
+        {
+          "name": "group",
+          "origin": [
+            8,
+            8,
+            8
+          ],
+          "children": [
+            2,
+            3
+          ]
+        }
+      ]
+    }
+  ]
 }
