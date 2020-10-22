@@ -85,6 +85,9 @@ dependencies {
     compileOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.3-12.0.0.400:api')
     runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.3-12.0.0.400:universal')
 
+    compileOnly fg.deobf('build.libs:treemendous:0.3.5:api')
+    runtimeOnly fg.deobf('build.libs:treemendous:0.3.5')
+
     compileOnly fg.deobf('mezz.jei:jei-1.16.3:7.+:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.16.3:7.+')
 }
