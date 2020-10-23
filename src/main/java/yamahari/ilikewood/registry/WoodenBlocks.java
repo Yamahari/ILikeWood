@@ -1,5 +1,6 @@
 package yamahari.ilikewood.registry;
 
+import deerangle.treemendous.api.WoodColors;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -68,6 +69,7 @@ public final class WoodenBlocks {
         woodProperties.put(WoodType.REDWOOD, Block.Properties.create(Material.WOOD, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
         woodProperties.put(WoodType.UMBRAN, Block.Properties.create(Material.WOOD, MaterialColor.BLUE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
         woodProperties.put(WoodType.WILLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIME_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_DOUGLAS, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.DOUGLAS_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
 
         final Map<WoodType, RegistryObject<Block>> panels = new EnumMap<>(WoodType.class);
         final Map<WoodType, RegistryObject<Block>> panelsStairs = new EnumMap<>(WoodType.class);

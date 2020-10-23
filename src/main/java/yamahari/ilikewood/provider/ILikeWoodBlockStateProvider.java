@@ -48,7 +48,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> {
-            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BARREL.toString(), "%s", ((IWooden) block).getWoodType().toString());
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BARREL.toString(), "%s", ((IWooden) block).getWoodType().getPrefixedName());
             this.directionalBlock(block,
                     state -> {
                         final boolean open = state.get(BarrelBlock.PROPERTY_OPEN);
@@ -64,7 +64,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
-            final String name = ((IWooden) block).getWoodType().toString();
+            final String name = ((IWooden) block).getWoodType().getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BOOKSHELF.toString(), name);
             final ResourceLocation planks = Util.getPlanks(woodType);
 
@@ -73,7 +73,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
-            final String name = ((IWooden) block).getWoodType().toString();
+            final String name = ((IWooden) block).getWoodType().getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CHEST.toString(), name);
             final ResourceLocation planks = Util.getPlanks(woodType);
 
@@ -82,7 +82,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.COMPOSTER.toString());
             final ModelFile template = this.models()
                     .withExistingParent(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")))
@@ -127,7 +127,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LADDER.toString());
             final ModelFile template = this.models()
                     .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "ladder", modLoc(Util.toPath(path, woodType)));
@@ -136,7 +136,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.TORCH.toString());
             final ModelFile template = this.models()
                     .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "torch", modLoc(Util.toPath(path, woodType)));
@@ -144,7 +144,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.WALL_TORCH).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.TORCH.toString());
             final ModelFile template = this.models()
                     .singleTexture(Util.toPath(path, "wall", woodType), modLoc(Util.toPath(path, "wall", "template")), "torch", modLoc(Util.toPath(path, woodType)));
@@ -155,7 +155,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> this.simpleBlock(block, this.templateWithPlanks(block, "", WoodenObjectType.CRAFTING_TABLE)));
 
         WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.SCAFFOLDING.toString());
             this.getVariantBuilder(block).forAllStates(blockState -> {
                 final String stable = blockState.get(ScaffoldingBlock.BOTTOM) ? "unstable" : "stable";
@@ -170,7 +170,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
-            final String name = woodType.toString();
+            final String name = woodType.getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LECTERN.toString());
             final ResourceLocation planks = Util.getPlanks(woodType);
             final ModelFile template = this.models()
@@ -186,7 +186,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
-            final String name = woodType.toString();
+            final String name = woodType.getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.POST.toString());
             final ResourceLocation log = Util.getLog(woodType);
             final ModelFile post = this.models()
@@ -205,7 +205,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         WoodenBlocks.getBlocks(WoodenObjectType.STRIPPED_POST).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
-            final String name = woodType.toString();
+            final String name = woodType.getPrefixedName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.POST.toString());
 
             final ResourceLocation strippedLog = Util.getStrippedLog(woodType);
@@ -228,11 +228,11 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
             final ResourceLocation planks = Util.getPlanks(woodType);
             final ModelFile itemFrame = this.models()
-                    .withExistingParent(Util.toPath(path, woodType.toString()), modLoc(Util.toPath(path, "template")))
+                    .withExistingParent(Util.toPath(path, woodType.getPrefixedName()), modLoc(Util.toPath(path, "template")))
                     .texture("planks", planks);
 
             final ModelFile itemFrameMap = this.models()
-                    .withExistingParent(Util.toPath(path, "map", woodType.toString()), modLoc(Util.toPath(path, "map", "template")))
+                    .withExistingParent(Util.toPath(path, "map", woodType.getPrefixedName()), modLoc(Util.toPath(path, "map", "template")))
                     .texture("planks", planks);
         });
 
@@ -241,7 +241,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
             final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BED.toString());
             final ResourceLocation planks = Util.getPlanks(woodType);
-            final ResourceLocation frame = modLoc(Util.toPath(path, "frame", woodType.toString()));
+            final ResourceLocation frame = modLoc(Util.toPath(path, "frame", woodType.getPrefixedName()));
             final ResourceLocation headTop = modLoc(Util.toPath(path, "sheets", "head", "top", color.toString()));
             final ResourceLocation headSides = modLoc(Util.toPath(path, "sheets", "head", "sides", color.toString()));
             final ResourceLocation footTop = modLoc(Util.toPath(path, "sheets", "foot", "top", color.toString()));

@@ -30,6 +30,10 @@ public final class Constants {
     public static final String UMBRAN = "umbran";
     public static final String WILLOW = "willow";
 
+    public static final String TRM_MOD_ID = "treemendous";
+    public static final String TRM_MOD_PREFIX = "trm_";
+    public static final String TRM_DOUGLAS = "willow";
+
     private Constants() {
         // Nothing to do here!
     }

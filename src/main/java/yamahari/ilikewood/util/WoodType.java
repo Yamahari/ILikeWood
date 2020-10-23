@@ -31,9 +31,11 @@ public enum WoodType {
     PALM(Constants.PALM, Constants.BOP_MOD_ID),
     REDWOOD(Constants.REDWOOD, Constants.BOP_MOD_ID),
     UMBRAN(Constants.UMBRAN, Constants.BOP_MOD_ID),
-    WILLOW(Constants.WILLOW, Constants.BOP_MOD_ID);
+    WILLOW(Constants.WILLOW, Constants.BOP_MOD_ID),
+    TRM_DOUGLAS(Constants.TRM_DOUGLAS, Constants.TRM_MOD_ID, Constants.TRM_MOD_PREFIX);
 
     private final String name;
+    private final String modPrefix;
     private final String modId;
     private final Map<WoodenObjectType, Properties> properties;
     private final LazyValue<Supplier<Double>> enchantingPowerBonus;
@@ -43,6 +45,11 @@ public enum WoodType {
     }
 
     WoodType(final String name, final String modId) {
+        this(name, modId, "");
+    }
+
+    WoodType(final String name, final String modId, final String modPrefix) {
+        this.modPrefix = modPrefix;
         this.name = name;
         this.modId = modId;
         final Map<WoodenObjectType, Properties> properties = new EnumMap<>(WoodenObjectType.class);
@@ -80,6 +87,10 @@ public enum WoodType {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public String getPrefixedName() {
+        return this.modPrefix + this.name;
     }
 
     public static final class Properties {

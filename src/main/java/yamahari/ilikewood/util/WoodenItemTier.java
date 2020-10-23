@@ -40,7 +40,8 @@ public enum WoodenItemTier implements IItemTier {
     PALM(Constants.PALM, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.PALM))),
     REDWOOD(Constants.REDWOOD, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.REDWOOD))),
     UMBRAN(Constants.UMBRAN, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.UMBRAN))),
-    WILLOW(Constants.WILLOW, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.WILLOW)));
+    WILLOW(Constants.WILLOW, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.WILLOW))),
+    TRM_DOUGLAS(Constants.TRM_DOUGLAS, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_DOUGLAS)));
 
     private final String name;
     private final String modId;
@@ -58,7 +59,11 @@ public enum WoodenItemTier implements IItemTier {
     }
 
     WoodenItemTier(final String name, final String modId, final boolean isWood, final Supplier<Ingredient> repairMaterial) {
-        this.name = name;
+        this(name, "", modId, isWood, repairMaterial);
+    }
+
+    WoodenItemTier(final String name, final String modPrefix, final String modId, final boolean isWood, final Supplier<Ingredient> repairMaterial) {
+        this.name = modPrefix + name;
         this.modId = modId;
         this.isWood = isWood;
         this.harvestLevel = new LazyValue<>(() -> Config.SERVER_CONFIG.HARVEST_LEVEL.get(name)::get);
