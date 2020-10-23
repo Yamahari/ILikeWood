@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/trm_juniper_bow",
+  "textures": {
+    "layer0": "ilikewood:item/bow/pulling/2/trm_juniper"
+  }
+}

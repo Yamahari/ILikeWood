@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "posts",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:pomegranate_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_pomegranate_post",
+    "count": 6
+  }
+}

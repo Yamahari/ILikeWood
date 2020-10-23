@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/scaffolding/unstable/template",
+  "textures": {
+    "top": "ilikewood:block/scaffolding/top/trm_plane",
+    "side": "ilikewood:block/scaffolding/side/trm_plane",
+    "bottom": "ilikewood:block/scaffolding/bottom/trm_plane"
+  }
+}

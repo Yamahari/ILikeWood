@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:planks",
+  "pattern": [
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {
+      "item": "ilikewood:trm_japanese_panels_slab"
+    }
+  },
+  "result": {
+    "item": "treemendous:japanese_planks"
+  }
+}

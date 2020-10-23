@@ -1,0 +1,10 @@
+{
+  "parent": "ilikewood:block/lectern/template",
+  "textures": {
+    "top": "ilikewood:block/lectern/top/trm_cedar",
+    "sides": "ilikewood:block/lectern/sides/trm_cedar",
+    "bottom": "treemendous:block/cedar_planks",
+    "base": "ilikewood:block/lectern/base/trm_cedar",
+    "front": "ilikewood:block/lectern/front/trm_cedar"
+  }
+}

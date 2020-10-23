@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "composter",
+  "pattern": [
+    "F F",
+    "F F",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:trm_juniper_panels"
+    },
+    "F": {
+      "item": "treemendous:juniper_fence"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_juniper_composter"
+  }
+}

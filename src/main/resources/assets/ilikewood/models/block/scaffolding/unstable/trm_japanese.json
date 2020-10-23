@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/scaffolding/unstable/template",
+  "textures": {
+    "top": "ilikewood:block/scaffolding/top/trm_japanese",
+    "side": "ilikewood:block/scaffolding/side/trm_japanese",
+    "bottom": "ilikewood:block/scaffolding/bottom/trm_japanese"
+  }
+}

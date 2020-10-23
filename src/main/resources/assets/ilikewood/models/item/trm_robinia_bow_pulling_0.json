@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/trm_robinia_bow",
+  "textures": {
+    "layer0": "ilikewood:item/bow/pulling/0/trm_robinia"
+  }
+}

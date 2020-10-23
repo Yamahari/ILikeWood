@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_stick",
-    "ilikewood:birch_stick",
-    "ilikewood:crimson_stick",
-    "ilikewood:dark_oak_stick",
-    "ilikewood:jungle_stick",
-    "ilikewood:oak_stick",
-    "ilikewood:spruce_stick",
-    "ilikewood:warped_stick"
+    "ilikewood:trm_douglas_stick",
+    "ilikewood:trm_pine_stick",
+    "ilikewood:trm_larch_stick",
+    "ilikewood:trm_fir_stick",
+    "ilikewood:trm_maple_stick",
+    "ilikewood:trm_japanese_stick",
+    "ilikewood:trm_beech_stick",
+    "ilikewood:trm_cherry_stick",
+    "ilikewood:trm_alder_stick",
+    "ilikewood:trm_chestnut_stick",
+    "ilikewood:trm_plane_stick",
+    "ilikewood:trm_ash_stick",
+    "ilikewood:trm_linden_stick",
+    "ilikewood:trm_robinia_stick",
+    "ilikewood:trm_willow_stick",
+    "ilikewood:trm_pomegranate_stick",
+    "ilikewood:trm_magnolia_stick",
+    "ilikewood:trm_walnut_stick",
+    "ilikewood:trm_cedar_stick",
+    "ilikewood:trm_poplar_stick",
+    "ilikewood:trm_elm_stick",
+    "ilikewood:trm_rainbow_eucalyptus_stick",
+    "ilikewood:trm_juniper_stick"
   ]
 }

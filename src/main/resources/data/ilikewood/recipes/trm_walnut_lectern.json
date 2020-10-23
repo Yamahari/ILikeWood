@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "lecterns",
+  "pattern": [
+    "SSS",
+    " B ",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "ilikewood:trm_walnut_panels_slab"
+    },
+    "B": {
+      "item": "ilikewood:trm_walnut_bookshelf"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_walnut_lectern"
+  }
+}

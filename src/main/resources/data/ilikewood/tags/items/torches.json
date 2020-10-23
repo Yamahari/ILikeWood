@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_torch",
-    "ilikewood:birch_torch",
-    "ilikewood:crimson_torch",
-    "ilikewood:dark_oak_torch",
-    "ilikewood:jungle_torch",
-    "ilikewood:oak_torch",
-    "ilikewood:spruce_torch",
-    "ilikewood:warped_torch"
+    "ilikewood:trm_douglas_torch",
+    "ilikewood:trm_pine_torch",
+    "ilikewood:trm_larch_torch",
+    "ilikewood:trm_fir_torch",
+    "ilikewood:trm_maple_torch",
+    "ilikewood:trm_japanese_torch",
+    "ilikewood:trm_beech_torch",
+    "ilikewood:trm_cherry_torch",
+    "ilikewood:trm_alder_torch",
+    "ilikewood:trm_chestnut_torch",
+    "ilikewood:trm_plane_torch",
+    "ilikewood:trm_ash_torch",
+    "ilikewood:trm_linden_torch",
+    "ilikewood:trm_robinia_torch",
+    "ilikewood:trm_willow_torch",
+    "ilikewood:trm_pomegranate_torch",
+    "ilikewood:trm_magnolia_torch",
+    "ilikewood:trm_walnut_torch",
+    "ilikewood:trm_cedar_torch",
+    "ilikewood:trm_poplar_torch",
+    "ilikewood:trm_elm_torch",
+    "ilikewood:trm_rainbow_eucalyptus_torch",
+    "ilikewood:trm_juniper_torch"
   ]
 }

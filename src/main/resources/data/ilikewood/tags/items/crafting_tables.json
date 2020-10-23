@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_crafting_table",
-    "ilikewood:birch_crafting_table",
-    "ilikewood:crimson_crafting_table",
-    "ilikewood:dark_oak_crafting_table",
-    "ilikewood:jungle_crafting_table",
-    "ilikewood:oak_crafting_table",
-    "ilikewood:spruce_crafting_table",
-    "ilikewood:warped_crafting_table"
+    "ilikewood:trm_douglas_crafting_table",
+    "ilikewood:trm_pine_crafting_table",
+    "ilikewood:trm_larch_crafting_table",
+    "ilikewood:trm_fir_crafting_table",
+    "ilikewood:trm_maple_crafting_table",
+    "ilikewood:trm_japanese_crafting_table",
+    "ilikewood:trm_beech_crafting_table",
+    "ilikewood:trm_cherry_crafting_table",
+    "ilikewood:trm_alder_crafting_table",
+    "ilikewood:trm_chestnut_crafting_table",
+    "ilikewood:trm_plane_crafting_table",
+    "ilikewood:trm_ash_crafting_table",
+    "ilikewood:trm_linden_crafting_table",
+    "ilikewood:trm_robinia_crafting_table",
+    "ilikewood:trm_willow_crafting_table",
+    "ilikewood:trm_pomegranate_crafting_table",
+    "ilikewood:trm_magnolia_crafting_table",
+    "ilikewood:trm_walnut_crafting_table",
+    "ilikewood:trm_cedar_crafting_table",
+    "ilikewood:trm_poplar_crafting_table",
+    "ilikewood:trm_elm_crafting_table",
+    "ilikewood:trm_rainbow_eucalyptus_crafting_table",
+    "ilikewood:trm_juniper_crafting_table"
   ]
 }

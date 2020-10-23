@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "ilikewood:planks",
+  "pattern": [
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {
+      "item": "ilikewood:trm_alder_panels_slab"
+    }
+  },
+  "result": {
+    "item": "treemendous:alder_planks"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beds",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:light_gray_wool"
+    },
+    "X": {
+      "item": "ilikewood:trm_japanese_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:light_gray_trm_japanese_bed"
+  }
+}

@@ -50,7 +50,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                 ingredient = getIngredient(Util.toRegistryName(woodType.toString(), name), BOPBlocks.class);
                 break;
             case Constants.TRM_MOD_ID:
-                ingredient = getIngredient(Util.toRegistryName(woodType.toString(), name), TreemendousBlocks.class);
+                ingredient = getIngredient(Util.toRegistryName(woodType.getName(), name), TreemendousBlocks.class);
                 break;
             default:
                 ingredient = null;

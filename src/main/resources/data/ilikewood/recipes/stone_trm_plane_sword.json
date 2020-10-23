@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "swords",
+  "pattern": [
+    "#",
+    "#",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:trm_plane_stick"
+    },
+    "#": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "ilikewood:stone_trm_plane_sword"
+  }
+}

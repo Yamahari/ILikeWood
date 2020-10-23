@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:elm_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_elm_wall",
+    "count": 6
+  }
+}

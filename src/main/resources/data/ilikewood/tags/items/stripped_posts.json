@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:stripped_acacia_post",
-    "ilikewood:stripped_birch_post",
-    "ilikewood:stripped_crimson_post",
-    "ilikewood:stripped_dark_oak_post",
-    "ilikewood:stripped_jungle_post",
-    "ilikewood:stripped_oak_post",
-    "ilikewood:stripped_spruce_post",
-    "ilikewood:stripped_warped_post"
+    "ilikewood:stripped_trm_douglas_post",
+    "ilikewood:stripped_trm_pine_post",
+    "ilikewood:stripped_trm_larch_post",
+    "ilikewood:stripped_trm_fir_post",
+    "ilikewood:stripped_trm_maple_post",
+    "ilikewood:stripped_trm_japanese_post",
+    "ilikewood:stripped_trm_beech_post",
+    "ilikewood:stripped_trm_cherry_post",
+    "ilikewood:stripped_trm_alder_post",
+    "ilikewood:stripped_trm_chestnut_post",
+    "ilikewood:stripped_trm_plane_post",
+    "ilikewood:stripped_trm_ash_post",
+    "ilikewood:stripped_trm_linden_post",
+    "ilikewood:stripped_trm_robinia_post",
+    "ilikewood:stripped_trm_willow_post",
+    "ilikewood:stripped_trm_pomegranate_post",
+    "ilikewood:stripped_trm_magnolia_post",
+    "ilikewood:stripped_trm_walnut_post",
+    "ilikewood:stripped_trm_cedar_post",
+    "ilikewood:stripped_trm_poplar_post",
+    "ilikewood:stripped_trm_elm_post",
+    "ilikewood:stripped_trm_rainbow_eucalyptus_post",
+    "ilikewood:stripped_trm_juniper_post"
   ]
 }

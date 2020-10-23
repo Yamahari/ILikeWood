@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_item_frame",
-    "ilikewood:birch_item_frame",
-    "ilikewood:crimson_item_frame",
-    "ilikewood:dark_oak_item_frame",
-    "ilikewood:jungle_item_frame",
-    "ilikewood:oak_item_frame",
-    "ilikewood:spruce_item_frame",
-    "ilikewood:warped_item_frame"
+    "ilikewood:trm_douglas_item_frame",
+    "ilikewood:trm_pine_item_frame",
+    "ilikewood:trm_larch_item_frame",
+    "ilikewood:trm_fir_item_frame",
+    "ilikewood:trm_maple_item_frame",
+    "ilikewood:trm_japanese_item_frame",
+    "ilikewood:trm_beech_item_frame",
+    "ilikewood:trm_cherry_item_frame",
+    "ilikewood:trm_alder_item_frame",
+    "ilikewood:trm_chestnut_item_frame",
+    "ilikewood:trm_plane_item_frame",
+    "ilikewood:trm_ash_item_frame",
+    "ilikewood:trm_linden_item_frame",
+    "ilikewood:trm_robinia_item_frame",
+    "ilikewood:trm_willow_item_frame",
+    "ilikewood:trm_pomegranate_item_frame",
+    "ilikewood:trm_magnolia_item_frame",
+    "ilikewood:trm_walnut_item_frame",
+    "ilikewood:trm_cedar_item_frame",
+    "ilikewood:trm_poplar_item_frame",
+    "ilikewood:trm_elm_item_frame",
+    "ilikewood:trm_rainbow_eucalyptus_item_frame",
+    "ilikewood:trm_juniper_item_frame"
   ]
 }

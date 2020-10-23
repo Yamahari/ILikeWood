@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/composter/template",
+  "textures": {
+    "top": "ilikewood:block/composter/top/trm_robinia",
+    "side": "ilikewood:block/composter/side/trm_robinia",
+    "bottom": "ilikewood:block/composter/bottom/trm_robinia"
+  }
+}

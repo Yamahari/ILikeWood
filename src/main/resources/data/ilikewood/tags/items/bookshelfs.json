@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_bookshelf",
-    "ilikewood:birch_bookshelf",
-    "ilikewood:crimson_bookshelf",
-    "ilikewood:dark_oak_bookshelf",
-    "ilikewood:jungle_bookshelf",
-    "ilikewood:oak_bookshelf",
-    "ilikewood:spruce_bookshelf",
-    "ilikewood:warped_bookshelf"
+    "ilikewood:trm_douglas_bookshelf",
+    "ilikewood:trm_pine_bookshelf",
+    "ilikewood:trm_larch_bookshelf",
+    "ilikewood:trm_fir_bookshelf",
+    "ilikewood:trm_maple_bookshelf",
+    "ilikewood:trm_japanese_bookshelf",
+    "ilikewood:trm_beech_bookshelf",
+    "ilikewood:trm_cherry_bookshelf",
+    "ilikewood:trm_alder_bookshelf",
+    "ilikewood:trm_chestnut_bookshelf",
+    "ilikewood:trm_plane_bookshelf",
+    "ilikewood:trm_ash_bookshelf",
+    "ilikewood:trm_linden_bookshelf",
+    "ilikewood:trm_robinia_bookshelf",
+    "ilikewood:trm_willow_bookshelf",
+    "ilikewood:trm_pomegranate_bookshelf",
+    "ilikewood:trm_magnolia_bookshelf",
+    "ilikewood:trm_walnut_bookshelf",
+    "ilikewood:trm_cedar_bookshelf",
+    "ilikewood:trm_poplar_bookshelf",
+    "ilikewood:trm_elm_bookshelf",
+    "ilikewood:trm_rainbow_eucalyptus_bookshelf",
+    "ilikewood:trm_juniper_bookshelf"
   ]
 }

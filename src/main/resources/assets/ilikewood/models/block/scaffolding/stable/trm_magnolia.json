@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/scaffolding/stable/template",
+  "textures": {
+    "top": "ilikewood:block/scaffolding/top/trm_magnolia",
+    "side": "ilikewood:block/scaffolding/side/trm_magnolia",
+    "bottom": "ilikewood:block/scaffolding/bottom/trm_magnolia"
+  }
+}

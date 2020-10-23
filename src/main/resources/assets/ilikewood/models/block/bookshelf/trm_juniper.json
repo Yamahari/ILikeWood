@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "ilikewood:block/bookshelf/trm_juniper",
+    "end": "treemendous:block/juniper_planks"
+  }
+}

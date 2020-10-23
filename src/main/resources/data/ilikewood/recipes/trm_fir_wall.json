@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:fir_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_fir_wall",
+    "count": 6
+  }
+}

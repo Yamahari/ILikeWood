@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "ilikewood:diamond_trm_linden_pickaxe"
+  },
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "result": {
+    "item": "ilikewood:netherite_trm_linden_pickaxe"
+  }
+}

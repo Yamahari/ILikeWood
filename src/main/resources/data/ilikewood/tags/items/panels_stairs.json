@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_panels_stairs",
-    "ilikewood:birch_panels_stairs",
-    "ilikewood:crimson_panels_stairs",
-    "ilikewood:dark_oak_panels_stairs",
-    "ilikewood:jungle_panels_stairs",
-    "ilikewood:oak_panels_stairs",
-    "ilikewood:spruce_panels_stairs",
-    "ilikewood:warped_panels_stairs"
+    "ilikewood:trm_douglas_panels_stairs",
+    "ilikewood:trm_pine_panels_stairs",
+    "ilikewood:trm_larch_panels_stairs",
+    "ilikewood:trm_fir_panels_stairs",
+    "ilikewood:trm_maple_panels_stairs",
+    "ilikewood:trm_japanese_panels_stairs",
+    "ilikewood:trm_beech_panels_stairs",
+    "ilikewood:trm_cherry_panels_stairs",
+    "ilikewood:trm_alder_panels_stairs",
+    "ilikewood:trm_chestnut_panels_stairs",
+    "ilikewood:trm_plane_panels_stairs",
+    "ilikewood:trm_ash_panels_stairs",
+    "ilikewood:trm_linden_panels_stairs",
+    "ilikewood:trm_robinia_panels_stairs",
+    "ilikewood:trm_willow_panels_stairs",
+    "ilikewood:trm_pomegranate_panels_stairs",
+    "ilikewood:trm_magnolia_panels_stairs",
+    "ilikewood:trm_walnut_panels_stairs",
+    "ilikewood:trm_cedar_panels_stairs",
+    "ilikewood:trm_poplar_panels_stairs",
+    "ilikewood:trm_elm_panels_stairs",
+    "ilikewood:trm_rainbow_eucalyptus_panels_stairs",
+    "ilikewood:trm_juniper_panels_stairs"
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:beech_planks_from_trm_beech_panels_slab"
+    ]
+  },
+  "criteria": {
+    "has_panels_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ilikewood:trm_beech_panels_slab"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:beech_planks_from_trm_beech_panels_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_panels_slab",
+      "has_the_recipe"
+    ]
+  ]
+}

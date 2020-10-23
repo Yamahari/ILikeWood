@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ilikewood:block/ladder/trm_rainbow_eucalyptus"
+  }
+}

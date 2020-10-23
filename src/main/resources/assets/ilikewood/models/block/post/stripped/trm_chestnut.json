@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/post/template",
+  "textures": {
+    "wall": "treemendous:block/stripped_chestnut_log"
+  }
+}

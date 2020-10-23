@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ilikewood:item/item_frame/trm_ash"
+  }
+}

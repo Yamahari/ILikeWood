@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "panels",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:plane_slab"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_plane_panels"
+  }
+}

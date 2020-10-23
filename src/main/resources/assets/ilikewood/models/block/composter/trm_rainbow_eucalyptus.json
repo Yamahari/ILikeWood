@@ -1,0 +1,8 @@
+{
+  "parent": "ilikewood:block/composter/template",
+  "textures": {
+    "top": "ilikewood:block/composter/top/trm_rainbow_eucalyptus",
+    "side": "ilikewood:block/composter/side/trm_rainbow_eucalyptus",
+    "bottom": "ilikewood:block/composter/bottom/trm_rainbow_eucalyptus"
+  }
+}

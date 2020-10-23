@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_barrel",
-    "ilikewood:birch_barrel",
-    "ilikewood:crimson_barrel",
-    "ilikewood:dark_oak_barrel",
-    "ilikewood:jungle_barrel",
-    "ilikewood:oak_barrel",
-    "ilikewood:spruce_barrel",
-    "ilikewood:warped_barrel"
+    "ilikewood:trm_douglas_barrel",
+    "ilikewood:trm_pine_barrel",
+    "ilikewood:trm_larch_barrel",
+    "ilikewood:trm_fir_barrel",
+    "ilikewood:trm_maple_barrel",
+    "ilikewood:trm_japanese_barrel",
+    "ilikewood:trm_beech_barrel",
+    "ilikewood:trm_cherry_barrel",
+    "ilikewood:trm_alder_barrel",
+    "ilikewood:trm_chestnut_barrel",
+    "ilikewood:trm_plane_barrel",
+    "ilikewood:trm_ash_barrel",
+    "ilikewood:trm_linden_barrel",
+    "ilikewood:trm_robinia_barrel",
+    "ilikewood:trm_willow_barrel",
+    "ilikewood:trm_pomegranate_barrel",
+    "ilikewood:trm_magnolia_barrel",
+    "ilikewood:trm_walnut_barrel",
+    "ilikewood:trm_cedar_barrel",
+    "ilikewood:trm_poplar_barrel",
+    "ilikewood:trm_elm_barrel",
+    "ilikewood:trm_rainbow_eucalyptus_barrel",
+    "ilikewood:trm_juniper_barrel"
   ]
 }

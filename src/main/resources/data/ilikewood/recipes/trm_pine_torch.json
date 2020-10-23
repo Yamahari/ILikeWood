@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "torches",
+  "pattern": [
+    "#",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:trm_pine_stick"
+    },
+    "#": {
+      "tag": "minecraft:coals"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_pine_torch",
+    "count": 4
+  }
+}

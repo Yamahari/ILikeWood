@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_composter",
-    "ilikewood:birch_composter",
-    "ilikewood:crimson_composter",
-    "ilikewood:dark_oak_composter",
-    "ilikewood:jungle_composter",
-    "ilikewood:oak_composter",
-    "ilikewood:spruce_composter",
-    "ilikewood:warped_composter"
+    "ilikewood:trm_douglas_composter",
+    "ilikewood:trm_pine_composter",
+    "ilikewood:trm_larch_composter",
+    "ilikewood:trm_fir_composter",
+    "ilikewood:trm_maple_composter",
+    "ilikewood:trm_japanese_composter",
+    "ilikewood:trm_beech_composter",
+    "ilikewood:trm_cherry_composter",
+    "ilikewood:trm_alder_composter",
+    "ilikewood:trm_chestnut_composter",
+    "ilikewood:trm_plane_composter",
+    "ilikewood:trm_ash_composter",
+    "ilikewood:trm_linden_composter",
+    "ilikewood:trm_robinia_composter",
+    "ilikewood:trm_willow_composter",
+    "ilikewood:trm_pomegranate_composter",
+    "ilikewood:trm_magnolia_composter",
+    "ilikewood:trm_walnut_composter",
+    "ilikewood:trm_cedar_composter",
+    "ilikewood:trm_poplar_composter",
+    "ilikewood:trm_elm_composter",
+    "ilikewood:trm_rainbow_eucalyptus_composter",
+    "ilikewood:trm_juniper_composter"
   ]
 }

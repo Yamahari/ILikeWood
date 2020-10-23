@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:douglas_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_douglas_wall",
+    "count": 6
+  }
+}

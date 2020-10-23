@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/trm_pine_bow",
+  "textures": {
+    "layer0": "ilikewood:item/bow/pulling/0/trm_pine"
+  }
+}

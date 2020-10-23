@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:ash_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_ash_wall",
+    "count": 6
+  }
+}

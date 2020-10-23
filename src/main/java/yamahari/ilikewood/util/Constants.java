@@ -32,7 +32,29 @@ public final class Constants {
 
     public static final String TRM_MOD_ID = "treemendous";
     public static final String TRM_MOD_PREFIX = "trm_";
-    public static final String TRM_DOUGLAS = "willow";
+    public static final String TRM_DOUGLAS = "douglas";
+    public static final String TRM_PINE = "pine";
+    public static final String TRM_LARCH = "larch";
+    public static final String TRM_FIR = "fir";
+    public static final String TRM_MAPLE = "maple";
+    public static final String TRM_JAPANESE = "japanese";
+    public static final String TRM_BEECH = "beech";
+    public static final String TRM_CHERRY = "cherry";
+    public static final String TRM_ALDER = "alder";
+    public static final String TRM_CHESTNUT = "chestnut";
+    public static final String TRM_PLANE = "plane";
+    public static final String TRM_ASH = "ash";
+    public static final String TRM_LINDEN = "linden";
+    public static final String TRM_ROBINIA = "robinia";
+    public static final String TRM_WILLOW = "willow";
+    public static final String TRM_POMEGRANATE = "pomegranate";
+    public static final String TRM_MAGNOLIA = "magnolia";
+    public static final String TRM_WALNUT = "walnut";
+    public static final String TRM_CEDAR = "cedar";
+    public static final String TRM_POPLAR = "poplar";
+    public static final String TRM_ELM = "elm";
+    public static final String TRM_RAINBOW_EUCALYPTUS = "rainbow_eucalyptus";
+    public static final String TRM_JUNIPER = "juniper";
 
     private Constants() {
         // Nothing to do here!

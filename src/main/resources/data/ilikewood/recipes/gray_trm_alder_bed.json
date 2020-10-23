@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beds",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gray_wool"
+    },
+    "X": {
+      "item": "ilikewood:trm_alder_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:gray_trm_alder_bed"
+  }
+}

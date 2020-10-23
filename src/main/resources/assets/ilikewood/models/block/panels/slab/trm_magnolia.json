@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/slab/template",
+  "textures": {
+    "planks": "treemendous:block/magnolia_planks"
+  }
+}

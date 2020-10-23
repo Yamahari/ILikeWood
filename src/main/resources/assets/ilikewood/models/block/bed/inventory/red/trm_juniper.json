@@ -1,0 +1,11 @@
+{
+  "parent": "ilikewood:block/bed/inventory/template",
+  "textures": {
+    "planks": "treemendous:block/juniper_planks",
+    "frame": "ilikewood:block/bed/frame/trm_juniper",
+    "head_top": "ilikewood:block/bed/sheets/head/top/red",
+    "head_sides": "ilikewood:block/bed/sheets/head/sides/red",
+    "foot_top": "ilikewood:block/bed/sheets/foot/top/red",
+    "foot_sides": "ilikewood:block/bed/sheets/foot/sides/red"
+  }
+}

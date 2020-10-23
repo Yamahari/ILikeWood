@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beds",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:purple_wool"
+    },
+    "X": {
+      "item": "ilikewood:trm_maple_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:purple_trm_maple_bed"
+  }
+}

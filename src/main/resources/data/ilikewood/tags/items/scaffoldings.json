@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_scaffolding",
-    "ilikewood:birch_scaffolding",
-    "ilikewood:crimson_scaffolding",
-    "ilikewood:dark_oak_scaffolding",
-    "ilikewood:jungle_scaffolding",
-    "ilikewood:oak_scaffolding",
-    "ilikewood:spruce_scaffolding",
-    "ilikewood:warped_scaffolding"
+    "ilikewood:trm_douglas_scaffolding",
+    "ilikewood:trm_pine_scaffolding",
+    "ilikewood:trm_larch_scaffolding",
+    "ilikewood:trm_fir_scaffolding",
+    "ilikewood:trm_maple_scaffolding",
+    "ilikewood:trm_japanese_scaffolding",
+    "ilikewood:trm_beech_scaffolding",
+    "ilikewood:trm_cherry_scaffolding",
+    "ilikewood:trm_alder_scaffolding",
+    "ilikewood:trm_chestnut_scaffolding",
+    "ilikewood:trm_plane_scaffolding",
+    "ilikewood:trm_ash_scaffolding",
+    "ilikewood:trm_linden_scaffolding",
+    "ilikewood:trm_robinia_scaffolding",
+    "ilikewood:trm_willow_scaffolding",
+    "ilikewood:trm_pomegranate_scaffolding",
+    "ilikewood:trm_magnolia_scaffolding",
+    "ilikewood:trm_walnut_scaffolding",
+    "ilikewood:trm_cedar_scaffolding",
+    "ilikewood:trm_poplar_scaffolding",
+    "ilikewood:trm_elm_scaffolding",
+    "ilikewood:trm_rainbow_eucalyptus_scaffolding",
+    "ilikewood:trm_juniper_scaffolding"
   ]
 }

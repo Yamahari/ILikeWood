@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beds",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:magenta_wool"
+    },
+    "X": {
+      "item": "ilikewood:trm_robinia_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:magenta_trm_robinia_bed"
+  }
+}

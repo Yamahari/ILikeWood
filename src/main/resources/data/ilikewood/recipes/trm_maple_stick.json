@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sticks",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:trm_maple_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_maple_stick",
+    "count": 4
+  }
+}

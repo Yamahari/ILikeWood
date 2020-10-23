@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sticks",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:trm_japanese_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_japanese_stick",
+    "count": 4
+  }
+}

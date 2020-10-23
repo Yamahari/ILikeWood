@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:japanese_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_japanese_wall",
+    "count": 6
+  }
+}

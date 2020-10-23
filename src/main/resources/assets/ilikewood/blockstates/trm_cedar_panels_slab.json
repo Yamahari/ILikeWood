@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ilikewood:block/panels/slab/top/trm_cedar"
+    },
+    "type=bottom": {
+      "model": "ilikewood:block/panels/slab/trm_cedar"
+    },
+    "type=double": {
+      "model": "ilikewood:block/panels/trm_cedar"
+    }
+  }
+}

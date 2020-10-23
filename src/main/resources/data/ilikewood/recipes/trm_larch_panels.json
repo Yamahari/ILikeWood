@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "panels",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:larch_slab"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_larch_panels"
+  }
+}
