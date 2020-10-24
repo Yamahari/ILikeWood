@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/item_frame/map/template",
+  "textures": {
+    "planks": "treemendous:block/cedar_planks"
+  }
+}

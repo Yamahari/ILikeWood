@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "beds",
+  "ingredients": [
+    {
+      "item": "ilikewood:blue_trm_willow_bed"
+    },
+    {
+      "item": "minecraft:white_dye"
+    }
+  ],
+  "result": {
+    "item": "ilikewood:white_trm_willow_bed"
+  }
+}

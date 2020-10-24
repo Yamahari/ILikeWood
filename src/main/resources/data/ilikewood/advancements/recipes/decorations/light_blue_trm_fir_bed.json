@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:light_blue_trm_fir_bed"
+    ]
+  },
+  "criteria": {
+    "has_wool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:light_blue_wool"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:light_blue_trm_fir_bed"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wool",
+      "has_the_recipe"
+    ]
+  ]
+}

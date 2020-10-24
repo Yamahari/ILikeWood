@@ -1,5 +1,6 @@
 package yamahari.ilikewood.registry;
 
+import deerangle.treemendous.api.WoodColors;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
@@ -68,6 +69,29 @@ public final class WoodenBlocks {
         woodProperties.put(WoodType.REDWOOD, Block.Properties.create(Material.WOOD, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
         woodProperties.put(WoodType.UMBRAN, Block.Properties.create(Material.WOOD, MaterialColor.BLUE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
         woodProperties.put(WoodType.WILLOW, Block.Properties.create(Material.WOOD, MaterialColor.LIME_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_DOUGLAS, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.DOUGLAS_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_PINE, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.PINE_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_LARCH, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.LARCH_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_FIR, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.FIR_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_MAPLE, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.MAPLE_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_JAPANESE, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.JAPANESE_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_BEECH, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.BEECH_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_CHERRY, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.CHERRY_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_ALDER, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.ALDER_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_CHESTNUT, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.CHESTNUT_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_PLANE, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.PLANE_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_ASH, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.ASH_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_LINDEN, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.LINDEN_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_ROBINIA, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.ROBINIA_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_WILLOW, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.WILLOW_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_POMEGRANATE, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.POMEGRANATE_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_MAGNOLIA, Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_WALNUT, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.WALNUT_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_CEDAR, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.CEDAR_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_POPLAR, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.POPLAR_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_ELM, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.ELM_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_RAINBOW_EUCALYPTUS, Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        woodProperties.put(WoodType.TRM_JUNIPER, Block.Properties.create(Material.WOOD, WoodColors.getClosestMaterialColor(WoodColors.JUNIPER_WOOD)).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
 
         final Map<WoodType, RegistryObject<Block>> panels = new EnumMap<>(WoodType.class);
         final Map<WoodType, RegistryObject<Block>> panelsStairs = new EnumMap<>(WoodType.class);

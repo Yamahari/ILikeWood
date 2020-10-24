@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "swords",
+  "pattern": [
+    "#",
+    "#",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:trm_linden_stick"
+    },
+    "#": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "ilikewood:iron_trm_linden_sword"
+  }
+}

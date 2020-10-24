@@ -27,8 +27,14 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                 .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, woodType))));
     }
 
+    private void prefixedBlockItem(final Block block, final String path) {
+        final String woodType = ((IWooden) block).getWoodType().getPrefixedName();
+        this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null.").getPath())
+                .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, woodType))));
+    }
+
     private void tieredItem(final Item item, final String path) {
-        final String woodType = ((IWooden) item).getWoodType().toString();
+        final String woodType = ((IWooden) item).getWoodType().getPrefixedName();
         final String tier = ((IWoodenTieredItem) item).getWoodenItemTier().toString();
         final boolean isWood = ((IWoodenTieredItem) item).getWoodenItemTier().isWood();
         this.withExistingParent(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")))
@@ -41,8 +47,8 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
         WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> this.blockItem(block, WoodenObjectType.PANELS.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString())));
         WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString())));
-        WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> this.blockItem(block, WoodenObjectType.BARREL.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.blockItem(block, WoodenObjectType.BOOKSHELF.toString()));
+        WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> this.prefixedBlockItem(block, WoodenObjectType.BARREL.toString()));
+        WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.prefixedBlockItem(block, WoodenObjectType.BOOKSHELF.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
             final WoodType woodType = ((IWooden) block).getWoodType();
             this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
@@ -76,26 +82,26 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                     .end()
                     .end();
         });
-        WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.blockItem(block, WoodenObjectType.COMPOSTER.toString()));
+        WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.prefixedBlockItem(block, WoodenObjectType.COMPOSTER.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.WALL.toString(), "inventory")));
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getPrefixedName();
             this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(BLOCK_FOLDER, WoodenObjectType.LADDER.toString(), woodType)));
         });
-        WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> this.blockItem(block, WoodenObjectType.TORCH.toString()));
+        WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> this.prefixedBlockItem(block, WoodenObjectType.TORCH.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> this.blockItem(block, WoodenObjectType.CRAFTING_TABLE.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.SCAFFOLDING.toString(), "stable")));
-        WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> this.blockItem(block, WoodenObjectType.LECTERN.toString()));
+        WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> this.prefixedBlockItem(block, Util.toPath(WoodenObjectType.SCAFFOLDING.toString(), "stable")));
+        WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> this.prefixedBlockItem(block, WoodenObjectType.LECTERN.toString()));
 
-        WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().toString()))));
+        WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().getPrefixedName()))));
         WoodenItems.getTieredItems(WoodenTieredObjectType.values()).forEach(item -> this.tieredItem(item, ((IWoodenTieredItem) item).getWoodenTieredObjectType().toString()));
 
-        WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "inventory")));
-        WoodenBlocks.getBlocks(WoodenObjectType.STRIPPED_POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "stripped", "inventory")));
+        WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> this.prefixedBlockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "inventory")));
+        WoodenBlocks.getBlocks(WoodenObjectType.STRIPPED_POST).forEach(block -> this.prefixedBlockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "stripped", "inventory")));
         WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
-            final String woodType = ((IWooden) item).getWoodType().toString();
+            final String woodType = ((IWooden) item).getWoodType().getPrefixedName();
             this.getBuilder(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.BOW.toString(), woodType)))
@@ -143,7 +149,7 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
         });
 
         WoodenItems.getItems(WoodenObjectType.CROSSBOW).forEach(item -> {
-            final String woodType = ((IWooden) item).getWoodType().toString();
+            final String woodType = ((IWooden) item).getWoodType().getPrefixedName();
             this.getBuilder(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.CROSSBOW.toString(), "standby", woodType)))
@@ -210,7 +216,7 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
             final WoodType woodType = ((IWooden) item).getWoodType();
             this.getBuilder(Util.toRegistryName(woodType.toString(), WoodenObjectType.ITEM_FRAME.toString()))
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
-                    .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.toString())));
+                    .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.getPrefixedName())));
         });
 
         WoodenBlocks.getBedBlocks().forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.BED.toString(), "inventory", ((WoodenBedBlock) block).getDyeColor().toString())));

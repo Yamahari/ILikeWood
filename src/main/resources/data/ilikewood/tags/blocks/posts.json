@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_post",
-    "ilikewood:birch_post",
-    "ilikewood:crimson_post",
-    "ilikewood:dark_oak_post",
-    "ilikewood:jungle_post",
-    "ilikewood:oak_post",
-    "ilikewood:spruce_post",
-    "ilikewood:warped_post"
+    "ilikewood:trm_douglas_post",
+    "ilikewood:trm_pine_post",
+    "ilikewood:trm_larch_post",
+    "ilikewood:trm_fir_post",
+    "ilikewood:trm_maple_post",
+    "ilikewood:trm_japanese_post",
+    "ilikewood:trm_beech_post",
+    "ilikewood:trm_cherry_post",
+    "ilikewood:trm_alder_post",
+    "ilikewood:trm_chestnut_post",
+    "ilikewood:trm_plane_post",
+    "ilikewood:trm_ash_post",
+    "ilikewood:trm_linden_post",
+    "ilikewood:trm_robinia_post",
+    "ilikewood:trm_willow_post",
+    "ilikewood:trm_pomegranate_post",
+    "ilikewood:trm_magnolia_post",
+    "ilikewood:trm_walnut_post",
+    "ilikewood:trm_cedar_post",
+    "ilikewood:trm_poplar_post",
+    "ilikewood:trm_elm_post",
+    "ilikewood:trm_rainbow_eucalyptus_post",
+    "ilikewood:trm_juniper_post"
   ]
 }

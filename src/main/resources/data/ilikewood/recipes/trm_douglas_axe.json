@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "axes",
+  "pattern": [
+    "##",
+    "#I",
+    " I"
+  ],
+  "key": {
+    "I": {
+      "item": "ilikewood:trm_douglas_stick"
+    },
+    "#": {
+      "item": "ilikewood:trm_douglas_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_douglas_axe"
+  }
+}

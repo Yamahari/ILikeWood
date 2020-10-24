@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beds",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:white_wool"
+    },
+    "X": {
+      "item": "ilikewood:trm_elm_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:white_trm_elm_bed"
+  }
+}

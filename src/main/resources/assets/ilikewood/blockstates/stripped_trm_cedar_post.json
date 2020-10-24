@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "axis": "y"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/trm_cedar"
+      }
+    },
+    {
+      "when": {
+        "axis": "x"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/trm_cedar",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "axis": "z"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/trm_cedar",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_cedar",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_cedar",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_cedar"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_cedar",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_cedar",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_cedar",
+        "y": 90
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "axis": "y"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/trm_robinia"
+      }
+    },
+    {
+      "when": {
+        "axis": "x"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/trm_robinia",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "axis": "z"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/trm_robinia",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_robinia",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_robinia",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_robinia"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_robinia",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_robinia",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "ilikewood:block/post/stripped/side/trm_robinia",
+        "y": 90
+      }
+    }
+  ]
+}

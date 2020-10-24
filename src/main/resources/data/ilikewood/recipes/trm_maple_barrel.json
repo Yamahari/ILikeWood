@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "barrels",
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "ilikewood:trm_maple_panels"
+    },
+    "S": {
+      "item": "ilikewood:trm_maple_panels_slab"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_maple_barrel"
+  }
+}

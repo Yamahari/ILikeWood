@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_chest",
-    "ilikewood:birch_chest",
-    "ilikewood:crimson_chest",
-    "ilikewood:dark_oak_chest",
-    "ilikewood:jungle_chest",
-    "ilikewood:oak_chest",
-    "ilikewood:spruce_chest",
-    "ilikewood:warped_chest"
+    "ilikewood:trm_douglas_chest",
+    "ilikewood:trm_pine_chest",
+    "ilikewood:trm_larch_chest",
+    "ilikewood:trm_fir_chest",
+    "ilikewood:trm_maple_chest",
+    "ilikewood:trm_japanese_chest",
+    "ilikewood:trm_beech_chest",
+    "ilikewood:trm_cherry_chest",
+    "ilikewood:trm_alder_chest",
+    "ilikewood:trm_chestnut_chest",
+    "ilikewood:trm_plane_chest",
+    "ilikewood:trm_ash_chest",
+    "ilikewood:trm_linden_chest",
+    "ilikewood:trm_robinia_chest",
+    "ilikewood:trm_willow_chest",
+    "ilikewood:trm_pomegranate_chest",
+    "ilikewood:trm_magnolia_chest",
+    "ilikewood:trm_walnut_chest",
+    "ilikewood:trm_cedar_chest",
+    "ilikewood:trm_poplar_chest",
+    "ilikewood:trm_elm_chest",
+    "ilikewood:trm_rainbow_eucalyptus_chest",
+    "ilikewood:trm_juniper_chest"
   ]
 }

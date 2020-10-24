@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_crossbow",
-    "ilikewood:birch_crossbow",
-    "ilikewood:crimson_crossbow",
-    "ilikewood:dark_oak_crossbow",
-    "ilikewood:jungle_crossbow",
-    "ilikewood:oak_crossbow",
-    "ilikewood:spruce_crossbow",
-    "ilikewood:warped_crossbow"
+    "ilikewood:trm_douglas_crossbow",
+    "ilikewood:trm_pine_crossbow",
+    "ilikewood:trm_larch_crossbow",
+    "ilikewood:trm_fir_crossbow",
+    "ilikewood:trm_maple_crossbow",
+    "ilikewood:trm_japanese_crossbow",
+    "ilikewood:trm_beech_crossbow",
+    "ilikewood:trm_cherry_crossbow",
+    "ilikewood:trm_alder_crossbow",
+    "ilikewood:trm_chestnut_crossbow",
+    "ilikewood:trm_plane_crossbow",
+    "ilikewood:trm_ash_crossbow",
+    "ilikewood:trm_linden_crossbow",
+    "ilikewood:trm_robinia_crossbow",
+    "ilikewood:trm_willow_crossbow",
+    "ilikewood:trm_pomegranate_crossbow",
+    "ilikewood:trm_magnolia_crossbow",
+    "ilikewood:trm_walnut_crossbow",
+    "ilikewood:trm_cedar_crossbow",
+    "ilikewood:trm_poplar_crossbow",
+    "ilikewood:trm_elm_crossbow",
+    "ilikewood:trm_rainbow_eucalyptus_crossbow",
+    "ilikewood:trm_juniper_crossbow"
   ]
 }

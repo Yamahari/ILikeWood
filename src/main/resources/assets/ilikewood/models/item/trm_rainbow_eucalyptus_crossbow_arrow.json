@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/trm_rainbow_eucalyptus_crossbow",
+  "textures": {
+    "layer0": "ilikewood:item/crossbow/arrow/trm_rainbow_eucalyptus"
+  }
+}

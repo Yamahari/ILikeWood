@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:douglas_planks_from_trm_douglas_panels_slab"
+    ]
+  },
+  "criteria": {
+    "has_panels_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ilikewood:trm_douglas_panels_slab"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:douglas_planks_from_trm_douglas_panels_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_panels_slab",
+      "has_the_recipe"
+    ]
+  ]
+}

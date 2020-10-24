@@ -17,7 +17,7 @@ public final class Util {
     }
 
     private static ResourceLocation getResource(final WoodType woodType, final String name) {
-        final String path = toPath(ModelProvider.BLOCK_FOLDER, String.format(name, woodType.toString()));
+        final String path = toPath(ModelProvider.BLOCK_FOLDER, String.format(name, woodType.getName()));
         return woodType.getModId().equals(Constants.MOD_ID) ? new ResourceLocation(path) : new ResourceLocation(woodType.getModId(), path);
     }
 

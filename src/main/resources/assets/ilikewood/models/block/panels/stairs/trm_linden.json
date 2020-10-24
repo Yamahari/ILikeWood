@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/stairs/template",
+  "textures": {
+    "planks": "treemendous:block/linden_planks"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "ilikewood:item/stick/pickaxe/trm_douglas",
+    "layer1": "ilikewood:item/pickaxe/stone"
+  }
+}

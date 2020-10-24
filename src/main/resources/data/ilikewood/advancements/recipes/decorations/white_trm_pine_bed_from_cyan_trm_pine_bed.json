@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:white_trm_pine_bed_from_cyan_trm_pine_bed"
+    ]
+  },
+  "criteria": {
+    "has_dye": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:white_dye"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:white_trm_pine_bed_from_cyan_trm_pine_bed"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dye",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_panels",
-    "ilikewood:birch_panels",
-    "ilikewood:crimson_panels",
-    "ilikewood:dark_oak_panels",
-    "ilikewood:jungle_panels",
-    "ilikewood:oak_panels",
-    "ilikewood:spruce_panels",
-    "ilikewood:warped_panels"
+    "ilikewood:trm_douglas_panels",
+    "ilikewood:trm_pine_panels",
+    "ilikewood:trm_larch_panels",
+    "ilikewood:trm_fir_panels",
+    "ilikewood:trm_maple_panels",
+    "ilikewood:trm_japanese_panels",
+    "ilikewood:trm_beech_panels",
+    "ilikewood:trm_cherry_panels",
+    "ilikewood:trm_alder_panels",
+    "ilikewood:trm_chestnut_panels",
+    "ilikewood:trm_plane_panels",
+    "ilikewood:trm_ash_panels",
+    "ilikewood:trm_linden_panels",
+    "ilikewood:trm_robinia_panels",
+    "ilikewood:trm_willow_panels",
+    "ilikewood:trm_pomegranate_panels",
+    "ilikewood:trm_magnolia_panels",
+    "ilikewood:trm_walnut_panels",
+    "ilikewood:trm_cedar_panels",
+    "ilikewood:trm_poplar_panels",
+    "ilikewood:trm_elm_panels",
+    "ilikewood:trm_rainbow_eucalyptus_panels",
+    "ilikewood:trm_juniper_panels"
   ]
 }

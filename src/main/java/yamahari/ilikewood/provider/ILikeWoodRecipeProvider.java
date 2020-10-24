@@ -1,6 +1,7 @@
 package yamahari.ilikewood.provider;
 
 import biomesoplenty.api.block.BOPBlocks;
+import deerangle.treemendous.api.TreemendousBlocks;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
@@ -47,6 +48,9 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                 break;
             case Constants.BOP_MOD_ID:
                 ingredient = getIngredient(Util.toRegistryName(woodType.toString(), name), BOPBlocks.class);
+                break;
+            case Constants.TRM_MOD_ID:
+                ingredient = getIngredient(Util.toRegistryName(woodType.getName(), name), TreemendousBlocks.class);
                 break;
             default:
                 ingredient = null;

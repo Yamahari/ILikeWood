@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_ladder",
-    "ilikewood:birch_ladder",
-    "ilikewood:crimson_ladder",
-    "ilikewood:dark_oak_ladder",
-    "ilikewood:jungle_ladder",
-    "ilikewood:oak_ladder",
-    "ilikewood:spruce_ladder",
-    "ilikewood:warped_ladder"
+    "ilikewood:trm_douglas_ladder",
+    "ilikewood:trm_pine_ladder",
+    "ilikewood:trm_larch_ladder",
+    "ilikewood:trm_fir_ladder",
+    "ilikewood:trm_maple_ladder",
+    "ilikewood:trm_japanese_ladder",
+    "ilikewood:trm_beech_ladder",
+    "ilikewood:trm_cherry_ladder",
+    "ilikewood:trm_alder_ladder",
+    "ilikewood:trm_chestnut_ladder",
+    "ilikewood:trm_plane_ladder",
+    "ilikewood:trm_ash_ladder",
+    "ilikewood:trm_linden_ladder",
+    "ilikewood:trm_robinia_ladder",
+    "ilikewood:trm_willow_ladder",
+    "ilikewood:trm_pomegranate_ladder",
+    "ilikewood:trm_magnolia_ladder",
+    "ilikewood:trm_walnut_ladder",
+    "ilikewood:trm_cedar_ladder",
+    "ilikewood:trm_poplar_ladder",
+    "ilikewood:trm_elm_ladder",
+    "ilikewood:trm_rainbow_eucalyptus_ladder",
+    "ilikewood:trm_juniper_ladder"
   ]
 }

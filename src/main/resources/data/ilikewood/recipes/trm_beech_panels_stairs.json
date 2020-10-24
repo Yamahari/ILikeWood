@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "panels",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:trm_beech_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_beech_panels_stairs",
+    "count": 4
+  }
+}

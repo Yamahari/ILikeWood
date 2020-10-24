@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "chests",
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:trm_chestnut_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_chestnut_chest"
+  }
+}

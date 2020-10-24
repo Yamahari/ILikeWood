@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "ilikewood:item/stick/hoe/trm_juniper",
+    "layer1": "ilikewood:item/hoe/stone"
+  }
+}

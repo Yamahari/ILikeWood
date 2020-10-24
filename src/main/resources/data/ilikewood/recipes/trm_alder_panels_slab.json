@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "panels_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ilikewood:trm_alder_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_alder_panels_slab",
+    "count": 6
+  }
+}

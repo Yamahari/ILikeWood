@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ilikewood:block/panels/slab/top/trm_juniper"
+    },
+    "type=bottom": {
+      "model": "ilikewood:block/panels/slab/trm_juniper"
+    },
+    "type=double": {
+      "model": "ilikewood:block/panels/trm_juniper"
+    }
+  }
+}

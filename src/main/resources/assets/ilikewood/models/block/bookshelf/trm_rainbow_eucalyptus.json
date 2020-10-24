@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "ilikewood:block/bookshelf/trm_rainbow_eucalyptus",
+    "end": "treemendous:block/rainbow_eucalyptus_planks"
+  }
+}

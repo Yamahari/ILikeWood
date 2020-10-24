@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_bow",
-    "ilikewood:birch_bow",
-    "ilikewood:crimson_bow",
-    "ilikewood:dark_oak_bow",
-    "ilikewood:jungle_bow",
-    "ilikewood:oak_bow",
-    "ilikewood:spruce_bow",
-    "ilikewood:warped_bow"
+    "ilikewood:trm_douglas_bow",
+    "ilikewood:trm_pine_bow",
+    "ilikewood:trm_larch_bow",
+    "ilikewood:trm_fir_bow",
+    "ilikewood:trm_maple_bow",
+    "ilikewood:trm_japanese_bow",
+    "ilikewood:trm_beech_bow",
+    "ilikewood:trm_cherry_bow",
+    "ilikewood:trm_alder_bow",
+    "ilikewood:trm_chestnut_bow",
+    "ilikewood:trm_plane_bow",
+    "ilikewood:trm_ash_bow",
+    "ilikewood:trm_linden_bow",
+    "ilikewood:trm_robinia_bow",
+    "ilikewood:trm_willow_bow",
+    "ilikewood:trm_pomegranate_bow",
+    "ilikewood:trm_magnolia_bow",
+    "ilikewood:trm_walnut_bow",
+    "ilikewood:trm_cedar_bow",
+    "ilikewood:trm_poplar_bow",
+    "ilikewood:trm_elm_bow",
+    "ilikewood:trm_rainbow_eucalyptus_bow",
+    "ilikewood:trm_juniper_bow"
   ]
 }

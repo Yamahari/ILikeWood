@@ -1,0 +1,11 @@
+{
+  "parent": "ilikewood:block/bed/inventory/template",
+  "textures": {
+    "planks": "treemendous:block/chestnut_planks",
+    "frame": "ilikewood:block/bed/frame/trm_chestnut",
+    "head_top": "ilikewood:block/bed/sheets/head/top/orange",
+    "head_sides": "ilikewood:block/bed/sheets/head/sides/orange",
+    "foot_top": "ilikewood:block/bed/sheets/foot/top/orange",
+    "foot_sides": "ilikewood:block/bed/sheets/foot/sides/orange"
+  }
+}

@@ -30,8 +30,8 @@ public final class SpecialModels {
         // TODO Change to values()?
         WoodType.getLoadedValues().forEach(woodType -> {
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
-            itemFrameModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.toString())));
-            itemFrameMapModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.toString())));
+            itemFrameModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getPrefixedName())));
+            itemFrameMapModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getPrefixedName())));
         });
 
         ITEM_FRAME_MODELS = Collections.unmodifiableMap(itemFrameModels);

@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_lectern",
-    "ilikewood:birch_lectern",
-    "ilikewood:crimson_lectern",
-    "ilikewood:dark_oak_lectern",
-    "ilikewood:jungle_lectern",
-    "ilikewood:oak_lectern",
-    "ilikewood:spruce_lectern",
-    "ilikewood:warped_lectern"
+    "ilikewood:trm_douglas_lectern",
+    "ilikewood:trm_pine_lectern",
+    "ilikewood:trm_larch_lectern",
+    "ilikewood:trm_fir_lectern",
+    "ilikewood:trm_maple_lectern",
+    "ilikewood:trm_japanese_lectern",
+    "ilikewood:trm_beech_lectern",
+    "ilikewood:trm_cherry_lectern",
+    "ilikewood:trm_alder_lectern",
+    "ilikewood:trm_chestnut_lectern",
+    "ilikewood:trm_plane_lectern",
+    "ilikewood:trm_ash_lectern",
+    "ilikewood:trm_linden_lectern",
+    "ilikewood:trm_robinia_lectern",
+    "ilikewood:trm_willow_lectern",
+    "ilikewood:trm_pomegranate_lectern",
+    "ilikewood:trm_magnolia_lectern",
+    "ilikewood:trm_walnut_lectern",
+    "ilikewood:trm_cedar_lectern",
+    "ilikewood:trm_poplar_lectern",
+    "ilikewood:trm_elm_lectern",
+    "ilikewood:trm_rainbow_eucalyptus_lectern",
+    "ilikewood:trm_juniper_lectern"
   ]
 }

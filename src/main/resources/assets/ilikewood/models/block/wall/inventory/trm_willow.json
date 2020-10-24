@@ -1,0 +1,7 @@
+{
+  "parent": "ilikewood:block/wall/inventory/template",
+  "textures": {
+    "post": "treemendous:block/willow_log",
+    "side": "treemendous:block/stripped_willow_log"
+  }
+}

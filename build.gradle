@@ -14,7 +14,7 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
-version = '1.16.3-4.0.2.2'
+version = '1.16.3-4.0.3.2'
 group = 'yamahari.ilikewood'
 archivesBaseName = 'ilikewood'
 
@@ -60,6 +60,11 @@ minecraft {
                 }
             }
         }
+
+        treemendousData {
+            parent data
+            property 'ilikewood.datagen.modid', 'treemendous'
+        }
     }
 }
 
@@ -85,6 +90,9 @@ dependencies {
     compileOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.3-12.0.0.400:api')
     runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.3-12.0.0.400:universal')
 
+    compileOnly fg.deobf('build.libs:treemendous:0.4.1:api')
+    runtimeOnly fg.deobf('build.libs:treemendous:0.4.1')
+
     compileOnly fg.deobf('mezz.jei:jei-1.16.3:7.+:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.16.3:7.+')
 }
@@ -93,6 +101,8 @@ dependencies {
 jar {
     sourceSets.main.resources {
         exclude 'assets/biomesoplenty/**'
+        exclude 'assets/treemendous/**'
+        exclude '**/*.xcf'
     }
     manifest {
         attributes([

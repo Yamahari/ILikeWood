@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/bed/foot/template",
+  "textures": {
+    "planks": "treemendous:block/cherry_planks",
+    "frame": "ilikewood:block/bed/frame/trm_cherry",
+    "top": "ilikewood:block/bed/sheets/foot/top/green",
+    "sides": "ilikewood:block/bed/sheets/foot/sides/green"
+  }
+}

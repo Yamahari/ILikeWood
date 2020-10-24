@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "ilikewood:block/bookshelf/trm_ash",
+    "end": "treemendous:block/ash_planks"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/post/inventory/template",
+  "textures": {
+    "wall": "treemendous:block/stripped_rainbow_eucalyptus_log"
+  }
+}

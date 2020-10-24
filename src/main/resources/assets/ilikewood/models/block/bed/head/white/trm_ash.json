@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/bed/head/template",
+  "textures": {
+    "planks": "treemendous:block/ash_planks",
+    "frame": "ilikewood:block/bed/frame/trm_ash",
+    "top": "ilikewood:block/bed/sheets/head/top/white",
+    "sides": "ilikewood:block/bed/sheets/head/sides/white"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:poplar_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_poplar_wall",
+    "count": 6
+  }
+}

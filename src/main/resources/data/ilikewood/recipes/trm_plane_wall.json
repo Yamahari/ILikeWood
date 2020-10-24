@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "walls",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:plane_log"
+    }
+  },
+  "result": {
+    "item": "ilikewood:trm_plane_wall",
+    "count": 6
+  }
+}

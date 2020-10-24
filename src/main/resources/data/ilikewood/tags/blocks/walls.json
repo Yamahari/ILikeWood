@@ -1,13 +1,28 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_wall",
-    "ilikewood:birch_wall",
-    "ilikewood:crimson_wall",
-    "ilikewood:dark_oak_wall",
-    "ilikewood:jungle_wall",
-    "ilikewood:oak_wall",
-    "ilikewood:spruce_wall",
-    "ilikewood:warped_wall"
+    "ilikewood:trm_douglas_wall",
+    "ilikewood:trm_pine_wall",
+    "ilikewood:trm_larch_wall",
+    "ilikewood:trm_fir_wall",
+    "ilikewood:trm_maple_wall",
+    "ilikewood:trm_japanese_wall",
+    "ilikewood:trm_beech_wall",
+    "ilikewood:trm_cherry_wall",
+    "ilikewood:trm_alder_wall",
+    "ilikewood:trm_chestnut_wall",
+    "ilikewood:trm_plane_wall",
+    "ilikewood:trm_ash_wall",
+    "ilikewood:trm_linden_wall",
+    "ilikewood:trm_robinia_wall",
+    "ilikewood:trm_willow_wall",
+    "ilikewood:trm_pomegranate_wall",
+    "ilikewood:trm_magnolia_wall",
+    "ilikewood:trm_walnut_wall",
+    "ilikewood:trm_cedar_wall",
+    "ilikewood:trm_poplar_wall",
+    "ilikewood:trm_elm_wall",
+    "ilikewood:trm_rainbow_eucalyptus_wall",
+    "ilikewood:trm_juniper_wall"
   ]
 }

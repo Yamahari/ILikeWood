@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "bottom=false,distance=0,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=0,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=1,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=1,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=2,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=2,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=3,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=3,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=4,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=4,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=5,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=5,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=6,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=6,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=7,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=7,waterlogged=false": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=0,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=0,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=1,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=1,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=2,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=2,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=3,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=3,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=4,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=4,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=5,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=5,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=6,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=6,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    },
+    "bottom=false,distance=7,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/stable/trm_beech"
+    },
+    "bottom=true,distance=7,waterlogged=true": {
+      "model": "ilikewood:block/scaffolding/unstable/trm_beech"
+    }
+  }
+}

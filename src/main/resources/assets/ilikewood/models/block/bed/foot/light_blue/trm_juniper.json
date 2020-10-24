@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/bed/foot/template",
+  "textures": {
+    "planks": "treemendous:block/juniper_planks",
+    "frame": "ilikewood:block/bed/frame/trm_juniper",
+    "top": "ilikewood:block/bed/sheets/foot/top/light_blue",
+    "sides": "ilikewood:block/bed/sheets/foot/sides/light_blue"
+  }
+}

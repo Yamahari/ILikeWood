@@ -40,7 +40,30 @@ public enum WoodenItemTier implements IItemTier {
     PALM(Constants.PALM, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.PALM))),
     REDWOOD(Constants.REDWOOD, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.REDWOOD))),
     UMBRAN(Constants.UMBRAN, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.UMBRAN))),
-    WILLOW(Constants.WILLOW, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.WILLOW)));
+    WILLOW(Constants.WILLOW, Constants.BOP_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.WILLOW))),
+    TRM_DOUGLAS(Constants.TRM_DOUGLAS, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_DOUGLAS))),
+    TRM_PINE(Constants.TRM_PINE, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_PINE))),
+    TRM_LARCH(Constants.TRM_LARCH, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_LARCH))),
+    TRM_FIR(Constants.TRM_FIR, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_FIR))),
+    TRM_MAPLE(Constants.TRM_MAPLE, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_MAPLE))),
+    TRM_JAPANESE(Constants.TRM_JAPANESE, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_JAPANESE))),
+    TRM_BEECH(Constants.TRM_BEECH, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_BEECH))),
+    TRM_CHERRY(Constants.TRM_CHERRY, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_CHERRY))),
+    TRM_ALDER(Constants.TRM_ALDER, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_ALDER))),
+    TRM_CHESTNUT(Constants.TRM_CHESTNUT, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_CHESTNUT))),
+    TRM_PLANE(Constants.TRM_PLANE, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_PLANE))),
+    TRM_ASH(Constants.TRM_ASH, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_ASH))),
+    TRM_LINDEN(Constants.TRM_LINDEN, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_LINDEN))),
+    TRM_ROBINIA(Constants.TRM_ROBINIA, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_ROBINIA))),
+    TRM_WILLOW(Constants.TRM_WILLOW, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_WILLOW))),
+    TRM_POMEGRANATE(Constants.TRM_POMEGRANATE, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_POMEGRANATE))),
+    TRM_MAGNOLIA(Constants.TRM_MAGNOLIA, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_MAGNOLIA))),
+    TRM_WALNUT(Constants.TRM_WALNUT, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_WALNUT))),
+    TRM_CEDAR(Constants.TRM_CEDAR, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_CEDAR))),
+    TRM_POPLAR(Constants.TRM_POPLAR, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_POPLAR))),
+    TRM_ELM(Constants.TRM_ELM, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_ELM))),
+    TRM_RAINBOW_EUCALYPTUS(Constants.TRM_RAINBOW_EUCALYPTUS, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_RAINBOW_EUCALYPTUS))),
+    TRM_JUNIPER(Constants.TRM_JUNIPER, Constants.TRM_MOD_PREFIX, Constants.TRM_MOD_ID, true, () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectType.PANELS, WoodType.TRM_JUNIPER)));
 
     private final String name;
     private final String modId;
@@ -58,22 +81,26 @@ public enum WoodenItemTier implements IItemTier {
     }
 
     WoodenItemTier(final String name, final String modId, final boolean isWood, final Supplier<Ingredient> repairMaterial) {
-        this.name = name;
+        this(name, "", modId, isWood, repairMaterial);
+    }
+
+    WoodenItemTier(final String name, final String modPrefix, final String modId, final boolean isWood, final Supplier<Ingredient> repairMaterial) {
+        this.name = modPrefix + name;
         this.modId = modId;
         this.isWood = isWood;
-        this.harvestLevel = new LazyValue<>(() -> Config.SERVER_CONFIG.HARVEST_LEVEL.get(name)::get);
-        this.maxUses = new LazyValue<>(() -> Config.SERVER_CONFIG.MAX_USES.get(name)::get);
-        this.efficiency = new LazyValue<>(() -> Config.SERVER_CONFIG.EFFICIENCY.get(name)::get);
-        this.attackDamage = new LazyValue<>(() -> Config.SERVER_CONFIG.ATTACK_DAMAGE.get(name)::get);
-        this.enchantability = new LazyValue<>(() -> Config.SERVER_CONFIG.ENCHANTABILITY.get(name)::get);
+        this.harvestLevel = new LazyValue<>(() -> Config.SERVER_CONFIG.HARVEST_LEVEL.get(this.name)::get);
+        this.maxUses = new LazyValue<>(() -> Config.SERVER_CONFIG.MAX_USES.get(this.name)::get);
+        this.efficiency = new LazyValue<>(() -> Config.SERVER_CONFIG.EFFICIENCY.get(this.name)::get);
+        this.attackDamage = new LazyValue<>(() -> Config.SERVER_CONFIG.ATTACK_DAMAGE.get(this.name)::get);
+        this.enchantability = new LazyValue<>(() -> Config.SERVER_CONFIG.ENCHANTABILITY.get(this.name)::get);
         this.repairMaterial = new LazyValue<>(repairMaterial);
         final Map<WoodenTieredObjectType, Properties> properties = new EnumMap<>(WoodenTieredObjectType.class);
         for (final WoodenTieredObjectType tieredObjectType : WoodenTieredObjectType.values()) {
             final String type = tieredObjectType.toString();
             properties.put(tieredObjectType, new WoodenItemTier.Properties(
-                    () -> Config.SERVER_CONFIG.TIERED_ATTACK_SPEED.get(name).get(type)::get,
-                    () -> Config.SERVER_CONFIG.TIERED_ATTACK_DAMAGE.get(name).get(type)::get,
-                    isWood ? () -> Config.SERVER_CONFIG.TIERED_BURN_TIME.get(name).get(type)::get : () -> () -> -1
+                    () -> Config.SERVER_CONFIG.TIERED_ATTACK_SPEED.get(this.name).get(type)::get,
+                    () -> Config.SERVER_CONFIG.TIERED_ATTACK_DAMAGE.get(this.name).get(type)::get,
+                    isWood ? () -> Config.SERVER_CONFIG.TIERED_BURN_TIME.get(this.name).get(type)::get : () -> () -> -1
             ));
         }
         this.properties = Collections.unmodifiableMap(properties);

@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/panels/template",
+  "textures": {
+    "planks": "treemendous:block/cedar_planks"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:item/trm_robinia_crossbow",
+  "textures": {
+    "layer0": "ilikewood:item/crossbow/firework/trm_robinia"
+  }
+}

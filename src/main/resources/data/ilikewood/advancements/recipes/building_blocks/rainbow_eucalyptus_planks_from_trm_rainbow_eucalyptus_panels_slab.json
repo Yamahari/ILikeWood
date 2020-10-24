@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:rainbow_eucalyptus_planks_from_trm_rainbow_eucalyptus_panels_slab"
+    ]
+  },
+  "criteria": {
+    "has_panels_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ilikewood:trm_rainbow_eucalyptus_panels_slab"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:rainbow_eucalyptus_planks_from_trm_rainbow_eucalyptus_panels_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_panels_slab",
+      "has_the_recipe"
+    ]
+  ]
+}
