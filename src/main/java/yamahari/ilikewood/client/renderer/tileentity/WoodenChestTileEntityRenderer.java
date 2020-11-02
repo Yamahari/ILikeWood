@@ -18,6 +18,7 @@ public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer
         this.materials = null;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     protected RenderMaterial getMaterial(final TileEntity tileEntity, final ChestType chestType) {
         if (this.materials == null) {

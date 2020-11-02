@@ -6,16 +6,16 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 
 import javax.annotation.Nullable;
 
 public final class WoodenBedBlock extends BedBlock implements IWooden {
-    private final WoodType type;
+    private final IWoodType type;
     private final DyeColor color;
 
-    public WoodenBedBlock(final WoodType type, final DyeColor color) {
+    public WoodenBedBlock(final IWoodType type, final DyeColor color) {
         super(color, getProperties(color));
         this.type = type;
         this.color = color;
@@ -60,7 +60,7 @@ public final class WoodenBedBlock extends BedBlock implements IWooden {
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.type;
     }
 
@@ -69,10 +69,11 @@ public final class WoodenBedBlock extends BedBlock implements IWooden {
     }
 
     @Override
-    public TileEntity createNewTileEntity(final IBlockReader reader) {
+    public TileEntity createNewTileEntity(@SuppressWarnings("NullableProblems") final IBlockReader reader) {
         return null;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public BlockRenderType getRenderType(final BlockState blockState) {
         return BlockRenderType.MODEL;

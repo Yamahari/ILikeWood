@@ -9,18 +9,22 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
-import yamahari.ilikewood.util.WoodType;
-import yamahari.ilikewood.util.*;
+import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.IWooden;
+import yamahari.ilikewood.util.Util;
+import yamahari.ilikewood.util.WoodenObjectType;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+// TODO fix this using the optionals of IWoodType interface
 public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
     public ILikeWoodBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
         super(generator, Constants.MOD_ID, helper);
@@ -63,16 +67,17 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final String name = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BOOKSHELF.toString(), name);
+
             final ResourceLocation planks = Util.getPlanks(woodType);
 
             this.simpleBlock(block, this.models().cubeColumn(path, modLoc(path), planks));
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final String name = ((IWooden) block).getWoodType().toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CHEST.toString(), name);
             final ResourceLocation planks = Util.getPlanks(woodType);
@@ -107,7 +112,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final String name = woodType.toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.WALL.toString());
             final ResourceLocation postTexture = Util.getLog(woodType);
@@ -169,7 +174,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final String name = woodType.toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LECTERN.toString());
             final ResourceLocation planks = Util.getPlanks(woodType);
@@ -185,7 +190,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final String name = woodType.toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.POST.toString());
             final ResourceLocation log = Util.getLog(woodType);
@@ -204,7 +209,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.STRIPPED_POST).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final String name = woodType.toString();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.POST.toString());
 
@@ -224,7 +229,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenItems.getItems(WoodenObjectType.ITEM_FRAME).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IWoodType woodType = ((IWooden) item).getWoodType();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
             final ResourceLocation planks = Util.getPlanks(woodType);
             final ModelFile itemFrame = this.models()
@@ -237,7 +242,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         WoodenBlocks.getBedBlocks().forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BED.toString());
             final ResourceLocation planks = Util.getPlanks(woodType);
@@ -281,7 +286,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
     }
 
     private ModelFile templateWithPlanks(final Block block, final String nested, final WoodenObjectType... objectTypes) {
-        final WoodType woodType = ((IWooden) block).getWoodType();
+        final IWoodType woodType = ((IWooden) block).getWoodType();
         final String name = ((IWooden) block).getWoodType().toString();
         final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, Arrays.stream(objectTypes).map(Objects::toString).collect(Collectors.joining("/")));
         final ResourceLocation planks = Util.getPlanks(woodType);

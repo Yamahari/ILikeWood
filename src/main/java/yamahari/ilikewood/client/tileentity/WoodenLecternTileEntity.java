@@ -6,18 +6,18 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.commons.lang3.StringUtils;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenLecternTileEntity extends LecternTileEntity implements IWooden {
-    private final WoodType woodType;
+    private final IWoodType woodType;
     private final TranslationTextComponent displayName;
     private final LazyValue<TileEntityType<?>> tileEntityType;
 
-    public WoodenLecternTileEntity(final WoodType woodType) {
+    public WoodenLecternTileEntity(final IWoodType woodType) {
         this.woodType = woodType;
         this.displayName = new TranslationTextComponent(
                 StringUtils.joinWith(".", "container", Constants.MOD_ID,
@@ -30,13 +30,14 @@ public final class WoodenLecternTileEntity extends LecternTileEntity implements 
         return this.tileEntityType.getValue();
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public ITextComponent getDisplayName() {
         return this.displayName;
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 }

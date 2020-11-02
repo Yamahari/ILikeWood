@@ -14,6 +14,7 @@ import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.functions.ExplosionDecay;
 import net.minecraft.state.properties.BedPart;
 import net.minecraftforge.fml.RegistryObject;
+import yamahari.ilikewood.registry.ILikeWoodBlockRegistry;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.WoodenObjectType;
 
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 public final class ILikeWoodBlockLootTables extends BlockLootTables {
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return WoodenBlocks.REGISTRY.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList());
+        return ILikeWoodBlockRegistry.REGISTRY.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList());
     }
 
     @Override

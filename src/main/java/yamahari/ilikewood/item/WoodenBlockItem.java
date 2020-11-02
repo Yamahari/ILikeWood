@@ -4,8 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public class WoodenBlockItem extends BlockItem implements IWooden {
@@ -21,7 +21,7 @@ public class WoodenBlockItem extends BlockItem implements IWooden {
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         assert this.getBlock() instanceof IWooden;
         return ((IWooden) this.getBlock()).getWoodType();
     }

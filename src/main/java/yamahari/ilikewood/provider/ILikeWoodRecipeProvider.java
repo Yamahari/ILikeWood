@@ -1,7 +1,7 @@
 package yamahari.ilikewood.provider;
 
-import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.DyeColor;
@@ -11,7 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
@@ -20,62 +20,14 @@ import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.*;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public final class ILikeWoodRecipeProvider extends RecipeProvider {
     public ILikeWoodRecipeProvider(final DataGenerator generator) {
         super(generator);
-    }
-
-    private static IItemProvider getIngredient(final String name, final Class<?> objectHolder) {
-        try {
-            final Field block = objectHolder.getDeclaredField(name);
-            return (IItemProvider) block.get(null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            ILikeWood.LOGGER.error(e.getMessage());
-        }
-        return null;
-    }
-
-    private static IItemProvider getIngredient(final WoodType woodType, final String name) {
-        final IItemProvider ingredient;
-        switch (woodType.getModId()) {
-            case Constants.MOD_ID:
-                ingredient = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), name.toUpperCase()), Blocks.class);
-                break;
-            case Constants.BOP_MOD_ID:
-                ingredient = getIngredient(Util.toRegistryName(woodType.toString(), name), BOPBlocks.class);
-                break;
-            default:
-                ingredient = null;
-                break;
-        }
-        assert ingredient != null;
-        return ingredient;
-    }
-
-    private static IItemProvider getLog(final WoodType woodType) {
-        switch (woodType) {
-            case CRIMSON:
-            case WARPED:
-                return getIngredient(woodType, "stem");
-            default:
-                return getIngredient(woodType, "log");
-        }
-    }
-
-    private static IItemProvider getSlab(final WoodType woodType) {
-        return getIngredient(woodType, "slab");
-    }
-
-    private static IItemProvider getPlanks(final WoodType woodType) {
-        return getIngredient(woodType, "planks");
-    }
-
-    private static IItemProvider getFence(final WoodType woodType) {
-        return getIngredient(woodType, "fence");
     }
 
     private InventoryChangeTrigger.Instance hasItem(final Ingredient ingredientIn) {
@@ -83,17 +35,20 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(final Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipes(@SuppressWarnings("NullableProblems") final Consumer<IFinishedRecipe> consumer) {
         WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
-            final IItemProvider slab = getSlab(((IWooden) block).getWoodType());
+            final Optional<Supplier<Block>> slabSupplier = ((IWooden) block).getWoodType().getSlab();
+            if (slabSupplier.isPresent()) {
+                final IItemProvider slab = slabSupplier.get().get();
 
-            ShapedRecipeBuilder.shapedRecipe(block)
-                    .key('#', slab)
-                    .patternLine("#")
-                    .patternLine("#")
-                    .addCriterion("has_slab", hasItem(slab))
-                    .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
-                    .build(consumer);
+                ShapedRecipeBuilder.shapedRecipe(block)
+                        .key('#', slab)
+                        .patternLine("#")
+                        .patternLine("#")
+                        .addCriterion("has_slab", hasItem(slab))
+                        .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
+                        .build(consumer);
+            }
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> {
@@ -110,9 +65,10 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
-            final IItemProvider planks = getPlanks(woodType);
+            final Optional<Supplier<Block>> planksSupplier = woodType.getPlanks();
+
 
             ShapedRecipeBuilder.shapedRecipe(block, 6)
                     .key('#', panels)
@@ -121,17 +77,20 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .setGroup(ILikeWoodBlockTags.PANELS_SLABS.getName().getPath())
                     .build(consumer);
 
-            ShapedRecipeBuilder.shapedRecipe(planks)
-                    .key('S', block)
-                    .patternLine("S")
-                    .patternLine("S")
-                    .addCriterion("has_panels_slab", hasItem(block))
-                    .setGroup("ilikewood:planks")
-                    .build(consumer, Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" + block.getRegistryName().getPath());
+            if (planksSupplier.isPresent()) {
+                final IItemProvider planks = planksSupplier.get().get();
+                ShapedRecipeBuilder.shapedRecipe(planks)
+                        .key('S', block)
+                        .patternLine("S")
+                        .patternLine("S")
+                        .addCriterion("has_panels_slab", hasItem(block))
+                        .setGroup("ilikewood:planks")
+                        .build(consumer, Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" + block.getRegistryName().getPath());
+            }
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
             final IItemProvider slab = WoodenBlocks.getBlock(WoodenObjectType.SLAB, woodType);
 
@@ -174,35 +133,40 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
-            final IItemProvider fence = getFence(woodType);
-
-            ShapedRecipeBuilder.shapedRecipe(block)
-                    .key('#', panels)
-                    .key('F', fence)
-                    .patternLine("F F")
-                    .patternLine("F F")
-                    .patternLine("###")
-                    .addCriterion("has_panels", hasItem(panels))
-                    .setGroup(ILikeWoodBlockTags.COMPOSTER.getName().getPath())
-                    .build(consumer);
+            final Optional<Supplier<Block>> fenceSupplier = woodType.getFence();
+            if (fenceSupplier.isPresent()) {
+                final IItemProvider fence = fenceSupplier.get().get();
+                ShapedRecipeBuilder.shapedRecipe(block)
+                        .key('#', panels)
+                        .key('F', fence)
+                        .patternLine("F F")
+                        .patternLine("F F")
+                        .patternLine("###")
+                        .addCriterion("has_panels", hasItem(panels))
+                        .setGroup(ILikeWoodBlockTags.COMPOSTER.getName().getPath())
+                        .build(consumer);
+            }
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> {
-            final IItemProvider log = getLog(((IWooden) block).getWoodType());
+            final Optional<Supplier<Block>> logSupplier = ((IWooden) block).getWoodType().getLog();
+            if (logSupplier.isPresent()) {
+                final IItemProvider log = logSupplier.get().get();
 
-            ShapedRecipeBuilder.shapedRecipe(block, 6)
-                    .key('#', log)
-                    .patternLine("###")
-                    .patternLine("###")
-                    .addCriterion("has_log", hasItem(log))
-                    .setGroup(ILikeWoodBlockTags.WALLS.getName().getPath())
-                    .build(consumer);
+                ShapedRecipeBuilder.shapedRecipe(block, 6)
+                        .key('#', log)
+                        .patternLine("###")
+                        .patternLine("###")
+                        .addCriterion("has_log", hasItem(log))
+                        .setGroup(ILikeWoodBlockTags.WALLS.getName().getPath())
+                        .build(consumer);
+            }
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(block, 3)
@@ -216,7 +180,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
             final Ingredient coals = Ingredient.fromTag(net.minecraft.tags.ItemTags.COALS);
 
@@ -231,7 +195,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(block)
@@ -244,7 +208,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(block)
@@ -259,7 +223,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider slab = WoodenBlocks.getBlock(WoodenObjectType.SLAB, woodType);
             final IItemProvider bookshelf = WoodenBlocks.getBlock(WoodenObjectType.BOOKSHELF, woodType);
 
@@ -275,20 +239,22 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> {
-            final IItemProvider log = getLog(((IWooden) block).getWoodType());
-
-            ShapedRecipeBuilder.shapedRecipe(block, 6)
-                    .key('#', log)
-                    .patternLine("#")
-                    .patternLine("#")
-                    .patternLine("#")
-                    .addCriterion("has_log", hasItem(log))
-                    .setGroup(ILikeWoodBlockTags.POSTS.getName().getPath())
-                    .build(consumer);
+            final Optional<Supplier<Block>> logSupplier = ((IWooden) block).getWoodType().getLog();
+            if (logSupplier.isPresent()) {
+                final IItemProvider log = logSupplier.get().get();
+                ShapedRecipeBuilder.shapedRecipe(block, 6)
+                        .key('#', log)
+                        .patternLine("#")
+                        .patternLine("#")
+                        .patternLine("#")
+                        .addCriterion("has_log", hasItem(log))
+                        .setGroup(ILikeWoodBlockTags.POSTS.getName().getPath())
+                        .build(consumer);
+            }
         });
 
         WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IWoodType woodType = ((IWooden) item).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(item, 4)
@@ -303,7 +269,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         WoodenItems.getTieredItems(WoodenTieredObjectType.AXE)
                 .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
                 .forEach(item -> {
-                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final IWoodType woodType = ((IWooden) item).getWoodType();
                     final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
                     final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
@@ -321,7 +287,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         WoodenItems.getTieredItems(WoodenTieredObjectType.HOE)
                 .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
                 .forEach(item -> {
-                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final IWoodType woodType = ((IWooden) item).getWoodType();
                     final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
                     final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
@@ -339,7 +305,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         WoodenItems.getTieredItems(WoodenTieredObjectType.PICKAXE)
                 .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
                 .forEach(item -> {
-                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final IWoodType woodType = ((IWooden) item).getWoodType();
                     final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
                     final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
@@ -357,7 +323,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         WoodenItems.getTieredItems(WoodenTieredObjectType.SHOVEL)
                 .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
                 .forEach(item -> {
-                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final IWoodType woodType = ((IWooden) item).getWoodType();
                     final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
                     final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
@@ -375,7 +341,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         WoodenItems.getTieredItems(WoodenTieredObjectType.SWORD)
                 .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.NETHERITE))
                 .forEach(item -> {
-                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final IWoodType woodType = ((IWooden) item).getWoodType();
                     final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
                     final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
@@ -391,7 +357,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                 });
 
         WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IWoodType woodType = ((IWooden) item).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(item)
@@ -406,7 +372,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenItems.getItems(WoodenObjectType.CROSSBOW).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IWoodType woodType = ((IWooden) item).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(item)
@@ -423,7 +389,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         WoodenItems.getItems(WoodenObjectType.ITEM_FRAME).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IWoodType woodType = ((IWooden) item).getWoodType();
             final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
 
             ShapedRecipeBuilder.shapedRecipe(item)
@@ -441,7 +407,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                 .filter(item -> ((IWoodenTieredItem) item).getWoodenItemTier().equals(WoodenItemTier.DIAMOND))
                 .forEach(item -> {
                     final IWoodenTieredItem tieredItem = ((IWoodenTieredItem) item);
-                    final WoodType woodType = ((IWooden) item).getWoodType();
+                    final IWoodType woodType = ((IWooden) item).getWoodType();
                     final Item output = WoodenItems.getTieredItem(tieredItem.getWoodenTieredObjectType(), woodType, WoodenItemTier.NETHERITE);
                     SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(item), Ingredient.fromItems(Items.NETHERITE_INGOT), output)
                             .addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
@@ -449,11 +415,11 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                 });
 
         WoodenBlocks.getBedBlocks().forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
-            final IItemProvider wool = getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "WOOL"), Blocks.class);
+            final IItemProvider wool = Util.getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "WOOL"), Blocks.class);
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
-            final IItemProvider dye = getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "DYE"), Items.class);
+            final IItemProvider dye = Util.getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "DYE"), Items.class);
             final IItemProvider whiteBed = WoodenBlocks.getBedBlock(woodType, DyeColor.WHITE);
 
             assert wool != null;

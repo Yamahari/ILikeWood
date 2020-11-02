@@ -5,10 +5,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
-import yamahari.ilikewood.util.WoodType;
+import yamahari.ilikewood.IWoodType;
 
 public final class WoodenBookshelfBlock extends WoodenBlock {
-    public WoodenBookshelfBlock(final WoodType type) {
+    public WoodenBookshelfBlock(final IWoodType type) {
         super(type, Block.Properties.from(Blocks.BOOKSHELF));
     }
 

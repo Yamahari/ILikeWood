@@ -22,7 +22,7 @@ public class WoodenWallOrFloorItem extends WoodenBlockItem {
     }
 
     @Override
-    protected BlockState getStateForPlacement(final BlockItemUseContext context) {
+    protected BlockState getStateForPlacement(@SuppressWarnings("NullableProblems") final BlockItemUseContext context) {
         final BlockState state = this.wallBlock.getStateForPlacement(context);
         final IWorldReader world = context.getWorld();
         final BlockPos pos = context.getPos();
@@ -36,13 +36,13 @@ public class WoodenWallOrFloorItem extends WoodenBlockItem {
     }
 
     @Override
-    public void addToBlockToItemMap(final Map<Block, Item> blockToItemMap, final Item item) {
+    public void addToBlockToItemMap(@SuppressWarnings("NullableProblems") final Map<Block, Item> blockToItemMap, @SuppressWarnings("NullableProblems") final Item item) {
         super.addToBlockToItemMap(blockToItemMap, item);
         blockToItemMap.put(this.wallBlock, item);
     }
 
     @Override
-    public void removeFromBlockToItemMap(final Map<Block, Item> blockToItemMap, final Item item) {
+    public void removeFromBlockToItemMap(@SuppressWarnings("NullableProblems") final Map<Block, Item> blockToItemMap, @SuppressWarnings("NullableProblems") final Item item) {
         super.removeFromBlockToItemMap(blockToItemMap, item);
         blockToItemMap.remove(this.wallBlock);
     }

@@ -14,21 +14,22 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.WoodenEntityTypes;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenItemFrameItem extends WoodenItem {
     private final LazyValue<EntityType<? extends ItemFrameEntity>> entityType;
 
     @SuppressWarnings("unchecked")
-    public WoodenItemFrameItem(final WoodType woodType) {
+    public WoodenItemFrameItem(final IWoodType woodType) {
         super(woodType, WoodenObjectType.ITEM_FRAME, new Item.Properties().group(ItemGroup.DECORATIONS));
         this.entityType = new LazyValue<>(() ->
                 (EntityType<? extends ItemFrameEntity>) WoodenEntityTypes.getEntityType(WoodenObjectType.ITEM_FRAME, this.getWoodType()));
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public ActionResultType onItemUse(final ItemUseContext context) {
         final BlockPos blockPos = context.getPos();

@@ -7,28 +7,30 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodType;
 
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class Atlases {
-    private static final Map<WoodType, Map<ChestType, RenderMaterial>> CHESTS;
+    private static final Map<IWoodType, Map<ChestType, RenderMaterial>> CHESTS;
 
     static {
-        final Map<WoodType, Map<ChestType, RenderMaterial>> chests = new EnumMap<>(WoodType.class);
-        WoodType.getLoadedValues().forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
+        final Map<IWoodType, Map<ChestType, RenderMaterial>> chests = new HashMap<>();
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
         CHESTS = Collections.unmodifiableMap(chests);
     }
 
     private Atlases() {
     }
 
-    private static Map<ChestType, RenderMaterial> makeChestMaterials(final WoodType woodType) {
+    private static Map<ChestType, RenderMaterial> makeChestMaterials(final IWoodType woodType) {
         final EnumMap<ChestType, RenderMaterial> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
             materials.put(chestType, new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
@@ -37,7 +39,7 @@ public final class Atlases {
         return materials;
     }
 
-    public static Map<ChestType, RenderMaterial> getChestMaterials(final WoodType woodType) {
+    public static Map<ChestType, RenderMaterial> getChestMaterials(final IWoodType woodType) {
         return CHESTS.get(woodType);
     }
 

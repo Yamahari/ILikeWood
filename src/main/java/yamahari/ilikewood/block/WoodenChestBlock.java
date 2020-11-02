@@ -13,19 +13,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import java.util.function.BiPredicate;
 
 public final class WoodenChestBlock extends ChestBlock implements IWooden {
-    private final WoodType woodType;
+    private final IWoodType woodType;
     private final LazyValue<TileEntityType<? extends ChestTileEntity>> tileEntityType;
 
     @SuppressWarnings("unchecked")
-    public WoodenChestBlock(final WoodType woodType) {
+    public WoodenChestBlock(final IWoodType woodType) {
         super(Block.Properties.from(Blocks.CHEST),
                 () -> (TileEntityType<? extends ChestTileEntity>) WoodenTileEntityTypes.getTileEntityType(WoodenObjectType.CHEST, woodType));
         this.woodType = woodType;
@@ -37,10 +37,11 @@ public final class WoodenChestBlock extends ChestBlock implements IWooden {
     }
 
     @Override
-    public TileEntity createNewTileEntity(final IBlockReader reader) {
+    public TileEntity createNewTileEntity(@SuppressWarnings("NullableProblems") final IBlockReader reader) {
         return tileEntityType.getValue().create();
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public TileEntityMerger.ICallbackWrapper<? extends ChestTileEntity> combine(final BlockState blockState, final World world, final BlockPos blockPos, final boolean isHopper) {
         final BiPredicate<IWorld, BlockPos> predicate;
@@ -54,7 +55,7 @@ public final class WoodenChestBlock extends ChestBlock implements IWooden {
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 }

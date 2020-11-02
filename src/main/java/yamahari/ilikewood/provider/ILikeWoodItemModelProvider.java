@@ -7,6 +7,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.registry.WoodenBlocks;
@@ -44,7 +45,7 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
         WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> this.blockItem(block, WoodenObjectType.BARREL.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.blockItem(block, WoodenObjectType.BOOKSHELF.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
-            final WoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath("builtin", "entity"))))
                     .texture("particle", Util.getPlanks(woodType))
@@ -207,7 +208,7 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
         });
 
         WoodenItems.getItems(WoodenObjectType.ITEM_FRAME).forEach(item -> {
-            final WoodType woodType = ((IWooden) item).getWoodType();
+            final IWoodType woodType = ((IWooden) item).getWoodType();
             this.getBuilder(Util.toRegistryName(woodType.toString(), WoodenObjectType.ITEM_FRAME.toString()))
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.toString())));

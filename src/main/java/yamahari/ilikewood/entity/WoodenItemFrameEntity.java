@@ -20,9 +20,9 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import javax.annotation.Nullable;
@@ -32,16 +32,16 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
     private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(WoodenItemFrameEntity.class, DataSerializers.VARINT);
     //private ItemStack item;
     //private int rotation;
-    private final WoodType woodType;
+    private final IWoodType woodType;
     private final LazyValue<Item> drop;
 
-    public WoodenItemFrameEntity(final WoodType woodType, final EntityType<? extends ItemFrameEntity> entityType, final World world) {
+    public WoodenItemFrameEntity(final IWoodType woodType, final EntityType<? extends ItemFrameEntity> entityType, final World world) {
         super(entityType, world);
         this.woodType = woodType;
         this.drop = new LazyValue<>(WoodenItems.getRegistryObject(WoodenObjectType.ITEM_FRAME, woodType));
     }
 
-    public WoodenItemFrameEntity(final WoodType woodType, final EntityType<? extends ItemFrameEntity> entityType, final World world, final BlockPos blockPos, final Direction direction) {
+    public WoodenItemFrameEntity(final IWoodType woodType, final EntityType<? extends ItemFrameEntity> entityType, final World world, final BlockPos blockPos, final Direction direction) {
         super(entityType, world);
         this.woodType = woodType;
         this.hangingPosition = blockPos;
@@ -55,6 +55,7 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
         this.getDataManager().register(ROTATION, 0);
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public ItemStack getDisplayedItem() {
         return this.getDataManager().get(ITEM);
@@ -133,6 +134,7 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
         }
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
@@ -152,7 +154,7 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 }

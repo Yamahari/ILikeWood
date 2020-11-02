@@ -16,18 +16,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import javax.annotation.Nullable;
 
 public final class WoodenLecternBlock extends LecternBlock implements IWooden {
-    private final WoodType woodType;
+    private final IWoodType woodType;
     private final LazyValue<TileEntityType<?>> tileEntityType;
 
-    public WoodenLecternBlock(final WoodType woodType) {
+    public WoodenLecternBlock(final IWoodType woodType) {
         super(Block.Properties.from(Blocks.LECTERN));
         this.woodType = woodType;
         this.tileEntityType = new LazyValue<>(WoodenTileEntityTypes.getRegistryObject(WoodenObjectType.LECTERN, woodType));
@@ -35,10 +35,11 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(final IBlockReader reader) {
+    public TileEntity createNewTileEntity(@SuppressWarnings("NullableProblems") final IBlockReader reader) {
         return this.tileEntityType.getValue().create();
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public ActionResultType onBlockActivated(final BlockState state, final World world, final BlockPos pos, final PlayerEntity player, final Hand hand, final BlockRayTraceResult rayTraceResult) {
         if (state.get(HAS_BOOK)) {
@@ -56,7 +57,7 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 }

@@ -18,17 +18,17 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.WoodenScaffoldingItem;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 
 import java.util.Random;
 
 public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IWooden {
-    final WoodType woodType;
+    final IWoodType woodType;
 
-    public WoodenScaffoldingBlock(final WoodType woodType) {
+    public WoodenScaffoldingBlock(final IWoodType woodType) {
         super(Block.Properties.from(Blocks.SCAFFOLDING));
         this.woodType = woodType;
     }
@@ -55,6 +55,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         return distance;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public VoxelShape getShape(final BlockState state, final IBlockReader reader, final BlockPos pos, final ISelectionContext context) {
         final boolean flag;
@@ -70,12 +71,12 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     @Override
-    public boolean isReplaceable(final BlockState state, final BlockItemUseContext context) {
+    public boolean isReplaceable(@SuppressWarnings("NullableProblems") final BlockState state, final BlockItemUseContext context) {
         return context.getItem().getItem() instanceof WoodenScaffoldingItem;
     }
 
     @Override
-    public void tick(final BlockState state, final ServerWorld world, final BlockPos pos, final Random rand) {
+    public void tick(final BlockState state, @SuppressWarnings("NullableProblems") final ServerWorld world, @SuppressWarnings("NullableProblems") final BlockPos pos, @SuppressWarnings("NullableProblems") final Random rand) {
         final int distance = getDistance(world, pos);
         final BlockState blockState = state.with(DISTANCE, distance).with(BOTTOM, this.hasScaffoldingBelow(world, pos, distance));
         if (blockState.get(DISTANCE) == 7) {
@@ -89,6 +90,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         }
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean isValidPosition(final BlockState state, final IWorldReader world, final BlockPos pos) {
         return getDistance(world, pos) < 7;
@@ -111,7 +113,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 }

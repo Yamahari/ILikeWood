@@ -3,7 +3,12 @@ package yamahari.ilikewood.config;
 import com.google.common.collect.ImmutableMap;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.StringUtils;
-import yamahari.ilikewood.util.*;
+import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.WoodenItemTier;
+import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.WoodenTieredObjectType;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -120,7 +125,7 @@ public final class ServerConfig {
         final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> burnTime = new ImmutableMap.Builder<>();
         final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> tieredBurnTime = new ImmutableMap.Builder<>();
 
-        WoodType.getLoadedValues().forEach(woodType -> {
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
             buildBurnTimes(woodType, builder, burnTime);
             buildTieredBurnTimes(woodType, builder, tieredBurnTime);
         });
@@ -236,10 +241,10 @@ public final class ServerConfig {
     }
 
     private static <T extends ForgeConfigSpec.ConfigValue> ImmutableMap<String, T> buildConfigValues(final Function<String, T> functor) {
-        return WoodType.getLoadedValues().map(WoodType::toString).collect(ImmutableMap.toImmutableMap(Function.identity(), functor));
+        return ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().map(IWoodType::toString).collect(ImmutableMap.toImmutableMap(Function.identity(), functor));
     }
 
-    private static void buildBurnTimes(final WoodType woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> burnTimes) {
+    private static void buildBurnTimes(final IWoodType woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> burnTimes) {
         final ImmutableMap.Builder<String, ForgeConfigSpec.IntValue> burnTime = new ImmutableMap.Builder<>();
 
         final String name = woodType.toString();
@@ -267,7 +272,7 @@ public final class ServerConfig {
         burnTimes.put(name, burnTime.build());
     }
 
-    private static void buildTieredBurnTimes(final WoodType woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> tieredBurnTimes) {
+    private static void buildTieredBurnTimes(final IWoodType woodType, final ForgeConfigSpec.Builder spec, final ImmutableMap.Builder<String, Map<String, ForgeConfigSpec.IntValue>> tieredBurnTimes) {
         final ImmutableMap.Builder<String, ForgeConfigSpec.IntValue> tieredBurnTime = new ImmutableMap.Builder<>();
 
         final String name = woodType.toString();

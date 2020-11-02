@@ -11,14 +11,14 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenBlocks;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public class WoodenPostBlock extends WoodenStrippedPostBlock {
     private final LazyValue<Block> STRIPPED;
 
-    public WoodenPostBlock(final WoodType woodType) {
+    public WoodenPostBlock(final IWoodType woodType) {
         super(woodType);
         this.STRIPPED = new LazyValue<>(WoodenBlocks.getRegistryObject(WoodenObjectType.STRIPPED_POST, woodType));
     }

@@ -15,8 +15,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 
 public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWooden, IWaterLoggable {
     public static final BooleanProperty NORTH;
@@ -65,9 +65,9 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
         EW_AABBS = createShapes(ewPost, sides, Direction.Axis.X);
     }
 
-    private final WoodType woodType;
+    private final IWoodType woodType;
 
-    public WoodenStrippedPostBlock(final WoodType woodType) {
+    public WoodenStrippedPostBlock(final IWoodType woodType) {
         super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
         this.woodType = woodType;
         this.setDefaultState(this.getDefaultState()
@@ -123,7 +123,7 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
     }
 
     @Override
-    protected void fillStateContainer(final StateContainer.Builder<Block, BlockState> builder) {
+    protected void fillStateContainer(@SuppressWarnings("NullableProblems") final StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, WATERLOGGED);
     }
@@ -135,7 +135,7 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 

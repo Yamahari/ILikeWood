@@ -7,6 +7,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestItemStackTileEntityRenderer;
 import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.item.tiered.WoodenHoeItem;
@@ -16,22 +18,18 @@ import yamahari.ilikewood.item.tiered.tool.WoodenPickAxeItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenShovelItem;
 import yamahari.ilikewood.util.*;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
-public final class WoodenItems {
+public final class ILikeWoodItemRegistry {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
-    private static final Map<WoodenObjectType, Map<WoodType, RegistryObject<Item>>> REGISTRY_OBJECTS;
-    private static final Map<WoodType, Map<DyeColor, RegistryObject<Item>>> BED_REGISTRY_OBJECTS;
-    private static final Map<WoodenTieredObjectType, Map<WoodType, Map<WoodenItemTier, RegistryObject<Item>>>> TIERED_REGISTRY_OBJECTS;
 
     static {
-        final Map<WoodenObjectType, Map<WoodType, RegistryObject<Item>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
+        final Map<WoodenObjectType, Map<IWoodType, RegistryObject<Item>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
 
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleBuildingBlockItem = registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS));
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleDecorationBlockItem = registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS));
@@ -47,114 +45,63 @@ public final class WoodenItems {
         registryObjects.put(WoodenObjectType.WALL, registerBlockItems(WoodenObjectType.WALL, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.CHEST, registerBlockItems(WoodenObjectType.CHEST, registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new))));
         registryObjects.put(WoodenObjectType.LADDER, registerBlockItems(WoodenObjectType.LADDER, simpleDecorationBlockItem));
-        registryObjects.put(WoodenObjectType.STICK, registerSimpleItems(WoodenItems::registerStickItem));
-        registryObjects.put(WoodenObjectType.TORCH, registerSimpleItems(WoodenItems::registerTorchItem));
+        registryObjects.put(WoodenObjectType.STICK, registerSimpleItems(ILikeWoodItemRegistry::registerStickItem));
+        registryObjects.put(WoodenObjectType.TORCH, registerSimpleItems(ILikeWoodItemRegistry::registerTorchItem));
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlockItems(WoodenObjectType.CRAFTING_TABLE, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.SCAFFOLDING, registerBlockItems(WoodenObjectType.SCAFFOLDING, (objectType, block) -> new WoodenScaffoldingItem(objectType, block.get(), (new Item.Properties()).group(ItemGroup.DECORATIONS))));
         registryObjects.put(WoodenObjectType.LECTERN, registerBlockItems(WoodenObjectType.LECTERN, simpleRedstoneBlockItem));
         registryObjects.put(WoodenObjectType.POST, registerBlockItems(WoodenObjectType.POST, simpleDecorationBlockItem));
         registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlockItems(WoodenObjectType.STRIPPED_POST, simpleDecorationBlockItem));
-        registryObjects.put(WoodenObjectType.BOW, registerSimpleItems(WoodenItems::registerBowItem));
-        registryObjects.put(WoodenObjectType.CROSSBOW, registerSimpleItems(WoodenItems::registerCrossbowItem));
-        registryObjects.put(WoodenObjectType.ITEM_FRAME, registerSimpleItems(WoodenItems::registerItemFrameItem));
+        registryObjects.put(WoodenObjectType.BOW, registerSimpleItems(ILikeWoodItemRegistry::registerBowItem));
+        registryObjects.put(WoodenObjectType.CROSSBOW, registerSimpleItems(ILikeWoodItemRegistry::registerCrossbowItem));
+        registryObjects.put(WoodenObjectType.ITEM_FRAME, registerSimpleItems(ILikeWoodItemRegistry::registerItemFrameItem));
 
-        REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
+        WoodenItems.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
 
-        final Map<WoodenTieredObjectType, Map<WoodType, Map<WoodenItemTier, RegistryObject<Item>>>> tieredRegistryObjects = new EnumMap<>(WoodenTieredObjectType.class);
+        final Map<WoodenTieredObjectType, Map<IWoodType, Map<WoodenItemTier, RegistryObject<Item>>>> tieredRegistryObjects = new EnumMap<>(WoodenTieredObjectType.class);
 
-        tieredRegistryObjects.put(WoodenTieredObjectType.AXE, registerTieredItems(WoodenItems::registerAxeItem));
-        tieredRegistryObjects.put(WoodenTieredObjectType.HOE, registerTieredItems(WoodenItems::registerHoeItem));
-        tieredRegistryObjects.put(WoodenTieredObjectType.PICKAXE, registerTieredItems(WoodenItems::registerPickaxeItem));
-        tieredRegistryObjects.put(WoodenTieredObjectType.SHOVEL, registerTieredItems(WoodenItems::registerShovelItem));
-        tieredRegistryObjects.put(WoodenTieredObjectType.SWORD, registerTieredItems(WoodenItems::registerSwordItem));
+        tieredRegistryObjects.put(WoodenTieredObjectType.AXE, registerTieredItems(ILikeWoodItemRegistry::registerAxeItem));
+        tieredRegistryObjects.put(WoodenTieredObjectType.HOE, registerTieredItems(ILikeWoodItemRegistry::registerHoeItem));
+        tieredRegistryObjects.put(WoodenTieredObjectType.PICKAXE, registerTieredItems(ILikeWoodItemRegistry::registerPickaxeItem));
+        tieredRegistryObjects.put(WoodenTieredObjectType.SHOVEL, registerTieredItems(ILikeWoodItemRegistry::registerShovelItem));
+        tieredRegistryObjects.put(WoodenTieredObjectType.SWORD, registerTieredItems(ILikeWoodItemRegistry::registerSwordItem));
 
-        TIERED_REGISTRY_OBJECTS = Collections.unmodifiableMap(tieredRegistryObjects);
+        WoodenItems.TIERED_REGISTRY_OBJECTS = Collections.unmodifiableMap(tieredRegistryObjects);
 
-        final Map<WoodType, Map<DyeColor, RegistryObject<Item>>> bedRegistryObjects = new EnumMap<>(WoodType.class);
+        final Map<IWoodType, Map<DyeColor, RegistryObject<Item>>> bedRegistryObjects = new HashMap<>();
 
-        WoodType.getLoadedValues().forEach(woodType -> {
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
             final Map<DyeColor, RegistryObject<Item>> beds = new EnumMap<>(DyeColor.class);
             for (final DyeColor color : DyeColor.values())
                 beds.put(color, registerBedItem(woodType, color));
             bedRegistryObjects.put(woodType, beds);
         });
 
-        BED_REGISTRY_OBJECTS = Collections.unmodifiableMap(bedRegistryObjects);
+        WoodenItems.BED_REGISTRY_OBJECTS = Collections.unmodifiableMap(bedRegistryObjects);
     }
 
-    private WoodenItems() {
+    private ILikeWoodItemRegistry() {
     }
 
-    public static Item getItem(final WoodenObjectType objectType, final WoodType woodType) {
-        return REGISTRY_OBJECTS.get(objectType).get(woodType).get();
-    }
 
-    public static Stream<Item> getItems(final WoodenObjectType objectType) {
-        return REGISTRY_OBJECTS.get(objectType).values().stream().map(RegistryObject::get);
-    }
-
-    public static Stream<Item> getItems(final WoodenObjectType... objectTypes) {
-        return Arrays.stream(objectTypes).flatMap(WoodenItems::getItems);
-    }
-
-    public static Stream<Item> getBedItems() {
-        return getBedRegistryObjects().map(RegistryObject::get);
-    }
-
-    public static Stream<Item> getBedItems(final WoodType woodType) {
-        return getBedRegistryObjects(woodType).map(RegistryObject::get);
-    }
-
-    public static Item getBedItem(final WoodType woodType, final DyeColor color) {
-        return getBedRegistryObject(woodType, color).get();
-    }
-
-    public static Stream<RegistryObject<Item>> getBedRegistryObjects() {
-        return WoodType.getLoadedValues().flatMap(WoodenItems::getBedRegistryObjects);
-    }
-
-    public static Stream<RegistryObject<Item>> getBedRegistryObjects(final WoodType woodType) {
-        return Arrays.stream(DyeColor.values()).map(color -> getBedRegistryObject(woodType, color));
-    }
-
-    public static RegistryObject<Item> getBedRegistryObject(final WoodType woodType, final DyeColor color) {
-        return BED_REGISTRY_OBJECTS.get(woodType).get(color);
-    }
-
-    public static Item getTieredItem(final WoodenTieredObjectType tieredObjectType, final WoodType woodType, final WoodenItemTier itemTier) {
-        return TIERED_REGISTRY_OBJECTS.get(tieredObjectType).get(woodType).get(itemTier).get();
-    }
-
-    public static Stream<Item> getTieredItems(final WoodenTieredObjectType tieredObjectType) {
-        return TIERED_REGISTRY_OBJECTS.get(tieredObjectType).values().stream().flatMap(m -> m.values().stream()).map(RegistryObject::get);
-    }
-
-    public static Stream<Item> getTieredItems(final WoodenTieredObjectType... tieredObjectTypes) {
-        return Arrays.stream(tieredObjectTypes).flatMap(WoodenItems::getTieredItems);
-    }
-
-    public static RegistryObject<Item> getRegistryObject(final WoodenObjectType objectType, final WoodType woodType) {
-        return REGISTRY_OBJECTS.get(objectType).get(woodType);
-    }
-
-    private static Map<WoodType, RegistryObject<Item>> registerBlockItems(final WoodenObjectType objectType, final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> function) {
-        final Map<WoodType, RegistryObject<Item>> items = new EnumMap<>(WoodType.class);
-        WoodType.getLoadedValues().forEach(woodType -> {
+    private static Map<IWoodType, RegistryObject<Item>> registerBlockItems(final WoodenObjectType objectType, final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> function) {
+        final Map<IWoodType, RegistryObject<Item>> items = new HashMap<>();
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
             final RegistryObject<Block> block = WoodenBlocks.getRegistryObject(objectType, woodType);
             items.put(woodType, REGISTRY.register(block.getId().getPath(), () -> function.apply(objectType, block)));
         });
         return Collections.unmodifiableMap(items);
     }
 
-    private static Map<WoodType, RegistryObject<Item>> registerSimpleItems(final Function<WoodType, RegistryObject<Item>> function) {
-        final Map<WoodType, RegistryObject<Item>> items = new EnumMap<>(WoodType.class);
-        WoodType.getLoadedValues().forEach(woodType -> items.put(woodType, function.apply(woodType)));
+    private static Map<IWoodType, RegistryObject<Item>> registerSimpleItems(final Function<IWoodType, RegistryObject<Item>> function) {
+        final Map<IWoodType, RegistryObject<Item>> items = new HashMap<>();
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> items.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(items);
     }
 
-    private static Map<WoodType, Map<WoodenItemTier, RegistryObject<Item>>> registerTieredItems(final BiFunction<WoodType, WoodenItemTier, RegistryObject<Item>> function) {
-        final Map<WoodType, Map<WoodenItemTier, RegistryObject<Item>>> tieredItems = new EnumMap<>(WoodType.class);
-        WoodType.getLoadedValues().forEach(woodType -> {
+    private static Map<IWoodType, Map<WoodenItemTier, RegistryObject<Item>>> registerTieredItems(final BiFunction<IWoodType, WoodenItemTier, RegistryObject<Item>> function) {
+        final Map<IWoodType, Map<WoodenItemTier, RegistryObject<Item>>> tieredItems = new HashMap<>();
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
             final Map<WoodenItemTier, RegistryObject<Item>> items = new EnumMap<>(WoodenItemTier.class);
             for (final WoodenItemTier itemTier : WoodenItemTier.values()) {
                 if (itemTier.isWood() && !itemTier.toString().equals(woodType.toString())) continue;
@@ -169,49 +116,49 @@ public final class WoodenItems {
         return (objectType, block) -> new WoodenBlockItem(objectType, block.get(), properties);
     }
 
-    private static RegistryObject<Item> registerStickItem(final WoodType woodType) {
+    private static RegistryObject<Item> registerStickItem(final IWoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.STICK.toString()), () -> new WoodenItem(woodType, WoodenObjectType.STICK, (new Item.Properties()).group(ItemGroup.MATERIALS)));
     }
 
-    private static RegistryObject<Item> registerTorchItem(final WoodType woodType) {
+    private static RegistryObject<Item> registerTorchItem(final IWoodType woodType) {
         final RegistryObject<Block> torch = WoodenBlocks.getRegistryObject(WoodenObjectType.TORCH, woodType);
         final RegistryObject<Block> wallTorch = WoodenBlocks.getRegistryObject(WoodenObjectType.WALL_TORCH, woodType);
         return REGISTRY.register(torch.getId().getPath(), () -> new WoodenWallOrFloorItem(WoodenObjectType.TORCH, torch.get(), wallTorch.get(), (new Item.Properties()).group(ItemGroup.DECORATIONS)));
     }
 
-    private static RegistryObject<Item> registerHoeItem(final WoodType woodType, final WoodenItemTier itemTier) {
+    private static RegistryObject<Item> registerHoeItem(final IWoodType woodType, final WoodenItemTier itemTier) {
         return REGISTRY.register(Util.toRegistryName((itemTier.isWood() ? "" : itemTier.toString() + "_") + woodType.toString(), WoodenTieredObjectType.HOE.toString()), () -> new WoodenHoeItem(woodType, itemTier));
     }
 
-    private static RegistryObject<Item> registerSwordItem(final WoodType woodType, final WoodenItemTier itemTier) {
+    private static RegistryObject<Item> registerSwordItem(final IWoodType woodType, final WoodenItemTier itemTier) {
         return REGISTRY.register(Util.toRegistryName((itemTier.isWood() ? "" : itemTier.toString() + "_") + woodType.toString(), WoodenTieredObjectType.SWORD.toString()), () -> new WoodenSwordItem(woodType, itemTier));
     }
 
-    private static RegistryObject<Item> registerAxeItem(final WoodType woodType, final WoodenItemTier itemTier) {
+    private static RegistryObject<Item> registerAxeItem(final IWoodType woodType, final WoodenItemTier itemTier) {
         return REGISTRY.register(Util.toRegistryName((itemTier.isWood() ? "" : itemTier.toString() + "_") + woodType.toString(), WoodenTieredObjectType.AXE.toString()), () -> new WoodenAxeItem(woodType, itemTier));
     }
 
-    private static RegistryObject<Item> registerPickaxeItem(final WoodType woodType, final WoodenItemTier itemTier) {
+    private static RegistryObject<Item> registerPickaxeItem(final IWoodType woodType, final WoodenItemTier itemTier) {
         return REGISTRY.register(Util.toRegistryName((itemTier.isWood() ? "" : itemTier.toString() + "_") + woodType.toString(), WoodenTieredObjectType.PICKAXE.toString()), () -> new WoodenPickAxeItem(woodType, itemTier));
     }
 
-    private static RegistryObject<Item> registerShovelItem(final WoodType woodType, final WoodenItemTier itemTier) {
+    private static RegistryObject<Item> registerShovelItem(final IWoodType woodType, final WoodenItemTier itemTier) {
         return REGISTRY.register(Util.toRegistryName((itemTier.isWood() ? "" : itemTier.toString() + "_") + woodType.toString(), WoodenTieredObjectType.SHOVEL.toString()), () -> new WoodenShovelItem(woodType, itemTier));
     }
 
-    private static RegistryObject<Item> registerBowItem(final WoodType woodType) {
+    private static RegistryObject<Item> registerBowItem(final IWoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.BOW.toString()), () -> new WoodenBowItem(woodType));
     }
 
-    private static RegistryObject<Item> registerCrossbowItem(final WoodType woodType) {
+    private static RegistryObject<Item> registerCrossbowItem(final IWoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.CROSSBOW.toString()), () -> new WoodenCrossbowItem(woodType));
     }
 
-    private static RegistryObject<Item> registerItemFrameItem(final WoodType woodType) {
+    private static RegistryObject<Item> registerItemFrameItem(final IWoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.ITEM_FRAME.toString()), () -> new WoodenItemFrameItem(woodType));
     }
 
-    private static RegistryObject<Item> registerBedItem(final WoodType woodType, final DyeColor color) {
+    private static RegistryObject<Item> registerBedItem(final IWoodType woodType, final DyeColor color) {
         final RegistryObject<Block> bed = WoodenBlocks.getBedRegistryObject(woodType, color);
         return REGISTRY.register(Util.toRegistryName(color.toString(), woodType.toString(), WoodenObjectType.BED.toString()), () -> new WoodenBedItem(bed.get()));
     }

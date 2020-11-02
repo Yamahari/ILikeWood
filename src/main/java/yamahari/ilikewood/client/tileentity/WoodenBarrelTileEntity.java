@@ -9,17 +9,17 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.commons.lang3.StringUtils;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.block.WoodenBarrelBlock;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenBarrelTileEntity extends BarrelTileEntity implements IWooden {
-    private final WoodType woodType;
+    private final IWoodType woodType;
     private final TranslationTextComponent defaultName;
 
-    public WoodenBarrelTileEntity(final WoodType woodType, final TileEntityType<?> type) {
+    public WoodenBarrelTileEntity(final IWoodType woodType, final TileEntityType<?> type) {
         super(type);
         this.woodType = woodType;
         this.defaultName = new TranslationTextComponent(
@@ -28,10 +28,11 @@ public final class WoodenBarrelTileEntity extends BarrelTileEntity implements IW
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     protected ITextComponent getDefaultName() {
         return this.defaultName;

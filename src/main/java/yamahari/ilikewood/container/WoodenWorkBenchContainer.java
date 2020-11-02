@@ -7,22 +7,22 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.LazyValue;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenWorkBenchContainer extends WorkbenchContainer implements IWooden {
-    private final WoodType woodType;
+    private final IWoodType woodType;
     private final LazyValue<Block> targetBlock;
     private final LazyValue<ContainerType<?>> containerType;
 
-    public WoodenWorkBenchContainer(final WoodType woodType, final int windowId, final PlayerInventory inventory) {
+    public WoodenWorkBenchContainer(final IWoodType woodType, final int windowId, final PlayerInventory inventory) {
         this(woodType, windowId, inventory, IWorldPosCallable.DUMMY);
     }
 
-    public WoodenWorkBenchContainer(final WoodType woodType, final int windowId, final PlayerInventory inventory, final IWorldPosCallable callable) {
+    public WoodenWorkBenchContainer(final IWoodType woodType, final int windowId, final PlayerInventory inventory, final IWorldPosCallable callable) {
         super(windowId, inventory, callable);
         this.woodType = woodType;
         this.targetBlock = new LazyValue<>(WoodenBlocks.getRegistryObject(WoodenObjectType.CRAFTING_TABLE, this.getWoodType()));
@@ -30,7 +30,7 @@ public final class WoodenWorkBenchContainer extends WorkbenchContainer implement
     }
 
     @Override
-    public boolean canInteractWith(final PlayerEntity player) {
+    public boolean canInteractWith(@SuppressWarnings("NullableProblems") final PlayerEntity player) {
         return isWithinUsableDistance(this.worldPosCallable, player, this.targetBlock.getValue());
     }
 
@@ -41,7 +41,7 @@ public final class WoodenWorkBenchContainer extends WorkbenchContainer implement
 
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 }

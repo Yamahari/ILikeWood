@@ -4,19 +4,19 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 
 public final class WoodenWallBlock extends WallBlock implements IWooden {
-    private final WoodType type;
+    private final IWoodType type;
 
-    public WoodenWallBlock(final WoodType type) {
+    public WoodenWallBlock(final IWoodType type) {
         super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.F).sound(SoundType.WOOD));
         this.type = type;
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return type;
     }
 }

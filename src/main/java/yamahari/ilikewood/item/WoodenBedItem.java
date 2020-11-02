@@ -13,7 +13,7 @@ public final class WoodenBedItem extends WoodenBlockItem {
     }
 
     @Override
-    protected boolean placeBlock(final BlockItemUseContext context, final BlockState state) {
+    protected boolean placeBlock(final BlockItemUseContext context, @SuppressWarnings("NullableProblems") final BlockState state) {
         return context.getWorld().setBlockState(context.getPos(), state, 26);
     }
 }

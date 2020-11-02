@@ -2,19 +2,19 @@ package yamahari.ilikewood.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 
 public class WoodenSlabBlock extends SlabBlock implements IWooden {
-    private final WoodType type;
+    private final IWoodType type;
 
-    public WoodenSlabBlock(final WoodType type, final Block.Properties properties) {
+    public WoodenSlabBlock(final IWoodType type, final Block.Properties properties) {
         super(properties);
         this.type = type;
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.type;
     }
 }

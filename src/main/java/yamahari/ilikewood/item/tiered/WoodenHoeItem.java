@@ -7,16 +7,16 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 import yamahari.ilikewood.util.WoodenItemTier;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 
 public final class WoodenHoeItem extends HoeItem implements IWooden, IWoodenTieredItem {
-    private final WoodType woodType;
+    private final IWoodType woodType;
     private final WoodenItemTier woodenItemTier;
 
-    public WoodenHoeItem(final WoodType woodType, final WoodenItemTier woodenItemTier) {
+    public WoodenHoeItem(final IWoodType woodType, final WoodenItemTier woodenItemTier) {
         super(ItemTier.WOOD, 0, 0.f, (new Item.Properties().group(ItemGroup.TOOLS)));
         this.woodType = woodType;
         this.woodenItemTier = woodenItemTier;
@@ -84,7 +84,7 @@ public final class WoodenHoeItem extends HoeItem implements IWooden, IWoodenTier
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 }

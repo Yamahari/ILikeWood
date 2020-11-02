@@ -10,32 +10,34 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 
 import java.util.Random;
 
 public final class WoodenTorchBlock extends TorchBlock implements IWooden {
     private static final VoxelShape SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 11.0D, 10.0D);
-    private final WoodType woodType;
+    private final IWoodType woodType;
 
-    public WoodenTorchBlock(final WoodType woodType) {
+    public WoodenTorchBlock(final IWoodType woodType) {
         super(Block.Properties.from(Blocks.TORCH), ParticleTypes.FLAME);
         this.woodType = woodType;
     }
 
     @Override
-    public WoodType getWoodType() {
+    public IWoodType getWoodType() {
         return this.woodType;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public VoxelShape getShape(final BlockState state, final IBlockReader worldIn, final BlockPos pos, final ISelectionContext context) {
         return SHAPE;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+    public void animateTick(final BlockState stateIn, final World worldIn, BlockPos pos, final Random rand) {
         worldIn.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.9D, (double) pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
     }
 }

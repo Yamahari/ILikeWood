@@ -20,10 +20,10 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.storage.MapData;
+import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.client.SpecialModels;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodType;
 
 public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntity> {
     private final Minecraft mc = Minecraft.getInstance();
@@ -35,8 +35,8 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     }
 
     @Override
-    public void render(final WoodenItemFrameEntity itemFrame, final float entityYaw, final float partialTicks,
-                       final MatrixStack matrixStackIn, final IRenderTypeBuffer bufferIn, final int packedLightIn) {
+    public void render(@SuppressWarnings("NullableProblems") final WoodenItemFrameEntity itemFrame, final float entityYaw, final float partialTicks,
+                       @SuppressWarnings("NullableProblems") final MatrixStack matrixStackIn, @SuppressWarnings("NullableProblems") final IRenderTypeBuffer bufferIn, final int packedLightIn) {
         super.render(itemFrame, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.push();
         final Direction direction = itemFrame.getHorizontalFacing();
@@ -51,7 +51,7 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
         if (!invisible) {
             final BlockRendererDispatcher dispatcher = this.mc.getBlockRendererDispatcher();
             final ModelManager manager = dispatcher.getBlockModelShapes().getModelManager();
-            final WoodType woodType = ((IWooden) itemFrame).getWoodType();
+            final IWoodType woodType = ((IWooden) itemFrame).getWoodType();
             final ResourceLocation location = displayedItem.getItem() instanceof FilledMapItem
                     ? SpecialModels.ITEM_FRAME_MAP_MODELS.get(woodType)
                     : SpecialModels.ITEM_FRAME_MODELS.get(woodType);
@@ -95,6 +95,7 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
         matrixStackIn.pop();
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public Vector3d getRenderOffset(final WoodenItemFrameEntity entityIn, final float partialTicks) {
         return new Vector3d((float) entityIn.getHorizontalFacing().getXOffset() * 0.3F, -0.25D, (float) entityIn.getHorizontalFacing().getZOffset() * 0.3F);
@@ -103,13 +104,14 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     /**
      * Returns the location of an entity's texture.
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     public ResourceLocation getEntityTexture(final WoodenItemFrameEntity entity) {
         return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
     }
 
     @Override
-    protected boolean canRenderName(final WoodenItemFrameEntity entity) {
+    protected boolean canRenderName(@SuppressWarnings("NullableProblems") final WoodenItemFrameEntity entity) {
         if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
             double d0 = this.renderManager.squareDistanceTo(entity);
             float f = entity.isDiscrete() ? 32.0F : 64.0F;
@@ -120,8 +122,8 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     }
 
     @Override
-    protected void renderName(final WoodenItemFrameEntity entityIn, final ITextComponent displayNameIn,
-                              final MatrixStack matrixStackIn, final IRenderTypeBuffer bufferIn, final int packedLightIn) {
+    protected void renderName(@SuppressWarnings("NullableProblems") final WoodenItemFrameEntity entityIn, @SuppressWarnings("NullableProblems") final ITextComponent displayNameIn,
+                              @SuppressWarnings("NullableProblems") final MatrixStack matrixStackIn, @SuppressWarnings("NullableProblems") final IRenderTypeBuffer bufferIn, final int packedLightIn) {
         super.renderName(entityIn, entityIn.getDisplayedItem().getDisplayName(), matrixStackIn, bufferIn, packedLightIn);
     }
 }

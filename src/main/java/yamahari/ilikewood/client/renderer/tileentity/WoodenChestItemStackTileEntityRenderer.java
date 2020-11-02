@@ -16,7 +16,7 @@ public final class WoodenChestItemStackTileEntityRenderer extends ItemStackTileE
     private WoodenChestTileEntity chestTileEntity = null;
 
     @Override //was named render
-    public void func_239207_a_(final ItemStack itemStack, final ItemCameraTransforms.TransformType transformType, final MatrixStack matrixStack, final IRenderTypeBuffer buffer, final int combinedLight, final int combinedOverlay) {
+    public void func_239207_a_(final ItemStack itemStack, @SuppressWarnings("NullableProblems") final ItemCameraTransforms.TransformType transformType, @SuppressWarnings("NullableProblems") final MatrixStack matrixStack, @SuppressWarnings("NullableProblems") final IRenderTypeBuffer buffer, final int combinedLight, final int combinedOverlay) {
         final Item item = itemStack.getItem();
         if (item instanceof BlockItem) {
             final Block block = ((BlockItem) item).getBlock();

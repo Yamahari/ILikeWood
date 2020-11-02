@@ -36,13 +36,8 @@ public final class ClientProxy implements IProxy {
                 .forEach(type -> ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) type, LecternTileEntityRenderer::new));
 
         WoodenEntityTypes.getEntityTypes(WoodenObjectType.ITEM_FRAME)
-                .forEach(type -> {
-
-                    RenderingRegistry.registerEntityRenderingHandler((EntityType<WoodenItemFrameEntity>) type,
-                            m -> new WoodenItemFrameRenderer(m, Minecraft.getInstance().getItemRenderer()));
-
-                    //manager.register((EntityType<WoodenItemFrameEntity>) type, new WoodenItemFrameRenderer(manager, Minecraft.getInstance().getItemRenderer()));
-                });
+                .forEach(type -> RenderingRegistry.registerEntityRenderingHandler((EntityType<WoodenItemFrameEntity>) type,
+                        m -> new WoodenItemFrameRenderer(m, Minecraft.getInstance().getItemRenderer())));
 
         WoodenBlocks.getBlocks(WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST)
                 .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getSolid()));
@@ -69,8 +64,6 @@ public final class ClientProxy implements IProxy {
         });
 
         WoodenItems.getItems(WoodenObjectType.CROSSBOW).forEach(item -> {
-
-
             ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
