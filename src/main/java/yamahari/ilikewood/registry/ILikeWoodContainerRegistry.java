@@ -33,7 +33,9 @@ public final class ILikeWoodContainerRegistry {
 
     private static Map<IWoodType, RegistryObject<ContainerType<?>>> registerContainerTypes(final Function<IWoodType, RegistryObject<ContainerType<?>>> function) {
         final Map<IWoodType, RegistryObject<ContainerType<?>>> containerTypes = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> containerTypes.put(woodType, function.apply(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
+                .filter(Util.HAS_PLANKS)
+                .forEach(woodType -> containerTypes.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(containerTypes);
     }
 

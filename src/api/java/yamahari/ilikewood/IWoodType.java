@@ -32,6 +32,7 @@ public interface IWoodType {
         return Optional.empty();
     }
 
+    // TODO remove as composter recipe was changed to 7 slaps in 1.15 x)
     default Optional<Supplier<Block>> getFence() {
         return Optional.empty();
     }

@@ -19,6 +19,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public final class ILikeWoodTileEntityTypeRegistry {
     public static final DeferredRegister<TileEntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Constants.MOD_ID);
@@ -26,9 +27,9 @@ public final class ILikeWoodTileEntityTypeRegistry {
     static {
         final EnumMap<WoodenObjectType, Map<IWoodType, RegistryObject<TileEntityType<?>>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
 
-        registryObjects.put(WoodenObjectType.BARREL, registerSimpleTileEntityTypes(ILikeWoodTileEntityTypeRegistry::registerBarrelTileEntityType));
-        registryObjects.put(WoodenObjectType.CHEST, registerSimpleTileEntityTypes(ILikeWoodTileEntityTypeRegistry::registerChestTileEntityType));
-        registryObjects.put(WoodenObjectType.LECTERN, registerSimpleTileEntityTypes(ILikeWoodTileEntityTypeRegistry::registerLecternTileEntityType));
+        registryObjects.put(WoodenObjectType.BARREL, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerBarrelTileEntityType, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.CHEST, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerChestTileEntityType, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.LECTERN, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerLecternTileEntityType, Util.HAS_PLANKS));
 
         WoodenTileEntityTypes.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }
@@ -36,10 +37,12 @@ public final class ILikeWoodTileEntityTypeRegistry {
     private ILikeWoodTileEntityTypeRegistry() {
     }
 
-
-    private static Map<IWoodType, RegistryObject<TileEntityType<?>>> registerSimpleTileEntityTypes(final Function<IWoodType, RegistryObject<TileEntityType<?>>> function) {
+    private static Map<IWoodType, RegistryObject<TileEntityType<?>>> registerSimpleTileEntityTypesWith(final Function<IWoodType, RegistryObject<TileEntityType<?>>> function,
+                                                                                                       final Predicate<IWoodType> predicate) {
         final Map<IWoodType, RegistryObject<TileEntityType<?>>> tileEntityTypes = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> tileEntityTypes.put(woodType, function.apply(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
+                .filter(predicate)
+                .forEach(woodType -> tileEntityTypes.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(tileEntityTypes);
     }
 

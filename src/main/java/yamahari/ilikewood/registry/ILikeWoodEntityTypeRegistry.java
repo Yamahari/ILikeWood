@@ -34,7 +34,9 @@ public final class ILikeWoodEntityTypeRegistry {
 
     private static Map<IWoodType, RegistryObject<EntityType<?>>> registerSimpleEntityTypes(final Function<IWoodType, RegistryObject<EntityType<?>>> function) {
         final Map<IWoodType, RegistryObject<EntityType<?>>> entityTypes = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> entityTypes.put(woodType, function.apply(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
+                .filter(Util.HAS_PLANKS)
+                .forEach(woodType -> entityTypes.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(entityTypes);
     }
 

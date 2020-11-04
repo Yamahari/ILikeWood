@@ -3,11 +3,13 @@ package yamahari.ilikewood.util;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.IItemProvider;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.WoodenItems;
 
 import java.lang.reflect.Field;
 import java.util.function.Predicate;
@@ -17,12 +19,18 @@ public final class Util {
     private Util() {
     }
 
+    public static final Predicate<IWoodType> HAS_PLANKS = woodType -> woodType.getPlanks().isPresent();
+    public static final Predicate<IWoodType> HAS_LOG = woodType -> woodType.getLog().isPresent();
+    public static final Predicate<IWoodType> HAS_STRIPPED_LOG = woodType -> woodType.getStrippedLog().isPresent();
+    public static final Predicate<IWoodType> HAS_FENCE = woodType -> woodType.getFence().isPresent();
+    public static final Predicate<IWoodType> HAS_SLAB = woodType -> woodType.getSlab().isPresent();
+
     public static Stream<Block> getBlocksWith(final WoodenObjectType objectType, final Predicate<IWoodType> predicate) {
         return WoodenBlocks.getBlocks(objectType).filter(block -> predicate.test(((IWooden) block).getWoodType()));
     }
 
-    public static Stream<Block> getBlocksWithPlanks(final WoodenObjectType objectType) {
-        return getBlocksWith(objectType, woodType -> woodType.getPlanks().isPresent());
+    public static Stream<Item> getItemsWith(final WoodenObjectType objectType, final Predicate<IWoodType> predicate) {
+        return WoodenItems.getItems(objectType).filter(item -> predicate.test(((IWooden) item).getWoodType()));
     }
 
     public static String toRegistryName(final String... elements) {

@@ -22,58 +22,59 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public final class ILikeWoodBlockRegistry {
     public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MOD_ID);
 
     static {
         final Map<WoodenObjectType, Map<IWoodType, RegistryObject<Block>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
-
-        registryObjects.put(WoodenObjectType.BARREL, registerSimpleBlocks(ILikeWoodBlockRegistry::registerBarrelBlock));
-        registryObjects.put(WoodenObjectType.BOOKSHELF, registerSimpleBlocks(ILikeWoodBlockRegistry::registerBookshelfBlock));
-        registryObjects.put(WoodenObjectType.CHEST, registerSimpleBlocks(ILikeWoodBlockRegistry::registerChestBlock));
-        registryObjects.put(WoodenObjectType.COMPOSTER, registerSimpleBlocks(ILikeWoodBlockRegistry::registerComposterBlock));
-        registryObjects.put(WoodenObjectType.WALL, registerSimpleBlocks(ILikeWoodBlockRegistry::registerWallBlock));
-        registryObjects.put(WoodenObjectType.LADDER, registerSimpleBlocks(ILikeWoodBlockRegistry::registerLadderBlock));
-        registryObjects.put(WoodenObjectType.TORCH, registerSimpleBlocks(ILikeWoodBlockRegistry::registerTorchBlock));
-        registryObjects.put(WoodenObjectType.WALL_TORCH, registerSimpleBlocks(ILikeWoodBlockRegistry::registerWallTorchBlock));
-        registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerSimpleBlocks(ILikeWoodBlockRegistry::registerCraftingTableBlock));
-        registryObjects.put(WoodenObjectType.SCAFFOLDING, registerSimpleBlocks(ILikeWoodBlockRegistry::registerScaffoldingBlock));
-        registryObjects.put(WoodenObjectType.LECTERN, registerSimpleBlocks(ILikeWoodBlockRegistry::registerLecternBlock));
-        registryObjects.put(WoodenObjectType.POST, registerSimpleBlocks(ILikeWoodBlockRegistry::registerPostBlock));
-        registryObjects.put(WoodenObjectType.STRIPPED_POST, registerSimpleBlocks(ILikeWoodBlockRegistry::registerStrippedPostBlock));
+        final Map<IWoodType, Map<DyeColor, RegistryObject<Block>>> bedRegistryObjects = new HashMap<>();
 
         final Map<IWoodType, RegistryObject<Block>> panels = new HashMap<>();
         final Map<IWoodType, RegistryObject<Block>> panelsStairs = new HashMap<>();
         final Map<IWoodType, RegistryObject<Block>> panelsSlab = new HashMap<>();
 
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
-            final AbstractBlock.Properties properties = woodType.getPanelProperties();
-            final RegistryObject<Block> panel = panels.computeIfAbsent(woodType, w -> registerPanelsBlock(w, properties));
-            panelsStairs.put(woodType, registerPanelsStairsBlock(woodType, panel, properties));
-            panelsSlab.put(woodType, registerPanelsSlabBlock(woodType, properties));
-        });
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
+                .filter(Util.HAS_PLANKS)
+                .forEach(woodType -> {
+                    final AbstractBlock.Properties properties = woodType.getPanelProperties();
+                    final RegistryObject<Block> panel = panels.put(woodType, registerPanelsBlock(woodType, properties));
+                    panelsStairs.put(woodType, registerPanelsStairsBlock(woodType, panel, properties));
+                    panelsSlab.put(woodType, registerPanelsSlabBlock(woodType, properties));
+                    final Map<DyeColor, RegistryObject<Block>> beds = new EnumMap<>(DyeColor.class);
+                    for (final DyeColor color : DyeColor.values())
+                        beds.put(color, registerBedBlock(woodType, color));
+                    bedRegistryObjects.put(woodType, beds);
+                });
 
         registryObjects.put(WoodenObjectType.PANELS, Collections.unmodifiableMap(panels));
         registryObjects.put(WoodenObjectType.STAIRS, Collections.unmodifiableMap(panelsStairs));
         registryObjects.put(WoodenObjectType.SLAB, Collections.unmodifiableMap(panelsSlab));
+        registryObjects.put(WoodenObjectType.BARREL, registerBlocksWith(ILikeWoodBlockRegistry::registerBarrelBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.BOOKSHELF, registerBlocksWith(ILikeWoodBlockRegistry::registerBookshelfBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.CHEST, registerBlocksWith(ILikeWoodBlockRegistry::registerChestBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.COMPOSTER, registerBlocksWith(ILikeWoodBlockRegistry::registerComposterBlock, Util.HAS_PLANKS.and(Util.HAS_FENCE)));
+        registryObjects.put(WoodenObjectType.WALL, registerBlocksWith(ILikeWoodBlockRegistry::registerWallBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+        registryObjects.put(WoodenObjectType.LADDER, registerBlocksWith(ILikeWoodBlockRegistry::registerLadderBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.TORCH, registerBlocksWith(ILikeWoodBlockRegistry::registerTorchBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.WALL_TORCH, registerBlocksWith(ILikeWoodBlockRegistry::registerWallTorchBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlocksWith(ILikeWoodBlockRegistry::registerCraftingTableBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.SCAFFOLDING, registerBlocksWith(ILikeWoodBlockRegistry::registerScaffoldingBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.LECTERN, registerBlocksWith(ILikeWoodBlockRegistry::registerLecternBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.POST, registerBlocksWith(ILikeWoodBlockRegistry::registerPostBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+        registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlocksWith(ILikeWoodBlockRegistry::registerStrippedPostBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
 
         WoodenBlocks.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
-
-        final Map<IWoodType, Map<DyeColor, RegistryObject<Block>>> bedRegistryObjects = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
-            final Map<DyeColor, RegistryObject<Block>> beds = new EnumMap<>(DyeColor.class);
-            for (final DyeColor color : DyeColor.values())
-                beds.put(color, registerBedBlock(woodType, color));
-            bedRegistryObjects.put(woodType, beds);
-        });
-
         WoodenBlocks.BED_REGISTRY_OBJECTS = Collections.unmodifiableMap(bedRegistryObjects);
     }
 
-    private static Map<IWoodType, RegistryObject<Block>> registerSimpleBlocks(final Function<IWoodType, RegistryObject<Block>> function) {
+    private static Map<IWoodType, RegistryObject<Block>> registerBlocksWith(final Function<IWoodType, RegistryObject<Block>> function,
+                                                                            final Predicate<IWoodType> predicate) {
         final Map<IWoodType, RegistryObject<Block>> blocks = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> blocks.put(woodType, function.apply(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
+                .filter(predicate)
+                .forEach(woodType -> blocks.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(blocks);
     }
 
