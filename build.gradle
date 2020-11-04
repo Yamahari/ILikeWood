@@ -66,6 +66,7 @@ minecraft {
             mods {
                 ilikewood {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -77,6 +78,7 @@ minecraft {
             mods {
                 ilikewood {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -90,6 +92,7 @@ minecraft {
             mods {
                 ilikewood {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -126,6 +129,10 @@ dependencies {
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
+    from sourceSets.main.output.classesDirs
+    from sourceSets.api.output.classesDirs
+    from sourceSets.main.output.resourcesDir
+    from sourceSets.api.output.resourcesDir
     sourceSets.main.resources {
         exclude 'assets/biomesoplenty/**'
     }

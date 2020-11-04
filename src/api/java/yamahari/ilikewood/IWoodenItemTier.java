@@ -1,42 +1,42 @@
 package yamahari.ilikewood;
 
 import net.minecraft.item.IItemTier;
-import net.minecraft.util.LazyValue;
+import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 
-import java.util.function.Supplier;
-
-public interface IWoodenItemTier extends IItemTier {
+public interface IWoodenItemTier extends IItemTier, IWooden {
     String getModId();
 
     String getName();
 
-    boolean isWood();
+    default boolean isWood() {
+        return true;
+    }
 
     Properties getProperties(final WoodenTieredObjectType tieredObjectType);
 
     final class Properties {
-        private final LazyValue<Supplier<Double>> attackSpeed;
-        private final LazyValue<Supplier<Double>> attackDamage;
-        private final LazyValue<Supplier<Integer>> burnTime;
+        private final float attackSpeed;
+        private final float attackDamage;
+        private final int burnTime;
 
-        public Properties(final Supplier<Supplier<Double>> attackSpeed, final Supplier<Supplier<Double>> attackDamage,
-                          final Supplier<Supplier<Integer>> burnTime) {
-            this.attackSpeed = new LazyValue<>(attackSpeed);
-            this.attackDamage = new LazyValue<>(attackDamage);
-            this.burnTime = new LazyValue<>(burnTime);
+        public Properties(final float attackSpeed, final float attackDamage,
+                          final int burnTime) {
+            this.attackSpeed = attackSpeed;
+            this.attackDamage = attackDamage;
+            this.burnTime = burnTime;
         }
 
         public float getAttackSpeed() {
-            return this.attackSpeed.getValue().get().floatValue();
+            return this.attackSpeed;
         }
 
         public float getAttackDamage() {
-            return this.attackDamage.getValue().get().floatValue();
+            return this.attackDamage;
         }
 
         public int getBurnTime() {
-            return this.burnTime.getValue().get();
+            return this.burnTime;
         }
     }
 }

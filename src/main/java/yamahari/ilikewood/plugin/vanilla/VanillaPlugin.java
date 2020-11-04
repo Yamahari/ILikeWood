@@ -1,6 +1,5 @@
 package yamahari.ilikewood.plugin.vanilla;
 
-import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.ILikeWoodPlugin;
 import yamahari.ilikewood.IModPlugin;
 import yamahari.ilikewood.IWoodTypeRegistry;
@@ -9,12 +8,11 @@ import yamahari.ilikewood.util.Constants;
 
 @ILikeWoodPlugin
 public class VanillaPlugin implements IModPlugin {
-    private static final ResourceLocation UID = new ResourceLocation(Constants.MOD_ID, "vanilla_plugin");
-
     @Override
-    public ResourceLocation getUId() {
-        return UID;
+    public String getModId() {
+        return Constants.MOD_ID;
     }
+
 
     @Override
     public void registerWoodTypes(final IWoodTypeRegistry registry) {

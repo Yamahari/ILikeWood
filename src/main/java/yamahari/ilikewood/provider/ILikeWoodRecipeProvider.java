@@ -1,29 +1,15 @@
 package yamahari.ilikewood.provider;
 
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.*;
-import net.minecraft.item.DyeColor;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import yamahari.ilikewood.IWoodType;
-import yamahari.ilikewood.block.WoodenBedBlock;
-import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
-import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
-import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
-import yamahari.ilikewood.registry.WoodenBlocks;
-import yamahari.ilikewood.registry.WoodenItems;
-import yamahari.ilikewood.util.*;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public final class ILikeWoodRecipeProvider extends RecipeProvider {
     public ILikeWoodRecipeProvider(final DataGenerator generator) {
@@ -36,7 +22,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
 
     @Override
     protected void registerRecipes(@SuppressWarnings("NullableProblems") final Consumer<IFinishedRecipe> consumer) {
-        WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
+        /*WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> {
             final Optional<Supplier<Block>> slabSupplier = ((IWooden) block).getWoodType().getSlab();
             if (slabSupplier.isPresent()) {
                 final IItemProvider slab = slabSupplier.get().get();
@@ -455,7 +441,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                                             Util.toRegistryName(block.getRegistryName().getPath(), "from", coloredBed.asItem().getRegistryName().getPath())));
                         });
             }
-        });
+        });*/
     }
 
     @Override

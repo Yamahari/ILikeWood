@@ -1,20 +1,16 @@
 package yamahari.ilikewood.plugin.biomesoplenty;
 
-import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.ILikeWoodPlugin;
 import yamahari.ilikewood.IModPlugin;
 import yamahari.ilikewood.IWoodTypeRegistry;
 import yamahari.ilikewood.IWoodenItemTierRegistry;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.Util;
 
 @ILikeWoodPlugin
 public final class BiomesOPlentyPlugin implements IModPlugin {
-    private static final ResourceLocation UID = new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(Constants.BOP_MOD_ID, "plugin"));
-
     @Override
-    public ResourceLocation getUId() {
-        return UID;
+    public String getModId() {
+        return Constants.BOP_MOD_ID;
     }
 
     @Override

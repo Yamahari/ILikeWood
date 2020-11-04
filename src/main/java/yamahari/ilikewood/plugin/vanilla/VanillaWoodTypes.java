@@ -1,11 +1,13 @@
 package yamahari.ilikewood.plugin.vanilla;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.util.Constants;
 
 public final class VanillaWoodTypes {
+    public static final IWoodType DUMMY = new VanillaWoodType("dummy", AbstractBlock.Properties.from(Blocks.AIR));
     public static final IWoodType ACACIA = new VanillaWoodType(Constants.ACACIA, Block.Properties.from(Blocks.ACACIA_PLANKS));
     public static final IWoodType BIRCH = new VanillaWoodType(Constants.BIRCH, Block.Properties.from(Blocks.BIRCH_PLANKS));
     public static final IWoodType CRIMSON = new VanillaWoodType(Constants.CRIMSON, Block.Properties.from(Blocks.CRIMSON_PLANKS));

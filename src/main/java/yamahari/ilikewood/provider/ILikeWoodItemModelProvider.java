@@ -1,28 +1,16 @@
 package yamahari.ilikewood.provider;
 
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import yamahari.ilikewood.IWoodType;
-import yamahari.ilikewood.block.WoodenBedBlock;
-import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
-import yamahari.ilikewood.registry.WoodenBlocks;
-import yamahari.ilikewood.registry.WoodenItems;
-import yamahari.ilikewood.util.*;
-
-import java.util.Objects;
-import java.util.stream.IntStream;
+import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodItemModelProvider extends ItemModelProvider {
     public ILikeWoodItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
         super(generator, Constants.MOD_ID, helper);
     }
 
-    private void blockItem(final Block block, final String path) {
+    /*private void blockItem(final Block block, final String path) {
         final String woodType = ((IWooden) block).getWoodType().toString();
         this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null.").getPath())
                 .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, woodType))));
@@ -35,11 +23,11 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
         this.withExistingParent(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")))
                 .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), path + (tier.equals(WoodenItemTier.NETHERITE.toString()) ? "/netherite" : ""), woodType)))
                 .texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/wooden" : ""), tier)));
-    }
+    }*/
 
     @Override
     protected void registerModels() {
-        WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> this.blockItem(block, WoodenObjectType.PANELS.toString()));
+        /*WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> this.blockItem(block, WoodenObjectType.PANELS.toString()));
         WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString())));
         WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString())));
         WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> this.blockItem(block, WoodenObjectType.BARREL.toString()));
@@ -214,6 +202,6 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.toString())));
         });
 
-        WoodenBlocks.getBedBlocks().forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.BED.toString(), "inventory", ((WoodenBedBlock) block).getDyeColor().toString())));
+        WoodenBlocks.getBedBlocks().forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.BED.toString(), "inventory", ((WoodenBedBlock) block).getDyeColor().toString())));*/
     }
 }

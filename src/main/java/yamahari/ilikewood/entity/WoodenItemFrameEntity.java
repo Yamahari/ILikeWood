@@ -30,8 +30,6 @@ import javax.annotation.Nullable;
 public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, IEntityAdditionalSpawnData {
     private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(WoodenItemFrameEntity.class, DataSerializers.ITEMSTACK);
     private static final DataParameter<Integer> ROTATION = EntityDataManager.createKey(WoodenItemFrameEntity.class, DataSerializers.VARINT);
-    //private ItemStack item;
-    //private int rotation;
     private final IWoodType woodType;
     private final LazyValue<Item> drop;
 

@@ -1,16 +1,28 @@
 package yamahari.ilikewood.util;
 
 import biomesoplenty.api.block.BOPBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.IItemProvider;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.registry.WoodenBlocks;
 
 import java.lang.reflect.Field;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public final class Util {
     private Util() {
+    }
+
+    public static Stream<Block> getBlocksWith(final WoodenObjectType objectType, final Predicate<IWoodType> predicate) {
+        return WoodenBlocks.getBlocks(objectType).filter(block -> predicate.test(((IWooden) block).getWoodType()));
+    }
+
+    public static Stream<Block> getBlocksWithPlanks(final WoodenObjectType objectType) {
+        return getBlocksWith(objectType, woodType -> woodType.getPlanks().isPresent());
     }
 
     public static String toRegistryName(final String... elements) {

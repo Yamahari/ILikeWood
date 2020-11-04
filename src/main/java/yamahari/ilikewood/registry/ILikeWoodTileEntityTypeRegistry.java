@@ -5,6 +5,7 @@ import net.minecraft.util.datafix.TypeReferences;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.client.tileentity.WoodenBarrelTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
@@ -38,12 +39,13 @@ public final class ILikeWoodTileEntityTypeRegistry {
 
     private static Map<IWoodType, RegistryObject<TileEntityType<?>>> registerSimpleTileEntityTypes(final Function<IWoodType, RegistryObject<TileEntityType<?>>> function) {
         final Map<IWoodType, RegistryObject<TileEntityType<?>>> tileEntityTypes = new HashMap<>();
-        IWoodType.getLoadedValues().forEach(woodType -> tileEntityTypes.put(woodType, function.apply(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> tileEntityTypes.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(tileEntityTypes);
     }
 
+    // TODO data fixer
     private static RegistryObject<TileEntityType<?>> registerBarrelTileEntityType(final IWoodType woodType) {
-        final String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.BARREL.toString());
+        final String name = Util.toRegistryName(woodType.getName(), WoodenObjectType.BARREL.toString());
         return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenBarrelTileEntity(woodType, WoodenTileEntityTypes.REGISTRY_OBJECTS.get(WoodenObjectType.BARREL).get(woodType).get()),
@@ -51,8 +53,9 @@ public final class ILikeWoodTileEntityTypeRegistry {
                         .build(net.minecraft.util.Util.attemptDataFix(TypeReferences.BLOCK_ENTITY, name)));
     }
 
+    // TODO data fixer
     private static RegistryObject<TileEntityType<?>> registerChestTileEntityType(final IWoodType woodType) {
-        final String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.CHEST.toString());
+        final String name = Util.toRegistryName(woodType.getName(), WoodenObjectType.CHEST.toString());
         return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenChestTileEntity(woodType, WoodenTileEntityTypes.REGISTRY_OBJECTS.get(WoodenObjectType.CHEST).get(woodType).get()),
@@ -60,8 +63,9 @@ public final class ILikeWoodTileEntityTypeRegistry {
                         .build(net.minecraft.util.Util.attemptDataFix(TypeReferences.BLOCK_ENTITY, name)));
     }
 
+    // TODO data fixer
     private static RegistryObject<TileEntityType<?>> registerLecternTileEntityType(final IWoodType woodType) {
-        final String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.LECTERN.toString());
+        final String name = Util.toRegistryName(woodType.getName(), WoodenObjectType.LECTERN.toString());
         return REGISTRY.register(name,
                 () -> TileEntityType.Builder
                         .create(() -> new WoodenLecternTileEntity(woodType),

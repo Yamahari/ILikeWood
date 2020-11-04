@@ -34,7 +34,7 @@ public final class Atlases {
         final EnumMap<ChestType, RenderMaterial> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
             materials.put(chestType, new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
-                    new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getString(), woodType.toString()))));
+                    new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getString(), woodType.getName()))));
         }
         return materials;
     }

@@ -38,7 +38,7 @@ public final class ILikeWoodContainerRegistry {
     }
 
     private static RegistryObject<ContainerType<?>> registerWorkBenchContainer(final IWoodType woodType) {
-        return REGISTRY.register(Util.toRegistryName(woodType.toString(), WoodenObjectType.CRAFTING_TABLE.toString()),
+        return REGISTRY.register(Util.toRegistryName(woodType.getName(), WoodenObjectType.CRAFTING_TABLE.toString()),
                 () -> new ContainerType<>((windowId, inventory) -> new WoodenWorkBenchContainer(woodType, windowId, inventory)));
     }
 }

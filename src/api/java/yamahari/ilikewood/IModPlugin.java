@@ -1,9 +1,7 @@
 package yamahari.ilikewood;
 
-import net.minecraft.util.ResourceLocation;
-
 public interface IModPlugin {
-    ResourceLocation getUId();
+    String getModId();
 
     default void registerWoodTypes(final IWoodTypeRegistry registry) {
     }

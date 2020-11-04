@@ -30,8 +30,8 @@ public final class SpecialModels {
 
         ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
-            itemFrameModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.toString())));
-            itemFrameMapModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.toString())));
+            itemFrameModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName())));
+            itemFrameMapModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getName())));
         });
 
         ITEM_FRAME_MODELS = Collections.unmodifiableMap(itemFrameModels);

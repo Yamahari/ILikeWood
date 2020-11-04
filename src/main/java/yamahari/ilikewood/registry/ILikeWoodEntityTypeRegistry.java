@@ -39,7 +39,7 @@ public final class ILikeWoodEntityTypeRegistry {
     }
 
     private static RegistryObject<EntityType<?>> registerItemFrameEntityTypes(final IWoodType woodType) {
-        final String name = Util.toRegistryName(woodType.toString(), WoodenObjectType.ITEM_FRAME.toString());
+        final String name = Util.toRegistryName(woodType.getName(), WoodenObjectType.ITEM_FRAME.toString());
         return REGISTRY.register(name,
                 () -> EntityType.Builder.<WoodenItemFrameEntity>create(
                         (entityType, world) -> new WoodenItemFrameEntity(woodType, entityType, world), EntityClassification.MISC)

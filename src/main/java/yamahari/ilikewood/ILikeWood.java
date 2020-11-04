@@ -6,15 +6,13 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.forgespi.language.ModFileScanData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Type;
-import yamahari.ilikewood.config.Config;
 import yamahari.ilikewood.provider.*;
 import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
@@ -39,9 +37,9 @@ public final class ILikeWood {
     public static final WoodenItemTierRegistry WOODEN_ITEM_TIER_REGISTRY = new WoodenItemTierRegistry();
 
     public ILikeWood() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -51,25 +49,24 @@ public final class ILikeWood {
         final List<String> names = ModList.get().getAllScanData().stream()
                 .flatMap(scanData -> scanData.getAnnotations().stream())
                 .filter(annotationData -> Objects.equals(annotationData.getAnnotationType(), Type.getType(ILikeWoodPlugin.class)))
-                .map(Objects::toString)
+                .map(ModFileScanData.AnnotationData::getMemberName)
                 .collect(Collectors.toList());
 
         final List<IModPlugin> plugins = new ArrayList<>();
 
         for (final String name : names) {
             try {
-                Class<?> clazz = Class.forName(name);
-                Class<? extends IModPlugin> instanceClass = clazz.asSubclass(IModPlugin.class);
-                IModPlugin instance = instanceClass.newInstance();
-                plugins.add(instance);
+                plugins.add(Class.forName(name).asSubclass(IModPlugin.class).newInstance());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | LinkageError e) {
                 LOGGER.error("Failed to load: {}", name, e);
             }
         }
 
         for (final IModPlugin plugin : plugins) {
-            plugin.registerWoodTypes(WOOD_TYPE_REGISTRY);
-            plugin.registerWoodenItemTiers(WOODEN_ITEM_TIER_REGISTRY);
+            if (ModList.get().isLoaded(plugin.getModId())) {
+                plugin.registerWoodTypes(WOOD_TYPE_REGISTRY);
+                plugin.registerWoodenItemTiers(WOODEN_ITEM_TIER_REGISTRY);
+            }
         }
 
         ILikeWoodBlockRegistry.REGISTRY.register(modEventBus);
