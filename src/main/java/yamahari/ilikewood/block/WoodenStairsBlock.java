@@ -3,7 +3,7 @@ package yamahari.ilikewood.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.StairsBlock;
-import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
 public class WoodenStairsBlock extends StairsBlock implements IWooden {

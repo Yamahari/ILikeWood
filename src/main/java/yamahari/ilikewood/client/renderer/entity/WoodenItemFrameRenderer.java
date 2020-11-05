@@ -20,9 +20,9 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.storage.MapData;
-import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.client.SpecialModels;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
 public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntity> {

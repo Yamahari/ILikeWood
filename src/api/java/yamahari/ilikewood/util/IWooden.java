@@ -1,6 +1,6 @@
 package yamahari.ilikewood.util;
 
-import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 public interface IWooden {
     IWoodType getWoodType();

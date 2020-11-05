@@ -11,8 +11,8 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public class WoodenPostBlock extends WoodenStrippedPostBlock {

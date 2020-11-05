@@ -13,16 +13,23 @@ import net.minecraftforge.forgespi.language.ModFileScanData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Type;
-import yamahari.ilikewood.provider.*;
+import yamahari.ilikewood.provider.ILikeWoodBlockStateProvider;
 import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
 import yamahari.ilikewood.proxy.IProxy;
 import yamahari.ilikewood.registry.*;
+import yamahari.ilikewood.registry.resource.IWoodenResourceRegistry;
+import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
+import yamahari.ilikewood.registry.resource.resources.IWoodenPlanksResource;
+import yamahari.ilikewood.registry.resource.resources.IWoodenSlabResource;
+import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTierRegistry;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.registry.woodtype.IWoodTypeRegistry;
 import yamahari.ilikewood.util.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,6 +42,9 @@ public final class ILikeWood {
     public static final WoodTypeRegistry WOOD_TYPE_REGISTRY = new WoodTypeRegistry();
 
     public static final WoodenItemTierRegistry WOODEN_ITEM_TIER_REGISTRY = new WoodenItemTierRegistry();
+
+    // TODO only need this during data gen not normal run
+    public static final WoodenResourceRegistry WOODEN_RESOURCE_REGISTRY = new WoodenResourceRegistry();
 
     public ILikeWood() {
         //ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
@@ -66,6 +76,7 @@ public final class ILikeWood {
             if (ModList.get().isLoaded(plugin.getModId())) {
                 plugin.registerWoodTypes(WOOD_TYPE_REGISTRY);
                 plugin.registerWoodenItemTiers(WOODEN_ITEM_TIER_REGISTRY);
+                plugin.registerWoodenResources(WOODEN_RESOURCE_REGISTRY);
             }
         }
 
@@ -79,25 +90,24 @@ public final class ILikeWood {
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent event) {
         final DataGenerator generator = event.getGenerator();
-
-        if (event.includeServer()) {
+        /*if (event.includeServer()) {
             generator.addProvider(new ILikeWoodRecipeProvider(generator));
             generator.addProvider(new ILikeWoodLootTableProvider(generator));
             final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator);
             generator.addProvider(blockTagsProvider);
             generator.addProvider(new ILikeWoodItemTagsProvider(generator, blockTagsProvider));
-        }
+        }*/
 
         if (event.includeClient()) {
             final ExistingFileHelper helper = event.getExistingFileHelper();
 
             generator.addProvider(new ILikeWoodBlockStateProvider(generator, helper));
-            generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
-            generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
+            //generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
+            //generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
         }
     }
 
-    public static class WoodTypeRegistry implements IWoodTypeRegistry {
+    public static final class WoodTypeRegistry implements IWoodTypeRegistry {
         private final List<IWoodType> woodTypes = new ArrayList<>();
 
         @Override
@@ -118,7 +128,7 @@ public final class ILikeWood {
         }
     }
 
-    public static class WoodenItemTierRegistry implements IWoodenItemTierRegistry {
+    public static final class WoodenItemTierRegistry implements IWoodenItemTierRegistry {
         private final List<IWoodenItemTier> woodenItemTiers = new ArrayList<>();
 
         @Override
@@ -136,6 +146,65 @@ public final class ILikeWood {
                 ILikeWood.LOGGER.error(e.getMessage());
             }
             return this.woodenItemTiers.stream().filter(itemTier -> ModList.get().isLoaded(itemTier.getModId()));
+        }
+    }
+
+    public static final class WoodenResourceRegistry implements IWoodenResourceRegistry {
+        private final Map<IWoodType, IWoodenPlanksResource> planks = new HashMap<>();
+        private final Map<IWoodType, IWoodenLogResource> logs = new HashMap<>();
+        private final Map<IWoodType, IWoodenStrippedLogResource> strippedLogs = new HashMap<>();
+        private final Map<IWoodType, IWoodenSlabResource> slabs = new HashMap<>();
+
+        @Override
+        public void registerPlanksResource(final IWoodType woodType, final IWoodenPlanksResource planks) {
+            this.planks.put(woodType, planks);
+        }
+
+        @Override
+        public void registerLogResource(final IWoodType woodType, final IWoodenLogResource log) {
+            this.logs.put(woodType, log);
+        }
+
+        @Override
+        public void registerStrippedLogResource(final IWoodType woodType, final IWoodenStrippedLogResource strippedLog) {
+            this.strippedLogs.put(woodType, strippedLog);
+        }
+
+        @Override
+        public void registerSlabResource(final IWoodType woodType, final IWoodenSlabResource slab) {
+            this.slabs.put(woodType, slab);
+        }
+
+        public boolean hasPlanks(final IWoodType woodType) {
+            return this.planks.containsKey(woodType);
+        }
+
+        public boolean hasLog(final IWoodType woodType) {
+            return this.logs.containsKey(woodType);
+        }
+
+        public boolean hasStrippedLog(final IWoodType woodType) {
+            return this.strippedLogs.containsKey(woodType);
+        }
+
+        public boolean hasSlab(final IWoodType woodType) {
+            return this.slabs.containsKey(woodType);
+        }
+
+        public IWoodenPlanksResource getPlanks(final IWoodType woodType) {
+            return this.planks.get(woodType);
+        }
+
+        public IWoodenLogResource getLog(final IWoodType woodType) {
+            return this.logs.get(woodType);
+        }
+
+        public IWoodenStrippedLogResource getStrippedLog(final IWoodType woodType) {
+            return this.strippedLogs.get(woodType);
+        }
+
+        public IWoodenSlabResource getSlab(final IWoodType woodType) {
+            return this.slabs.get(woodType);
         }
     }
 }

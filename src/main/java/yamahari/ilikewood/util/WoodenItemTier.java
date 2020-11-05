@@ -3,8 +3,8 @@ package yamahari.ilikewood.util;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
-import yamahari.ilikewood.IWoodType;
-import yamahari.ilikewood.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.util.Collections;
 import java.util.EnumMap;

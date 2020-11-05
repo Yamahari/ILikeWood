@@ -2,7 +2,7 @@ package yamahari.ilikewood.util;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
-import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 public class DummyWoodType implements IWoodType {
     private final Properties properties = new Properties(-1);

@@ -3,7 +3,7 @@ package yamahari.ilikewood.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
-import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
 public final class WoodenComposterBlock extends ComposterBlock implements IWooden {

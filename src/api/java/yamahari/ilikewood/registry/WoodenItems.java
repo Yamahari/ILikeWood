@@ -3,8 +3,8 @@ package yamahari.ilikewood.registry;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
-import yamahari.ilikewood.IWoodType;
-import yamahari.ilikewood.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 

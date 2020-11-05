@@ -7,8 +7,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import yamahari.ilikewood.IWoodType;
-import yamahari.ilikewood.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 

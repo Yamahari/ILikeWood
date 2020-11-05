@@ -9,10 +9,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
@@ -71,7 +72,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
             final String name = ((IWooden) block).getWoodType().getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BOOKSHELF.toString(), name);
 
-            final ResourceLocation planks = woodType.getPlanks().orElseThrow(RuntimeException::new).get().getRegistryName();
+            final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
 
             this.simpleBlock(block, this.models().cubeColumn(path, modLoc(path), planks));
         });
@@ -80,14 +81,13 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
             final IWoodType woodType = ((IWooden) block).getWoodType();
             final String name = ((IWooden) block).getWoodType().getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CHEST.toString(), name);
-            final ResourceLocation planks = woodType.getPlanks().orElseThrow(RuntimeException::new).get().getRegistryName();
+            final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
 
             this.simpleBlock(block, this.models().getBuilder(path)
                     .texture("particle", planks));
         });
 
-        // TODO Remove fence ( see IWoodType )
-        Util.getBlocksWith(WoodenObjectType.COMPOSTER, Util.HAS_PLANKS.and(Util.HAS_FENCE)).forEach(block -> {
+        Util.getBlocksWith(WoodenObjectType.COMPOSTER, Util.HAS_PLANKS).forEach(block -> {
             final String woodType = ((IWooden) block).getWoodType().getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.COMPOSTER.toString());
             final ModelFile template = this.models()
@@ -114,10 +114,10 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         Util.getBlocksWith(WoodenObjectType.WALL, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)).forEach(block -> {
             final IWoodType woodType = ((IWooden) block).getWoodType();
-            final String name = woodType.toString();
+            final String name = woodType.getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.WALL.toString());
-            final ResourceLocation log = woodType.getLog().orElseThrow(RuntimeException::new).get().getRegistryName();
-            final ResourceLocation strippedLog = woodType.getStrippedLog().orElseThrow(RuntimeException::new).get().getRegistryName();
+            final ResourceLocation log = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getSideTexture();
+            final ResourceLocation strippedLog = ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType).getSideTexture();
 
             final ModelFile post = this.models().wallPost(Util.toPath(path, "post", name), log);
             final ModelFile side = this.models().wallSide(Util.toPath(path, "side", name), strippedLog);
@@ -132,7 +132,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         Util.getBlocksWith(WoodenObjectType.LADDER, Util.HAS_PLANKS).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LADDER.toString());
             final ModelFile template = this.models()
                     .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "ladder", modLoc(Util.toPath(path, woodType)));
@@ -141,7 +141,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         Util.getBlocksWith(WoodenObjectType.TORCH, Util.HAS_PLANKS).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.TORCH.toString());
             final ModelFile template = this.models()
                     .singleTexture(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")), "torch", modLoc(Util.toPath(path, woodType)));
@@ -149,7 +149,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         });
 
         Util.getBlocksWith(WoodenObjectType.WALL_TORCH, Util.HAS_PLANKS).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.TORCH.toString());
             final ModelFile template = this.models()
                     .singleTexture(Util.toPath(path, "wall", woodType), modLoc(Util.toPath(path, "wall", "template")), "torch", modLoc(Util.toPath(path, woodType)));
@@ -160,7 +160,7 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         Util.getBlocksWith(WoodenObjectType.CRAFTING_TABLE, Util.HAS_PLANKS).forEach(block -> this.simpleBlock(block, this.templateWithPlanks(block, "", WoodenObjectType.CRAFTING_TABLE)));
 
         Util.getBlocksWith(WoodenObjectType.SCAFFOLDING, Util.HAS_PLANKS).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+            final String woodType = ((IWooden) block).getWoodType().getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.SCAFFOLDING.toString());
             this.getVariantBuilder(block).forAllStates(blockState -> {
                 final String stable = blockState.get(ScaffoldingBlock.BOTTOM) ? "unstable" : "stable";
@@ -175,9 +175,9 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         Util.getBlocksWith(WoodenObjectType.LECTERN, Util.HAS_PLANKS).forEach(block -> {
             final IWoodType woodType = ((IWooden) block).getWoodType();
-            final String name = woodType.toString();
+            final String name = woodType.getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LECTERN.toString());
-            final ResourceLocation planks = woodType.getPlanks().orElseThrow(RuntimeException::new).get().getRegistryName();
+            final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
             final ModelFile template = this.models()
                     .withExistingParent(Util.toPath(path, name), modLoc(Util.toPath(path, "template")))
                     .texture("top", modLoc(Util.toPath(path, "top", name)))
@@ -191,9 +191,9 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         Util.getBlocksWith(WoodenObjectType.POST, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)).forEach(block -> {
             final IWoodType woodType = ((IWooden) block).getWoodType();
-            final String name = woodType.toString();
+            final String name = woodType.getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.POST.toString());
-            final ResourceLocation log = woodType.getLog().orElseThrow(RuntimeException::new).get().getRegistryName();
+            final ResourceLocation log = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getSideTexture();
             final ModelFile post = this.models()
                     .withExistingParent(Util.toPath(path, name), modLoc(Util.toPath(path, "template")))
                     .texture("wall", log);
@@ -210,10 +210,10 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
         Util.getBlocksWith(WoodenObjectType.STRIPPED_POST, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)).forEach(block -> {
             final IWoodType woodType = ((IWooden) block).getWoodType();
-            final String name = woodType.toString();
+            final String name = woodType.getName();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.POST.toString());
 
-            final ResourceLocation strippedLog = woodType.getStrippedLog().orElseThrow(RuntimeException::new).get().getRegistryName();
+            final ResourceLocation strippedLog = ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType).getSideTexture();
             final ModelFile post = this.models()
                     .withExistingParent(Util.toPath(path, "stripped", name), modLoc(Util.toPath(path, "template")))
                     .texture("wall", strippedLog);
@@ -231,43 +231,43 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
         Util.getItemsWith(WoodenObjectType.ITEM_FRAME, Util.HAS_PLANKS).forEach(item -> {
             final IWoodType woodType = ((IWooden) item).getWoodType();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
-            final ResourceLocation planks = woodType.getPlanks().orElseThrow(RuntimeException::new).get().getRegistryName();
+            final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
             final ModelFile itemFrame = this.models()
-                    .withExistingParent(Util.toPath(path, woodType.toString()), modLoc(Util.toPath(path, "template")))
+                    .withExistingParent(Util.toPath(path, woodType.getName()), modLoc(Util.toPath(path, "template")))
                     .texture("planks", planks);
 
             final ModelFile itemFrameMap = this.models()
-                    .withExistingParent(Util.toPath(path, "map", woodType.toString()), modLoc(Util.toPath(path, "map", "template")))
+                    .withExistingParent(Util.toPath(path, "map", woodType.getName()), modLoc(Util.toPath(path, "map", "template")))
                     .texture("planks", planks);
         });
 
-        Util.getBlocksWith(WoodenObjectType.BED, Util.HAS_PLANKS).forEach(block -> {
+        Util.getBedBlocksWith(Util.HAS_PLANKS).forEach(block -> {
             final IWoodType woodType = ((IWooden) block).getWoodType();
             final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
             final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BED.toString());
-            final ResourceLocation planks = woodType.getPlanks().orElseThrow(RuntimeException::new).get().getRegistryName();
-            final ResourceLocation frame = modLoc(Util.toPath(path, "frame", woodType.toString()));
+            final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
+            final ResourceLocation frame = modLoc(Util.toPath(path, "frame", woodType.getName()));
             final ResourceLocation headTop = modLoc(Util.toPath(path, "sheets", "head", "top", color.toString()));
             final ResourceLocation headSides = modLoc(Util.toPath(path, "sheets", "head", "sides", color.toString()));
             final ResourceLocation footTop = modLoc(Util.toPath(path, "sheets", "foot", "top", color.toString()));
             final ResourceLocation footSides = modLoc(Util.toPath(path, "sheets", "foot", "sides", color.toString()));
 
             final ModelFile head = this.models()
-                    .withExistingParent(Util.toPath(path, "head", color.toString(), woodType.toString()), modLoc(Util.toPath(path, "head", "template")))
+                    .withExistingParent(Util.toPath(path, "head", color.toString(), woodType.getName()), modLoc(Util.toPath(path, "head", "template")))
                     .texture("planks", planks)
                     .texture("frame", frame)
                     .texture("top", headTop)
                     .texture("sides", headSides);
 
             final ModelFile foot = this.models()
-                    .withExistingParent(Util.toPath(path, "foot", color.toString(), woodType.toString()), modLoc(Util.toPath(path, "foot", "template")))
+                    .withExistingParent(Util.toPath(path, "foot", color.toString(), woodType.getName()), modLoc(Util.toPath(path, "foot", "template")))
                     .texture("planks", planks)
                     .texture("frame", frame)
                     .texture("top", footTop)
                     .texture("sides", footSides);
 
             final ModelFile inventory = this.models()
-                    .withExistingParent(Util.toPath(path, "inventory", color.toString(), woodType.toString()), modLoc(Util.toPath(path, "inventory", "template")))
+                    .withExistingParent(Util.toPath(path, "inventory", color.toString(), woodType.getName()), modLoc(Util.toPath(path, "inventory", "template")))
                     .texture("planks", planks)
                     .texture("frame", frame)
                     .texture("head_top", headTop)
@@ -287,9 +287,9 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
 
     private ModelFile templateWithPlanks(final Block block, final String nested, final WoodenObjectType... objectTypes) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
-        final String name = ((IWooden) block).getWoodType().toString();
+        final String name = ((IWooden) block).getWoodType().getName();
         final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, Arrays.stream(objectTypes).map(Objects::toString).collect(Collectors.joining("/")));
-        final ResourceLocation planks = woodType.getPlanks().orElseThrow(RuntimeException::new).get().getRegistryName();
+        final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
 
         return this.models().singleTexture(Util.toPath(path + nested, name), modLoc(Util.toPath(path + nested, "template")), "planks", planks);
     }

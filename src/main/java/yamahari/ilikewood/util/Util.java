@@ -7,9 +7,9 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IItemProvider;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.lang.reflect.Field;
 import java.util.function.Predicate;
@@ -19,14 +19,17 @@ public final class Util {
     private Util() {
     }
 
-    public static final Predicate<IWoodType> HAS_PLANKS = woodType -> woodType.getPlanks().isPresent();
-    public static final Predicate<IWoodType> HAS_LOG = woodType -> woodType.getLog().isPresent();
-    public static final Predicate<IWoodType> HAS_STRIPPED_LOG = woodType -> woodType.getStrippedLog().isPresent();
-    public static final Predicate<IWoodType> HAS_FENCE = woodType -> woodType.getFence().isPresent();
-    public static final Predicate<IWoodType> HAS_SLAB = woodType -> woodType.getSlab().isPresent();
+    public static final Predicate<IWoodType> HAS_PLANKS = ILikeWood.WOODEN_RESOURCE_REGISTRY::hasPlanks;
+    public static final Predicate<IWoodType> HAS_LOG = ILikeWood.WOODEN_RESOURCE_REGISTRY::hasLog;
+    public static final Predicate<IWoodType> HAS_STRIPPED_LOG = ILikeWood.WOODEN_RESOURCE_REGISTRY::hasStrippedLog;
+    public static final Predicate<IWoodType> HAS_SLAB = ILikeWood.WOODEN_RESOURCE_REGISTRY::hasSlab;
 
     public static Stream<Block> getBlocksWith(final WoodenObjectType objectType, final Predicate<IWoodType> predicate) {
         return WoodenBlocks.getBlocks(objectType).filter(block -> predicate.test(((IWooden) block).getWoodType()));
+    }
+
+    public static Stream<Block> getBedBlocksWith(final Predicate<IWoodType> predicate) {
+        return WoodenBlocks.getBedBlocks().filter(block -> predicate.test(((IWooden) block).getWoodType()));
     }
 
     public static Stream<Item> getItemsWith(final WoodenObjectType objectType, final Predicate<IWoodType> predicate) {

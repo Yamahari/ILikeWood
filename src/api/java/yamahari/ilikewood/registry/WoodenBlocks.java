@@ -3,7 +3,7 @@ package yamahari.ilikewood.registry;
 import net.minecraft.block.Block;
 import net.minecraft.item.DyeColor;
 import net.minecraftforge.fml.RegistryObject;
-import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import java.util.Arrays;

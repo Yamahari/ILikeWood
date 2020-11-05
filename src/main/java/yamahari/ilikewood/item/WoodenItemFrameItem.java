@@ -14,9 +14,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.WoodenEntityTypes;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public final class WoodenItemFrameItem extends WoodenItem {

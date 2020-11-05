@@ -8,8 +8,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.IWoodType;
-import yamahari.ilikewood.IWoodenItemTier;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestItemStackTileEntityRenderer;
 import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.item.tiered.WoodenHoeItem;
@@ -17,6 +15,8 @@ import yamahari.ilikewood.item.tiered.WoodenSwordItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenAxeItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenPickAxeItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenShovelItem;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodenObjectType;
@@ -46,7 +46,7 @@ public final class ILikeWoodItemRegistry {
         registryObjects.put(WoodenObjectType.SLAB, registerBlockItemsWith(WoodenObjectType.SLAB, simpleBuildingBlockItem, Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.BARREL, registerBlockItemsWith(WoodenObjectType.BARREL, simpleDecorationBlockItem, Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.BOOKSHELF, registerBlockItemsWith(WoodenObjectType.BOOKSHELF, simpleBuildingBlockItem, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.COMPOSTER, registerBlockItemsWith(WoodenObjectType.COMPOSTER, simpleMiscBlockItem, Util.HAS_PLANKS.and(Util.HAS_FENCE)));
+        registryObjects.put(WoodenObjectType.COMPOSTER, registerBlockItemsWith(WoodenObjectType.COMPOSTER, simpleMiscBlockItem, Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.WALL, registerBlockItemsWith(WoodenObjectType.WALL, simpleDecorationBlockItem, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
         registryObjects.put(WoodenObjectType.CHEST, registerBlockItemsWith(WoodenObjectType.CHEST, registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS).setISTER(() -> WoodenChestItemStackTileEntityRenderer::new)), Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.LADDER, registerBlockItemsWith(WoodenObjectType.LADDER, simpleDecorationBlockItem, Util.HAS_PLANKS));
@@ -114,7 +114,7 @@ public final class ILikeWoodItemRegistry {
     private static Map<IWoodType, Map<IWoodenItemTier, RegistryObject<Item>>> registerTieredItems(final BiFunction<IWoodType, IWoodenItemTier, RegistryObject<Item>> function) {
         final Map<IWoodType, Map<IWoodenItemTier, RegistryObject<Item>>> tieredItems = new HashMap<>();
         ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
-                .filter(woodType -> woodType.getPlanks().isPresent())
+                .filter(Util.HAS_PLANKS)
                 .forEach(woodType -> {
                     final Map<IWoodenItemTier, RegistryObject<Item>> items = new HashMap<>();
                     ILikeWood.WOODEN_ITEM_TIER_REGISTRY.getWoodenItemTiers()

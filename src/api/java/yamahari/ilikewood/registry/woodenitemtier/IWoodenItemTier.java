@@ -1,4 +1,4 @@
-package yamahari.ilikewood;
+package yamahari.ilikewood.registry.woodenitemtier;
 
 import net.minecraft.item.IItemTier;
 import yamahari.ilikewood.util.IWooden;

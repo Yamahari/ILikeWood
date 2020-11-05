@@ -7,12 +7,12 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.IWoodType;
 import yamahari.ilikewood.block.*;
 import yamahari.ilikewood.block.post.WoodenPostBlock;
 import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
 import yamahari.ilikewood.block.torch.WoodenTorchBlock;
 import yamahari.ilikewood.block.torch.WoodenWallTorchBlock;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodenObjectType;
@@ -39,7 +39,7 @@ public final class ILikeWoodBlockRegistry {
                 .filter(Util.HAS_PLANKS)
                 .forEach(woodType -> {
                     final AbstractBlock.Properties properties = woodType.getPanelProperties();
-                    final RegistryObject<Block> panel = panels.put(woodType, registerPanelsBlock(woodType, properties));
+                    final RegistryObject<Block> panel = panels.computeIfAbsent(woodType, w -> registerPanelsBlock(w, properties));
                     panelsStairs.put(woodType, registerPanelsStairsBlock(woodType, panel, properties));
                     panelsSlab.put(woodType, registerPanelsSlabBlock(woodType, properties));
                     final Map<DyeColor, RegistryObject<Block>> beds = new EnumMap<>(DyeColor.class);
@@ -54,7 +54,7 @@ public final class ILikeWoodBlockRegistry {
         registryObjects.put(WoodenObjectType.BARREL, registerBlocksWith(ILikeWoodBlockRegistry::registerBarrelBlock, Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.BOOKSHELF, registerBlocksWith(ILikeWoodBlockRegistry::registerBookshelfBlock, Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.CHEST, registerBlocksWith(ILikeWoodBlockRegistry::registerChestBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.COMPOSTER, registerBlocksWith(ILikeWoodBlockRegistry::registerComposterBlock, Util.HAS_PLANKS.and(Util.HAS_FENCE)));
+        registryObjects.put(WoodenObjectType.COMPOSTER, registerBlocksWith(ILikeWoodBlockRegistry::registerComposterBlock, Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.WALL, registerBlocksWith(ILikeWoodBlockRegistry::registerWallBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
         registryObjects.put(WoodenObjectType.LADDER, registerBlocksWith(ILikeWoodBlockRegistry::registerLadderBlock, Util.HAS_PLANKS));
         registryObjects.put(WoodenObjectType.TORCH, registerBlocksWith(ILikeWoodBlockRegistry::registerTorchBlock, Util.HAS_PLANKS));

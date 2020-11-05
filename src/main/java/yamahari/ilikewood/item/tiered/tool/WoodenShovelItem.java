@@ -10,9 +10,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
-import yamahari.ilikewood.IWoodType;
-import yamahari.ilikewood.IWoodenItemTier;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 

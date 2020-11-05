@@ -1,7 +1,7 @@
 package yamahari.ilikewood.block;
 
 import net.minecraft.block.Block;
-import yamahari.ilikewood.IWoodType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
 public class WoodenBlock extends Block implements IWooden {
