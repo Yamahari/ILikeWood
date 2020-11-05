@@ -27,9 +27,9 @@ public final class ILikeWoodTileEntityTypeRegistry {
     static {
         final EnumMap<WoodenObjectType, Map<IWoodType, RegistryObject<TileEntityType<?>>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
 
-        registryObjects.put(WoodenObjectType.BARREL, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerBarrelTileEntityType, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.CHEST, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerChestTileEntityType, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.LECTERN, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerLecternTileEntityType, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.BARREL, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerBarrelTileEntityType, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.CHEST, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerChestTileEntityType, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.LECTERN, registerSimpleTileEntityTypesWith(ILikeWoodTileEntityTypeRegistry::registerLecternTileEntityType, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
 
         WoodenTileEntityTypes.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }

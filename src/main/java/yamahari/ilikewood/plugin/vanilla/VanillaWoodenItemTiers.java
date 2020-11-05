@@ -21,6 +21,7 @@ public final class VanillaWoodenItemTiers {
     public static final IWoodenItemTier IRON = new WoodenItemTier(VanillaWoodTypes.DUMMY, Constants.IRON, false, () -> Ingredient.fromItems(Items.IRON_INGOT));
     public static final IWoodenItemTier DIAMOND = new WoodenItemTier(VanillaWoodTypes.DUMMY, Constants.DIAMOND, false, () -> Ingredient.fromItems(Items.DIAMOND));
     public static final IWoodenItemTier GOLDEN = new WoodenItemTier(VanillaWoodTypes.DUMMY, Constants.GOLDEN, false, () -> Ingredient.fromItems(Items.GOLD_INGOT));
+    // TODO make netherite items not burn in lava
     public static final IWoodenItemTier NETHERITE = new WoodenItemTier(VanillaWoodTypes.DUMMY, Constants.NETHERITE, false, () -> Ingredient.fromItems(Items.NETHERITE_INGOT));
 
     private VanillaWoodenItemTiers() {

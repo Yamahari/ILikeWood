@@ -36,6 +36,14 @@ public final class Util {
         return WoodenItems.getItems(objectType).filter(item -> predicate.test(((IWooden) item).getWoodType()));
     }
 
+    public static Stream<Item> getTieredItemsWith(final WoodenTieredObjectType tieredObjectType, final Predicate<IWoodType> predicate) {
+        return WoodenItems.getTieredItems(tieredObjectType).filter(tieredItem -> predicate.test(((IWooden) tieredItem).getWoodType()));
+    }
+
+    public static Stream<Item> getTieredItemsWith(final Predicate<IWoodType> predicate) {
+        return WoodenItems.getTieredItems(WoodenTieredObjectType.values()).filter(item -> predicate.test(((IWooden) item).getWoodType()));
+    }
+
     public static String toRegistryName(final String... elements) {
         return StringUtils.join(elements, "_");
     }

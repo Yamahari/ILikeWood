@@ -51,17 +51,17 @@ public final class ILikeWoodBlockRegistry {
         registryObjects.put(WoodenObjectType.PANELS, Collections.unmodifiableMap(panels));
         registryObjects.put(WoodenObjectType.STAIRS, Collections.unmodifiableMap(panelsStairs));
         registryObjects.put(WoodenObjectType.SLAB, Collections.unmodifiableMap(panelsSlab));
-        registryObjects.put(WoodenObjectType.BARREL, registerBlocksWith(ILikeWoodBlockRegistry::registerBarrelBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.BOOKSHELF, registerBlocksWith(ILikeWoodBlockRegistry::registerBookshelfBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.CHEST, registerBlocksWith(ILikeWoodBlockRegistry::registerChestBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.COMPOSTER, registerBlocksWith(ILikeWoodBlockRegistry::registerComposterBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.BARREL, registerBlocksWith(ILikeWoodBlockRegistry::registerBarrelBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.BOOKSHELF, registerBlocksWith(ILikeWoodBlockRegistry::registerBookshelfBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.CHEST, registerBlocksWith(ILikeWoodBlockRegistry::registerChestBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.COMPOSTER, registerBlocksWith(ILikeWoodBlockRegistry::registerComposterBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
         registryObjects.put(WoodenObjectType.WALL, registerBlocksWith(ILikeWoodBlockRegistry::registerWallBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
-        registryObjects.put(WoodenObjectType.LADDER, registerBlocksWith(ILikeWoodBlockRegistry::registerLadderBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.TORCH, registerBlocksWith(ILikeWoodBlockRegistry::registerTorchBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.WALL_TORCH, registerBlocksWith(ILikeWoodBlockRegistry::registerWallTorchBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlocksWith(ILikeWoodBlockRegistry::registerCraftingTableBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.SCAFFOLDING, registerBlocksWith(ILikeWoodBlockRegistry::registerScaffoldingBlock, Util.HAS_PLANKS));
-        registryObjects.put(WoodenObjectType.LECTERN, registerBlocksWith(ILikeWoodBlockRegistry::registerLecternBlock, Util.HAS_PLANKS));
+        registryObjects.put(WoodenObjectType.LADDER, registerBlocksWith(ILikeWoodBlockRegistry::registerLadderBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.TORCH, registerBlocksWith(ILikeWoodBlockRegistry::registerTorchBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.WALL_TORCH, registerBlocksWith(ILikeWoodBlockRegistry::registerWallTorchBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.CRAFTING_TABLE, registerBlocksWith(ILikeWoodBlockRegistry::registerCraftingTableBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.SCAFFOLDING, registerBlocksWith(ILikeWoodBlockRegistry::registerScaffoldingBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.LECTERN, registerBlocksWith(ILikeWoodBlockRegistry::registerLecternBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
         registryObjects.put(WoodenObjectType.POST, registerBlocksWith(ILikeWoodBlockRegistry::registerPostBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
         registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlocksWith(ILikeWoodBlockRegistry::registerStrippedPostBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
 

@@ -13,7 +13,7 @@ import net.minecraftforge.forgespi.language.ModFileScanData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Type;
-import yamahari.ilikewood.provider.ILikeWoodBlockStateProvider;
+import yamahari.ilikewood.provider.*;
 import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
 import yamahari.ilikewood.proxy.IProxy;
@@ -79,7 +79,7 @@ public final class ILikeWood {
                 plugin.registerWoodenResources(WOODEN_RESOURCE_REGISTRY);
             }
         }
-
+        // TODO replace all Util.HAS_PLANKS with Util.HAS_PLANKS.and(Util.HAS_SLAB)
         ILikeWoodBlockRegistry.REGISTRY.register(modEventBus);
         ILikeWoodItemRegistry.REGISTRY.register(modEventBus);
         ILikeWoodTileEntityTypeRegistry.REGISTRY.register(modEventBus);
@@ -90,20 +90,20 @@ public final class ILikeWood {
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent event) {
         final DataGenerator generator = event.getGenerator();
-        /*if (event.includeServer()) {
+        if (event.includeServer()) {
             generator.addProvider(new ILikeWoodRecipeProvider(generator));
             generator.addProvider(new ILikeWoodLootTableProvider(generator));
             final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator);
             generator.addProvider(blockTagsProvider);
             generator.addProvider(new ILikeWoodItemTagsProvider(generator, blockTagsProvider));
-        }*/
+        }
 
         if (event.includeClient()) {
             final ExistingFileHelper helper = event.getExistingFileHelper();
 
             generator.addProvider(new ILikeWoodBlockStateProvider(generator, helper));
-            //generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
-            //generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
+            generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
+            generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
         }
     }
 

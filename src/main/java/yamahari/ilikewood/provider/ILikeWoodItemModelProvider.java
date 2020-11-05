@@ -1,42 +1,59 @@
 package yamahari.ilikewood.provider;
 
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelBuilder;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.block.WoodenBedBlock;
+import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
+import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
+import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.IWooden;
+import yamahari.ilikewood.util.Util;
+import yamahari.ilikewood.util.WoodenObjectType;
+
+import java.util.Objects;
+import java.util.stream.IntStream;
 
 public final class ILikeWoodItemModelProvider extends ItemModelProvider {
     public ILikeWoodItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
         super(generator, Constants.MOD_ID, helper);
     }
 
-    /*private void blockItem(final Block block, final String path) {
-        final String woodType = ((IWooden) block).getWoodType().toString();
+    private void blockItem(final Block block, final String path) {
+        final String woodType = ((IWooden) block).getWoodType().getName();
         this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null.").getPath())
                 .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, woodType))));
     }
 
     private void tieredItem(final Item item, final String path) {
-        final String woodType = ((IWooden) item).getWoodType().toString();
-        final String tier = ((IWoodenTieredItem) item).getWoodenItemTier().toString();
+        final String woodType = ((IWooden) item).getWoodType().getName();
+        final IWoodenItemTier itemTier = ((IWoodenTieredItem) item).getWoodenItemTier();
+        final String tier = itemTier.getName();
         final boolean isWood = ((IWoodenTieredItem) item).getWoodenItemTier().isWood();
         this.withExistingParent(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")))
-                .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), path + (tier.equals(WoodenItemTier.NETHERITE.toString()) ? "/netherite" : ""), woodType)))
+                .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), path + (itemTier.equals(VanillaWoodenItemTiers.NETHERITE) ? "/netherite" : ""), woodType)))
                 .texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/wooden" : ""), tier)));
-    }*/
+    }
 
     @Override
     protected void registerModels() {
-        /*WoodenBlocks.getBlocks(WoodenObjectType.PANELS).forEach(block -> this.blockItem(block, WoodenObjectType.PANELS.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.STAIRS).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString())));
-        WoodenBlocks.getBlocks(WoodenObjectType.SLAB).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString())));
-        WoodenBlocks.getBlocks(WoodenObjectType.BARREL).forEach(block -> this.blockItem(block, WoodenObjectType.BARREL.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.BOOKSHELF).forEach(block -> this.blockItem(block, WoodenObjectType.BOOKSHELF.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.CHEST).forEach(block -> {
+        Util.getBlocksWith(WoodenObjectType.PANELS, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, WoodenObjectType.PANELS.toString()));
+        Util.getBlocksWith(WoodenObjectType.STAIRS, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.STAIRS.toString())));
+        Util.getBlocksWith(WoodenObjectType.SLAB, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.PANELS.toString(), WoodenObjectType.SLAB.toString())));
+        Util.getBlocksWith(WoodenObjectType.BARREL, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, WoodenObjectType.BARREL.toString()));
+        Util.getBlocksWith(WoodenObjectType.BOOKSHELF, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, WoodenObjectType.BOOKSHELF.toString()));
+        Util.getBlocksWith(WoodenObjectType.CHEST, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> {
             final IWoodType woodType = ((IWooden) block).getWoodType();
             this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath("builtin", "entity"))))
-                    .texture("particle", Util.getPlanks(woodType))
+                    .texture("particle", ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture())
                     .transforms()
                     .transform(ModelBuilder.Perspective.GUI)
                     .rotation(30, 45, 0)
@@ -65,26 +82,26 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                     .end()
                     .end();
         });
-        WoodenBlocks.getBlocks(WoodenObjectType.COMPOSTER).forEach(block -> this.blockItem(block, WoodenObjectType.COMPOSTER.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.WALL).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.WALL.toString(), "inventory")));
-        WoodenBlocks.getBlocks(WoodenObjectType.LADDER).forEach(block -> {
-            final String woodType = ((IWooden) block).getWoodType().toString();
+        Util.getBlocksWith(WoodenObjectType.COMPOSTER, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, WoodenObjectType.COMPOSTER.toString()));
+        Util.getBlocksWith(WoodenObjectType.WALL, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.WALL.toString(), "inventory")));
+        Util.getBlocksWith(WoodenObjectType.LADDER, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> {
+            final String woodType = ((IWooden) block).getWoodType().getName();
             this.getBuilder(Objects.requireNonNull(block.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(BLOCK_FOLDER, WoodenObjectType.LADDER.toString(), woodType)));
         });
-        WoodenBlocks.getBlocks(WoodenObjectType.TORCH).forEach(block -> this.blockItem(block, WoodenObjectType.TORCH.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> this.blockItem(block, WoodenObjectType.CRAFTING_TABLE.toString()));
-        WoodenBlocks.getBlocks(WoodenObjectType.SCAFFOLDING).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.SCAFFOLDING.toString(), "stable")));
-        WoodenBlocks.getBlocks(WoodenObjectType.LECTERN).forEach(block -> this.blockItem(block, WoodenObjectType.LECTERN.toString()));
+        Util.getBlocksWith(WoodenObjectType.TORCH, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, WoodenObjectType.TORCH.toString()));
+        Util.getBlocksWith(WoodenObjectType.CRAFTING_TABLE, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, WoodenObjectType.CRAFTING_TABLE.toString()));
+        Util.getBlocksWith(WoodenObjectType.SCAFFOLDING, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.SCAFFOLDING.toString(), "stable")));
+        Util.getBlocksWith(WoodenObjectType.LECTERN, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, WoodenObjectType.LECTERN.toString()));
 
-        WoodenItems.getItems(WoodenObjectType.STICK).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().toString()))));
-        WoodenItems.getTieredItems(WoodenTieredObjectType.values()).forEach(item -> this.tieredItem(item, ((IWoodenTieredItem) item).getWoodenTieredObjectType().toString()));
+        Util.getItemsWith(WoodenObjectType.STICK, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(item -> this.singleTexture(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.STICK.toString(), ((IWooden) item).getWoodType().getName()))));
+        Util.getTieredItemsWith(Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(item -> this.tieredItem(item, ((IWoodenTieredItem) item).getWoodenTieredObjectType().toString()));
 
-        WoodenBlocks.getBlocks(WoodenObjectType.POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "inventory")));
-        WoodenBlocks.getBlocks(WoodenObjectType.STRIPPED_POST).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "stripped", "inventory")));
-        WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
-            final String woodType = ((IWooden) item).getWoodType().toString();
+        Util.getBlocksWith(WoodenObjectType.POST, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "inventory")));
+        Util.getBlocksWith(WoodenObjectType.STRIPPED_POST, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.POST.toString(), "stripped", "inventory")));
+        Util.getItemsWith(WoodenObjectType.BOW, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(item -> {
+            final String woodType = ((IWooden) item).getWoodType().getName();
             this.getBuilder(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.BOW.toString(), woodType)))
@@ -131,8 +148,8 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
 
         });
 
-        WoodenItems.getItems(WoodenObjectType.CROSSBOW).forEach(item -> {
-            final String woodType = ((IWooden) item).getWoodType().toString();
+        Util.getItemsWith(WoodenObjectType.CROSSBOW, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(item -> {
+            final String woodType = ((IWooden) item).getWoodType().getName();
             this.getBuilder(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath())
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.CROSSBOW.toString(), "standby", woodType)))
@@ -195,13 +212,13 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                     .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.CROSSBOW.toString(), "firework", woodType)));
         });
 
-        WoodenItems.getItems(WoodenObjectType.ITEM_FRAME).forEach(item -> {
+        Util.getItemsWith(WoodenObjectType.ITEM_FRAME, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(item -> {
             final IWoodType woodType = ((IWooden) item).getWoodType();
-            this.getBuilder(Util.toRegistryName(woodType.toString(), WoodenObjectType.ITEM_FRAME.toString()))
+            this.getBuilder(Util.toRegistryName(woodType.getName(), WoodenObjectType.ITEM_FRAME.toString()))
                     .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
-                    .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.toString())));
+                    .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.ITEM_FRAME.toString(), woodType.getName())));
         });
 
-        WoodenBlocks.getBedBlocks().forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.BED.toString(), "inventory", ((WoodenBedBlock) block).getDyeColor().toString())));*/
+        Util.getBedBlocksWith(Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.BED.toString(), "inventory", ((WoodenBedBlock) block).getDyeColor().toString())));
     }
 }
