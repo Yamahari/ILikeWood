@@ -96,6 +96,11 @@ minecraft {
                 }
             }
         }
+
+        dataBoP {
+            parent data
+            property 'ilikewood.datagen.modid', 'biomesoplenty'
+        }
     }
 }
 
