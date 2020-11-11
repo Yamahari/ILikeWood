@@ -7,6 +7,8 @@ import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTierRegistry;
 import yamahari.ilikewood.registry.woodtype.IWoodTypeRegistry;
 import yamahari.ilikewood.util.Constants;
 
+// TODO move to separate mod
+
 @ILikeWoodPlugin
 public final class BiomesOPlentyPlugin implements IModPlugin {
     @Override
