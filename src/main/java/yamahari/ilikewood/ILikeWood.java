@@ -132,8 +132,8 @@ public final class ILikeWood {
         private final List<IWoodenItemTier> woodenItemTiers = new ArrayList<>();
 
         @Override
-        public void register(final IWoodenItemTier itemTier) {
-            this.woodenItemTiers.add(itemTier);
+        public void register(final IWoodenItemTier woodenItemTier) {
+            this.woodenItemTiers.add(woodenItemTier);
         }
 
         public Stream<IWoodenItemTier> getWoodenItemTiers() {

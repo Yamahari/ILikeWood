@@ -8,7 +8,7 @@ public interface IWoodType {
 
     String getName();
 
-    Properties getProperties(final WoodenObjectType objectType);
+    Properties getProperties(final WoodenObjectType woodenObjectType);
 
     default float getEnchantingPowerBonus() {
         return 1.F;

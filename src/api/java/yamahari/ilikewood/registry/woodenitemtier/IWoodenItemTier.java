@@ -13,7 +13,7 @@ public interface IWoodenItemTier extends IItemTier, IWooden {
         return true;
     }
 
-    Properties getProperties(final WoodenTieredObjectType tieredObjectType);
+    Properties getProperties(final WoodenTieredObjectType woodenTieredObjectType);
 
     final class Properties {
         private final float attackSpeed;

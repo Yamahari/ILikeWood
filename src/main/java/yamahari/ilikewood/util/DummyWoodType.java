@@ -18,7 +18,7 @@ public class DummyWoodType implements IWoodType {
     }
 
     @Override
-    public Properties getProperties(final WoodenObjectType objectType) {
+    public Properties getProperties(final WoodenObjectType woodenObjectType) {
         return this.properties;
     }
 

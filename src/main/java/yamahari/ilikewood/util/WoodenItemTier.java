@@ -239,8 +239,8 @@ public final class WoodenItemTier implements IWoodenItemTier {
     }
 
     @Override
-    public Properties getProperties(final WoodenTieredObjectType tieredObjectType) {
-        assert this.properties.containsKey(tieredObjectType);
-        return properties.get(tieredObjectType);
+    public Properties getProperties(final WoodenTieredObjectType woodenTieredObjectType) {
+        assert this.properties.containsKey(woodenTieredObjectType);
+        return properties.get(woodenTieredObjectType);
     }
 }
