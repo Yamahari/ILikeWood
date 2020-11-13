@@ -1,10 +1,10 @@
-modLoader="javafml" #mandatory
-loaderVersion="[33,)" #mandatory (28 is current forge version)
-issueTrackerURL="https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
-license="MIT"
+modLoader = "javafml" #mandatory
+loaderVersion = "[35,)" #mandatory
+issueTrackerURL = "https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
+license = "MIT"
 [[mods]] #mandatory
 modId = "ilikewood" #mandatory
-version = "1.16.3-4.1.0.0" #mandatory
+version = "1.16.4-5.0.0.0" #mandatory
 displayName = "I Like Wood" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/i-like-wood" #optional
@@ -19,13 +19,13 @@ It also adds a new wood related blocks.
 # the modid of the dependency
 modId = "forge" #mandatory
 mandatory = true #mandatory
-versionRange = "[34,)" #mandatory
+versionRange = "[35,)" #mandatory
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ilikewood]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.16.3]"
+versionRange = "[1.16.4, 1.17)"
 ordering = "NONE"
 side = "BOTH"

@@ -14,7 +14,7 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
-version = '1.16.3-4.1.0.0'
+version = '1.16.4-5.0.0.0'
 group = 'yamahari.ilikewood'
 archivesBaseName = 'ilikewood'
 
@@ -54,7 +54,7 @@ configurations {
 }
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200916-1.16.2'
+    mappings channel: 'snapshot', version: '20201028-1.16.3'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -121,13 +121,13 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.1.0'
+    minecraft 'net.minecraftforge:forge:1.16.4-35.0.15'
 
-    compileOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.3-12.0.0.400:api')
-    runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.3-12.0.0.400:universal')
+    compileOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.4-13.0.0.420:api')
+    runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.4-13.0.0.420:universal')
 
-    compileOnly fg.deobf('mezz.jei:jei-1.16.3:7.+:api')
-    runtimeOnly fg.deobf('mezz.jei:jei-1.16.3:7.+')
+    compileOnly fg.deobf('mezz.jei:jei-1.16.4:7.+:api')
+    runtimeOnly fg.deobf('mezz.jei:jei-1.16.4:7.+')
 
     implementation sourceSets.api.output
 }
@@ -146,7 +146,7 @@ jar {
                 "Specification-Vendor"    : "yamahari",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : "ilikewood",
-                "Implementation-Version"  : "1.16.3-4.1.0.0",
+                "Implementation-Version"  : "1.16.4-5.0.0.0",
                 "Implementation-Vendor"   : "yamahari",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
@@ -158,8 +158,4 @@ task apiJar(type: Jar) {
     from sourceSets.api.output
 }
 
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
-}
+jar.finalizedBy('reobfJar')
