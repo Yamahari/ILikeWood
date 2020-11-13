@@ -38,7 +38,7 @@ public final class ILikeWoodBlockRegistry {
         ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
                 .filter(Util.HAS_PLANKS)
                 .forEach(woodType -> {
-                    final AbstractBlock.Properties properties = woodType.getPanelProperties();
+                    final AbstractBlock.Properties properties = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getProperties();
                     final RegistryObject<Block> panel = panels.computeIfAbsent(woodType, w -> registerPanelsBlock(w, properties));
                     panelsStairs.put(woodType, registerPanelsStairsBlock(woodType, panel, properties));
                     panelsSlab.put(woodType, registerPanelsSlabBlock(woodType, properties));

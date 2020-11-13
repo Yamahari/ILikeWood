@@ -1,6 +1,5 @@
 package yamahari.ilikewood.registry.woodtype;
 
-import net.minecraft.block.AbstractBlock;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 public interface IWoodType {
@@ -13,8 +12,6 @@ public interface IWoodType {
     default float getEnchantingPowerBonus() {
         return 1.F;
     }
-
-    AbstractBlock.Properties getPanelProperties();
 
     final class Properties {
         private final int burnTime;

@@ -1,5 +1,8 @@
 package yamahari.ilikewood.plugin.vanilla;
 
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
@@ -27,6 +30,17 @@ public final class VanillaWoodenResources {
         return woodType.equals(VanillaWoodTypes.CRIMSON) || woodType.equals(VanillaWoodTypes.WARPED) ? "stem" : "log";
     }
 
+    private static final Map<IWoodType, AbstractBlock.Properties> PLANKS_PROPERTIES = new ImmutableMap.Builder<IWoodType, AbstractBlock.Properties>()
+            .put(VanillaWoodTypes.ACACIA, AbstractBlock.Properties.from(Blocks.ACACIA_PLANKS))
+            .put(VanillaWoodTypes.BIRCH, AbstractBlock.Properties.from(Blocks.BIRCH_PLANKS))
+            .put(VanillaWoodTypes.CRIMSON, AbstractBlock.Properties.from(Blocks.CRIMSON_PLANKS))
+            .put(VanillaWoodTypes.DARK_OAK, AbstractBlock.Properties.from(Blocks.DARK_OAK_PLANKS))
+            .put(VanillaWoodTypes.JUNGLE, AbstractBlock.Properties.from(Blocks.JUNGLE_PLANKS))
+            .put(VanillaWoodTypes.OAK, AbstractBlock.Properties.from(Blocks.OAK_PLANKS))
+            .put(VanillaWoodTypes.SPRUCE, AbstractBlock.Properties.from(Blocks.SPRUCE_PLANKS))
+            .put(VanillaWoodTypes.WARPED, AbstractBlock.Properties.from(Blocks.WARPED_PLANKS))
+            .build();
+
     static {
         final Map<IWoodType, IWoodenPlanksResource> planks = new HashMap<>();
         final Map<IWoodType, IWoodenLogResource> logs = new HashMap<>();
@@ -42,7 +56,7 @@ public final class VanillaWoodenResources {
 
             final ResourceLocation planksTexture = new ResourceLocation(planksResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, planksResource.getPath()));
 
-            planks.put(woodType, new WoodenPlanksResource(planksTexture, planksResource));
+            planks.put(woodType, new WoodenPlanksResource(planksTexture, planksResource, PLANKS_PROPERTIES.get(woodType)));
 
             logs.put(woodType, new WoodenLogResource(
                     new ResourceLocation(logResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(logResource.getPath(), "top"))),

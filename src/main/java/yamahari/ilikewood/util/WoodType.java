@@ -1,6 +1,5 @@
 package yamahari.ilikewood.util;
 
-import net.minecraft.block.AbstractBlock;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.util.Collections;
@@ -11,14 +10,13 @@ import java.util.stream.Stream;
 public class WoodType implements IWoodType {
     private final String modId;
     private final String name;
-    private final AbstractBlock.Properties panelProperties;
     private final Map<WoodenObjectType, Properties> properties;
 
-    public WoodType(final String name, final AbstractBlock.Properties panelProperties) {
-        this(Constants.MOD_ID, name, panelProperties);
+    public WoodType(final String name) {
+        this(Constants.MOD_ID, name);
     }
 
-    public WoodType(final String modId, final String name, final AbstractBlock.Properties panelProperties) {
+    public WoodType(final String modId, final String name) {
         this.modId = modId;
         this.name = name;
 
@@ -40,12 +38,6 @@ public class WoodType implements IWoodType {
                 .forEach(woodenObjectType -> properties.put(woodenObjectType, new Properties(150)));
 
         this.properties = Collections.unmodifiableMap(properties);
-        this.panelProperties = panelProperties;
-    }
-
-    @Override
-    public AbstractBlock.Properties getPanelProperties() {
-        return this.panelProperties;
     }
 
     @Override

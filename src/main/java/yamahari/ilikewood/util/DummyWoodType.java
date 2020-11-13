@@ -1,7 +1,5 @@
 package yamahari.ilikewood.util;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Blocks;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 public class DummyWoodType implements IWoodType {
@@ -20,10 +18,5 @@ public class DummyWoodType implements IWoodType {
     @Override
     public Properties getProperties(final WoodenObjectType woodenObjectType) {
         return this.properties;
-    }
-
-    @Override
-    public AbstractBlock.Properties getPanelProperties() {
-        return AbstractBlock.Properties.from(Blocks.AIR);
     }
 }

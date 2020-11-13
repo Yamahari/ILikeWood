@@ -1,5 +1,10 @@
 package yamahari.ilikewood.plugin.biomesoplenty;
 
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
@@ -24,6 +29,20 @@ public final class BiomesOPlentyWoodenResources {
     public static final Map<IWoodType, IWoodenStrippedLogResource> STRIPPED_LOGS;
     public static final Map<IWoodType, IWoodenSlabResource> SLABS;
 
+    private static final Map<IWoodType, AbstractBlock.Properties> PLANKS_PROPERTIES = new ImmutableMap.Builder<IWoodType, AbstractBlock.Properties>()
+            .put(BiomesOPlentyWoodTypes.CHERRY, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.RED).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.DEAD, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.STONE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.FIR, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.HELLBARK, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GRAY_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.JACARANDA, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.MAGIC, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BLUE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.MAHOGANY, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.PINK_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.PALM, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.YELLOW_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.REDWOOD, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.UMBRAN, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BLUE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .put(BiomesOPlentyWoodTypes.WILLOW, AbstractBlock.Properties.create(Material.WOOD, MaterialColor.LIME_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
+            .build();
+
     static {
         final Map<IWoodType, IWoodenPlanksResource> planks = new HashMap<>();
         final Map<IWoodType, IWoodenLogResource> logs = new HashMap<>();
@@ -38,7 +57,7 @@ public final class BiomesOPlentyWoodenResources {
 
             final ResourceLocation planksTexture = new ResourceLocation(planksResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, planksResource.getPath()));
 
-            planks.put(woodType, new WoodenPlanksResource(planksTexture, planksResource));
+            planks.put(woodType, new WoodenPlanksResource(planksTexture, planksResource, PLANKS_PROPERTIES.get(woodType)));
 
             logs.put(woodType, new WoodenLogResource(
                     new ResourceLocation(logResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(logResource.getPath(), "top"))),
