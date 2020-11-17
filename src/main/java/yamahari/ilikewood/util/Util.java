@@ -1,8 +1,6 @@
 package yamahari.ilikewood.util;
 
-import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.IItemProvider;
 import org.apache.commons.lang3.StringUtils;
@@ -61,22 +59,5 @@ public final class Util {
             ILikeWood.LOGGER.error(e.getMessage());
         }
         return null;
-    }
-
-    public static IItemProvider getIngredient(final IWoodType woodType, final String name) {
-        final IItemProvider ingredient;
-        switch (woodType.getModId()) {
-            case Constants.MOD_ID:
-                ingredient = getIngredient(Util.toRegistryName(woodType.toString().toUpperCase(), name.toUpperCase()), Blocks.class);
-                break;
-            case Constants.BOP_MOD_ID:
-                ingredient = getIngredient(Util.toRegistryName(woodType.toString(), name), BOPBlocks.class);
-                break;
-            default:
-                ingredient = null;
-                break;
-        }
-        assert ingredient != null;
-        return ingredient;
     }
 }
