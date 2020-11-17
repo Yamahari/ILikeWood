@@ -23,7 +23,9 @@ public final class Atlases {
 
     static {
         final Map<IWoodType, Map<ChestType, RenderMaterial>> chests = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
+                .filter(Util.HAS_PLANKS.and(Util.HAS_SLAB))
+                .forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
         CHESTS = Collections.unmodifiableMap(chests);
     }
 

@@ -1,6 +1,7 @@
 package yamahari.ilikewood.client.tileentity;
 
 import net.minecraft.block.BarrelBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.BarrelTileEntity;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -10,32 +11,22 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.block.WoodenBarrelBlock;
-import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodenObjectType;
 
-public final class WoodenBarrelTileEntity extends BarrelTileEntity implements IWooden {
-    private final IWoodType woodType;
-    private final TranslationTextComponent defaultName;
-
-    public WoodenBarrelTileEntity(final IWoodType woodType, final TileEntityType<?> type) {
+public final class WoodenBarrelTileEntity extends BarrelTileEntity {
+    public WoodenBarrelTileEntity(final TileEntityType<?> type) {
         super(type);
-        this.woodType = woodType;
-        this.defaultName = new TranslationTextComponent(
-                StringUtils.joinWith(".", "container", Constants.MOD_ID,
-                        this.getWoodType().toString() + "_" + WoodenObjectType.BARREL.toString()));
     }
 
-    @Override
-    public IWoodType getWoodType() {
-        return this.woodType;
-    }
-
-    @SuppressWarnings("NullableProblems")
     @Override
     protected ITextComponent getDefaultName() {
-        return this.defaultName;
+        final Block block = this.getBlockState().getBlock();
+        if (block instanceof WoodenBarrelBlock) {
+            final String path = block.getRegistryName().getPath();
+            return new TranslationTextComponent(
+                    StringUtils.joinWith(".", "container", Constants.MOD_ID, path));
+        }
+        return super.getDefaultName();
     }
 
     @Override

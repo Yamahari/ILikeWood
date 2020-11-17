@@ -28,11 +28,13 @@ public final class SpecialModels {
         final Map<IWoodType, ResourceLocation> itemFrameModels = new HashMap<>();
         final Map<IWoodType, ResourceLocation> itemFrameMapModels = new HashMap<>();
 
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
-            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
-            itemFrameModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName())));
-            itemFrameMapModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getName())));
-        });
+        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
+                .filter(Util.HAS_PLANKS.and(Util.HAS_SLAB))
+                .forEach(woodType -> {
+                    final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
+                    itemFrameModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName())));
+                    itemFrameMapModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getName())));
+                });
 
         ITEM_FRAME_MODELS = Collections.unmodifiableMap(itemFrameModels);
         ITEM_FRAME_MAP_MODELS = Collections.unmodifiableMap(itemFrameMapModels);

@@ -8,10 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.LazyValue;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -19,24 +17,23 @@ import net.minecraft.world.World;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodenObjectType;
-
-import javax.annotation.Nullable;
 
 public final class WoodenLecternBlock extends LecternBlock implements IWooden {
     private final IWoodType woodType;
-    private final LazyValue<TileEntityType<?>> tileEntityType;
 
     public WoodenLecternBlock(final IWoodType woodType) {
         super(Block.Properties.from(Blocks.LECTERN));
         this.woodType = woodType;
-        this.tileEntityType = new LazyValue<>(WoodenTileEntityTypes.getRegistryObject(WoodenObjectType.LECTERN, woodType));
     }
 
-    @Nullable
     @Override
-    public TileEntity createNewTileEntity(@SuppressWarnings("NullableProblems") final IBlockReader reader) {
-        return this.tileEntityType.getValue().create();
+    public boolean hasTileEntity(final BlockState state) {
+        return true;
+    }
+
+    @Override
+    public TileEntity createTileEntity(final BlockState state, final IBlockReader world) {
+        return WoodenTileEntityTypes.WOODEN_LECTERN.get().create();
     }
 
     @SuppressWarnings("NullableProblems")

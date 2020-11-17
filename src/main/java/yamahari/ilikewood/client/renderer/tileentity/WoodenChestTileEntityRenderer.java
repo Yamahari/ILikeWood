@@ -1,30 +1,31 @@
 package yamahari.ilikewood.client.renderer.tileentity;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.state.properties.ChestType;
-import net.minecraft.tileentity.TileEntity;
+import yamahari.ilikewood.block.WoodenChestBlock;
 import yamahari.ilikewood.client.Atlases;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
+import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 
-import java.util.Map;
-
-public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer {
-    private Map<ChestType, RenderMaterial> materials;
-
+public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer<WoodenChestTileEntity> {
     public WoodenChestTileEntityRenderer(final TileEntityRendererDispatcher dispatcher) {
         super(dispatcher);
-        this.materials = null;
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected RenderMaterial getMaterial(final TileEntity tileEntity, final ChestType chestType) {
-        if (this.materials == null) {
-            this.materials = Atlases.getChestMaterials(((WoodenChestTileEntity) tileEntity).getWoodType());
+    protected RenderMaterial getMaterial(final WoodenChestTileEntity woodenChestTileEntity, final ChestType chestType) {
+        final IWoodType woodType;
+        if (woodenChestTileEntity.hasWorld()) {
+            final Block block = woodenChestTileEntity.getBlockState().getBlock();
+            woodType = block instanceof WoodenChestBlock ? ((WoodenChestBlock) block).getWoodType() : VanillaWoodTypes.DUMMY;
+        } else {
+            woodType = woodenChestTileEntity.getWoodType();
         }
-        assert this.materials != null;
-        return this.materials.get(chestType);
+        return Atlases.getChestMaterials(!woodType.equals(VanillaWoodTypes.DUMMY) ? woodType : VanillaWoodTypes.OAK).get(chestType);
     }
 }

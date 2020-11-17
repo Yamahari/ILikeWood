@@ -21,6 +21,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
+import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.*;
 import yamahari.ilikewood.util.WoodenObjectType;
@@ -29,11 +30,8 @@ public final class ClientProxy implements IProxy {
     @SuppressWarnings("unchecked")
     @Override
     public void onFMLClientSetup(final FMLClientSetupEvent event) {
-        WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.CHEST)
-                .forEach(type -> ClientRegistry.bindTileEntityRenderer(type, WoodenChestTileEntityRenderer::new));
-
-        WoodenTileEntityTypes.getTileEntityTypes(WoodenObjectType.LECTERN)
-                .forEach(type -> ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) type, LecternTileEntityRenderer::new));
+        ClientRegistry.bindTileEntityRenderer((TileEntityType<WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get(), WoodenChestTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) WoodenTileEntityTypes.WOODEN_LECTERN.get(), LecternTileEntityRenderer::new);
 
         WoodenEntityTypes.getEntityTypes(WoodenObjectType.ITEM_FRAME)
                 .forEach(type -> RenderingRegistry.registerEntityRenderingHandler((EntityType<WoodenItemFrameEntity>) type,

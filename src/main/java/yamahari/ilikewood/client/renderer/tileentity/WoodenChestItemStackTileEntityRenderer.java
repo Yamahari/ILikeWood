@@ -11,20 +11,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import yamahari.ilikewood.block.WoodenChestBlock;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
+import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 
 public final class WoodenChestItemStackTileEntityRenderer extends ItemStackTileEntityRenderer {
     private WoodenChestTileEntity chestTileEntity = null;
 
-    @Override //was named render
+    @Override
     public void func_239207_a_(final ItemStack itemStack, @SuppressWarnings("NullableProblems") final ItemCameraTransforms.TransformType transformType, @SuppressWarnings("NullableProblems") final MatrixStack matrixStack, @SuppressWarnings("NullableProblems") final IRenderTypeBuffer buffer, final int combinedLight, final int combinedOverlay) {
         final Item item = itemStack.getItem();
         if (item instanceof BlockItem) {
             final Block block = ((BlockItem) item).getBlock();
             if (block instanceof WoodenChestBlock) {
                 if (this.chestTileEntity == null) {
-                    this.chestTileEntity = (WoodenChestTileEntity) ((WoodenChestBlock) block).getTileEntityType().create();
+                    this.chestTileEntity = new WoodenChestTileEntity(((WoodenChestBlock) block).getWoodType(), WoodenTileEntityTypes.WOODEN_CHEST.get());
                 }
-                assert chestTileEntity != null;
                 TileEntityRendererDispatcher.instance.renderItem(this.chestTileEntity, matrixStack, buffer, combinedLight, combinedOverlay);
             }
         }
