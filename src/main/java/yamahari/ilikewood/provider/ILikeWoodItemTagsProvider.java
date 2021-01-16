@@ -4,14 +4,17 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.registry.WoodenItems;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.WoodenObjectType;
 import yamahari.ilikewood.util.WoodenTieredObjectType;
 
 public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
-    public ILikeWoodItemTagsProvider(final DataGenerator generator, ILikeWoodBlockTagsProvider blockTagsProvider) {
-        super(generator, blockTagsProvider);
+    public ILikeWoodItemTagsProvider(final DataGenerator generator, final ILikeWoodBlockTagsProvider blockTagsProvider,
+                                     final ExistingFileHelper existingFileHelper) {
+        super(generator, blockTagsProvider, Constants.MOD_ID, existingFileHelper);
     }
 
     private void registerTag(final ITag.INamedTag<Item> tag, final WoodenObjectType objectType) {

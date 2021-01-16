@@ -14,19 +14,18 @@ public final class GatherDataEventHandler {
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent event) {
         final DataGenerator generator = event.getGenerator();
+        final ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         if (event.includeServer()) {
             generator.addProvider(new ILikeWoodRecipeProvider(generator));
             generator.addProvider(new ILikeWoodLootTableProvider(generator));
-            final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator);
+            final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator, existingFileHelper);
             generator.addProvider(blockTagsProvider);
-            generator.addProvider(new ILikeWoodItemTagsProvider(generator, blockTagsProvider));
+            generator.addProvider(new ILikeWoodItemTagsProvider(generator, blockTagsProvider, existingFileHelper));
         }
 
         if (event.includeClient()) {
-            final ExistingFileHelper helper = event.getExistingFileHelper();
-
-            generator.addProvider(new ILikeWoodBlockStateProvider(generator, helper));
-            generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
+            generator.addProvider(new ILikeWoodBlockStateProvider(generator, existingFileHelper));
+            generator.addProvider(new ILikeWoodItemModelProvider(generator, existingFileHelper));
             generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
         }
     }
