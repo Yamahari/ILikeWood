@@ -123,8 +123,8 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.4-35.0.15'
 
-    compileOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.4-13.0.0.420:api')
-    runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.4-13.0.0.420:universal')
+    //compileOnly fg.deobf('com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.16.4-13.0.0.420:api')
+    //runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.4-13.0.0.420:universal')
 
     compileOnly fg.deobf('mezz.jei:jei-1.16.4:7.+:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.16.4:7.+')
@@ -144,7 +144,7 @@ jar {
         attributes([
                 "Specification-Title"     : "ilikewood",
                 "Specification-Vendor"    : "yamahari",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Version"   : "1.16.4-5.0.0.0",
                 "Implementation-Title"    : "ilikewood",
                 "Implementation-Version"  : "1.16.4-5.0.0.0",
                 "Implementation-Vendor"   : "yamahari",
