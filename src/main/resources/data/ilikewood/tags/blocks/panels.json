@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:acacia_panels",
-    "ilikewood:birch_panels",
-    "ilikewood:crimson_panels",
-    "ilikewood:dark_oak_panels",
-    "ilikewood:jungle_panels",
     "ilikewood:oak_panels",
+    "ilikewood:dark_oak_panels",
+    "ilikewood:acacia_panels",
+    "ilikewood:warped_panels",
     "ilikewood:spruce_panels",
-    "ilikewood:warped_panels"
+    "ilikewood:birch_panels",
+    "ilikewood:jungle_panels",
+    "ilikewood:crimson_panels"
   ]
 }

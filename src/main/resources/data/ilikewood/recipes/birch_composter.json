@@ -2,16 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "group": "composter",
   "pattern": [
-    "F F",
-    "F F",
+    "# #",
+    "# #",
     "###"
   ],
   "key": {
     "#": {
-      "item": "ilikewood:birch_panels"
-    },
-    "F": {
-      "item": "minecraft:birch_fence"
+      "item": "ilikewood:birch_panels_slab"
     }
   },
   "result": {

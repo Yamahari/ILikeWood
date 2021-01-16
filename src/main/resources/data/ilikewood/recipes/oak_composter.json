@@ -2,16 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "group": "composter",
   "pattern": [
-    "F F",
-    "F F",
+    "# #",
+    "# #",
     "###"
   ],
   "key": {
     "#": {
-      "item": "ilikewood:oak_panels"
-    },
-    "F": {
-      "item": "minecraft:oak_fence"
+      "item": "ilikewood:oak_panels_slab"
     }
   },
   "result": {

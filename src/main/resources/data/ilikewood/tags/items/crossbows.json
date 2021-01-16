@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
+    "ilikewood:dark_oak_crossbow",
+    "ilikewood:oak_crossbow",
     "ilikewood:acacia_crossbow",
+    "ilikewood:spruce_crossbow",
+    "ilikewood:warped_crossbow",
     "ilikewood:birch_crossbow",
     "ilikewood:crimson_crossbow",
-    "ilikewood:dark_oak_crossbow",
-    "ilikewood:jungle_crossbow",
-    "ilikewood:oak_crossbow",
-    "ilikewood:spruce_crossbow",
-    "ilikewood:warped_crossbow"
+    "ilikewood:jungle_crossbow"
   ]
 }

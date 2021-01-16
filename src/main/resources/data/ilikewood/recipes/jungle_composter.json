@@ -2,16 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "group": "composter",
   "pattern": [
-    "F F",
-    "F F",
+    "# #",
+    "# #",
     "###"
   ],
   "key": {
     "#": {
-      "item": "ilikewood:jungle_panels"
-    },
-    "F": {
-      "item": "minecraft:jungle_fence"
+      "item": "ilikewood:jungle_panels_slab"
     }
   },
   "result": {
