@@ -1,10 +1,10 @@
 modLoader = "javafml" #mandatory
-loaderVersion = "[35,)" #mandatory
+loaderVersion = "[36,)" #mandatory
 issueTrackerURL = "https://github.com/Yamahari/ILikeWood-1.15/issues" #optional
 license = "MIT"
 [[mods]] #mandatory
 modId = "ilikewood" #mandatory
-version = "1.16.4-5.0.0.0" #mandatory
+version = "1.16.5-6.0.0.0" #mandatory
 displayName = "I Like Wood" #mandatory
 #updateJSONURL="http://myurl.me/" #optional
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/i-like-wood" #optional
@@ -26,6 +26,6 @@ side = "BOTH"
 [[dependencies.ilikewood]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.16.4, 1.17)"
+versionRange = "[1.16.5, 1.17)"
 ordering = "NONE"
 side = "BOTH"
