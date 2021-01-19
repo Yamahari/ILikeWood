@@ -28,7 +28,7 @@ public final class WoodenCraftingTableBlock extends CraftingTableBlock implement
         this.woodType = type;
         this.defaultName = new TranslationTextComponent(
                 StringUtils.joinWith(".", "container", Constants.MOD_ID,
-                        Util.toRegistryName(this.getWoodType().toString(), WoodenObjectType.CRAFTING_TABLE.toString())));
+                        Util.toRegistryName(this.getWoodType().getName(), WoodenObjectType.CRAFTING_TABLE.toString())));
     }
 
     @SuppressWarnings("NullableProblems")
