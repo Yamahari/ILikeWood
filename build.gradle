@@ -14,7 +14,7 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
-version = '1.16.5-6.0.0.0'
+version = '1.16.5-6.1.1.0'
 group = 'yamahari.ilikewood'
 archivesBaseName = 'ilikewood'
 
@@ -141,9 +141,9 @@ jar {
         attributes([
                 "Specification-Title"     : "ilikewood",
                 "Specification-Vendor"    : "yamahari",
-                "Specification-Version"   : "1.16.5-6.0.0.0",
+                "Specification-Version"   : "1.16.5-6.1.1.0",
                 "Implementation-Title"    : "ilikewood",
-                "Implementation-Version"  : "1.16.5-6.0.0.0",
+                "Implementation-Version"  : "1.16.5-6.1.1.0",
                 "Implementation-Vendor"   : "yamahari",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
