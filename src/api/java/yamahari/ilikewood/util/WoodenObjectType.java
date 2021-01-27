@@ -15,6 +15,7 @@ public enum WoodenObjectType {
     LOG_PILE("log_pile"),
     PANELS("panels"),
     POST("post"),
+    SAWMILL("sawmill"),
     SCAFFOLDING("scaffolding"),
     SLAB("slab"),
     STAIRS("stairs"),
