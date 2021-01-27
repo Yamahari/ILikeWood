@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:warped_stem"
+  },
+  "result": "ilikewood:warped_wall",
+  "count": 1
+}

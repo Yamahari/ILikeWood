@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:acacia_planks"
+  },
+  "result": "ilikewood:acacia_panels",
+  "count": 1
+}

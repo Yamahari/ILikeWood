@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "ilikewood:warped_panels"
+  },
+  "result": "ilikewood:warped_stick",
+  "count": 2
+}

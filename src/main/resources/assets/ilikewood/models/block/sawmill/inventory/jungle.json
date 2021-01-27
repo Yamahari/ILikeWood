@@ -1,0 +1,10 @@
+{
+  "parent": "ilikewood:block/sawmill/inventory/template",
+  "textures": {
+    "log_end": "minecraft:block/jungle_log_top",
+    "log_side": "minecraft:block/jungle_log",
+    "stripped_log_side": "minecraft:block/stripped_jungle_log",
+    "planks": "minecraft:block/jungle_planks",
+    "log_pile": "ilikewood:block/log_pile/jungle"
+  }
+}

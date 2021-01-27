@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:crimson_planks"
+  },
+  "result": "ilikewood:crimson_panels_slab",
+  "count": 2
+}

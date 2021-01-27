@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/sawmill/bottom/left/template",
+  "textures": {
+    "log_end": "minecraft:block/dark_oak_log_top",
+    "log_side": "minecraft:block/dark_oak_log",
+    "stripped_log_side": "minecraft:block/stripped_dark_oak_log",
+    "log_pile": "ilikewood:block/log_pile/dark_oak"
+  }
+}

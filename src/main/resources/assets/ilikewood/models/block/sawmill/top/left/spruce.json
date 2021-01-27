@@ -1,0 +1,6 @@
+{
+  "parent": "ilikewood:block/sawmill/top/left/template",
+  "textures": {
+    "planks": "minecraft:block/spruce_planks"
+  }
+}

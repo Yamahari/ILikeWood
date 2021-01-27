@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:birch_log"
+  },
+  "result": "ilikewood:birch_wall",
+  "count": 1
+}

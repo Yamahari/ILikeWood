@@ -1,0 +1,9 @@
+{
+  "parent": "ilikewood:block/sawmill/bottom/left/template",
+  "textures": {
+    "log_end": "minecraft:block/warped_stem_top",
+    "log_side": "minecraft:block/warped_stem",
+    "stripped_log_side": "minecraft:block/stripped_warped_stem",
+    "log_pile": "ilikewood:block/log_pile/warped"
+  }
+}

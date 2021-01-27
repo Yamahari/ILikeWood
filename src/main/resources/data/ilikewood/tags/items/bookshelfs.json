@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:dark_oak_bookshelf",
-    "ilikewood:oak_bookshelf",
-    "ilikewood:acacia_bookshelf",
-    "ilikewood:spruce_bookshelf",
-    "ilikewood:warped_bookshelf",
-    "ilikewood:birch_bookshelf",
     "ilikewood:crimson_bookshelf",
-    "ilikewood:jungle_bookshelf"
+    "ilikewood:birch_bookshelf",
+    "ilikewood:jungle_bookshelf",
+    "ilikewood:oak_bookshelf",
+    "ilikewood:warped_bookshelf",
+    "ilikewood:spruce_bookshelf",
+    "ilikewood:acacia_bookshelf",
+    "ilikewood:dark_oak_bookshelf"
   ]
 }

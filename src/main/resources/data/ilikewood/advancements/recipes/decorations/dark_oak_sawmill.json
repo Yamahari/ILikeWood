@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:dark_oak_sawmill"
+    ]
+  },
+  "criteria": {
+    "has_panels": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ilikewood:dark_oak_panels"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:dark_oak_sawmill"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_panels",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:dark_oak_log"
+  },
+  "result": "ilikewood:dark_oak_wall",
+  "count": 1
+}

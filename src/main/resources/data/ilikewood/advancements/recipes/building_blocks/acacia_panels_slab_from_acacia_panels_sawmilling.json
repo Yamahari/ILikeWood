@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:acacia_panels_slab_from_acacia_panels_sawmilling"
+    ]
+  },
+  "criteria": {
+    "has_panels": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ilikewood:acacia_panels"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:acacia_panels_slab_from_acacia_panels_sawmilling"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_panels",
+      "has_the_recipe"
+    ]
+  ]
+}

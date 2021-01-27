@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:dark_oak_scaffolding",
-    "ilikewood:oak_scaffolding",
-    "ilikewood:acacia_scaffolding",
-    "ilikewood:spruce_scaffolding",
-    "ilikewood:warped_scaffolding",
-    "ilikewood:birch_scaffolding",
     "ilikewood:crimson_scaffolding",
-    "ilikewood:jungle_scaffolding"
+    "ilikewood:birch_scaffolding",
+    "ilikewood:jungle_scaffolding",
+    "ilikewood:oak_scaffolding",
+    "ilikewood:warped_scaffolding",
+    "ilikewood:spruce_scaffolding",
+    "ilikewood:acacia_scaffolding",
+    "ilikewood:dark_oak_scaffolding"
   ]
 }

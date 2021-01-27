@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:acacia_log"
+  },
+  "result": "ilikewood:acacia_post",
+  "count": 2
+}

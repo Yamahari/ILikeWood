@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:dark_oak_lectern",
-    "ilikewood:oak_lectern",
-    "ilikewood:acacia_lectern",
-    "ilikewood:spruce_lectern",
-    "ilikewood:warped_lectern",
-    "ilikewood:birch_lectern",
     "ilikewood:crimson_lectern",
-    "ilikewood:jungle_lectern"
+    "ilikewood:birch_lectern",
+    "ilikewood:jungle_lectern",
+    "ilikewood:oak_lectern",
+    "ilikewood:warped_lectern",
+    "ilikewood:spruce_lectern",
+    "ilikewood:acacia_lectern",
+    "ilikewood:dark_oak_lectern"
   ]
 }

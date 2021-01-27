@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:spruce_planks"
+  },
+  "result": "ilikewood:spruce_stick",
+  "count": 2
+}

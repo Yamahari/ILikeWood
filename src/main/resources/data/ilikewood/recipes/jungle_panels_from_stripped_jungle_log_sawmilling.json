@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:stripped_jungle_log"
+  },
+  "result": "ilikewood:jungle_panels",
+  "count": 4
+}

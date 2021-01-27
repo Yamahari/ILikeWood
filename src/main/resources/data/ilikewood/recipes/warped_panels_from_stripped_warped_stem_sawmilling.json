@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "minecraft:stripped_warped_stem"
+  },
+  "result": "ilikewood:warped_panels",
+  "count": 4
+}

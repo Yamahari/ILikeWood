@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sawmills",
+  "pattern": [
+    "II",
+    "##",
+    "##"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "#": {
+      "item": "ilikewood:warped_panels"
+    }
+  },
+  "result": {
+    "item": "ilikewood:warped_sawmill"
+  }
+}
