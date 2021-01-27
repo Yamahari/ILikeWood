@@ -35,7 +35,7 @@ public final class WoodenCraftingTableBlock extends CraftingTableBlock implement
     @Override
     public INamedContainerProvider getContainer(final BlockState blockState, final World world, final BlockPos pos) {
         return new SimpleNamedContainerProvider((windowId, inventory, player) ->
-                new WoodenWorkBenchContainer(this.getWoodType(), windowId, inventory, IWorldPosCallable.of(world, pos)), this.defaultName);
+                new WoodenWorkBenchContainer(windowId, inventory, IWorldPosCallable.of(world, pos)), this.defaultName);
     }
 
     @Override
