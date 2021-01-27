@@ -27,6 +27,7 @@ public final class ILikeWoodBlockTags {
     public static final INamedTag<Block> POSTS = makeWrapperTag("posts");
     public static final INamedTag<Block> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
     public static final INamedTag<Block> BEDS = makeWrapperTag("beds");
+    public static final INamedTag<Block> SAWMILLS = makeWrapperTag("sawmills");
 
     private ILikeWoodBlockTags() {
     }
