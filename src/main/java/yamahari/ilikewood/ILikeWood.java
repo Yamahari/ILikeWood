@@ -74,5 +74,6 @@ public final class ILikeWood {
         ILikeWoodTileEntityTypeRegistry.REGISTRY.register(modEventBus);
         ILikeWoodContainerRegistry.REGISTRY.register(modEventBus);
         ILikeWoodEntityTypeRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodRecipeSerializerRegistry.REGISTRY.register(modEventBus);
     }
 }

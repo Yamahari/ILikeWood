@@ -30,7 +30,7 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
 
         WoodenBlocks.getBedBlocks().forEach(block -> this.add(block, getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
-        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN).forEach(block -> {
+        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN, WoodenObjectType.SAWMILL).forEach(block -> {
             final String path = Objects.requireNonNull(block.getRegistryName()).getPath();
             final String name = getTranslationName(path);
             this.add(block, name);

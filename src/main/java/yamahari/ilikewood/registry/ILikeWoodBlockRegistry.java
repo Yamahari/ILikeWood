@@ -64,7 +64,7 @@ public final class ILikeWoodBlockRegistry {
         registryObjects.put(WoodenObjectType.LECTERN, registerBlocksWith(ILikeWoodBlockRegistry::registerLecternBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
         registryObjects.put(WoodenObjectType.POST, registerBlocksWith(ILikeWoodBlockRegistry::registerPostBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
         registryObjects.put(WoodenObjectType.STRIPPED_POST, registerBlocksWith(ILikeWoodBlockRegistry::registerStrippedPostBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
-
+        registryObjects.put(WoodenObjectType.SAWMILL, registerBlocksWith(ILikeWoodBlockRegistry::registerSawmillBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG)));
         WoodenBlocks.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
         WoodenBlocks.BED_REGISTRY_OBJECTS = Collections.unmodifiableMap(bedRegistryObjects);
     }
@@ -149,5 +149,9 @@ public final class ILikeWoodBlockRegistry {
 
     private static RegistryObject<Block> registerBedBlock(final IWoodType woodType, final DyeColor color) {
         return REGISTRY.register(Util.toRegistryName(color.toString(), woodType.getName(), WoodenObjectType.BED.toString()), () -> new WoodenBedBlock(woodType, color));
+    }
+
+    private static RegistryObject<Block> registerSawmillBlock(final IWoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.getName(), WoodenObjectType.SAWMILL.toString()), () -> new WoodenSawmillBlock(woodType));
     }
 }

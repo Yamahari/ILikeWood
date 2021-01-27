@@ -11,8 +11,12 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenBedBlock;
+import yamahari.ilikewood.block.WoodenSawmillBlock;
 import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
 import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
+import yamahari.ilikewood.registry.resource.resources.IWoodenPlanksResource;
+import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
@@ -20,6 +24,8 @@ import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodenObjectType;
 
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -282,6 +288,58 @@ public final class ILikeWoodBlockStateProvider extends BlockStateProvider {
                             .uvLock(false)
                             .build()
                     );
+        });
+
+        Util.getBlocksWith(WoodenObjectType.SAWMILL, Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG)).forEach(block -> {
+            final IWoodType woodType = ((IWooden) block).getWoodType();
+            final IWoodenPlanksResource planksResource = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType);
+            final IWoodenLogResource logResource = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType);
+            final IWoodenStrippedLogResource strippedLogResource = ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType);
+            final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.SAWMILL.toString());
+
+            // TODO remove hardcoded log_pile once log piles are back in the mod
+            final ResourceLocation logPile = modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, "log_pile", woodType.getName()));
+
+            final ModelFile bottomLeft = this.models()
+                    .withExistingParent(Util.toPath(path, "bottom", "left", woodType.getName()), modLoc(Util.toPath(path, "bottom", "left", "template")))
+                    .texture("log_end", logResource.getEndTexture())
+                    .texture("log_side", logResource.getSideTexture())
+                    .texture("stripped_log_side", strippedLogResource.getSideTexture())
+                    .texture("log_pile", logPile);
+
+            final ModelFile bottomRight = this.models()
+                    .withExistingParent(Util.toPath(path, "bottom", "right", woodType.getName()), modLoc(Util.toPath(path, "bottom", "right", "template")))
+                    .texture("log_end", logResource.getEndTexture())
+                    .texture("log_side", logResource.getSideTexture())
+                    .texture("stripped_log_side", strippedLogResource.getSideTexture())
+                    .texture("log_pile", logPile);
+
+            final ModelFile topLeft = this.models()
+                    .withExistingParent(Util.toPath(path, "top", "left", woodType.getName()), modLoc(Util.toPath(path, "top", "left", "template")))
+                    .texture("planks", planksResource.getTexture());
+
+            final ModelFile topRight = new ModelFile.UncheckedModelFile(modLoc(Util.toPath(path, "top", "right", "template")));
+
+            final ModelFile inventory = this.models()
+                    .withExistingParent(Util.toPath(path, "inventory", woodType.getName()), modLoc(Util.toPath(path, "inventory", "template")))
+                    .texture("log_end", logResource.getEndTexture())
+                    .texture("log_side", logResource.getSideTexture())
+                    .texture("stripped_log_side", strippedLogResource.getSideTexture())
+                    .texture("planks", planksResource.getTexture())
+                    .texture("log_pile", logPile);
+
+            final Map<WoodenSawmillBlock.WoodenSawmillModel, ModelFile> models = new EnumMap<>(WoodenSawmillBlock.WoodenSawmillModel.class);
+            models.put(WoodenSawmillBlock.WoodenSawmillModel.BOTTOM_LEFT, bottomLeft);
+            models.put(WoodenSawmillBlock.WoodenSawmillModel.BOTTOM_RIGHT, bottomRight);
+            models.put(WoodenSawmillBlock.WoodenSawmillModel.TOP_LEFT, topLeft);
+            models.put(WoodenSawmillBlock.WoodenSawmillModel.TOP_RIGHT, topRight);
+
+            this.getVariantBuilder(block)
+                    .forAllStates(state -> ConfiguredModel.builder()
+                            .modelFile(models.get(state.get(WoodenSawmillBlock.MODEL)))
+                            .rotationY(((state.get(WoodenSawmillBlock.HORIZONTAL_FACING).getHorizontalIndex() + 2) % 4) * 90)
+                            .uvLock(false)
+                            .build());
         });
     }
 

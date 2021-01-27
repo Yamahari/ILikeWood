@@ -14,6 +14,7 @@ import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.functions.ExplosionDecay;
 import net.minecraft.state.properties.BedPart;
 import net.minecraftforge.fml.RegistryObject;
+import yamahari.ilikewood.block.WoodenSawmillBlock;
 import yamahari.ilikewood.registry.ILikeWoodBlockRegistry;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.WoodenObjectType;
@@ -45,5 +46,8 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
 
         WoodenBlocks.getBedBlocks()
                 .forEach(block -> this.registerLootTable(block, b -> droppingWhen(b, BedBlock.PART, BedPart.HEAD)));
+
+        WoodenBlocks.getBlocks(WoodenObjectType.SAWMILL)
+                .forEach(block -> this.registerLootTable(block, b -> droppingWhen(b, WoodenSawmillBlock.MODEL, WoodenSawmillBlock.WoodenSawmillModel.BOTTOM_LEFT)));
     }
 }

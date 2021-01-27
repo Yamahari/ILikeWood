@@ -21,11 +21,11 @@ public class WoodType implements IWoodType {
         this.name = name;
 
         final Map<WoodenObjectType, Properties> properties = new EnumMap<>(WoodenObjectType.class);
-
+        // TODO SAWMILL
         Stream.of(WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN, WoodenObjectType.PANELS,
                 WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER,
                 WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST, WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.STAIRS,
-                WoodenObjectType.BOW, WoodenObjectType.CROSSBOW)
+                WoodenObjectType.BOW, WoodenObjectType.CROSSBOW, WoodenObjectType.SAWMILL)
                 .forEach(woodenObjectType -> properties.put(woodenObjectType, new Properties(300)));
 
         Stream.of(WoodenObjectType.STICK, WoodenObjectType.SCAFFOLDING)

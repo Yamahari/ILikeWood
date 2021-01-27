@@ -1,6 +1,7 @@
 package yamahari.ilikewood.provider;
 
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.DyeColor;
@@ -19,6 +20,7 @@ import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
+import yamahari.ilikewood.registry.WoodenRecipeSerializers;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.*;
 
@@ -39,6 +41,7 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
     protected void registerRecipes(@SuppressWarnings("NullableProblems") final Consumer<IFinishedRecipe> consumer) {
         Util.getBlocksWith(WoodenObjectType.PANELS, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> {
             final IWoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider planks = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
             final IItemProvider slab = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getSlab(woodType).getResource());
 
             ShapedRecipeBuilder.shapedRecipe(block)
@@ -49,10 +52,37 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
                     .build(consumer);
 
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(planks), block, 1)
+                    .addCriterion("has_planks", hasItem(planks))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                    planks.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
+
+            if (Util.HAS_LOG.test(woodType)) {
+                final IItemProvider log = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getResource());
+                new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(log), block, 4)
+                        .addCriterion("has_log", hasItem(log))
+                        .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                                Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                        log.asItem().getRegistryName().getPath(),
+                                        WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
+            }
+            if (Util.HAS_STRIPPED_LOG.test(woodType)) {
+                final IItemProvider stripped_log = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType).getResource());
+                new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(stripped_log), block, 4)
+                        .addCriterion("has_stripped_log", hasItem(stripped_log))
+                        .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                                Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                        stripped_log.asItem().getRegistryName().getPath(),
+                                        WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
+            }
         });
 
         Util.getBlocksWith(WoodenObjectType.STAIRS, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> {
+            final IWoodType woodType = ((IWooden) block).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, ((IWooden) block).getWoodType());
+            final IItemProvider planks = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
             ShapedRecipeBuilder.shapedRecipe(block, 4)
                     .key('#', panels)
@@ -62,6 +92,20 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .addCriterion("has_panels", hasItem(panels))
                     .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
                     .build(consumer);
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(planks), block, 1)
+                    .addCriterion("has_planks", hasItem(planks))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                    planks.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(panels), block, 1)
+                    .addCriterion("has_panels", hasItem(panels))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                    panels.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
         });
 
         Util.getBlocksWith(WoodenObjectType.SLAB, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> {
@@ -83,6 +127,20 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .addCriterion("has_panels_slab", hasItem(block))
                     .setGroup("ilikewood:planks")
                     .build(consumer, Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" + block.getRegistryName().getPath());
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(planks), block, 2)
+                    .addCriterion("has_planks", hasItem(planks))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                    planks.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(panels), block, 2)
+                    .addCriterion("has_panels", hasItem(panels))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                    panels.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
         });
 
         Util.getBlocksWith(WoodenObjectType.BARREL, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> {
@@ -150,6 +208,13 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .addCriterion("has_log", hasItem(log))
                     .setGroup(ILikeWoodBlockTags.WALLS.getName().getPath())
                     .build(consumer);
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(log), block, 1)
+                    .addCriterion("has_log", hasItem(log))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                    log.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
 
         });
 
@@ -227,8 +292,10 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
         });
 
         Util.getBlocksWith(WoodenObjectType.POST, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)).forEach(block -> {
-            final IItemProvider log = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(((IWooden) block).getWoodType()).getResource());
-
+            final IWoodType woodType = ((IWooden) block).getWoodType();
+            final IItemProvider log = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getResource());
+            final IItemProvider strippedLog = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType).getResource());
+            final Block strippedPost = WoodenBlocks.getBlock(WoodenObjectType.STRIPPED_POST, woodType);
             ShapedRecipeBuilder.shapedRecipe(block, 6)
                     .key('#', Objects.requireNonNull(log))
                     .patternLine("#")
@@ -237,11 +304,26 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .addCriterion("has_log", hasItem(log))
                     .setGroup(ILikeWoodBlockTags.POSTS.getName().getPath())
                     .build(consumer);
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(log), block, 2)
+                    .addCriterion("has_log", hasItem(log))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(block.getRegistryName().getPath(), "from",
+                                    log.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(strippedLog), strippedPost, 2)
+                    .addCriterion("has_stripped_log", hasItem(strippedLog))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(strippedPost.getRegistryName().getPath(), "from",
+                                    strippedLog.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
         });
 
         Util.getItemsWith(WoodenObjectType.STICK, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(item -> {
             final IWoodType woodType = ((IWooden) item).getWoodType();
             final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+            final IItemProvider planks = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
             ShapedRecipeBuilder.shapedRecipe(item, 4)
                     .key('#', panels)
@@ -250,6 +332,20 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                     .addCriterion("has_panels", hasItem(panels))
                     .setGroup(ILikeWoodItemTags.STICKS.getName().getPath())
                     .build(consumer);
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(panels), item, 2)
+                    .addCriterion("has_panels", hasItem(panels))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(item.getRegistryName().getPath(), "from",
+                                    panels.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
+
+            new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), Ingredient.fromItems(planks), item, 2)
+                    .addCriterion("has_planks", hasItem(planks))
+                    .build(consumer, new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(item.getRegistryName().getPath(), "from",
+                                    planks.asItem().getRegistryName().getPath(),
+                                    WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
         });
 
         Util.getTieredItemsWith(WoodenTieredObjectType.AXE, Util.HAS_PLANKS.and(Util.HAS_SLAB))
@@ -442,6 +538,22 @@ public final class ILikeWoodRecipeProvider extends RecipeProvider {
                         });
             }
         });
+
+        Util.getBlocksWith(WoodenObjectType.SAWMILL, Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG))
+                .forEach(block -> {
+                    final IWoodType woodType = ((IWooden) block).getWoodType();
+                    final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+
+                    ShapedRecipeBuilder.shapedRecipe(block)
+                            .key('I', Items.IRON_INGOT)
+                            .key('#', panels)
+                            .patternLine("II")
+                            .patternLine("##")
+                            .patternLine("##")
+                            .setGroup(ILikeWoodBlockTags.SAWMILLS.getName().getPath())
+                            .addCriterion("has_panels", hasItem(panels))
+                            .build(consumer);
+                });
     }
 
     @Override

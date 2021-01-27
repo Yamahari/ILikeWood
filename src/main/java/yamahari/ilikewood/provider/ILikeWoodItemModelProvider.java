@@ -220,5 +220,6 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
         });
 
         Util.getBedBlocksWith(Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.BED.toString(), "inventory", ((WoodenBedBlock) block).getDyeColor().toString())));
+        Util.getBlocksWith(WoodenObjectType.SAWMILL, Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG)).forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.SAWMILL.toString(), "inventory")));
     }
 }

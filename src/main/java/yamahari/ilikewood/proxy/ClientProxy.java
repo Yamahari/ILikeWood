@@ -19,9 +19,11 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import yamahari.ilikewood.client.gui.screen.WoodenSawmillScreen;
 import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
+import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.*;
 import yamahari.ilikewood.util.WoodenObjectType;
@@ -43,12 +45,11 @@ public final class ClientProxy implements IProxy {
         WoodenBlocks.getBlocks(WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.WALL_TORCH, WoodenObjectType.SCAFFOLDING)
                 .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
 
-        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE)
+        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.SAWMILL)
                 .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutoutMipped()));
 
-        WoodenContainerTypes.getContainerTypes(WoodenObjectType.CRAFTING_TABLE)
-                .forEach(type -> ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) type, CraftingScreen::new));
-
+        ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) WoodenContainerTypes.WOODEN_WORK_BENCH.get(), CraftingScreen::new);
+        ScreenManager.registerFactory((ContainerType<? extends WoodenSawmillContainer>) WoodenContainerTypes.WOODEN_SAWMILL.get(), WoodenSawmillScreen::new);
         WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
             ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {

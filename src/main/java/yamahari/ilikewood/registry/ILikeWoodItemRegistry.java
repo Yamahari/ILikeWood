@@ -60,6 +60,7 @@ public final class ILikeWoodItemRegistry {
         registryObjects.put(WoodenObjectType.BOW, registerSimpleItemsWith(ILikeWoodItemRegistry::registerBowItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
         registryObjects.put(WoodenObjectType.CROSSBOW, registerSimpleItemsWith(ILikeWoodItemRegistry::registerCrossbowItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
         registryObjects.put(WoodenObjectType.ITEM_FRAME, registerSimpleItemsWith(ILikeWoodItemRegistry::registerItemFrameItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+        registryObjects.put(WoodenObjectType.SAWMILL, registerBlockItemsWith(WoodenObjectType.SAWMILL, simpleDecorationBlockItem, Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG)));
 
         WoodenItems.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
 
