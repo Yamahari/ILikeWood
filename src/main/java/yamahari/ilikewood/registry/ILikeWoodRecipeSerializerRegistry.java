@@ -12,10 +12,12 @@ import yamahari.ilikewood.data.recipe.WoodenSawmillRecipe;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodRecipeSerializerRegistry {
-    public static final DeferredRegister<IRecipeSerializer<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Constants.MOD_ID);
+    public static final DeferredRegister<IRecipeSerializer<?>> REGISTRY =
+        DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Constants.MOD_ID);
 
     static {
-        WoodenRecipeSerializers.SAWMILLING = REGISTRY.register("sawmilling", () -> new SingleItemRecipe.Serializer<>(WoodenSawmillRecipe::new));
+        WoodenRecipeSerializers.SAWMILLING =
+            REGISTRY.register("sawmilling", () -> new SingleItemRecipe.Serializer<>(WoodenSawmillRecipe::new));
         WoodenRecipeTypes.SAWMILLING = register("sawmilling");
     }
 
@@ -23,10 +25,12 @@ public final class ILikeWoodRecipeSerializerRegistry {
     }
 
     private static <T extends IRecipe<?>> IRecipeType<T> register(final String key) {
-        return Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(Constants.MOD_ID, key), new IRecipeType<T>() {
-            public String toString() {
-                return String.format("%s:%s", Constants.MOD_ID, key);
-            }
-        });
+        return Registry.register(Registry.RECIPE_TYPE,
+            new ResourceLocation(Constants.MOD_ID, key),
+            new IRecipeType<T>() {
+                public String toString() {
+                    return String.format("%s:%s", Constants.MOD_ID, key);
+                }
+            });
     }
 }

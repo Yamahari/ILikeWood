@@ -11,12 +11,14 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import yamahari.ilikewood.container.WoodenSawmillContainer;
-import yamahari.ilikewood.data.recipe.WoodenSawmillRecipe;
+import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer> {
-    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation("textures/gui/container/stonecutter.png");
+    private static final ResourceLocation BACKGROUND_TEXTURE =
+        new ResourceLocation("textures/gui/container/stonecutter.png");
     private float sliderProgress;
     private boolean clickedOnScroll;
     private int recipeIndexOffset;
@@ -30,15 +32,15 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     @Override
-    public void render(@SuppressWarnings("NullableProblems") final MatrixStack matrixStack, final int mouseX,
-                       final int mouseY, final float partialTicks) {
+    public void render(@Nonnull final MatrixStack matrixStack, final int mouseX, final int mouseY,
+                       final float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(@SuppressWarnings("NullableProblems") final MatrixStack matrixStack,
-                                                   final float partialTicks, final int x, final int y) {
+    protected void drawGuiContainerBackgroundLayer(@Nonnull final MatrixStack matrixStack, final float partialTicks,
+                                                   final int x, final int y) {
         this.renderBackground(matrixStack);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
@@ -55,14 +57,13 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     @Override
-    protected void renderHoveredTooltip(@SuppressWarnings("NullableProblems") final MatrixStack matrixStack,
-                                        final int x, final int y) {
+    protected void renderHoveredTooltip(@Nonnull final MatrixStack matrixStack, final int x, final int y) {
         super.renderHoveredTooltip(matrixStack, x, y);
         if (this.hasItemsInInputSlot) {
             int i = this.guiLeft + 52;
             int j = this.guiTop + 14;
             int k = this.recipeIndexOffset + 12;
-            final List<WoodenSawmillRecipe> recipes = this.container.getRecipeList();
+            final List<AbstractWoodenSawmillRecipe> recipes = this.container.getRecipeList();
 
             for (int l = this.recipeIndexOffset; l < k && l < this.container.getRecipeListSize(); ++l) {
                 int i1 = l - this.recipeIndexOffset;
@@ -76,7 +77,8 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
 
     }
 
-    private void func_238853_b_(MatrixStack matrixStack, int x, int y, int p_238853_4_, int p_238853_5_, int p_238853_6_) {
+    private void func_238853_b_(MatrixStack matrixStack, int x, int y, int p_238853_4_, int p_238853_5_,
+                                int p_238853_6_) {
         for (int i = this.recipeIndexOffset; i < p_238853_6_ && i < this.container.getRecipeListSize(); ++i) {
             int j = i - this.recipeIndexOffset;
             int k = p_238853_4_ + j % 4 * 16;
@@ -95,7 +97,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     private void drawRecipesItems(int left, int top, int recipeIndexOffsetMax) {
-        final List<WoodenSawmillRecipe> recipes = this.container.getRecipeList();
+        final List<AbstractWoodenSawmillRecipe> recipes = this.container.getRecipeList();
 
         for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.container.getRecipeListSize(); ++i) {
             int j = i - this.recipeIndexOffset;
@@ -119,8 +121,12 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
                 int i1 = l - this.recipeIndexOffset;
                 double d0 = mouseX - (double) (i + i1 % 4 * 16);
                 double d1 = mouseY - (double) (j + i1 / 4 * 18);
-                if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.container.enchantItem(this.minecraft.player, l)) {
-                    Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+                if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D &&
+                    this.container.enchantItem(this.minecraft.player, l)) {
+                    Minecraft
+                        .getInstance()
+                        .getSoundHandler()
+                        .play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
                     this.minecraft.playerController.sendEnchantPacket((this.container).windowId, l);
                     return true;
                 }
@@ -128,7 +134,8 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
 
             i = this.guiLeft + 119;
             j = this.guiTop + 9;
-            if (mouseX >= (double) i && mouseX < (double) (i + 12) && mouseY >= (double) j && mouseY < (double) (j + 54)) {
+            if (mouseX >= (double) i && mouseX < (double) (i + 12) && mouseY >= (double) j &&
+                mouseY < (double) (j + 54)) {
                 this.clickedOnScroll = true;
             }
         }
