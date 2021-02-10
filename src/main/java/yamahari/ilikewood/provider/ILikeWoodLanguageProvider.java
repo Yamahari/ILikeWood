@@ -1,6 +1,5 @@
 package yamahari.ilikewood.provider;
 
-
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.apache.commons.lang3.StringUtils;
@@ -20,26 +19,57 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
     }
 
     private static String getTranslationName(final String type) {
-        return Arrays.stream(StringUtils.split(type, '_')).map(StringUtils::capitalize).collect(Collectors.joining(" "));
+        return Arrays
+            .stream(StringUtils.split(type, '_'))
+            .map(StringUtils::capitalize)
+            .collect(Collectors.joining(" "));
     }
 
     @Override
     protected void addTranslations() {
-        WoodenBlocks.getBlocks(WoodenObjectType.PANELS, WoodenObjectType.STAIRS, WoodenObjectType.SLAB, WoodenObjectType.BOOKSHELF, WoodenObjectType.COMPOSTER, WoodenObjectType.WALL, WoodenObjectType.LADDER, WoodenObjectType.TORCH, WoodenObjectType.SCAFFOLDING, WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST)
-                .forEach(block -> this.add(block, getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
+        WoodenBlocks
+            .getBlocks(WoodenObjectType.PANELS,
+                WoodenObjectType.STAIRS,
+                WoodenObjectType.SLAB,
+                WoodenObjectType.BOOKSHELF,
+                WoodenObjectType.COMPOSTER,
+                WoodenObjectType.WALL,
+                WoodenObjectType.LADDER,
+                WoodenObjectType.TORCH,
+                WoodenObjectType.SCAFFOLDING,
+                WoodenObjectType.POST,
+                WoodenObjectType.STRIPPED_POST)
+            .forEach(block -> this.add(block,
+                getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
-        WoodenBlocks.getBedBlocks().forEach(block -> this.add(block, getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
+        WoodenBlocks
+            .getBedBlocks()
+            .forEach(block -> this.add(block,
+                getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
-        WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN, WoodenObjectType.SAWMILL).forEach(block -> {
-            final String path = Objects.requireNonNull(block.getRegistryName()).getPath();
-            final String name = getTranslationName(path);
-            this.add(block, name);
-            this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, path), name);
-        });
+        WoodenBlocks
+            .getBlocks(WoodenObjectType.CRAFTING_TABLE,
+                WoodenObjectType.BARREL,
+                WoodenObjectType.CHEST,
+                WoodenObjectType.LECTERN,
+                WoodenObjectType.SAWMILL)
+            .forEach(block -> {
+                final String path = Objects.requireNonNull(block.getRegistryName()).getPath();
+                final String name = getTranslationName(path);
+                this.add(block, name);
+                this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, path), name);
+            });
 
-        WoodenItems.getItems(WoodenObjectType.STICK, WoodenObjectType.BOW, WoodenObjectType.CROSSBOW, WoodenObjectType.ITEM_FRAME)
-                .forEach(item -> this.add(item, getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
-        WoodenItems.getTieredItems(WoodenTieredObjectType.values())
-                .forEach(item -> this.add(item, getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
+        WoodenItems
+            .getItems(WoodenObjectType.STICK,
+                WoodenObjectType.BOW,
+                WoodenObjectType.CROSSBOW,
+                WoodenObjectType.ITEM_FRAME)
+            .forEach(item -> this.add(item,
+                getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
+        WoodenItems
+            .getTieredItems(WoodenTieredObjectType.values())
+            .forEach(item -> this.add(item,
+                getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
     }
 }
