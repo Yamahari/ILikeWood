@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:dark_oak_chest",
     "ilikewood:warped_chest",
     "ilikewood:birch_chest",
     "ilikewood:crimson_chest",
+    "ilikewood:jungle_chest",
     "ilikewood:oak_chest",
     "ilikewood:acacia_chest",
-    "ilikewood:jungle_chest",
-    "ilikewood:spruce_chest"
+    "ilikewood:spruce_chest",
+    "ilikewood:dark_oak_chest"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:dark_oak_torch",
     "ilikewood:warped_torch",
     "ilikewood:birch_torch",
     "ilikewood:crimson_torch",
+    "ilikewood:jungle_torch",
     "ilikewood:oak_torch",
     "ilikewood:acacia_torch",
-    "ilikewood:jungle_torch",
-    "ilikewood:spruce_torch"
+    "ilikewood:spruce_torch",
+    "ilikewood:dark_oak_torch"
   ]
 }

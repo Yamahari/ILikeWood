@@ -1,12 +1,12 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
+    "particle": "#log_side",
     "log_side": "#log_side",
     "log_end": "#log_end",
     "stripped_log_side": "#stripped_log_side",
-    "saw": "block/stonecutter_saw",
-    "log_pile": "#log_pile",
-    "particle": "#log_side"
+    "saw": "minecraft:block/stonecutter_saw",
+    "log_pile": "#log_pile"
   },
   "elements": [
     {
@@ -462,50 +462,49 @@
       "faces": {
         "north": {
           "uv": [
-            0,
-            4,
-            2,
-            8
+            6,
+            6,
+            8,
+            10
           ],
           "texture": "#log_pile"
         },
         "east": {
           "uv": [
+            4,
             0,
-            0,
-            16,
-            4
+            8,
+            16
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         },
         "south": {
           "uv": [
-            2,
-            4,
-            4,
-            8
+            8,
+            6,
+            10,
+            10
           ],
           "texture": "#log_pile"
         },
         "up": {
           "uv": [
+            2,
             0,
-            0,
-            16,
-            2
+            4,
+            16
           ],
-          "rotation": 90,
-          "texture": "#log_pile"
+          "texture": "#log_side"
         },
         "down": {
           "uv": [
+            10,
             0,
-            0,
-            16,
-            2
+            12,
+            16
           ],
-          "rotation": 90,
-          "texture": "#log_pile",
+          "texture": "#log_side",
           "cullface": "down"
         }
       }
@@ -533,48 +532,52 @@
       "faces": {
         "north": {
           "uv": [
+            12,
             0,
-            0,
-            4,
+            16,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         },
         "east": {
           "uv": [
-            0,
-            4,
-            4,
-            8
+            6,
+            6,
+            10,
+            10
           ],
           "texture": "#log_pile"
         },
         "south": {
           "uv": [
-            12,
+            4,
             0,
-            16,
+            8,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         },
         "up": {
           "uv": [
-            12,
             0,
-            16,
+            0,
+            4,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         },
         "down": {
           "uv": [
-            12,
+            8,
             0,
-            16,
+            12,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         }
       }
     },
@@ -601,48 +604,52 @@
       "faces": {
         "north": {
           "uv": [
+            12,
             0,
-            0,
-            4,
+            16,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         },
         "east": {
           "uv": [
-            0,
-            4,
-            4,
-            8
+            6,
+            6,
+            10,
+            10
           ],
           "texture": "#log_pile"
         },
         "south": {
           "uv": [
-            12,
+            4,
             0,
-            16,
+            8,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         },
         "up": {
           "uv": [
-            12,
             0,
-            16,
+            0,
+            4,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         },
         "down": {
           "uv": [
-            12,
+            8,
             0,
-            16,
+            12,
             4
           ],
-          "texture": "#log_pile"
+          "rotation": 90,
+          "texture": "#log_side"
         }
       }
     }

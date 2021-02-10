@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:dark_oak_composter",
     "ilikewood:warped_composter",
     "ilikewood:birch_composter",
     "ilikewood:crimson_composter",
+    "ilikewood:jungle_composter",
     "ilikewood:oak_composter",
     "ilikewood:acacia_composter",
-    "ilikewood:jungle_composter",
-    "ilikewood:spruce_composter"
+    "ilikewood:spruce_composter",
+    "ilikewood:dark_oak_composter"
   ]
 }
