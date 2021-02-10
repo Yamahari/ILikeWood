@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:crimson_item_frame",
-    "ilikewood:birch_item_frame",
-    "ilikewood:jungle_item_frame",
-    "ilikewood:oak_item_frame",
+    "ilikewood:dark_oak_item_frame",
     "ilikewood:warped_item_frame",
-    "ilikewood:spruce_item_frame",
+    "ilikewood:birch_item_frame",
+    "ilikewood:crimson_item_frame",
+    "ilikewood:oak_item_frame",
     "ilikewood:acacia_item_frame",
-    "ilikewood:dark_oak_item_frame"
+    "ilikewood:jungle_item_frame",
+    "ilikewood:spruce_item_frame"
   ]
 }
