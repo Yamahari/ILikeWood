@@ -31,6 +31,7 @@ import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 import yamahari.ilikewood.util.WoodenObjectType;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
@@ -78,10 +79,10 @@ public class WoodenSawmillBlock extends WoodenBlock {
         final VoxelShape logPileLeft = VoxelShapes.or(logPile0Left, logPile1Left, logPile2Left, logPile3Left);
         final VoxelShape logPileRight = VoxelShapes.or(logPile0Right, logPile1Right, logPile2Right);
 
-        final VoxelShape bottomLeft = VoxelShapes.or(tableTop, legNW, legSw, crossBeamLeftN,
-                crossBeamLeftS, crossBeamLeftW, logPileLeft);
-        final VoxelShape bottomRight = VoxelShapes.or(tableTop, legNe, legSe, crossBeamRightN,
-                crossBeamRightS, crossBeamRightE, logPileRight);
+        final VoxelShape bottomLeft =
+            VoxelShapes.or(tableTop, legNW, legSw, crossBeamLeftN, crossBeamLeftS, crossBeamLeftW, logPileLeft);
+        final VoxelShape bottomRight =
+            VoxelShapes.or(tableTop, legNe, legSe, crossBeamRightN, crossBeamRightS, crossBeamRightE, logPileRight);
         final VoxelShape topLeft = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
         final VoxelShape topRight = Block.makeCuboidShape(0.0, 0.0, 8.0, 16.0, 5.0, 8.0);
 
@@ -103,37 +104,43 @@ public class WoodenSawmillBlock extends WoodenBlock {
     private final ITextComponent containerName;
 
     public WoodenSawmillBlock(final IWoodType woodType) {
-        super(woodType, AbstractBlock.Properties.create(Material.WOOD)
+        super(woodType,
+            AbstractBlock.Properties
+                .create(Material.WOOD)
                 .sound(SoundType.WOOD)
                 .hardnessAndResistance(2.0F)
                 .harvestLevel(0)
                 .harvestTool(ToolType.AXE));
-        this.setDefaultState(this.getDefaultState().with(MODEL, WoodenSawmillModel.BOTTOM_LEFT)
-                .with(HORIZONTAL_FACING, Direction.NORTH));
-        this.containerName = new TranslationTextComponent(
-                StringUtils.joinWith(".", "container", Constants.MOD_ID,
-                        Util.toRegistryName(this.getWoodType().getName(), WoodenObjectType.SAWMILL.toString())));
+        this.setDefaultState(this
+            .getDefaultState()
+            .with(MODEL, WoodenSawmillModel.BOTTOM_LEFT)
+            .with(HORIZONTAL_FACING, Direction.NORTH));
+        this.containerName = new TranslationTextComponent(StringUtils.joinWith(".",
+            "container",
+            Constants.MOD_ID,
+            Util.toRegistryName(this.getWoodType().getName(), WoodenObjectType.SAWMILL.toString())));
     }
 
     private static Direction getDirectionToNext(final WoodenSawmillModel model, final Direction facing) {
         switch (model) {
-            default:
-                throw new IllegalStateException("Non-exhaustive switch case over WoodenSawmillModel");
-            case BOTTOM_LEFT:
-                return facing.rotateY();
-            case BOTTOM_RIGHT:
-                return Direction.UP;
-            case TOP_LEFT:
-                return Direction.DOWN;
-            case TOP_RIGHT:
-                return facing.rotateYCCW();
+        default:
+            throw new IllegalStateException("Non-exhaustive switch case over WoodenSawmillModel");
+        case BOTTOM_LEFT:
+            return facing.rotateY();
+        case BOTTOM_RIGHT:
+            return Direction.UP;
+        case TOP_LEFT:
+            return Direction.DOWN;
+        case TOP_RIGHT:
+            return facing.rotateYCCW();
         }
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    public BlockState updatePostPlacement(final BlockState state, final Direction facing, final BlockState facingState,
-                                          final IWorld world, final BlockPos currentPos, final BlockPos facingPos) {
+    public BlockState updatePostPlacement(final BlockState state, @Nonnull final Direction facing,
+                                          @Nonnull final BlockState facingState, @Nonnull final IWorld world,
+                                          @Nonnull final BlockPos currentPos, @Nonnull final BlockPos facingPos) {
         final WoodenSawmillModel model = state.get(MODEL);
         if (facing == getDirectionToNext(state.get(MODEL), state.get(HORIZONTAL_FACING))) {
             return facingState.isIn(this) && model != facingState.get(MODEL) ? state : Blocks.AIR.getDefaultState();
@@ -141,10 +148,10 @@ public class WoodenSawmillBlock extends WoodenBlock {
         return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    public VoxelShape getShape(final BlockState state, final IBlockReader worldIn, final BlockPos pos,
-                               final ISelectionContext context) {
+    public VoxelShape getShape(final BlockState state, @Nonnull final IBlockReader worldIn, @Nonnull final BlockPos pos,
+                               @Nonnull final ISelectionContext context) {
         return SHAPES.get(state.get(MODEL)).get(state.get(HORIZONTAL_FACING));
     }
 
@@ -153,10 +160,9 @@ public class WoodenSawmillBlock extends WoodenBlock {
         builder.add(MODEL, HORIZONTAL_FACING);
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public void onBlockPlacedBy(final World worldIn, final BlockPos pos, final BlockState state,
-                                final LivingEntity placer, final ItemStack stack) {
+    public void onBlockPlacedBy(final World worldIn, @Nonnull final BlockPos pos, @Nonnull final BlockState state,
+                                final LivingEntity placer, @Nonnull final ItemStack stack) {
         if (!worldIn.isRemote) {
             final Direction direction = state.get(HORIZONTAL_FACING);
             final BlockPos bottomRight = pos.offset(direction.rotateY());
@@ -179,16 +185,19 @@ public class WoodenSawmillBlock extends WoodenBlock {
         final BlockPos topLeft = bottomLeft.up();
         final BlockPos topRight = bottomRight.up();
 
-        return Stream.of(bottomRight, topLeft, topRight)
-                .allMatch(blockPos -> context.getWorld().getBlockState(blockPos).isReplaceable(context))
-                ? this.getDefaultState().with(MODEL, WoodenSawmillModel.BOTTOM_LEFT).with(HORIZONTAL_FACING, direction)
-                : null;
+        return Stream
+                   .of(bottomRight, topLeft, topRight)
+                   .allMatch(blockPos -> context.getWorld().getBlockState(blockPos).isReplaceable(context)) ? this
+                   .getDefaultState()
+                   .with(MODEL, WoodenSawmillModel.BOTTOM_LEFT)
+                   .with(HORIZONTAL_FACING, direction) : null;
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    public ActionResultType onBlockActivated(final BlockState state, final World world, final BlockPos pos,
-                                             final PlayerEntity player, final Hand hand, final BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(@Nonnull final BlockState state, final World world,
+                                             @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player,
+                                             @Nonnull final Hand hand, @Nonnull final BlockRayTraceResult hit) {
         if (world.isRemote) {
             return ActionResultType.SUCCESS;
         } else {
@@ -197,18 +206,16 @@ public class WoodenSawmillBlock extends WoodenBlock {
         }
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public INamedContainerProvider getContainer(final BlockState state, final World world, final BlockPos pos) {
-        return new SimpleNamedContainerProvider((id, inventory, player) ->
-                new WoodenSawmillContainer(id, inventory, IWorldPosCallable.of(world, pos)), containerName);
+    public INamedContainerProvider getContainer(@Nonnull final BlockState state, @Nonnull final World world,
+                                                @Nonnull final BlockPos pos) {
+        return new SimpleNamedContainerProvider((id, inventory, player) -> new WoodenSawmillContainer(id,
+            inventory,
+            IWorldPosCallable.of(world, pos)), containerName);
     }
 
     public enum WoodenSawmillModel implements IStringSerializable {
-        BOTTOM_LEFT("bottom_left"),
-        BOTTOM_RIGHT("bottom_right"),
-        TOP_LEFT("top_left"),
-        TOP_RIGHT("top_right");
+        BOTTOM_LEFT("bottom_left"), BOTTOM_RIGHT("bottom_right"), TOP_LEFT("top_left"), TOP_RIGHT("top_right");
 
         private final String name;
 
@@ -216,7 +223,7 @@ public class WoodenSawmillBlock extends WoodenBlock {
             this.name = name;
         }
 
-        @SuppressWarnings("NullableProblems")
+        @Nonnull
         @Override
         public String getString() {
             return this.name;
