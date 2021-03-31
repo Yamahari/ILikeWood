@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:warped_barrel",
-    "ilikewood:birch_barrel",
-    "ilikewood:crimson_barrel",
-    "ilikewood:jungle_barrel",
-    "ilikewood:oak_barrel",
-    "ilikewood:acacia_barrel",
+    "ilikewood:dark_oak_barrel",
     "ilikewood:spruce_barrel",
-    "ilikewood:dark_oak_barrel"
+    "ilikewood:acacia_barrel",
+    "ilikewood:oak_barrel",
+    "ilikewood:jungle_barrel",
+    "ilikewood:warped_barrel",
+    "ilikewood:crimson_barrel",
+    "ilikewood:birch_barrel"
   ]
 }

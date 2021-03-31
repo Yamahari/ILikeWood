@@ -9,10 +9,7 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import yamahari.ilikewood.provider.*;
 import yamahari.ilikewood.provider.blockstate.*;
 import yamahari.ilikewood.provider.recipe.blockitem.*;
-import yamahari.ilikewood.provider.recipe.item.BowRecipeProvider;
-import yamahari.ilikewood.provider.recipe.item.CrossbowRecipeProvider;
-import yamahari.ilikewood.provider.recipe.item.ItemFrameRecipeProvider;
-import yamahari.ilikewood.provider.recipe.item.StickRecipeProvider;
+import yamahari.ilikewood.provider.recipe.item.*;
 import yamahari.ilikewood.provider.recipe.item.tiered.*;
 import yamahari.ilikewood.util.Constants;
 
@@ -50,6 +47,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new SawmillRecipeProvider(generator));
             generator.addProvider(new BedRecipeProvider(generator));
             generator.addProvider(new NetheriteTieredItemRecipeProvider(generator));
+            generator.addProvider(new FishingRodRecipeProvider(generator));
 
             generator.addProvider(new ILikeWoodLootTableProvider(generator));
             final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator, helper);

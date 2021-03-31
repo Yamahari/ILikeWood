@@ -64,9 +64,11 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
             .getItems(WoodenObjectType.STICK,
                 WoodenObjectType.BOW,
                 WoodenObjectType.CROSSBOW,
-                WoodenObjectType.ITEM_FRAME)
+                WoodenObjectType.ITEM_FRAME,
+                WoodenObjectType.FISHING_ROD)
             .forEach(item -> this.add(item,
                 getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
+
         WoodenItems
             .getTieredItems(WoodenTieredObjectType.values())
             .forEach(item -> this.add(item,

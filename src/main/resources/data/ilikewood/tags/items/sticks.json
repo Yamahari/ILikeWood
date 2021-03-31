@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:warped_stick",
-    "ilikewood:birch_stick",
-    "ilikewood:crimson_stick",
-    "ilikewood:jungle_stick",
-    "ilikewood:oak_stick",
-    "ilikewood:acacia_stick",
+    "ilikewood:dark_oak_stick",
     "ilikewood:spruce_stick",
-    "ilikewood:dark_oak_stick"
+    "ilikewood:acacia_stick",
+    "ilikewood:oak_stick",
+    "ilikewood:jungle_stick",
+    "ilikewood:warped_stick",
+    "ilikewood:crimson_stick",
+    "ilikewood:birch_stick"
   ]
 }

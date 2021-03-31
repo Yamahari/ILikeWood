@@ -321,5 +321,30 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
             .getBlocksWith(WoodenObjectType.SAWMILL,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG))
             .forEach(block -> this.blockItem(block, Util.toPath(WoodenObjectType.SAWMILL.toString(), "inventory")));
+
+        Util.getItemsWith(WoodenObjectType.FISHING_ROD, Util.HAS_PLANKS.and(Util.HAS_SLAB)).forEach(item -> {
+            final IWoodType woodType = ((IWooden) item).getWoodType();
+
+            this
+                .getBuilder(item.getRegistryName().getPath())
+                .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "handheld_rod"))))
+                .texture("layer0",
+                    modLoc(Util.toPath(ITEM_FOLDER, WoodenObjectType.FISHING_ROD.toString(), woodType.getName())))
+                .override()
+                .predicate(mcLoc("cast"), 1.0F)
+                .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
+                    Util.toRegistryName(item.getRegistryName().getPath(), "cast")))))
+                .end();
+
+            this
+                .getBuilder(Util.toRegistryName(item.getRegistryName().getPath(), "cast"))
+                .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
+                    item.getRegistryName().getPath()))))
+                .texture("layer0",
+                    modLoc(Util.toPath(ITEM_FOLDER,
+                        WoodenObjectType.FISHING_ROD.toString(),
+                        "cast",
+                        woodType.getName())));
+        });
     }
 }

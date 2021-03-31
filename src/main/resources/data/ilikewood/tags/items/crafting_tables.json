@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:warped_crafting_table",
-    "ilikewood:birch_crafting_table",
-    "ilikewood:crimson_crafting_table",
-    "ilikewood:jungle_crafting_table",
-    "ilikewood:oak_crafting_table",
-    "ilikewood:acacia_crafting_table",
+    "ilikewood:dark_oak_crafting_table",
     "ilikewood:spruce_crafting_table",
-    "ilikewood:dark_oak_crafting_table"
+    "ilikewood:acacia_crafting_table",
+    "ilikewood:oak_crafting_table",
+    "ilikewood:jungle_crafting_table",
+    "ilikewood:warped_crafting_table",
+    "ilikewood:crimson_crafting_table",
+    "ilikewood:birch_crafting_table"
   ]
 }
