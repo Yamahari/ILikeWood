@@ -1,6 +1,8 @@
 {
   "parent": "ilikewood:block/torch/wall/template",
   "textures": {
-    "torch": "ilikewood:block/torch/spruce"
+    "torch": "ilikewood:block/torch/spruce",
+    "fire": "ilikewood:block/torch/fire",
+    "coal": "ilikewood:block/torch/coal"
   }
 }

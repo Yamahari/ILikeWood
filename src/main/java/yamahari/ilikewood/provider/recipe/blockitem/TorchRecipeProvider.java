@@ -5,6 +5,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.provider.recipe.AbstractBlockItemRecipeProvider;
@@ -25,7 +26,7 @@ public final class TorchRecipeProvider extends AbstractBlockItemRecipeProvider {
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
-        final Ingredient coals = Ingredient.fromTag(net.minecraft.tags.ItemTags.COALS);
+        final Ingredient coals = Ingredient.fromTag(ItemTags.COALS);
 
         ShapedRecipeBuilder
             .shapedRecipe(block, 4)
@@ -33,7 +34,7 @@ public final class TorchRecipeProvider extends AbstractBlockItemRecipeProvider {
             .key('#', coals)
             .patternLine("#")
             .patternLine("I")
-            .addCriterion("has_coal", hasItem(net.minecraft.tags.ItemTags.COALS))
+            .addCriterion("has_coal", hasItem(ItemTags.COALS))
             .setGroup(ILikeWoodBlockTags.TORCHES.getName().getPath())
             .build(consumer);
     }

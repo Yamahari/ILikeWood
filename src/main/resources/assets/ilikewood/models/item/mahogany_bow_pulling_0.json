@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:item/mahogany_bow",
-  "textures": {
-    "layer0": "ilikewood:item/bow/pulling/0/mahogany"
-  }
-}

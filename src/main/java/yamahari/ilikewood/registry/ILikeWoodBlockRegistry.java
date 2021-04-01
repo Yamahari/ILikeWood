@@ -58,34 +58,54 @@ public final class ILikeWoodBlockRegistry {
         registryObjects.put(WoodenObjectType.SLAB, Collections.unmodifiableMap(panelsSlab));
         registryObjects.put(WoodenObjectType.BARREL,
             registerBlocksWith(ILikeWoodBlockRegistry::registerBarrelBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.BOOKSHELF,
             registerBlocksWith(ILikeWoodBlockRegistry::registerBookshelfBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.CHEST,
             registerBlocksWith(ILikeWoodBlockRegistry::registerChestBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.COMPOSTER,
             registerBlocksWith(ILikeWoodBlockRegistry::registerComposterBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.WALL,
             registerBlocksWith(ILikeWoodBlockRegistry::registerWallBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+
         registryObjects.put(WoodenObjectType.LADDER,
             registerBlocksWith(ILikeWoodBlockRegistry::registerLadderBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.TORCH,
             registerBlocksWith(ILikeWoodBlockRegistry::registerTorchBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.WALL_TORCH,
             registerBlocksWith(ILikeWoodBlockRegistry::registerWallTorchBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
+        registryObjects.put(WoodenObjectType.SOUL_TORCH,
+            registerBlocksWith(ILikeWoodBlockRegistry::registerSoulTorchBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
+        registryObjects.put(WoodenObjectType.WALL_SOUL_TORCH,
+            registerBlocksWith(ILikeWoodBlockRegistry::registerWallSoulTorchBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE,
             registerBlocksWith(ILikeWoodBlockRegistry::registerCraftingTableBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.SCAFFOLDING,
             registerBlocksWith(ILikeWoodBlockRegistry::registerScaffoldingBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.LECTERN,
             registerBlocksWith(ILikeWoodBlockRegistry::registerLecternBlock, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.POST,
             registerBlocksWith(ILikeWoodBlockRegistry::registerPostBlock, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+
         registryObjects.put(WoodenObjectType.STRIPPED_POST,
             registerBlocksWith(ILikeWoodBlockRegistry::registerStrippedPostBlock,
                 Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+
         registryObjects.put(WoodenObjectType.SAWMILL,
             registerBlocksWith(ILikeWoodBlockRegistry::registerSawmillBlock,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG)));
+
         WoodenBlocks.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
         WoodenBlocks.BED_REGISTRY_OBJECTS = Collections.unmodifiableMap(bedRegistryObjects);
     }
@@ -151,17 +171,27 @@ public final class ILikeWoodBlockRegistry {
             () -> new WoodenLadderBlock(woodType));
     }
 
-    private static RegistryObject<Block> registerTorchBlock(final IWoodType woodType) {
-        return REGISTRY.register(Util.toRegistryName(woodType.getName(), WoodenObjectType.TORCH.toString()),
+    private static RegistryObject<Block> registerTorchBlock(final WoodenObjectType torchObjectType,
+                                                            final IWoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.getName(), torchObjectType.toString()),
             () -> new WoodenTorchBlock(woodType));
     }
 
+    private static RegistryObject<Block> registerWallTorchBlock(final WoodenObjectType torchObjectType,
+                                                                final WoodenObjectType wallTorchObjectType,
+                                                                final IWoodType woodType) {
+        return REGISTRY.register(Util.toRegistryName(woodType.getName(), wallTorchObjectType.toString()), () -> {
+            final Block torch = WoodenBlocks.REGISTRY_OBJECTS.get(torchObjectType).get(woodType).get();
+            return new WoodenWallTorchBlock(woodType, Block.Properties.from(torch).lootFrom(torch));
+        });
+    }
+
+    private static RegistryObject<Block> registerTorchBlock(final IWoodType woodType) {
+        return registerTorchBlock(WoodenObjectType.TORCH, woodType);
+    }
+
     private static RegistryObject<Block> registerWallTorchBlock(final IWoodType woodType) {
-        return REGISTRY.register(Util.toRegistryName(woodType.getName(), WoodenObjectType.WALL_TORCH.toString()),
-            () -> {
-                final Block torch = WoodenBlocks.REGISTRY_OBJECTS.get(WoodenObjectType.TORCH).get(woodType).get();
-                return new WoodenWallTorchBlock(woodType, Block.Properties.from(torch).lootFrom(torch));
-            });
+        return registerWallTorchBlock(WoodenObjectType.TORCH, WoodenObjectType.WALL_TORCH, woodType);
     }
 
     private static RegistryObject<Block> registerCraftingTableBlock(final IWoodType woodType) {
@@ -198,5 +228,13 @@ public final class ILikeWoodBlockRegistry {
     private static RegistryObject<Block> registerSawmillBlock(final IWoodType woodType) {
         return REGISTRY.register(Util.toRegistryName(woodType.getName(), WoodenObjectType.SAWMILL.toString()),
             () -> new WoodenSawmillBlock(woodType));
+    }
+
+    private static RegistryObject<Block> registerSoulTorchBlock(final IWoodType woodType) {
+        return registerTorchBlock(WoodenObjectType.SOUL_TORCH, woodType);
+    }
+
+    private static RegistryObject<Block> registerWallSoulTorchBlock(final IWoodType woodType) {
+        return registerWallTorchBlock(WoodenObjectType.SOUL_TORCH, WoodenObjectType.WALL_SOUL_TORCH, woodType);
     }
 }

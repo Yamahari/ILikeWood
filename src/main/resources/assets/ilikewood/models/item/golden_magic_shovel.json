@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "ilikewood:item/stick/shovel/magic",
-    "layer1": "ilikewood:item/shovel/golden"
-  }
-}

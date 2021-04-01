@@ -9,7 +9,9 @@ import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodBlockTags {
-    public static final TagRegistry<Block> COLLECTION = TagRegistryManager.create(new ResourceLocation(Constants.MOD_ID, "block"), ITagCollectionSupplier::getBlockTags);
+    public static final TagRegistry<Block> COLLECTION =
+        TagRegistryManager.create(new ResourceLocation(Constants.MOD_ID, "block"),
+            ITagCollectionSupplier::getBlockTags);
     public static final INamedTag<Block> PANELS = makeWrapperTag("panels");
     public static final INamedTag<Block> PANELS_SLABS = makeWrapperTag("panels_slab");
     public static final INamedTag<Block> PANELS_STAIRS = makeWrapperTag("panels_stairs");
@@ -28,6 +30,8 @@ public final class ILikeWoodBlockTags {
     public static final INamedTag<Block> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
     public static final INamedTag<Block> BEDS = makeWrapperTag("beds");
     public static final INamedTag<Block> SAWMILLS = makeWrapperTag("sawmills");
+    public static final INamedTag<Block> SOUL_TORCHES = makeWrapperTag("soul_torches");
+    public static final INamedTag<Block> WALL_SOUL_TORCHES = makeWrapperTag("wall_soul_torches");
 
     private ILikeWoodBlockTags() {
     }

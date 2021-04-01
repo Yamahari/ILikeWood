@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:item/cherry_bow",
-  "textures": {
-    "layer0": "ilikewood:item/bow/pulling/1/cherry"
-  }
-}

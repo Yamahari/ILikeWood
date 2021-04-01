@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "ilikewood:block/barrel/side/redwood",
-    "bottom": "ilikewood:block/barrel/bottom/redwood",
-    "top": "ilikewood:block/barrel/top/redwood"
-  }
-}

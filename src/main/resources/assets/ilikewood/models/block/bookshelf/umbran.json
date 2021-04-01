@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "ilikewood:block/bookshelf/umbran",
-    "end": "biomesoplenty:block/umbran_planks"
-  }
-}

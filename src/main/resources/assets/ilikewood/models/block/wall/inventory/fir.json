@@ -1,7 +1,0 @@
-{
-  "parent": "ilikewood:block/wall/inventory/template",
-  "textures": {
-    "post": "biomesoplenty:block/fir_log",
-    "side": "biomesoplenty:block/stripped_fir_log"
-  }
-}

@@ -346,5 +346,9 @@ public final class ILikeWoodItemModelProvider extends ItemModelProvider {
                         "cast",
                         woodType.getName())));
         });
+
+        Util
+            .getBlocksWith(WoodenObjectType.SOUL_TORCH, Util.HAS_PLANKS.and(Util.HAS_SLAB))
+            .forEach(block -> this.blockItem(block, WoodenObjectType.SOUL_TORCH.toString()));
     }
 }

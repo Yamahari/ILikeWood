@@ -48,6 +48,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new BedRecipeProvider(generator));
             generator.addProvider(new NetheriteTieredItemRecipeProvider(generator));
             generator.addProvider(new FishingRodRecipeProvider(generator));
+            generator.addProvider(new SoulTorchRecipeProvider(generator));
 
             generator.addProvider(new ILikeWoodLootTableProvider(generator));
             final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator, helper);
@@ -75,6 +76,8 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ItemFrameBlockStateProvider(generator, helper));
             generator.addProvider(new BedBlockStateProvider(generator, helper));
             generator.addProvider(new SawmillBlockStateProvider(generator, helper));
+            generator.addProvider(new SoulTorchBlockStateProvider(generator, helper));
+            generator.addProvider(new WallSoulTorchBlockStateProvider(generator, helper));
 
             generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
             generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));

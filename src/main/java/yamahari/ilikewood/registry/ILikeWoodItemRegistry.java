@@ -40,10 +40,13 @@ public final class ILikeWoodItemRegistry {
 
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleBuildingBlockItem =
             registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.BUILDING_BLOCKS));
+
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleDecorationBlockItem =
             registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.DECORATIONS));
+
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleMiscBlockItem =
             registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.MISC));
+
         final BiFunction<WoodenObjectType, RegistryObject<Block>, Item> simpleRedstoneBlockItem =
             registerSimpleBlockItem((new Item.Properties()).group(ItemGroup.REDSTONE));
 
@@ -51,52 +54,67 @@ public final class ILikeWoodItemRegistry {
             registerBlockItemsWith(WoodenObjectType.PANELS,
                 simpleBuildingBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.STAIRS,
             registerBlockItemsWith(WoodenObjectType.STAIRS,
                 simpleBuildingBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.SLAB,
             registerBlockItemsWith(WoodenObjectType.SLAB, simpleBuildingBlockItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.BARREL,
             registerBlockItemsWith(WoodenObjectType.BARREL,
                 simpleDecorationBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.BOOKSHELF,
             registerBlockItemsWith(WoodenObjectType.BOOKSHELF,
                 simpleBuildingBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.COMPOSTER,
             registerBlockItemsWith(WoodenObjectType.COMPOSTER,
                 simpleMiscBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.WALL,
             registerBlockItemsWith(WoodenObjectType.WALL,
                 simpleDecorationBlockItem,
                 Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+
         registryObjects.put(WoodenObjectType.CHEST,
             registerBlockItemsWith(WoodenObjectType.CHEST,
                 registerSimpleBlockItem((new Item.Properties())
                     .group(ItemGroup.DECORATIONS)
                     .setISTER(() -> WoodenChestItemStackTileEntityRenderer::new)),
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.LADDER,
             registerBlockItemsWith(WoodenObjectType.LADDER,
                 simpleDecorationBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.STICK,
             registerSimpleItemsWith(ILikeWoodItemRegistry::registerStickItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.TORCH,
             registerSimpleItemsWith(ILikeWoodItemRegistry::registerTorchItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
+        registryObjects.put(WoodenObjectType.SOUL_TORCH,
+            registerSimpleItemsWith(ILikeWoodItemRegistry::registerSoulTorchItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.CRAFTING_TABLE,
             registerBlockItemsWith(WoodenObjectType.CRAFTING_TABLE,
                 simpleDecorationBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.SCAFFOLDING,
             registerBlockItemsWith(WoodenObjectType.SCAFFOLDING,
-                (objectType, block) -> new WoodenScaffoldingItem(objectType,
-                    block.get(),
+                (objectType, block) -> new WoodenScaffoldingItem(objectType, block.get(),
                     (new Item.Properties()).group(ItemGroup.DECORATIONS)),
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.LECTERN,
             registerBlockItemsWith(WoodenObjectType.LECTERN,
                 simpleRedstoneBlockItem,
@@ -105,20 +123,26 @@ public final class ILikeWoodItemRegistry {
             registerBlockItemsWith(WoodenObjectType.POST,
                 simpleDecorationBlockItem,
                 Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+
         registryObjects.put(WoodenObjectType.STRIPPED_POST,
             registerBlockItemsWith(WoodenObjectType.STRIPPED_POST,
                 simpleDecorationBlockItem,
                 Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG)));
+
         registryObjects.put(WoodenObjectType.BOW,
             registerSimpleItemsWith(ILikeWoodItemRegistry::registerBowItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.CROSSBOW,
             registerSimpleItemsWith(ILikeWoodItemRegistry::registerCrossbowItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.ITEM_FRAME,
             registerSimpleItemsWith(ILikeWoodItemRegistry::registerItemFrameItem, Util.HAS_PLANKS.and(Util.HAS_SLAB)));
+
         registryObjects.put(WoodenObjectType.SAWMILL,
             registerBlockItemsWith(WoodenObjectType.SAWMILL,
                 simpleDecorationBlockItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB).and(Util.HAS_LOG).and(Util.HAS_STRIPPED_LOG)));
+
         registryObjects.put(WoodenObjectType.FISHING_ROD,
             registerSimpleItemsWith(ILikeWoodItemRegistry::registerFishingPoleItem,
                 Util.HAS_PLANKS.and(Util.HAS_SLAB)));
@@ -130,12 +154,16 @@ public final class ILikeWoodItemRegistry {
 
         tieredRegistryObjects.put(WoodenTieredObjectType.AXE,
             registerTieredItems(ILikeWoodItemRegistry::registerAxeItem));
+
         tieredRegistryObjects.put(WoodenTieredObjectType.HOE,
             registerTieredItems(ILikeWoodItemRegistry::registerHoeItem));
+
         tieredRegistryObjects.put(WoodenTieredObjectType.PICKAXE,
             registerTieredItems(ILikeWoodItemRegistry::registerPickaxeItem));
+
         tieredRegistryObjects.put(WoodenTieredObjectType.SHOVEL,
             registerTieredItems(ILikeWoodItemRegistry::registerShovelItem));
+
         tieredRegistryObjects.put(WoodenTieredObjectType.SWORD,
             registerTieredItems(ILikeWoodItemRegistry::registerSwordItem));
 
@@ -202,14 +230,24 @@ public final class ILikeWoodItemRegistry {
             () -> new WoodenItem(woodType, WoodenObjectType.STICK, (new Item.Properties()).group(ItemGroup.MATERIALS)));
     }
 
-    private static RegistryObject<Item> registerTorchItem(final IWoodType woodType) {
-        final RegistryObject<Block> torch = WoodenBlocks.getRegistryObject(WoodenObjectType.TORCH, woodType);
-        final RegistryObject<Block> wallTorch = WoodenBlocks.getRegistryObject(WoodenObjectType.WALL_TORCH, woodType);
+    private static RegistryObject<Item> registerTorchItem(final WoodenObjectType torchObjectType,
+                                                          final WoodenObjectType wallTorchObjectType,
+                                                          final IWoodType woodType) {
+        final RegistryObject<Block> torch = WoodenBlocks.getRegistryObject(torchObjectType, woodType);
+        final RegistryObject<Block> wallTorch = WoodenBlocks.getRegistryObject(wallTorchObjectType, woodType);
         return REGISTRY.register(torch.getId().getPath(),
-            () -> new WoodenWallOrFloorItem(WoodenObjectType.TORCH,
+            () -> new WoodenWallOrFloorItem(torchObjectType,
                 torch.get(),
                 wallTorch.get(),
                 (new Item.Properties()).group(ItemGroup.DECORATIONS)));
+    }
+
+    private static RegistryObject<Item> registerTorchItem(final IWoodType woodType) {
+        return registerTorchItem(WoodenObjectType.TORCH, WoodenObjectType.WALL_TORCH, woodType);
+    }
+
+    private static RegistryObject<Item> registerSoulTorchItem(final IWoodType woodType) {
+        return registerTorchItem(WoodenObjectType.SOUL_TORCH, WoodenObjectType.WALL_SOUL_TORCH, woodType);
     }
 
     private static RegistryObject<Item> registerHoeItem(final IWoodType woodType, final IWoodenItemTier itemTier) {

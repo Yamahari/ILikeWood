@@ -38,7 +38,8 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
                 WoodenObjectType.TORCH,
                 WoodenObjectType.SCAFFOLDING,
                 WoodenObjectType.POST,
-                WoodenObjectType.STRIPPED_POST)
+                WoodenObjectType.STRIPPED_POST,
+                WoodenObjectType.SOUL_TORCH)
             .forEach(block -> this.add(block,
                 getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 

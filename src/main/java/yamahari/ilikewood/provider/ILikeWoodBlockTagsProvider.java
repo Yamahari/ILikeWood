@@ -44,6 +44,8 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         registerTag(ILikeWoodBlockTags.SCAFFOLDINGS, WoodenObjectType.SCAFFOLDING);
         registerTag(ILikeWoodBlockTags.BEDS, WoodenObjectType.BED);
         registerTag(ILikeWoodBlockTags.SAWMILLS, WoodenObjectType.SAWMILL);
+        registerTag(ILikeWoodBlockTags.SOUL_TORCHES, WoodenObjectType.SOUL_TORCH);
+        registerTag(ILikeWoodBlockTags.WALL_SOUL_TORCHES, WoodenObjectType.WALL_SOUL_TORCH);
     }
 
     @Override

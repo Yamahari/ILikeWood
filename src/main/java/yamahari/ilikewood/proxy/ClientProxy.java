@@ -52,7 +52,9 @@ public final class ClientProxy implements IProxy {
             .getBlocks(WoodenObjectType.LADDER,
                 WoodenObjectType.TORCH,
                 WoodenObjectType.WALL_TORCH,
-                WoodenObjectType.SCAFFOLDING)
+                WoodenObjectType.SCAFFOLDING,
+                WoodenObjectType.SOUL_TORCH,
+                WoodenObjectType.WALL_SOUL_TORCH)
             .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
 
         WoodenBlocks
@@ -109,22 +111,24 @@ public final class ClientProxy implements IProxy {
 
         });
 
-        WoodenItems.getItems(WoodenObjectType.FISHING_ROD).forEach(item -> {
-            ItemModelsProperties.registerProperty(item, new ResourceLocation("cast"), (itemStack, world, entity) -> {
-                if (entity == null) {
-                    return 0.0F;
-                } else {
-                    boolean flag = entity.getHeldItemMainhand() == itemStack;
-                    boolean flag1 = entity.getHeldItemOffhand() == itemStack;
-                    if (entity.getHeldItemMainhand().getItem() instanceof FishingRodItem) {
-                        flag1 = false;
-                    }
+        WoodenItems
+            .getItems(WoodenObjectType.FISHING_ROD)
+            .forEach(item -> ItemModelsProperties.registerProperty(item,
+                new ResourceLocation("cast"),
+                (itemStack, world, entity) -> {
+                    if (entity == null) {
+                        return 0.0F;
+                    } else {
+                        boolean flag = entity.getHeldItemMainhand() == itemStack;
+                        boolean flag1 = entity.getHeldItemOffhand() == itemStack;
+                        if (entity.getHeldItemMainhand().getItem() instanceof FishingRodItem) {
+                            flag1 = false;
+                        }
 
-                    return (flag || flag1) && entity instanceof PlayerEntity &&
-                           ((PlayerEntity) entity).fishingBobber != null ? 1.0F : 0.0F;
-                }
-            });
-        });
+                        return (flag || flag1) && entity instanceof PlayerEntity &&
+                               ((PlayerEntity) entity).fishingBobber != null ? 1.0F : 0.0F;
+                    }
+                }));
     }
 
     @Override

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ilikewood:block/soul_torch/wall/acacia",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "ilikewood:block/soul_torch/wall/acacia",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "ilikewood:block/soul_torch/wall/acacia",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "ilikewood:block/soul_torch/wall/acacia"
+    }
+  }
+}

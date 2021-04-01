@@ -31,13 +31,20 @@ public final class WoodenTorchBlock extends TorchBlock implements IWooden {
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public VoxelShape getShape(final BlockState state, final IBlockReader worldIn, final BlockPos pos, final ISelectionContext context) {
+    public VoxelShape getShape(final BlockState state, final IBlockReader worldIn, final BlockPos pos,
+                               final ISelectionContext context) {
         return SHAPE;
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
     public void animateTick(final BlockState stateIn, final World worldIn, BlockPos pos, final Random rand) {
-        worldIn.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.9D, (double) pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(ParticleTypes.SMOKE,
+            (double) pos.getX() + 0.5D,
+            (double) pos.getY() + 0.9D,
+            (double) pos.getZ() + 0.5D,
+            0.0D,
+            0.0D,
+            0.0D);
     }
 }

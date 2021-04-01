@@ -1,9 +1,0 @@
-{
-  "parent": "ilikewood:block/bed/head/template",
-  "textures": {
-    "planks": "biomesoplenty:block/dead_planks",
-    "frame": "ilikewood:block/bed/frame/dead",
-    "top": "ilikewood:block/bed/sheets/head/top/gray",
-    "sides": "ilikewood:block/bed/sheets/head/sides/gray"
-  }
-}

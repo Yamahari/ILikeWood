@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:block/item_frame/map/template",
-  "textures": {
-    "planks": "biomesoplenty:block/fir_planks"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:item/umbran_crossbow",
-  "textures": {
-    "layer0": "ilikewood:item/crossbow/arrow/umbran"
-  }
-}

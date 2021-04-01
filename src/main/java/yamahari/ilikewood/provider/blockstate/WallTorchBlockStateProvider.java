@@ -20,10 +20,11 @@ public final class WallTorchBlockStateProvider extends AbstractBlockStateProvide
         final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.TORCH.toString());
         final ModelFile template = this
             .models()
-            .singleTexture(Util.toPath(path, "wall", woodType),
-                modLoc(Util.toPath(path, "wall", "template")),
-                "torch",
-                modLoc(Util.toPath(path, woodType)));
+            .withExistingParent(Util.toPath(path, "wall", woodType), modLoc(Util.toPath(path, "wall", "template")))
+            .texture("torch", modLoc(Util.toPath(path, woodType)))
+            .texture("fire", modLoc(Util.toPath(path, "fire")))
+            .texture("coal", modLoc(Util.toPath(path, "coal")));
+
         this.horizontalBlock(block, template, 90);
     }
 }

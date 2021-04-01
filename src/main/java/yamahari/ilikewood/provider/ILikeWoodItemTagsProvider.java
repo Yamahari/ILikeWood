@@ -53,6 +53,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.BEDS, WoodenObjectType.BED);
         registerTag(ILikeWoodItemTags.SAWMILLS, WoodenObjectType.SAWMILL);
         registerTag(ILikeWoodItemTags.FISHING_POLES, WoodenObjectType.FISHING_ROD);
+        registerTag(ILikeWoodItemTags.SOUL_TORCHES, WoodenObjectType.SOUL_TORCH);
 
         registerTag(ILikeWoodItemTags.AXES, WoodenTieredObjectType.AXE);
         registerTag(ILikeWoodItemTags.HOES, WoodenTieredObjectType.HOE);

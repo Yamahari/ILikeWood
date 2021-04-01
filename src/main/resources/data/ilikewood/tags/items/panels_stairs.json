@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:dark_oak_panels_stairs",
     "ilikewood:spruce_panels_stairs",
-    "ilikewood:acacia_panels_stairs",
-    "ilikewood:oak_panels_stairs",
     "ilikewood:jungle_panels_stairs",
-    "ilikewood:warped_panels_stairs",
+    "ilikewood:acacia_panels_stairs",
     "ilikewood:crimson_panels_stairs",
-    "ilikewood:birch_panels_stairs"
+    "ilikewood:birch_panels_stairs",
+    "ilikewood:dark_oak_panels_stairs",
+    "ilikewood:warped_panels_stairs",
+    "ilikewood:oak_panels_stairs"
   ]
 }

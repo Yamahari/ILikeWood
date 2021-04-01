@@ -1,9 +1,9 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "fire": "ilikewood:block/torch/fire",
+    "fire": "#fire",
     "torch": "#torch",
-    "coal": "ilikewood:block/torch/coal",
+    "coal": "#coal",
     "particle": "#torch"
   },
   "elements": [

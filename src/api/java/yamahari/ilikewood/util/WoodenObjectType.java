@@ -19,12 +19,14 @@ public enum WoodenObjectType {
     SAWMILL("sawmill"),
     SCAFFOLDING("scaffolding"),
     SLAB("slab"),
+    SOUL_TORCH("soul_torch"),
     STAIRS("stairs"),
     STICK("stick"),
     STRIPPED_POST("stripped_post"),
     TORCH("torch"),
     WALL("wall"),
-    WALL_TORCH("wall_torch");
+    WALL_TORCH("wall_torch"),
+    WALL_SOUL_TORCH("wall_soul_torch");
 
     private final String name;
 
