@@ -15,18 +15,18 @@ import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class BedBlockStateProvider extends AbstractBlockStateProvider {
     public BedBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.BED);
+        super(generator, helper, WoodenObjectTypes.BED);
     }
 
     @Override
     public void registerStateAndModel(final Block block) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.BED.toString());
+        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.BED.getName());
         final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
         final ResourceLocation frame = modLoc(Util.toPath(path, "frame", woodType.getName()));
         final ResourceLocation headTop = modLoc(Util.toPath(path, "sheets", "head", "top", color.toString()));

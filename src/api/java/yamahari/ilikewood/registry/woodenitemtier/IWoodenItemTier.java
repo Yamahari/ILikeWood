@@ -2,7 +2,7 @@ package yamahari.ilikewood.registry.woodenitemtier;
 
 import net.minecraft.item.IItemTier;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
 
 public interface IWoodenItemTier extends IItemTier, IWooden {
     String getModId();
@@ -20,8 +20,7 @@ public interface IWoodenItemTier extends IItemTier, IWooden {
         private final float attackDamage;
         private final int burnTime;
 
-        public Properties(final float attackSpeed, final float attackDamage,
-                          final int burnTime) {
+        public Properties(final float attackSpeed, final float attackDamage, final int burnTime) {
             this.attackSpeed = attackSpeed;
             this.attackDamage = attackDamage;
             this.burnTime = burnTime;

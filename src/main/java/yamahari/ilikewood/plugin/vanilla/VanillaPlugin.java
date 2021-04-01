@@ -14,7 +14,6 @@ public class VanillaPlugin implements IModPlugin {
         return Constants.MOD_ID;
     }
 
-
     @Override
     public void registerWoodTypes(final IWoodTypeRegistry registry) {
         VanillaWoodTypes.get().forEach(registry::register);

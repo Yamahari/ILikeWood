@@ -10,14 +10,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
-import yamahari.ilikewood.provider.recipe.AbstractBlockItemRecipeProvider;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -25,13 +24,13 @@ import java.util.function.Consumer;
 
 public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvider {
     public PanelsSlabRecipeProvider(final DataGenerator generator) {
-        super(generator, WoodenObjectType.SLAB);
+        super(generator, WoodenObjectTypes.SLAB);
     }
 
     @Override
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
-        final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+        final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, woodType);
         final IItemProvider planks =
             ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 

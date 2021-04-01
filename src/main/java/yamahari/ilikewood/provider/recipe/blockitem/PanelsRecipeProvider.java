@@ -10,21 +10,22 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
-import yamahari.ilikewood.provider.recipe.AbstractBlockItemRecipeProvider;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider {
     public PanelsRecipeProvider(final DataGenerator generator) {
-        super(generator, WoodenObjectType.PANELS);
+        super(generator, WoodenObjectTypes.PANELS);
     }
 
     @Override
@@ -33,7 +34,9 @@ public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider 
         final IItemProvider planks =
             ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
-        if (Util.HAS_SLAB.test(woodType)) {
+        final Set<WoodenObjectType> objectTypes = woodType.getObjectTypes();
+
+        if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasSlab(woodType)) {
             final IItemProvider slab =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getSlab(woodType).getResource());
 
@@ -56,7 +59,7 @@ public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider 
                         planks.asItem().getRegistryName().getPath(),
                         WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
 
-        if (Util.HAS_LOG.test(woodType)) {
+        if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasLog(woodType)) {
             final IItemProvider log =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getResource());
 
@@ -70,7 +73,7 @@ public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider 
                             WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
         }
 
-        if (Util.HAS_STRIPPED_LOG.test(woodType)) {
+        if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasStrippedLog(woodType)) {
             final IItemProvider stripped_log = ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY
                 .getStrippedLog(woodType)
                 .getResource());
@@ -79,8 +82,7 @@ public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider 
                 .addCriterion("has_stripped_log", hasItem(stripped_log))
                 .build(consumer,
                     new ResourceLocation(Constants.MOD_ID,
-                        Util.toRegistryName(block.getRegistryName().getPath(),
-                            "from",
+                        Util.toRegistryName(block.getRegistryName().getPath(), "from",
                             stripped_log.asItem().getRegistryName().getPath(),
                             WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
         }

@@ -29,8 +29,7 @@ public final class WoodenChestTileEntity extends ChestTileEntity implements IWoo
         final Block block = this.getBlockState().getBlock();
         if (block instanceof WoodenChestBlock) {
             final String path = block.getRegistryName().getPath();
-            return new TranslationTextComponent(
-                    StringUtils.joinWith(".", "container", Constants.MOD_ID, path));
+            return new TranslationTextComponent(StringUtils.joinWith(".", "container", Constants.MOD_ID, path));
         }
         return super.getDefaultName();
     }

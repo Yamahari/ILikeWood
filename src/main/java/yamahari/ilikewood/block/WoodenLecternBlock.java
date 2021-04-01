@@ -18,6 +18,8 @@ import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
+import javax.annotation.Nonnull;
+
 public final class WoodenLecternBlock extends LecternBlock implements IWooden {
     private final IWoodType woodType;
 
@@ -36,9 +38,12 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
         return WoodenTileEntityTypes.WOODEN_LECTERN.get().create();
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    public ActionResultType onBlockActivated(final BlockState state, final World world, final BlockPos pos, final PlayerEntity player, final Hand hand, final BlockRayTraceResult rayTraceResult) {
+    public ActionResultType onBlockActivated(final BlockState state, @Nonnull final World world,
+                                             @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player,
+                                             @Nonnull final Hand hand,
+                                             @Nonnull final BlockRayTraceResult rayTraceResult) {
         if (state.get(HAS_BOOK)) {
             if (!world.isRemote) {
                 this.openContainer(world, pos, player);
@@ -47,7 +52,9 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
         } else {
             final ItemStack held = player.getHeldItem(hand);
             if (!held.isEmpty()) {
-                return held.getItem().isIn(ItemTags.LECTERN_BOOKS) && tryPlaceBook(world, pos, state, held) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+                return held.getItem().isIn(ItemTags.LECTERN_BOOKS) && tryPlaceBook(world, pos, state, held)
+                       ? ActionResultType.SUCCESS
+                       : ActionResultType.PASS;
             }
             return ActionResultType.CONSUME;
         }

@@ -18,6 +18,8 @@ import net.minecraft.world.IWorld;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
+import javax.annotation.Nonnull;
+
 public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWooden, IWaterLoggable {
     public static final BooleanProperty NORTH;
     public static final BooleanProperty EAST;
@@ -50,14 +52,12 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
 
         for (int i = 0; i < FACING_VALUES.length; ++i) {
             final Direction direction = FACING_VALUES[i];
-            sides[i] = VoxelShapes.create(
-                    0.5D + Math.min(-apothem, (double) direction.getXOffset() * 0.5D),
-                    0.5D + Math.min(-apothem, (double) direction.getYOffset() * 0.5D),
-                    0.5D + Math.min(-apothem, (double) direction.getZOffset() * 0.5D),
-                    0.5D + Math.max(apothem, (double) direction.getXOffset() * 0.5D),
-                    0.5D + Math.max(apothem, (double) direction.getYOffset() * 0.5D),
-                    0.5D + Math.max(apothem, (double) direction.getZOffset() * 0.5D)
-            );
+            sides[i] = VoxelShapes.create(0.5D + Math.min(-apothem, (double) direction.getXOffset() * 0.5D),
+                0.5D + Math.min(-apothem, (double) direction.getYOffset() * 0.5D),
+                0.5D + Math.min(-apothem, (double) direction.getZOffset() * 0.5D),
+                0.5D + Math.max(apothem, (double) direction.getXOffset() * 0.5D),
+                0.5D + Math.max(apothem, (double) direction.getYOffset() * 0.5D),
+                0.5D + Math.max(apothem, (double) direction.getZOffset() * 0.5D));
         }
 
         VERTICAL_AABBS = createShapes(verticalPost, sides, Direction.Axis.Y);
@@ -70,18 +70,20 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
     public WoodenStrippedPostBlock(final IWoodType woodType) {
         super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
         this.woodType = woodType;
-        this.setDefaultState(this.getDefaultState()
-                .with(AXIS, Direction.Axis.Y)
-                .with(WATERLOGGED, false)
-                .with(NORTH, false)
-                .with(EAST, false)
-                .with(SOUTH, false)
-                .with(WEST, false)
-                .with(UP, false)
-                .with(DOWN, false));
+        this.setDefaultState(this
+            .getDefaultState()
+            .with(AXIS, Direction.Axis.Y)
+            .with(WATERLOGGED, false)
+            .with(NORTH, false)
+            .with(EAST, false)
+            .with(SOUTH, false)
+            .with(WEST, false)
+            .with(UP, false)
+            .with(DOWN, false));
     }
 
-    private static VoxelShape[] createShapes(final VoxelShape post, final VoxelShape[] sides, final Direction.Axis axis) {
+    private static VoxelShape[] createShapes(final VoxelShape post, final VoxelShape[] sides,
+                                             final Direction.Axis axis) {
         final VoxelShape[] shapes = new VoxelShape[16];
         for (int i = 0; i < shapes.length; ++i) {
             int offset = 0;
@@ -112,23 +114,24 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
             }
         }
         switch (axis) {
-            case X:
-            default:
-                return EW_AABBS[i];
-            case Z:
-                return NS_AABBS[i];
-            case Y:
-                return VERTICAL_AABBS[i];
+        case X:
+        default:
+            return EW_AABBS[i];
+        case Z:
+            return NS_AABBS[i];
+        case Y:
+            return VERTICAL_AABBS[i];
         }
     }
 
     @Override
-    protected void fillStateContainer(@SuppressWarnings("NullableProblems") final StateContainer.Builder<Block, BlockState> builder) {
+    protected void fillStateContainer(@Nonnull final StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, WATERLOGGED);
     }
 
-    @SuppressWarnings({"NullableProblems", "deprecation"})
+    @Nonnull
+    @SuppressWarnings({"deprecation"})
     @Override
     public FluidState getFluidState(final BlockState blockState) {
         return blockState.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(blockState);
@@ -139,15 +142,20 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
         return this.woodType;
     }
 
-    @SuppressWarnings({"NullableProblems", "deprecation"})
+    @Nonnull
+    @SuppressWarnings({"deprecation"})
     @Override
-    public VoxelShape getShape(final BlockState blockState, final IBlockReader blockReader, final BlockPos blockPos, final ISelectionContext selectionContext) {
+    public VoxelShape getShape(@Nonnull final BlockState blockState, @Nonnull final IBlockReader blockReader,
+                               @Nonnull final BlockPos blockPos, @Nonnull final ISelectionContext selectionContext) {
         return getVoxelShape(blockState);
     }
 
-    @SuppressWarnings({"NullableProblems", "deprecation"})
+    @Nonnull
+    @SuppressWarnings({"deprecation"})
     @Override
-    public VoxelShape getCollisionShape(final BlockState blockState, final IBlockReader blockReader, final BlockPos blockPos, final ISelectionContext selectionContext) {
+    public VoxelShape getCollisionShape(@Nonnull final BlockState blockState, @Nonnull final IBlockReader blockReader,
+                                        @Nonnull final BlockPos blockPos,
+                                        @Nonnull final ISelectionContext selectionContext) {
         return getVoxelShape(blockState);
     }
 
@@ -166,20 +174,25 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
         final FluidState fluidState = blockItemUseContext.getWorld().getFluidState(blockItemUseContext.getPos());
 
         final Direction.Axis axis = blockItemUseContext.getFace().getAxis();
-        return this.getDefaultState().with(AXIS, blockItemUseContext.getFace().getAxis())
-                .with(DOWN, down instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
-                .with(UP, up instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
-                .with(NORTH, north instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
-                .with(EAST, east instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
-                .with(SOUTH, south instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
-                .with(WEST, west instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
-                .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        return this
+            .getDefaultState()
+            .with(AXIS, blockItemUseContext.getFace().getAxis())
+            .with(DOWN, down instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
+            .with(UP, up instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
+            .with(NORTH, north instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
+            .with(EAST, east instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
+            .with(SOUTH, south instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
+            .with(WEST, west instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
+            .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
-    @SuppressWarnings({"NullableProblems", "deprecation"})
+    @Nonnull
+    @SuppressWarnings({"deprecation"})
     @Override
-    public BlockState updatePostPlacement(final BlockState blockState0, final Direction direction, final BlockState blockState1, final IWorld world, final BlockPos blockPos, final BlockPos blockPos1) {
+    public BlockState updatePostPlacement(final BlockState blockState0, @Nonnull final Direction direction,
+                                          final BlockState blockState1, @Nonnull final IWorld world,
+                                          @Nonnull final BlockPos blockPos, @Nonnull final BlockPos blockPos1) {
         return blockState0.with(SixWayBlock.FACING_TO_PROPERTY_MAP.get(direction),
-                blockState1.getBlock() instanceof WoodenStrippedPostBlock && direction.getAxis() != blockState0.get(AXIS));
+            blockState1.getBlock() instanceof WoodenStrippedPostBlock && direction.getAxis() != blockState0.get(AXIS));
     }
 }

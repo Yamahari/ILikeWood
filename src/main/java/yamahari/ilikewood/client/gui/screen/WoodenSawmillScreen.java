@@ -77,8 +77,8 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
 
     }
 
-    private void func_238853_b_(MatrixStack matrixStack, int x, int y, int p_238853_4_, int p_238853_5_,
-                                int p_238853_6_) {
+    private void func_238853_b_(final MatrixStack matrixStack, final int x, final int y, final int p_238853_4_,
+                                final int p_238853_5_, final int p_238853_6_) {
         for (int i = this.recipeIndexOffset; i < p_238853_6_ && i < this.container.getRecipeListSize(); ++i) {
             int j = i - this.recipeIndexOffset;
             int k = p_238853_4_ + j % 4 * 16;
@@ -96,7 +96,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
 
     }
 
-    private void drawRecipesItems(int left, int top, int recipeIndexOffsetMax) {
+    private void drawRecipesItems(final int left, final int top, final int recipeIndexOffsetMax) {
         final List<AbstractWoodenSawmillRecipe> recipes = this.container.getRecipeList();
 
         for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.container.getRecipeListSize(); ++i) {
@@ -110,7 +110,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
         this.clickedOnScroll = false;
         if (this.hasItemsInInputSlot) {
             int i = this.guiLeft + 52;
@@ -144,7 +144,8 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+    public boolean mouseDragged(final double mouseX, final double mouseY, final int button, final double dragX,
+                                final double dragY) {
         if (this.clickedOnScroll && this.canScroll()) {
             int i = this.guiTop + 14;
             int j = i + 54;
@@ -158,7 +159,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    public boolean mouseScrolled(final double mouseX, final double mouseY, final double delta) {
         if (this.canScroll()) {
             int i = this.getHiddenRows();
             this.sliderProgress = (float) ((double) this.sliderProgress - delta / (double) i);

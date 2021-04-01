@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.WoodenObjectType;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectTypes;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -28,18 +28,18 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         WoodenBlocks
-            .getBlocks(WoodenObjectType.PANELS,
-                WoodenObjectType.STAIRS,
-                WoodenObjectType.SLAB,
-                WoodenObjectType.BOOKSHELF,
-                WoodenObjectType.COMPOSTER,
-                WoodenObjectType.WALL,
-                WoodenObjectType.LADDER,
-                WoodenObjectType.TORCH,
-                WoodenObjectType.SCAFFOLDING,
-                WoodenObjectType.POST,
-                WoodenObjectType.STRIPPED_POST,
-                WoodenObjectType.SOUL_TORCH)
+            .getBlocks(WoodenObjectTypes.PANELS,
+                WoodenObjectTypes.STAIRS,
+                WoodenObjectTypes.SLAB,
+                WoodenObjectTypes.BOOKSHELF,
+                WoodenObjectTypes.COMPOSTER,
+                WoodenObjectTypes.WALL,
+                WoodenObjectTypes.LADDER,
+                WoodenObjectTypes.TORCH,
+                WoodenObjectTypes.SCAFFOLDING,
+                WoodenObjectTypes.POST,
+                WoodenObjectTypes.STRIPPED_POST,
+                WoodenObjectTypes.SOUL_TORCH)
             .forEach(block -> this.add(block,
                 getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
@@ -49,11 +49,11 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
                 getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
         WoodenBlocks
-            .getBlocks(WoodenObjectType.CRAFTING_TABLE,
-                WoodenObjectType.BARREL,
-                WoodenObjectType.CHEST,
-                WoodenObjectType.LECTERN,
-                WoodenObjectType.SAWMILL)
+            .getBlocks(WoodenObjectTypes.CRAFTING_TABLE,
+                WoodenObjectTypes.BARREL,
+                WoodenObjectTypes.CHEST,
+                WoodenObjectTypes.LECTERN,
+                WoodenObjectTypes.SAWMILL)
             .forEach(block -> {
                 final String path = Objects.requireNonNull(block.getRegistryName()).getPath();
                 final String name = getTranslationName(path);
@@ -62,16 +62,17 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
             });
 
         WoodenItems
-            .getItems(WoodenObjectType.STICK,
-                WoodenObjectType.BOW,
-                WoodenObjectType.CROSSBOW,
-                WoodenObjectType.ITEM_FRAME,
-                WoodenObjectType.FISHING_ROD)
+            .getItems(WoodenObjectTypes.STICK,
+                WoodenObjectTypes.BOW,
+                WoodenObjectTypes.CROSSBOW,
+                WoodenObjectTypes.ITEM_FRAME,
+                WoodenObjectTypes.FISHING_ROD)
             .forEach(item -> this.add(item,
                 getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
 
-        WoodenItems
-            .getTieredItems(WoodenTieredObjectType.values())
+        WoodenTieredObjectTypes
+            .get()
+            .flatMap(WoodenItems::getTieredItems)
             .forEach(item -> this.add(item,
                 getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
     }

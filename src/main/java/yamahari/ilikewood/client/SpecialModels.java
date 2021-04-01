@@ -11,7 +11,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -28,13 +28,16 @@ public final class SpecialModels {
         final Map<IWoodType, ResourceLocation> itemFrameModels = new HashMap<>();
         final Map<IWoodType, ResourceLocation> itemFrameMapModels = new HashMap<>();
 
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
-                .filter(Util.HAS_PLANKS.and(Util.HAS_SLAB))
-                .forEach(woodType -> {
-                    final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
-                    itemFrameModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName())));
-                    itemFrameMapModels.put(woodType, new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getName())));
-                });
+        ILikeWood.WOOD_TYPE_REGISTRY
+            .getWoodTypes()
+            .filter(woodType -> woodType.getObjectTypes().contains(WoodenObjectTypes.ITEM_FRAME))
+            .forEach(woodType -> {
+                final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.ITEM_FRAME.getName());
+                itemFrameModels.put(woodType,
+                    new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName())));
+                itemFrameMapModels.put(woodType,
+                    new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getName())));
+            });
 
         ITEM_FRAME_MODELS = Collections.unmodifiableMap(itemFrameModels);
         ITEM_FRAME_MAP_MODELS = Collections.unmodifiableMap(itemFrameMapModels);
@@ -42,10 +45,11 @@ public final class SpecialModels {
 
     @SubscribeEvent
     public static void onModelRegistry(final ModelRegistryEvent event) {
-        Stream.of(ITEM_FRAME_MAP_MODELS.entrySet(), ITEM_FRAME_MODELS.entrySet())
-                .flatMap(Collection::stream)
-                .map(Map.Entry::getValue)
-                .forEach(ModelLoader::addSpecialModel);
+        Stream
+            .of(ITEM_FRAME_MAP_MODELS.entrySet(), ITEM_FRAME_MODELS.entrySet())
+            .flatMap(Collection::stream)
+            .map(Map.Entry::getValue)
+            .forEach(ModelLoader::addSpecialModel);
     }
 
     private SpecialModels() {

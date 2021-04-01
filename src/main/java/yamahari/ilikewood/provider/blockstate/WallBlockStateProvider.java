@@ -11,18 +11,18 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class WallBlockStateProvider extends AbstractBlockStateProvider {
     public WallBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.WALL, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG));
+        super(generator, helper, WoodenObjectTypes.WALL);
     }
 
     @Override
     public void registerStateAndModel(final Block block) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final String name = woodType.getName();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.WALL.toString());
+        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.WALL.getName());
         final ResourceLocation log = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getSideTexture();
         final ResourceLocation strippedLog =
             ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType).getSideTexture();

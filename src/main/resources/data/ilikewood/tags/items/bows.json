@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:spruce_bow",
-    "ilikewood:jungle_bow",
-    "ilikewood:acacia_bow",
-    "ilikewood:crimson_bow",
-    "ilikewood:birch_bow",
-    "ilikewood:dark_oak_bow",
     "ilikewood:warped_bow",
-    "ilikewood:oak_bow"
+    "ilikewood:crimson_bow",
+    "ilikewood:acacia_bow",
+    "ilikewood:dark_oak_bow",
+    "ilikewood:spruce_bow",
+    "ilikewood:oak_bow",
+    "ilikewood:jungle_bow",
+    "ilikewood:birch_bow"
   ]
 }

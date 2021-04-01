@@ -10,21 +10,24 @@ import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 public final class ILikeWoodEntityTypeRegistry {
-    public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITIES, Constants.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> REGISTRY =
+        DeferredRegister.create(ForgeRegistries.ENTITIES, Constants.MOD_ID);
 
     static {
-        final EnumMap<WoodenObjectType, Map<IWoodType, RegistryObject<EntityType<?>>>> registryObjects = new EnumMap<>(WoodenObjectType.class);
+        final Map<WoodenObjectType, Map<IWoodType, RegistryObject<EntityType<?>>>> registryObjects = new HashMap<>();
 
-        registryObjects.put(WoodenObjectType.ITEM_FRAME, registerSimpleEntityTypes(ILikeWoodEntityTypeRegistry::registerItemFrameEntityTypes));
+        registryObjects.put(WoodenObjectTypes.ITEM_FRAME,
+            registerSimpleEntityTypes(WoodenObjectTypes.ITEM_FRAME,
+                ILikeWoodEntityTypeRegistry::registerItemFrameEntityTypes));
 
         WoodenEntityTypes.REGISTRY_OBJECTS = Collections.unmodifiableMap(registryObjects);
     }
@@ -32,23 +35,26 @@ public final class ILikeWoodEntityTypeRegistry {
     private ILikeWoodEntityTypeRegistry() {
     }
 
-    private static Map<IWoodType, RegistryObject<EntityType<?>>> registerSimpleEntityTypes(final Function<IWoodType, RegistryObject<EntityType<?>>> function) {
+    private static Map<IWoodType, RegistryObject<EntityType<?>>> registerSimpleEntityTypes(
+        final WoodenObjectType objectType, final Function<IWoodType, RegistryObject<EntityType<?>>> function) {
         final Map<IWoodType, RegistryObject<EntityType<?>>> entityTypes = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
-                .filter(Util.HAS_PLANKS.and(Util.HAS_SLAB))
-                .forEach(woodType -> entityTypes.put(woodType, function.apply(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY
+            .getWoodTypes()
+            .filter(woodType -> woodType.getObjectTypes().contains(objectType))
+            .forEach(woodType -> entityTypes.put(woodType, function.apply(woodType)));
         return Collections.unmodifiableMap(entityTypes);
     }
 
     private static RegistryObject<EntityType<?>> registerItemFrameEntityTypes(final IWoodType woodType) {
-        final String name = Util.toRegistryName(woodType.getName(), WoodenObjectType.ITEM_FRAME.toString());
+        final String name = Util.toRegistryName(woodType.getName(), WoodenObjectTypes.ITEM_FRAME.getName());
         return REGISTRY.register(name,
-                () -> EntityType.Builder.<WoodenItemFrameEntity>create(
-                        (entityType, world) -> new WoodenItemFrameEntity(woodType, entityType, world), EntityClassification.MISC)
-                        .size(0.5F, 0.5F)
-                        .trackingRange(10)
-                        .func_233608_b_(Integer.MAX_VALUE)
-                        // .setCustomClientFactory(((spawnEntity, world) -> new WoodenItemFrameEntity(woodType, (EntityType<? extends ItemFrameEntity>)spawnEntity.getEntity().getType(), world)))
-                        .build(name));
+            () -> EntityType.Builder.<WoodenItemFrameEntity>create((entityType, world) -> new WoodenItemFrameEntity(
+                woodType,
+                entityType,
+                world), EntityClassification.MISC)
+                .size(0.5F, 0.5F)
+                .trackingRange(10)
+                .func_233608_b_(Integer.MAX_VALUE)
+                .build(name));
     }
 }

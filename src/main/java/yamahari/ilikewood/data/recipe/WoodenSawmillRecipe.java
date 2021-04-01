@@ -5,7 +5,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.WoodenBlocks;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 
@@ -18,6 +18,6 @@ public final class WoodenSawmillRecipe extends AbstractWoodenSawmillRecipe {
     @Nonnull
     @Override
     public ItemStack getIcon() {
-        return new ItemStack(WoodenBlocks.getBlock(WoodenObjectType.SAWMILL, VanillaWoodTypes.OAK));
+        return new ItemStack(WoodenBlocks.getBlock(WoodenObjectTypes.SAWMILL, VanillaWoodTypes.OAK));
     }
 }

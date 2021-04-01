@@ -29,7 +29,7 @@ import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -118,7 +118,7 @@ public class WoodenSawmillBlock extends WoodenBlock {
         this.containerName = new TranslationTextComponent(StringUtils.joinWith(".",
             "container",
             Constants.MOD_ID,
-            Util.toRegistryName(this.getWoodType().getName(), WoodenObjectType.SAWMILL.toString())));
+            Util.toRegistryName(this.getWoodType().getName(), WoodenObjectTypes.SAWMILL.getName())));
     }
 
     private static Direction getDirectionToNext(final WoodenSawmillModel model, final Direction facing) {

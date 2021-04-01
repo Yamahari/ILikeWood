@@ -8,8 +8,10 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.WoodenObjectType;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectTypes;
 
 public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
     public ILikeWoodItemTagsProvider(final DataGenerator generator, final ILikeWoodBlockTagsProvider blockTagsProvider,
@@ -18,7 +20,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
     }
 
     private void registerTag(final ITag.INamedTag<Item> tag, final WoodenObjectType objectType) {
-        if (objectType.equals(WoodenObjectType.BED)) {
+        if (objectType.equals(WoodenObjectTypes.BED)) {
             this.getOrCreateBuilder(tag).add(WoodenItems.getBedItems().toArray(Item[]::new));
         } else {
             this.getOrCreateBuilder(tag).add(WoodenItems.getItems(objectType).toArray(Item[]::new));
@@ -31,35 +33,35 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void registerTags() {
-        registerTag(ILikeWoodItemTags.BARRELS, WoodenObjectType.BARREL);
-        registerTag(ILikeWoodItemTags.CHESTS, WoodenObjectType.CHEST);
-        registerTag(ILikeWoodItemTags.COMPOSTER, WoodenObjectType.COMPOSTER);
-        registerTag(ILikeWoodItemTags.BOOKSHELFS, WoodenObjectType.BOOKSHELF);
-        registerTag(ILikeWoodItemTags.PANELS_SLABS, WoodenObjectType.SLAB);
-        registerTag(ILikeWoodItemTags.PANELS_STAIRS, WoodenObjectType.STAIRS);
-        registerTag(ILikeWoodItemTags.PANELS, WoodenObjectType.PANELS);
-        registerTag(ILikeWoodItemTags.WALLS, WoodenObjectType.WALL);
-        registerTag(ILikeWoodItemTags.LADDERS, WoodenObjectType.LADDER);
-        registerTag(ILikeWoodItemTags.TORCHES, WoodenObjectType.TORCH);
-        registerTag(ILikeWoodItemTags.STICKS, WoodenObjectType.STICK);
-        registerTag(ILikeWoodItemTags.CRAFTING_TABLES, WoodenObjectType.CRAFTING_TABLE);
-        registerTag(ILikeWoodItemTags.SCAFFOLDINGS, WoodenObjectType.SCAFFOLDING);
-        registerTag(ILikeWoodItemTags.LECTERNS, WoodenObjectType.LECTERN);
-        registerTag(ILikeWoodItemTags.POSTS, WoodenObjectType.POST);
-        registerTag(ILikeWoodItemTags.STRIPPED_POSTS, WoodenObjectType.STRIPPED_POST);
-        registerTag(ILikeWoodItemTags.BOWS, WoodenObjectType.BOW);
-        registerTag(ILikeWoodItemTags.CROSSBOWS, WoodenObjectType.CROSSBOW);
-        registerTag(ILikeWoodItemTags.ITEM_FRAMES, WoodenObjectType.ITEM_FRAME);
-        registerTag(ILikeWoodItemTags.BEDS, WoodenObjectType.BED);
-        registerTag(ILikeWoodItemTags.SAWMILLS, WoodenObjectType.SAWMILL);
-        registerTag(ILikeWoodItemTags.FISHING_POLES, WoodenObjectType.FISHING_ROD);
-        registerTag(ILikeWoodItemTags.SOUL_TORCHES, WoodenObjectType.SOUL_TORCH);
+        registerTag(ILikeWoodItemTags.BARRELS, WoodenObjectTypes.BARREL);
+        registerTag(ILikeWoodItemTags.CHESTS, WoodenObjectTypes.CHEST);
+        registerTag(ILikeWoodItemTags.COMPOSTER, WoodenObjectTypes.COMPOSTER);
+        registerTag(ILikeWoodItemTags.BOOKSHELFS, WoodenObjectTypes.BOOKSHELF);
+        registerTag(ILikeWoodItemTags.PANELS_SLABS, WoodenObjectTypes.SLAB);
+        registerTag(ILikeWoodItemTags.PANELS_STAIRS, WoodenObjectTypes.STAIRS);
+        registerTag(ILikeWoodItemTags.PANELS, WoodenObjectTypes.PANELS);
+        registerTag(ILikeWoodItemTags.WALLS, WoodenObjectTypes.WALL);
+        registerTag(ILikeWoodItemTags.LADDERS, WoodenObjectTypes.LADDER);
+        registerTag(ILikeWoodItemTags.TORCHES, WoodenObjectTypes.TORCH);
+        registerTag(ILikeWoodItemTags.STICKS, WoodenObjectTypes.STICK);
+        registerTag(ILikeWoodItemTags.CRAFTING_TABLES, WoodenObjectTypes.CRAFTING_TABLE);
+        registerTag(ILikeWoodItemTags.SCAFFOLDINGS, WoodenObjectTypes.SCAFFOLDING);
+        registerTag(ILikeWoodItemTags.LECTERNS, WoodenObjectTypes.LECTERN);
+        registerTag(ILikeWoodItemTags.POSTS, WoodenObjectTypes.POST);
+        registerTag(ILikeWoodItemTags.STRIPPED_POSTS, WoodenObjectTypes.STRIPPED_POST);
+        registerTag(ILikeWoodItemTags.BOWS, WoodenObjectTypes.BOW);
+        registerTag(ILikeWoodItemTags.CROSSBOWS, WoodenObjectTypes.CROSSBOW);
+        registerTag(ILikeWoodItemTags.ITEM_FRAMES, WoodenObjectTypes.ITEM_FRAME);
+        registerTag(ILikeWoodItemTags.BEDS, WoodenObjectTypes.BED);
+        registerTag(ILikeWoodItemTags.SAWMILLS, WoodenObjectTypes.SAWMILL);
+        registerTag(ILikeWoodItemTags.FISHING_POLES, WoodenObjectTypes.FISHING_ROD);
+        registerTag(ILikeWoodItemTags.SOUL_TORCHES, WoodenObjectTypes.SOUL_TORCH);
 
-        registerTag(ILikeWoodItemTags.AXES, WoodenTieredObjectType.AXE);
-        registerTag(ILikeWoodItemTags.HOES, WoodenTieredObjectType.HOE);
-        registerTag(ILikeWoodItemTags.PICKAXES, WoodenTieredObjectType.PICKAXE);
-        registerTag(ILikeWoodItemTags.SHOVELS, WoodenTieredObjectType.SHOVEL);
-        registerTag(ILikeWoodItemTags.SWORDS, WoodenTieredObjectType.SWORD);
+        registerTag(ILikeWoodItemTags.AXES, WoodenTieredObjectTypes.AXE);
+        registerTag(ILikeWoodItemTags.HOES, WoodenTieredObjectTypes.HOE);
+        registerTag(ILikeWoodItemTags.PICKAXES, WoodenTieredObjectTypes.PICKAXE);
+        registerTag(ILikeWoodItemTags.SHOVELS, WoodenTieredObjectTypes.SHOVEL);
+        registerTag(ILikeWoodItemTags.SWORDS, WoodenTieredObjectTypes.SWORD);
     }
 
     @Override

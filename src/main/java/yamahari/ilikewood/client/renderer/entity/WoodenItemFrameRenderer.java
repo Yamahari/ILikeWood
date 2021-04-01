@@ -25,6 +25,8 @@ import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
+import javax.annotation.Nonnull;
+
 public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntity> {
     private final Minecraft mc = Minecraft.getInstance();
     private final ItemRenderer itemRenderer;
@@ -35,15 +37,18 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     }
 
     @Override
-    public void render(@SuppressWarnings("NullableProblems") final WoodenItemFrameEntity itemFrame, final float entityYaw, final float partialTicks,
-                       @SuppressWarnings("NullableProblems") final MatrixStack matrixStackIn, @SuppressWarnings("NullableProblems") final IRenderTypeBuffer bufferIn, final int packedLightIn) {
+    public void render(@Nonnull final WoodenItemFrameEntity itemFrame, final float entityYaw, final float partialTicks,
+                       @Nonnull final MatrixStack matrixStackIn, @Nonnull final IRenderTypeBuffer bufferIn,
+                       final int packedLightIn) {
         super.render(itemFrame, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.push();
         final Direction direction = itemFrame.getHorizontalFacing();
         final Vector3d renderOffset = this.getRenderOffset(itemFrame, partialTicks);
         matrixStackIn.translate(-renderOffset.getX(), -renderOffset.getY(), -renderOffset.getZ());
         final double d0 = 0.46875D;
-        matrixStackIn.translate((double) direction.getXOffset() * d0, (double) direction.getYOffset() * d0, (double) direction.getZOffset() * d0);
+        matrixStackIn.translate((double) direction.getXOffset() * d0,
+            (double) direction.getYOffset() * d0,
+            (double) direction.getZOffset() * d0);
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(itemFrame.rotationPitch));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F - itemFrame.rotationYaw));
         final boolean invisible = itemFrame.isInvisible();
@@ -53,11 +58,21 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
             final ModelManager manager = dispatcher.getBlockModelShapes().getModelManager();
             final IWoodType woodType = ((IWooden) itemFrame).getWoodType();
             final ResourceLocation location = displayedItem.getItem() instanceof FilledMapItem
-                    ? SpecialModels.ITEM_FRAME_MAP_MODELS.get(woodType)
-                    : SpecialModels.ITEM_FRAME_MODELS.get(woodType);
+                                              ? SpecialModels.ITEM_FRAME_MAP_MODELS.get(woodType)
+                                              : SpecialModels.ITEM_FRAME_MODELS.get(woodType);
             matrixStackIn.push();
             matrixStackIn.translate(-0.5D, -0.5D, -0.5D);
-            dispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStackIn.getLast(), bufferIn.getBuffer(Atlases.getSolidBlockType()), null, manager.getModel(location), 1.0F, 1.0F, 1.0F, packedLightIn, OverlayTexture.NO_OVERLAY);
+            dispatcher
+                .getBlockModelRenderer()
+                .renderModelBrightnessColor(matrixStackIn.getLast(),
+                    bufferIn.getBuffer(Atlases.getSolidBlockType()),
+                    null,
+                    manager.getModel(location),
+                    1.0F,
+                    1.0F,
+                    1.0F,
+                    packedLightIn,
+                    OverlayTexture.NO_OVERLAY);
             matrixStackIn.pop();
         }
 
@@ -69,13 +84,16 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
                 } else {
                     matrixStackIn.translate(0.0D, 0.0D, 0.4375D);
                 }
-                matrixStackIn.rotate(Vector3f.ZP.rotationDegrees((float) (itemFrame.getRotation() % 4 * 2) * 360.0F / 8.0F));
+                matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(
+                    (float) (itemFrame.getRotation() % 4 * 2) * 360.0F / 8.0F));
                 matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(180.0F));
                 final float f = 0.0078125F;
                 matrixStackIn.scale(f, f, f);
                 matrixStackIn.translate(-64.0D, -64.0D, 0.0D);
                 matrixStackIn.translate(0.0D, 0.0D, -1.0D);
-                this.mc.gameRenderer.getMapItemRenderer().renderMap(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
+                this.mc.gameRenderer
+                    .getMapItemRenderer()
+                    .renderMap(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
             } else {
                 if (direction == Direction.DOWN || direction == Direction.UP) {
                     matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-90.0F));
@@ -89,30 +107,39 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
                     matrixStackIn.rotate(Vector3f.ZP.rotationDegrees((float) itemFrame.getRotation() * 360.0F / 8.0F));
                 }
                 matrixStackIn.scale(0.5F, 0.5F, 0.5F);
-                this.itemRenderer.renderItem(displayedItem, ItemCameraTransforms.TransformType.FIXED, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
+                this.itemRenderer.renderItem(displayedItem,
+                    ItemCameraTransforms.TransformType.FIXED,
+                    packedLightIn,
+                    OverlayTexture.NO_OVERLAY,
+                    matrixStackIn,
+                    bufferIn);
             }
         }
         matrixStackIn.pop();
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
     public Vector3d getRenderOffset(final WoodenItemFrameEntity entityIn, final float partialTicks) {
-        return new Vector3d((float) entityIn.getHorizontalFacing().getXOffset() * 0.3F, -0.25D, (float) entityIn.getHorizontalFacing().getZOffset() * 0.3F);
+        return new Vector3d((float) entityIn.getHorizontalFacing().getXOffset() * 0.3F,
+            -0.25D,
+            (float) entityIn.getHorizontalFacing().getZOffset() * 0.3F);
     }
 
     /**
      * Returns the location of an entity's texture.
      */
-    @SuppressWarnings("NullableProblems")
+
+    @Nonnull
     @Override
-    public ResourceLocation getEntityTexture(final WoodenItemFrameEntity entity) {
+    public ResourceLocation getEntityTexture(@Nonnull final WoodenItemFrameEntity entity) {
         return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
     }
 
     @Override
-    protected boolean canRenderName(@SuppressWarnings("NullableProblems") final WoodenItemFrameEntity entity) {
-        if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
+    protected boolean canRenderName(@Nonnull final WoodenItemFrameEntity entity) {
+        if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() &&
+            entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
             double d0 = this.renderManager.squareDistanceTo(entity);
             float f = entity.isDiscrete() ? 32.0F : 64.0F;
             return d0 < (double) (f * f);
@@ -122,8 +149,13 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     }
 
     @Override
-    protected void renderName(@SuppressWarnings("NullableProblems") final WoodenItemFrameEntity entityIn, @SuppressWarnings("NullableProblems") final ITextComponent displayNameIn,
-                              @SuppressWarnings("NullableProblems") final MatrixStack matrixStackIn, @SuppressWarnings("NullableProblems") final IRenderTypeBuffer bufferIn, final int packedLightIn) {
-        super.renderName(entityIn, entityIn.getDisplayedItem().getDisplayName(), matrixStackIn, bufferIn, packedLightIn);
+    protected void renderName(@Nonnull final WoodenItemFrameEntity entityIn,
+                              @Nonnull final ITextComponent displayNameIn, @Nonnull final MatrixStack matrixStackIn,
+                              @Nonnull final IRenderTypeBuffer bufferIn, final int packedLightIn) {
+        super.renderName(entityIn,
+            entityIn.getDisplayedItem().getDisplayName(),
+            matrixStackIn,
+            bufferIn,
+            packedLightIn);
     }
 }

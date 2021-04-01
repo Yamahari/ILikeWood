@@ -21,7 +21,7 @@ import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
 import yamahari.ilikewood.registry.WoodenRecipeTypes;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -92,10 +92,10 @@ public final class WoodenSawmillContainer extends Container {
     public boolean canInteractWith(@Nonnull final PlayerEntity player) {
         return this.worldPosCallable.applyOrElse((world, blockPos) -> {
             final BlockState blockState = world.getBlockState(blockPos);
-            return WoodenBlocks.getBlocks(WoodenObjectType.SAWMILL).anyMatch(blockState::isIn) &&
-                   player.getDistanceSq((double) blockPos.getX() + 0.5D,
-                       (double) blockPos.getY() + 0.5D,
-                       (double) blockPos.getZ() + 0.5D) <= 64.0D;
+            return WoodenBlocks.getBlocks(WoodenObjectTypes.SAWMILL).anyMatch(blockState::isIn) && player.getDistanceSq(
+                (double) blockPos.getX() + 0.5D,
+                (double) blockPos.getY() + 0.5D,
+                (double) blockPos.getZ() + 0.5D) <= 64.0D;
         }, true);
     }
 

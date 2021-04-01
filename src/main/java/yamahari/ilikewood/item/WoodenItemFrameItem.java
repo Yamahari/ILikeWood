@@ -17,16 +17,17 @@ import net.minecraft.world.World;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.WoodenEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class WoodenItemFrameItem extends WoodenItem {
     private final LazyValue<EntityType<? extends ItemFrameEntity>> entityType;
 
     @SuppressWarnings("unchecked")
     public WoodenItemFrameItem(final IWoodType woodType) {
-        super(woodType, WoodenObjectType.ITEM_FRAME, new Item.Properties().group(ItemGroup.DECORATIONS));
-        this.entityType = new LazyValue<>(() ->
-                (EntityType<? extends ItemFrameEntity>) WoodenEntityTypes.getEntityType(WoodenObjectType.ITEM_FRAME, this.getWoodType()));
+        super(woodType, WoodenObjectTypes.ITEM_FRAME, new Item.Properties().group(ItemGroup.DECORATIONS));
+        this.entityType = new LazyValue<>(() -> (EntityType<? extends ItemFrameEntity>) WoodenEntityTypes.getEntityType(
+            WoodenObjectTypes.ITEM_FRAME,
+            this.getWoodType()));
     }
 
     @SuppressWarnings("NullableProblems")
@@ -43,7 +44,7 @@ public final class WoodenItemFrameItem extends WoodenItem {
         } else {
             final World world = context.getWorld();
             final HangingEntity hangingEntity =
-                    new WoodenItemFrameEntity(this.getWoodType(), this.entityType.getValue(), world, offsetPos, direction);
+                new WoodenItemFrameEntity(this.getWoodType(), this.entityType.getValue(), world, offsetPos, direction);
 
             final CompoundNBT compoundNBT = itemStack.getTag();
             if (compoundNBT != null) {
@@ -64,7 +65,8 @@ public final class WoodenItemFrameItem extends WoodenItem {
         }
     }
 
-    private boolean canPlace(final PlayerEntity player, final Direction direction, final ItemStack itemStack, final BlockPos blockPos) {
+    private boolean canPlace(final PlayerEntity player, final Direction direction, final ItemStack itemStack,
+                             final BlockPos blockPos) {
         // return !direction.getAxis().isVertical() && player.canPlayerEdit(blockPos, direction, itemStack);
         return !World.isOutsideBuildHeight(blockPos) && player.canPlayerEdit(blockPos, direction, itemStack);
     }

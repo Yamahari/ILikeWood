@@ -15,6 +15,7 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -26,8 +27,9 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
 
     @Override
     protected void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
-        Util
-            .getTieredItemsWith(Util.HAS_PLANKS)
+        WoodenTieredObjectTypes
+            .get()
+            .flatMap(WoodenItems::getTieredItems)
             .filter(item -> ((IWoodenTieredItem) item).getWoodenItemTier().equals(VanillaWoodenItemTiers.DIAMOND))
             .forEach(item -> this.registerRecipe(item, consumer));
     }

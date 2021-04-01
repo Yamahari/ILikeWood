@@ -10,7 +10,10 @@ import net.minecraft.item.*;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectTypes;
+
+import javax.annotation.Nonnull;
 
 public final class WoodenHoeItem extends HoeItem implements IWooden, IWoodenTieredItem {
     private final IWoodType woodType;
@@ -22,7 +25,7 @@ public final class WoodenHoeItem extends HoeItem implements IWooden, IWoodenTier
         this.woodenItemTier = woodenItemTier;
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
     public IItemTier getTier() {
         return this.getWoodenItemTier();
@@ -43,32 +46,40 @@ public final class WoodenHoeItem extends HoeItem implements IWooden, IWoodenTier
         return this.getWoodenItemTier().getMaxUses();
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public boolean getIsRepairable(final ItemStack toRepair, final ItemStack repair) {
+    public boolean getIsRepairable(@Nonnull final ItemStack toRepair, @Nonnull final ItemStack repair) {
         return this.getWoodenItemTier().getRepairMaterial().test(repair);
     }
 
     @Override
-    public int getBurnTime(ItemStack itemStack) {
+    public int getBurnTime(final ItemStack itemStack) {
         return this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getBurnTime();
     }
 
     public float getAttackDamage() {
-        return this.getWoodenItemTier().getAttackDamage() + this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackDamage();
+        return this.getWoodenItemTier().getAttackDamage() +
+               this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackDamage();
     }
 
     public float getAttackSpeed() {
         return this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackSpeed();
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(final EquipmentSlotType equipmentSlot) {
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(
+        @Nonnull final EquipmentSlotType equipmentSlot) {
         final Multimap<Attribute, AttributeModifier> attributeModifiers = HashMultimap.create();
         if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-            attributeModifiers.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getAttackDamage(), AttributeModifier.Operation.ADDITION));
-            attributeModifiers.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.getAttackSpeed(), AttributeModifier.Operation.ADDITION));
+            attributeModifiers.put(Attributes.ATTACK_DAMAGE,
+                new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
+                    "Weapon modifier",
+                    this.getAttackDamage(),
+                    AttributeModifier.Operation.ADDITION));
+            attributeModifiers.put(Attributes.ATTACK_SPEED,
+                new AttributeModifier(ATTACK_SPEED_MODIFIER,
+                    "Weapon modifier",
+                    this.getAttackSpeed(),
+                    AttributeModifier.Operation.ADDITION));
         }
         return attributeModifiers;
     }
@@ -80,7 +91,7 @@ public final class WoodenHoeItem extends HoeItem implements IWooden, IWoodenTier
 
     @Override
     public WoodenTieredObjectType getWoodenTieredObjectType() {
-        return WoodenTieredObjectType.HOE;
+        return WoodenTieredObjectTypes.HOE;
     }
 
     @Override

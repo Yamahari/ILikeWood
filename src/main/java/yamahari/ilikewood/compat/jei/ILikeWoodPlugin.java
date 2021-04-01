@@ -12,13 +12,15 @@ import yamahari.ilikewood.container.WoodenWorkBenchContainer;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+
+import javax.annotation.Nonnull;
 
 @JeiPlugin
 public final class ILikeWoodPlugin implements IModPlugin {
     private static final ResourceLocation PLUGIN_UID = new ResourceLocation(Constants.MOD_ID, "plugin");
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
         return PLUGIN_UID;
@@ -26,13 +28,18 @@ public final class ILikeWoodPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(final IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(WoodenWorkBenchContainer.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
+        registration.addRecipeTransferHandler(WoodenWorkBenchContainer.class,
+            VanillaRecipeCategoryUid.CRAFTING,
+            1,
+            9,
+            10,
+            36);
     }
 
     @Override
     public void registerRecipeCatalysts(final IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(WoodenBlocks.getBlock(WoodenObjectType.CRAFTING_TABLE, VanillaWoodTypes.OAK)), VanillaRecipeCategoryUid.CRAFTING);
-        // WoodenBlocks.getBlocks(WoodenObjectType.CRAFTING_TABLE).forEach(block -> registration.addRecipeCatalyst(new ItemStack(block), VanillaRecipeCategoryUid.CRAFTING));
+        registration.addRecipeCatalyst(new ItemStack(WoodenBlocks.getBlock(WoodenObjectTypes.CRAFTING_TABLE,
+            VanillaWoodTypes.OAK)), VanillaRecipeCategoryUid.CRAFTING);
     }
 
     @Override

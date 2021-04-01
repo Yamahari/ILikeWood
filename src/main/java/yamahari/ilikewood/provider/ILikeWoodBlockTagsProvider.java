@@ -9,7 +9,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
     public ILikeWoodBlockTagsProvider(final DataGenerator generator, final ExistingFileHelper existingFileHelper) {
@@ -17,7 +18,7 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
     }
 
     private void registerTag(final ITag.INamedTag<Block> tag, final WoodenObjectType objectType) {
-        if (objectType.equals(WoodenObjectType.BED)) {
+        if (objectType.equals(WoodenObjectTypes.BED)) {
             this.getOrCreateBuilder(tag).add(WoodenBlocks.getBedBlocks().toArray(Block[]::new));
         } else {
             this.getOrCreateBuilder(tag).add(WoodenBlocks.getBlocks(objectType).toArray(Block[]::new));
@@ -26,26 +27,26 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void registerTags() {
-        registerTag(ILikeWoodBlockTags.BARRELS, WoodenObjectType.BARREL);
-        registerTag(ILikeWoodBlockTags.CHESTS, WoodenObjectType.CHEST);
-        registerTag(ILikeWoodBlockTags.COMPOSTER, WoodenObjectType.COMPOSTER);
-        registerTag(ILikeWoodBlockTags.BOOKSHELFS, WoodenObjectType.BOOKSHELF);
-        registerTag(ILikeWoodBlockTags.PANELS_SLABS, WoodenObjectType.SLAB);
-        registerTag(ILikeWoodBlockTags.PANELS_STAIRS, WoodenObjectType.STAIRS);
-        registerTag(ILikeWoodBlockTags.PANELS, WoodenObjectType.PANELS);
-        registerTag(ILikeWoodBlockTags.POSTS, WoodenObjectType.POST);
-        registerTag(ILikeWoodBlockTags.STRIPPED_POSTS, WoodenObjectType.STRIPPED_POST);
-        registerTag(ILikeWoodBlockTags.WALLS, WoodenObjectType.WALL);
-        registerTag(BlockTags.WALLS, WoodenObjectType.WALL);
-        registerTag(ILikeWoodBlockTags.LADDERS, WoodenObjectType.LADDER);
-        registerTag(ILikeWoodBlockTags.TORCHES, WoodenObjectType.TORCH);
-        registerTag(ILikeWoodBlockTags.WALL_TORCHES, WoodenObjectType.WALL_TORCH);
-        registerTag(ILikeWoodBlockTags.CRAFTING_TABLES, WoodenObjectType.CRAFTING_TABLE);
-        registerTag(ILikeWoodBlockTags.SCAFFOLDINGS, WoodenObjectType.SCAFFOLDING);
-        registerTag(ILikeWoodBlockTags.BEDS, WoodenObjectType.BED);
-        registerTag(ILikeWoodBlockTags.SAWMILLS, WoodenObjectType.SAWMILL);
-        registerTag(ILikeWoodBlockTags.SOUL_TORCHES, WoodenObjectType.SOUL_TORCH);
-        registerTag(ILikeWoodBlockTags.WALL_SOUL_TORCHES, WoodenObjectType.WALL_SOUL_TORCH);
+        registerTag(ILikeWoodBlockTags.BARRELS, WoodenObjectTypes.BARREL);
+        registerTag(ILikeWoodBlockTags.CHESTS, WoodenObjectTypes.CHEST);
+        registerTag(ILikeWoodBlockTags.COMPOSTER, WoodenObjectTypes.COMPOSTER);
+        registerTag(ILikeWoodBlockTags.BOOKSHELFS, WoodenObjectTypes.BOOKSHELF);
+        registerTag(ILikeWoodBlockTags.PANELS_SLABS, WoodenObjectTypes.SLAB);
+        registerTag(ILikeWoodBlockTags.PANELS_STAIRS, WoodenObjectTypes.STAIRS);
+        registerTag(ILikeWoodBlockTags.PANELS, WoodenObjectTypes.PANELS);
+        registerTag(ILikeWoodBlockTags.POSTS, WoodenObjectTypes.POST);
+        registerTag(ILikeWoodBlockTags.STRIPPED_POSTS, WoodenObjectTypes.STRIPPED_POST);
+        registerTag(ILikeWoodBlockTags.WALLS, WoodenObjectTypes.WALL);
+        registerTag(BlockTags.WALLS, WoodenObjectTypes.WALL);
+        registerTag(ILikeWoodBlockTags.LADDERS, WoodenObjectTypes.LADDER);
+        registerTag(ILikeWoodBlockTags.TORCHES, WoodenObjectTypes.TORCH);
+        registerTag(ILikeWoodBlockTags.WALL_TORCHES, WoodenObjectTypes.WALL_TORCH);
+        registerTag(ILikeWoodBlockTags.CRAFTING_TABLES, WoodenObjectTypes.CRAFTING_TABLE);
+        registerTag(ILikeWoodBlockTags.SCAFFOLDINGS, WoodenObjectTypes.SCAFFOLDING);
+        registerTag(ILikeWoodBlockTags.BEDS, WoodenObjectTypes.BED);
+        registerTag(ILikeWoodBlockTags.SAWMILLS, WoodenObjectTypes.SAWMILL);
+        registerTag(ILikeWoodBlockTags.SOUL_TORCHES, WoodenObjectTypes.SOUL_TORCH);
+        registerTag(ILikeWoodBlockTags.WALL_SOUL_TORCHES, WoodenObjectTypes.WALL_SOUL_TORCH);
     }
 
     @Override

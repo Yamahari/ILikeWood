@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:spruce_fishing_rod",
-    "ilikewood:jungle_fishing_rod",
-    "ilikewood:acacia_fishing_rod",
-    "ilikewood:crimson_fishing_rod",
-    "ilikewood:birch_fishing_rod",
-    "ilikewood:dark_oak_fishing_rod",
     "ilikewood:warped_fishing_rod",
-    "ilikewood:oak_fishing_rod"
+    "ilikewood:crimson_fishing_rod",
+    "ilikewood:acacia_fishing_rod",
+    "ilikewood:dark_oak_fishing_rod",
+    "ilikewood:spruce_fishing_rod",
+    "ilikewood:oak_fishing_rod",
+    "ilikewood:jungle_fishing_rod",
+    "ilikewood:birch_fishing_rod"
   ]
 }

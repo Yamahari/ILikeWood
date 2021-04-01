@@ -23,8 +23,7 @@ public final class WoodenBarrelTileEntity extends BarrelTileEntity {
         final Block block = this.getBlockState().getBlock();
         if (block instanceof WoodenBarrelBlock) {
             final String path = block.getRegistryName().getPath();
-            return new TranslationTextComponent(
-                    StringUtils.joinWith(".", "container", Constants.MOD_ID, path));
+            return new TranslationTextComponent(StringUtils.joinWith(".", "container", Constants.MOD_ID, path));
         }
         return super.getDefaultName();
     }

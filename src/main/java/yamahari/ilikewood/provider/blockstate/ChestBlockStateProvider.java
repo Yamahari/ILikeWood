@@ -9,18 +9,18 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class ChestBlockStateProvider extends AbstractBlockStateProvider {
     public ChestBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.CHEST);
+        super(generator, helper, WoodenObjectTypes.CHEST);
     }
 
     @Override
     public void registerStateAndModel(final Block block) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final String name = ((IWooden) block).getWoodType().getName();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.CHEST.toString(), name);
+        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.CHEST.getName(), name);
         final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
 
         this.simpleBlock(block, this.models().getBuilder(path).texture("particle", planks));

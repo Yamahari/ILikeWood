@@ -8,7 +8,8 @@ public final class WoodenStrippedLogResource implements IWoodenStrippedLogResour
     private final ResourceLocation sideTexture;
     private final ResourceLocation resource;
 
-    public WoodenStrippedLogResource(final ResourceLocation endTexture, final ResourceLocation sideTexture, final ResourceLocation resource) {
+    public WoodenStrippedLogResource(final ResourceLocation endTexture, final ResourceLocation sideTexture,
+                                     final ResourceLocation resource) {
         this.endTexture = endTexture;
         this.sideTexture = sideTexture;
         this.resource = resource;

@@ -10,12 +10,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
-import yamahari.ilikewood.provider.recipe.AbstractBlockItemRecipeProvider;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -23,7 +22,7 @@ import java.util.function.Consumer;
 
 public final class WallRecipeProvider extends AbstractBlockItemRecipeProvider {
     public WallRecipeProvider(final DataGenerator generator) {
-        super(generator, WoodenObjectType.WALL, Util.HAS_LOG.and(Util.HAS_STRIPPED_LOG));
+        super(generator, WoodenObjectTypes.WALL);
     }
 
     @Override

@@ -6,8 +6,14 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
-import yamahari.ilikewood.provider.*;
+import yamahari.ilikewood.provider.ILikeWoodBlockTagsProvider;
+import yamahari.ilikewood.provider.ILikeWoodItemTagsProvider;
+import yamahari.ilikewood.provider.ILikeWoodLanguageProvider;
+import yamahari.ilikewood.provider.ILikeWoodLootTableProvider;
 import yamahari.ilikewood.provider.blockstate.*;
+import yamahari.ilikewood.provider.itemmodel.*;
+import yamahari.ilikewood.provider.itemmodel.blockitem.*;
+import yamahari.ilikewood.provider.itemmodel.tiered.*;
 import yamahari.ilikewood.provider.recipe.blockitem.*;
 import yamahari.ilikewood.provider.recipe.item.*;
 import yamahari.ilikewood.provider.recipe.item.tiered.*;
@@ -79,7 +85,35 @@ public final class GatherDataEventHandler {
             generator.addProvider(new SoulTorchBlockStateProvider(generator, helper));
             generator.addProvider(new WallSoulTorchBlockStateProvider(generator, helper));
 
-            generator.addProvider(new ILikeWoodItemModelProvider(generator, helper));
+            generator.addProvider(new BarrelBlockItemModelProvider(generator, helper));
+            generator.addProvider(new BedBlockItemModelProvider(generator, helper));
+            generator.addProvider(new BookshelfBlockItemModelProvider(generator, helper));
+            generator.addProvider(new ChestBlockItemModelProvider(generator, helper));
+            generator.addProvider(new ComposterBlockItemModelProvider(generator, helper));
+            generator.addProvider(new CraftingTableBlockItemModelProvider(generator, helper));
+            generator.addProvider(new LadderBlockItemModelProvider(generator, helper));
+            generator.addProvider(new LecternBlockItemModelProvider(generator, helper));
+            generator.addProvider(new PanelsBlockItemModelProvider(generator, helper));
+            generator.addProvider(new PanelsSlabBlockItemModelProvider(generator, helper));
+            generator.addProvider(new PanelsStairsBlockItemModelProvider(generator, helper));
+            generator.addProvider(new PostBlockItemModelProvider(generator, helper));
+            generator.addProvider(new SawmillBlockItemModelProvider(generator, helper));
+            generator.addProvider(new ScaffoldingBlockItemModelProvider(generator, helper));
+            generator.addProvider(new SoulTorchBlockItemModelProvider(generator, helper));
+            generator.addProvider(new StrippedPostBlockItemModelProvider(generator, helper));
+            generator.addProvider(new TorchBlockItemModelProvider(generator, helper));
+            generator.addProvider(new WallBlockItemModelProvider(generator, helper));
+            generator.addProvider(new AxeTieredItemModelProvider(generator, helper));
+            generator.addProvider(new HoeTieredItemModelProvider(generator, helper));
+            generator.addProvider(new PickaxeTieredItemModelProvider(generator, helper));
+            generator.addProvider(new ShovelTieredItemModelProvider(generator, helper));
+            generator.addProvider(new SwordTieredItemModelProvider(generator, helper));
+            generator.addProvider(new BowItemModelProvider(generator, helper));
+            generator.addProvider(new CrossbowItemModelProvider(generator, helper));
+            generator.addProvider(new FishingRodItemModelProvider(generator, helper));
+            generator.addProvider(new ItemFrameItemModelProvider(generator, helper));
+            generator.addProvider(new StickItemModelProvider(generator, helper));
+
             generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
         }
     }

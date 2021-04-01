@@ -3,7 +3,7 @@ package yamahari.ilikewood.registry;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 public final class WoodenEntityTypes {
     static Map<WoodenObjectType, Map<IWoodType, RegistryObject<EntityType<?>>>> REGISTRY_OBJECTS;
 
-    public static RegistryObject<EntityType<?>> getRegistryObject(final WoodenObjectType objectType, final IWoodType woodType) {
+    public static RegistryObject<EntityType<?>> getRegistryObject(final WoodenObjectType objectType,
+                                                                  final IWoodType woodType) {
         return REGISTRY_OBJECTS.get(objectType).get(woodType);
     }
 
@@ -20,10 +21,10 @@ public final class WoodenEntityTypes {
         return REGISTRY_OBJECTS.get(woodenObjectType).values().stream();
     }
 
-    public static Stream<RegistryObject<EntityType<?>>> getRegistryObjects(final WoodenObjectType... woodenObjectTypes) {
+    public static Stream<RegistryObject<EntityType<?>>> getRegistryObjects(
+        final WoodenObjectType... woodenObjectTypes) {
         return Arrays.stream(woodenObjectTypes).flatMap(WoodenEntityTypes::getRegistryObjects);
     }
-
 
     public static EntityType<?> getEntityType(final WoodenObjectType woodenObjectType, final IWoodType woodType) {
         return getRegistryObject(woodenObjectType, woodType).get();

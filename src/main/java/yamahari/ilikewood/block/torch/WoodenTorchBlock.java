@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public final class WoodenTorchBlock extends TorchBlock implements IWooden {
@@ -29,16 +30,16 @@ public final class WoodenTorchBlock extends TorchBlock implements IWooden {
         return this.woodType;
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    public VoxelShape getShape(final BlockState state, final IBlockReader worldIn, final BlockPos pos,
-                               final ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final IBlockReader worldIn,
+                               @Nonnull final BlockPos pos, @Nonnull final ISelectionContext context) {
         return SHAPE;
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public void animateTick(final BlockState stateIn, final World worldIn, BlockPos pos, final Random rand) {
+    public void animateTick(@Nonnull final BlockState stateIn, final World worldIn, BlockPos pos,
+                            @Nonnull final Random rand) {
         worldIn.addParticle(ParticleTypes.SMOKE,
             (double) pos.getX() + 0.5D,
             (double) pos.getY() + 0.9D,

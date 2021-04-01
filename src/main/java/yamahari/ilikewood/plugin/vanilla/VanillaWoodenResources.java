@@ -30,7 +30,8 @@ public final class VanillaWoodenResources {
         return woodType.equals(VanillaWoodTypes.CRIMSON) || woodType.equals(VanillaWoodTypes.WARPED) ? "stem" : "log";
     }
 
-    private static final Map<IWoodType, AbstractBlock.Properties> PLANKS_PROPERTIES = new ImmutableMap.Builder<IWoodType, AbstractBlock.Properties>()
+    private static final Map<IWoodType, AbstractBlock.Properties> PLANKS_PROPERTIES =
+        new ImmutableMap.Builder<IWoodType, AbstractBlock.Properties>()
             .put(VanillaWoodTypes.ACACIA, AbstractBlock.Properties.from(Blocks.ACACIA_PLANKS))
             .put(VanillaWoodTypes.BIRCH, AbstractBlock.Properties.from(Blocks.BIRCH_PLANKS))
             .put(VanillaWoodTypes.CRIMSON, AbstractBlock.Properties.from(Blocks.CRIMSON_PLANKS))
@@ -49,26 +50,33 @@ public final class VanillaWoodenResources {
 
         VanillaWoodTypes.get().forEach(woodType -> {
             final String logPostFix = getLogPostFix(woodType);
-            final ResourceLocation planksResource = new ResourceLocation(Util.toRegistryName(woodType.getName(), "planks"));
-            final ResourceLocation logResource = new ResourceLocation(Util.toRegistryName(woodType.getName(), logPostFix));
-            final ResourceLocation strippedLogResource = new ResourceLocation(Util.toRegistryName("stripped", woodType.getName(), logPostFix));
+            final ResourceLocation planksResource =
+                new ResourceLocation(Util.toRegistryName(woodType.getName(), "planks"));
+            final ResourceLocation logResource =
+                new ResourceLocation(Util.toRegistryName(woodType.getName(), logPostFix));
+            final ResourceLocation strippedLogResource =
+                new ResourceLocation(Util.toRegistryName("stripped", woodType.getName(), logPostFix));
             final ResourceLocation slabResource = new ResourceLocation(Util.toRegistryName(woodType.getName(), "slab"));
 
-            final ResourceLocation planksTexture = new ResourceLocation(planksResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, planksResource.getPath()));
+            final ResourceLocation planksTexture = new ResourceLocation(planksResource.getNamespace(),
+                Util.toPath(ModelProvider.BLOCK_FOLDER, planksResource.getPath()));
 
-            planks.put(woodType, new WoodenPlanksResource(planksTexture, planksResource, PLANKS_PROPERTIES.get(woodType)));
+            planks.put(woodType,
+                new WoodenPlanksResource(planksTexture, planksResource, PLANKS_PROPERTIES.get(woodType)));
 
-            logs.put(woodType, new WoodenLogResource(
-                    new ResourceLocation(logResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(logResource.getPath(), "top"))),
-                    new ResourceLocation(logResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, logResource.getPath())),
-                    logResource
-            ));
+            logs.put(woodType,
+                new WoodenLogResource(new ResourceLocation(logResource.getNamespace(),
+                    Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(logResource.getPath(), "top"))),
+                    new ResourceLocation(logResource.getNamespace(),
+                        Util.toPath(ModelProvider.BLOCK_FOLDER, logResource.getPath())),
+                    logResource));
 
-            strippedLogs.put(woodType, new WoodenStrippedLogResource(
-                    new ResourceLocation(strippedLogResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(strippedLogResource.getPath(), "top"))),
-                    new ResourceLocation(strippedLogResource.getNamespace(), Util.toPath(ModelProvider.BLOCK_FOLDER, strippedLogResource.getPath())),
-                    strippedLogResource
-            ));
+            strippedLogs.put(woodType,
+                new WoodenStrippedLogResource(new ResourceLocation(strippedLogResource.getNamespace(),
+                    Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(strippedLogResource.getPath(), "top"))),
+                    new ResourceLocation(strippedLogResource.getNamespace(),
+                        Util.toPath(ModelProvider.BLOCK_FOLDER, strippedLogResource.getPath())),
+                    strippedLogResource));
 
             slabs.put(woodType, new WoodenSlabResource(planksTexture, planksTexture, planksTexture, slabResource));
         });

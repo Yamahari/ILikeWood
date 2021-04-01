@@ -17,10 +17,13 @@ import yamahari.ilikewood.registry.resource.WoodenResourceRegistry;
 import yamahari.ilikewood.registry.woodenitemtier.WoodenItemTierRegistry;
 import yamahari.ilikewood.registry.woodtype.WoodTypeRegistry;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mod(Constants.MOD_ID)
@@ -45,11 +48,27 @@ public final class ILikeWood {
         modEventBus.addListener(PROXY::onFMLCommonSetup);
         modEventBus.addListener(PROXY::onFMLClientSetup);
 
-        final List<String> names = ModList.get().getAllScanData().stream()
-                .flatMap(scanData -> scanData.getAnnotations().stream())
-                .filter(annotationData -> Objects.equals(annotationData.getAnnotationType(), Type.getType(ILikeWoodPlugin.class)))
-                .map(ModFileScanData.AnnotationData::getMemberName)
-                .collect(Collectors.toList());
+        getPlugins();
+        checkWoodTypes();
+
+        ILikeWoodBlockRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodItemRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodTileEntityTypeRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodContainerRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodEntityTypeRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodRecipeSerializerRegistry.REGISTRY.register(modEventBus);
+    }
+
+    private static void getPlugins() {
+        final List<String> names = ModList
+            .get()
+            .getAllScanData()
+            .stream()
+            .flatMap(scanData -> scanData.getAnnotations().stream())
+            .filter(annotationData -> Objects.equals(annotationData.getAnnotationType(),
+                Type.getType(ILikeWoodPlugin.class)))
+            .map(ModFileScanData.AnnotationData::getMemberName)
+            .collect(Collectors.toList());
 
         final List<IModPlugin> plugins = new ArrayList<>();
 
@@ -68,12 +87,56 @@ public final class ILikeWood {
                 plugin.registerWoodenResources(WOODEN_RESOURCE_REGISTRY);
             }
         }
-        // TODO replace all Util.HAS_PLANKS with Util.HAS_PLANKS.and(Util.HAS_SLAB)
-        ILikeWoodBlockRegistry.REGISTRY.register(modEventBus);
-        ILikeWoodItemRegistry.REGISTRY.register(modEventBus);
-        ILikeWoodTileEntityTypeRegistry.REGISTRY.register(modEventBus);
-        ILikeWoodContainerRegistry.REGISTRY.register(modEventBus);
-        ILikeWoodEntityTypeRegistry.REGISTRY.register(modEventBus);
-        ILikeWoodRecipeSerializerRegistry.REGISTRY.register(modEventBus);
+    }
+
+    private static void checkWoodTypes() {
+        WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
+            final Set<WoodenObjectType> objectTypes = woodType.getObjectTypes();
+            for (final WoodenObjectType objectType : objectTypes) {
+                if (objectType.requiresPlanks() && !WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType)) {
+                    throw new RuntimeException(String.format(
+                        "WoodType[%s] has WoodenObjectType[%s] that requires planks resource but no planks resource was registered",
+                        woodType.getName(),
+                        objectType.getName()));
+                }
+
+                if (objectType.requiresSlab() && !WOODEN_RESOURCE_REGISTRY.hasSlab(woodType)) {
+                    throw new RuntimeException(String.format(
+                        "WoodType[%s] has WoodenObjectType[%s] that requires slab resource but no slab resource was registered",
+                        woodType.getName(),
+                        objectType.getName()));
+                }
+
+                if (objectType.requiresLog() && !WOODEN_RESOURCE_REGISTRY.hasLog(woodType)) {
+                    throw new RuntimeException(String.format(
+                        "WoodType[%s] has WoodenObjectType[%s] that requires log resource but no log resource was registered",
+                        woodType.getName(),
+                        objectType.getName()));
+                }
+
+                if (objectType.requiresStrippedLog() && !WOODEN_RESOURCE_REGISTRY.hasStrippedLog(woodType)) {
+                    throw new RuntimeException(String.format(
+                        "WoodType[%s] has WoodenObjectType[%s] that requires stripped log resource but no stripped log resource was registered",
+                        woodType.getName(),
+                        objectType.getName()));
+                }
+            }
+
+            final Set<WoodenTieredObjectType> tieredObjectTypes = woodType.getTieredObjectTypes();
+            for (final WoodenTieredObjectType tieredObjectType : tieredObjectTypes) {
+                if (!WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType)) {
+                    throw new RuntimeException(String.format(
+                        "WoodType[%s] has WoodenTieredObjectType[%s] that requires planks resource but no planks resource was registered",
+                        woodType.getName(),
+                        tieredObjectType.getName()));
+                }
+                if (!WOODEN_RESOURCE_REGISTRY.hasSlab(woodType)) {
+                    throw new RuntimeException(String.format(
+                        "WoodType[%s] has WoodenTieredObjectType[%s] that requires slab resource but no slab resource was registered",
+                        woodType.getName(),
+                        tieredObjectType.getName()));
+                }
+            }
+        });
     }
 }

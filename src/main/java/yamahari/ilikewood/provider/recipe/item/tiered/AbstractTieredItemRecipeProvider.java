@@ -1,4 +1,4 @@
-package yamahari.ilikewood.provider.recipe;
+package yamahari.ilikewood.provider.recipe.item.tiered;
 
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.DataGenerator;
@@ -9,31 +9,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
-import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public abstract class AbstractTieredItemRecipeProvider extends RecipeProvider {
     protected final WoodenTieredObjectType tieredObjectType;
-    protected final Predicate<IWoodType> predicate;
 
     public AbstractTieredItemRecipeProvider(final DataGenerator generator,
                                             final WoodenTieredObjectType tieredObjectType) {
-        this(generator, tieredObjectType, Util.HAS_PLANKS);
-    }
-
-    public AbstractTieredItemRecipeProvider(final DataGenerator generator,
-                                            final WoodenTieredObjectType tieredObjectType,
-                                            final Predicate<IWoodType> predicate) {
         super(generator);
         this.tieredObjectType = tieredObjectType;
-        this.predicate = predicate;
     }
 
     protected static InventoryChangeTrigger.Instance hasItem(final Ingredient ingredientIn) {
@@ -45,8 +35,8 @@ public abstract class AbstractTieredItemRecipeProvider extends RecipeProvider {
 
     @Override
     protected void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
-        Util
-            .getTieredItemsWith(this.tieredObjectType, this.predicate)
+        WoodenItems
+            .getTieredItems(this.tieredObjectType)
             .filter(item -> !((IWoodenTieredItem) item).getWoodenItemTier().equals(VanillaWoodenItemTiers.NETHERITE))
             .forEach(item -> this.registerRecipe(item, consumer));
     }
@@ -54,7 +44,7 @@ public abstract class AbstractTieredItemRecipeProvider extends RecipeProvider {
     @Nonnull
     @Override
     public final String getName() {
-        return String.format("%s - tiered item recipes - %s", Constants.MOD_ID, tieredObjectType.toString());
+        return String.format("%s - tiered item recipes - %s", Constants.MOD_ID, tieredObjectType.getName());
     }
 
     protected abstract void registerRecipe(Item item, @Nonnull Consumer<IFinishedRecipe> consumer);

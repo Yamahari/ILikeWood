@@ -15,14 +15,14 @@ import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import java.util.EnumMap;
 import java.util.Map;
 
 public final class SawmillBlockStateProvider extends AbstractBlockStateProvider {
     public SawmillBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.SAWMILL);
+        super(generator, helper, WoodenObjectTypes.SAWMILL);
     }
 
     @Override
@@ -32,7 +32,7 @@ public final class SawmillBlockStateProvider extends AbstractBlockStateProvider 
         final IWoodenLogResource logResource = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType);
         final IWoodenStrippedLogResource strippedLogResource =
             ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType);
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.SAWMILL.toString());
+        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.SAWMILL.getName());
 
         // TODO remove hardcoded log_pile once log piles are back in the mod
         final ResourceLocation logPile =

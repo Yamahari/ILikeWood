@@ -23,6 +23,7 @@ import yamahari.ilikewood.item.WoodenScaffoldingItem;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IWooden {
@@ -34,7 +35,8 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     public static int getDistance(final IBlockReader reader, final BlockPos pos) {
-        final BlockPos.Mutable mutable = (new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ())).move(Direction.DOWN);
+        final BlockPos.Mutable mutable =
+            (new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ())).move(Direction.DOWN);
         final BlockState state = reader.getBlockState(mutable);
         int distance = 7;
         if (state.getBlock() instanceof ScaffoldingBlock) {
@@ -55,9 +57,10 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         return distance;
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    public VoxelShape getShape(final BlockState state, final IBlockReader reader, final BlockPos pos, final ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final IBlockReader reader,
+                               @Nonnull final BlockPos pos, @Nonnull final ISelectionContext context) {
         final boolean flag;
         if (context instanceof EntitySelectionContext) {
             flag = ((EntitySelectionContext) context).item instanceof WoodenScaffoldingItem;
@@ -71,17 +74,23 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     @Override
-    public boolean isReplaceable(@SuppressWarnings("NullableProblems") final BlockState state, final BlockItemUseContext context) {
+    public boolean isReplaceable(@Nonnull final BlockState state, final BlockItemUseContext context) {
         return context.getItem().getItem() instanceof WoodenScaffoldingItem;
     }
 
     @Override
-    public void tick(final BlockState state, @SuppressWarnings("NullableProblems") final ServerWorld world, @SuppressWarnings("NullableProblems") final BlockPos pos, @SuppressWarnings("NullableProblems") final Random rand) {
+    public void tick(final BlockState state, @Nonnull final ServerWorld world, @Nonnull final BlockPos pos,
+                     @Nonnull final Random rand) {
         final int distance = getDistance(world, pos);
-        final BlockState blockState = state.with(DISTANCE, distance).with(BOTTOM, this.hasScaffoldingBelow(world, pos, distance));
+        final BlockState blockState =
+            state.with(DISTANCE, distance).with(BOTTOM, this.hasScaffoldingBelow(world, pos, distance));
         if (blockState.get(DISTANCE) == 7) {
             if (state.get(DISTANCE) == 7) {
-                world.addEntity(new FallingBlockEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, blockState.with(WATERLOGGED, Boolean.FALSE)));
+                world.addEntity(new FallingBlockEntity(world,
+                    (double) pos.getX() + 0.5D,
+                    pos.getY(),
+                    (double) pos.getZ() + 0.5D,
+                    blockState.with(WATERLOGGED, Boolean.FALSE)));
             } else {
                 world.destroyBlock(pos, true);
             }
@@ -90,9 +99,9 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         }
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public boolean isValidPosition(final BlockState state, final IWorldReader world, final BlockPos pos) {
+    public boolean isValidPosition(@Nonnull final BlockState state, @Nonnull final IWorldReader world,
+                                   @Nonnull final BlockPos pos) {
         return getDistance(world, pos) < 7;
     }
 
@@ -101,14 +110,16 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         final BlockPos blockpos = context.getPos();
         final World world = context.getWorld();
         final int distance = getDistance(world, blockpos);
-        return this.getDefaultState()
-                .with(WATERLOGGED, world.getFluidState(blockpos).getFluid() == Fluids.WATER)
-                .with(DISTANCE, distance)
-                .with(BOTTOM, this.hasScaffoldingBelow(world, blockpos, distance));
+        return this
+            .getDefaultState()
+            .with(WATERLOGGED, world.getFluidState(blockpos).getFluid() == Fluids.WATER)
+            .with(DISTANCE, distance)
+            .with(BOTTOM, this.hasScaffoldingBelow(world, blockpos, distance));
     }
 
     @Override
-    public boolean isScaffolding(final BlockState state, final IWorldReader world, final BlockPos pos, final LivingEntity entity) {
+    public boolean isScaffolding(final BlockState state, final IWorldReader world, final BlockPos pos,
+                                 final LivingEntity entity) {
         return true;
     }
 

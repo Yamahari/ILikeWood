@@ -8,7 +8,8 @@ public final class WoodenLogResource implements IWoodenLogResource {
     private final ResourceLocation sideTexture;
     private final ResourceLocation resource;
 
-    public WoodenLogResource(final ResourceLocation endTexture, final ResourceLocation sideTexture, final ResourceLocation resource) {
+    public WoodenLogResource(final ResourceLocation endTexture, final ResourceLocation sideTexture,
+                             final ResourceLocation resource) {
         this.endTexture = endTexture;
         this.sideTexture = sideTexture;
         this.resource = resource;

@@ -7,17 +7,17 @@ import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class LadderBlockStateProvider extends AbstractBlockStateProvider {
     public LadderBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.LADDER);
+        super(generator, helper, WoodenObjectTypes.LADDER);
     }
 
     @Override
     public void registerStateAndModel(final Block block) {
         final String woodType = ((IWooden) block).getWoodType().getName();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.LADDER.toString());
+        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.LADDER.getName());
         final ModelFile template = this
             .models()
             .singleTexture(Util.toPath(path, woodType),

@@ -8,19 +8,20 @@ import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class PanelsSlabBlockStateProvider extends AbstractBlockStateProvider {
     public PanelsSlabBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.SLAB);
+        super(generator, helper, WoodenObjectTypes.SLAB);
     }
 
     @Override
     public void registerStateAndModel(final Block block) {
         final String name = ((IWooden) block).getWoodType().getName();
-        final ModelFile slabBottom = this.templateWithPlanks(block, "", WoodenObjectType.PANELS, WoodenObjectType.SLAB);
+        final ModelFile slabBottom =
+            this.templateWithPlanks(block, "", WoodenObjectTypes.PANELS, WoodenObjectTypes.SLAB);
         final ModelFile slabTop =
-            this.templateWithPlanks(block, "/top", WoodenObjectType.PANELS, WoodenObjectType.SLAB);
+            this.templateWithPlanks(block, "/top", WoodenObjectTypes.PANELS, WoodenObjectTypes.SLAB);
         final ModelFile slabDouble =
             new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", name)));
 

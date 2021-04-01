@@ -12,47 +12,41 @@ import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
+import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
-import java.util.Objects;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public abstract class AbstractBlockStateProvider extends BlockStateProvider {
     private final WoodenObjectType objectType;
-    private final Predicate<IWoodType> predicate;
 
     public AbstractBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper,
                                       final WoodenObjectType objectType) {
-        this(generator, helper, objectType, Util.HAS_PLANKS);
-    }
-
-    public AbstractBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper,
-                                      final WoodenObjectType objectType, final Predicate<IWoodType> predicate) {
         super(generator, Constants.MOD_ID, helper);
         this.objectType = objectType;
-        this.predicate = predicate;
     }
 
     @Override
     protected final void registerStatesAndModels() {
-        if (this.objectType == WoodenObjectType.BED) {
-            Util.getBedBlocksWith(predicate).forEach(this::registerStateAndModel);
+        if (this.objectType == WoodenObjectTypes.BED) {
+            WoodenBlocks.getBedBlocks().forEach(this::registerStateAndModel);
         } else {
-            Util.getBlocksWith(objectType, predicate).forEach(this::registerStateAndModel);
+            WoodenBlocks.getBlocks(objectType).forEach(this::registerStateAndModel);
         }
+
     }
 
     @Nonnull
     @Override
     public final String getName() {
-        return String.format("%s - block states & models - %s", Constants.MOD_ID, objectType.toString());
+        return String.format("%s - block states & models - %s", Constants.MOD_ID, objectType.getName());
     }
 
     protected final ModelFile templateWithPlanks(final Block block, final WoodenObjectType... objectTypes) {
@@ -64,7 +58,7 @@ public abstract class AbstractBlockStateProvider extends BlockStateProvider {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final String name = ((IWooden) block).getWoodType().getName();
         final String path = Util.toPath(ModelProvider.BLOCK_FOLDER,
-            Arrays.stream(objectTypes).map(Objects::toString).collect(Collectors.joining("/")));
+            Arrays.stream(objectTypes).map(WoodenObjectType::getName).collect(Collectors.joining("/")));
         final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
 
         return this

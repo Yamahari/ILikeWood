@@ -11,21 +11,27 @@ import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
+import javax.annotation.Nonnull;
+
 public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer<WoodenChestTileEntity> {
     public WoodenChestTileEntityRenderer(final TileEntityRendererDispatcher dispatcher) {
         super(dispatcher);
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    protected RenderMaterial getMaterial(final WoodenChestTileEntity woodenChestTileEntity, final ChestType chestType) {
+    protected RenderMaterial getMaterial(final WoodenChestTileEntity woodenChestTileEntity,
+                                         @Nonnull final ChestType chestType) {
         final IWoodType woodType;
         if (woodenChestTileEntity.hasWorld()) {
             final Block block = woodenChestTileEntity.getBlockState().getBlock();
-            woodType = block instanceof WoodenChestBlock ? ((WoodenChestBlock) block).getWoodType() : VanillaWoodTypes.DUMMY;
+            woodType =
+                block instanceof WoodenChestBlock ? ((WoodenChestBlock) block).getWoodType() : VanillaWoodTypes.DUMMY;
         } else {
             woodType = woodenChestTileEntity.getWoodType();
         }
-        return Atlases.getChestMaterials(!woodType.equals(VanillaWoodTypes.DUMMY) ? woodType : VanillaWoodTypes.OAK).get(chestType);
+        return Atlases
+            .getChestMaterials(!woodType.equals(VanillaWoodTypes.DUMMY) ? woodType : VanillaWoodTypes.OAK)
+            .get(chestType);
     }
 }

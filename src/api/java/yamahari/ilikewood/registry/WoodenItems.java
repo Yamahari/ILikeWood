@@ -5,8 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.WoodenObjectType;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -15,7 +15,8 @@ import java.util.stream.Stream;
 public final class WoodenItems {
     static Map<WoodenObjectType, Map<IWoodType, RegistryObject<Item>>> REGISTRY_OBJECTS;
     static Map<IWoodType, Map<DyeColor, RegistryObject<Item>>> BED_REGISTRY_OBJECTS;
-    static Map<WoodenTieredObjectType, Map<IWoodType, Map<IWoodenItemTier, RegistryObject<Item>>>> TIERED_REGISTRY_OBJECTS;
+    static Map<WoodenTieredObjectType, Map<IWoodType, Map<IWoodenItemTier, RegistryObject<Item>>>>
+        TIERED_REGISTRY_OBJECTS;
 
     public static RegistryObject<Item> getRegistryObject(final WoodenObjectType objectType, final IWoodType woodType) {
         return REGISTRY_OBJECTS.get(objectType).get(woodType);
@@ -29,7 +30,6 @@ public final class WoodenItems {
         return Arrays.stream(woodenObjectTypes).flatMap(WoodenItems::getRegistryObjects);
     }
 
-
     public static Item getItem(final WoodenObjectType woodenObjectType, final IWoodType woodType) {
         return getRegistryObject(woodenObjectType, woodType).get();
     }
@@ -42,29 +42,34 @@ public final class WoodenItems {
         return Arrays.stream(woodenObjectTypes).flatMap(WoodenItems::getItems);
     }
 
-
-    public static RegistryObject<Item> getTieredRegistryObject(final WoodenTieredObjectType woodenTieredObjectType, final IWoodType woodType, final IWoodenItemTier woodenItemTier) {
+    public static RegistryObject<Item> getTieredRegistryObject(final WoodenTieredObjectType woodenTieredObjectType,
+                                                               final IWoodType woodType,
+                                                               final IWoodenItemTier woodenItemTier) {
         return TIERED_REGISTRY_OBJECTS.get(woodenTieredObjectType).get(woodType).get(woodenItemTier);
     }
 
-    public static Stream<RegistryObject<Item>> getTieredRegistryObjects(final WoodenTieredObjectType woodenTieredObjectType, final IWoodType woodType) {
+    public static Stream<RegistryObject<Item>> getTieredRegistryObjects(
+        final WoodenTieredObjectType woodenTieredObjectType, final IWoodType woodType) {
         return TIERED_REGISTRY_OBJECTS.get(woodenTieredObjectType).get(woodType).values().stream();
     }
 
-    public static Stream<RegistryObject<Item>> getTieredRegistryObjects(final WoodenTieredObjectType woodenTieredObjectType) {
+    public static Stream<RegistryObject<Item>> getTieredRegistryObjects(
+        final WoodenTieredObjectType woodenTieredObjectType) {
         return TIERED_REGISTRY_OBJECTS.get(woodenTieredObjectType).values().stream().flatMap(m -> m.values().stream());
     }
 
-    public static Stream<RegistryObject<Item>> getTieredRegistryObjects(final WoodenTieredObjectType... woodenTieredObjectTypes) {
+    public static Stream<RegistryObject<Item>> getTieredRegistryObjects(
+        final WoodenTieredObjectType... woodenTieredObjectTypes) {
         return Arrays.stream(woodenTieredObjectTypes).flatMap(WoodenItems::getTieredRegistryObjects);
     }
 
-
-    public static Item getTieredItem(final WoodenTieredObjectType woodenTieredObjectType, final IWoodType woodType, final IWoodenItemTier woodenItemTier) {
+    public static Item getTieredItem(final WoodenTieredObjectType woodenTieredObjectType, final IWoodType woodType,
+                                     final IWoodenItemTier woodenItemTier) {
         return getTieredRegistryObject(woodenTieredObjectType, woodType, woodenItemTier).get();
     }
 
-    public static Stream<Item> getTieredItems(final WoodenTieredObjectType woodenTieredObjectType, final IWoodType woodType) {
+    public static Stream<Item> getTieredItems(final WoodenTieredObjectType woodenTieredObjectType,
+                                              final IWoodType woodType) {
         return getTieredRegistryObjects(woodenTieredObjectType, woodType).map(RegistryObject::get);
     }
 
@@ -75,7 +80,6 @@ public final class WoodenItems {
     public static Stream<Item> getTieredItems(final WoodenTieredObjectType... woodenTieredObjectTypes) {
         return getTieredRegistryObjects(woodenTieredObjectTypes).map(RegistryObject::get);
     }
-
 
     public static RegistryObject<Item> getBedRegistryObject(final IWoodType woodType, final DyeColor dyeColor) {
         return BED_REGISTRY_OBJECTS.get(woodType).get(dyeColor);
@@ -88,7 +92,6 @@ public final class WoodenItems {
     public static Stream<RegistryObject<Item>> getBedRegistryObjects() {
         return BED_REGISTRY_OBJECTS.values().stream().flatMap(m -> m.values().stream());
     }
-
 
     public static Item getBedItem(final IWoodType woodType, final DyeColor dyeColor) {
         return getBedRegistryObject(woodType, dyeColor).get();

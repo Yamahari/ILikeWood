@@ -15,8 +15,10 @@ import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectTypes;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTieredItem {
@@ -29,24 +31,27 @@ public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTier
         this.woodenItemTier = woodenItemTier;
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
     public IItemTier getTier() {
         return this.getWoodenItemTier();
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public int getHarvestLevel(final ItemStack stack, final ToolType tool, @Nullable final PlayerEntity player, @Nullable final BlockState blockState) {
+    public int getHarvestLevel(@Nonnull final ItemStack stack, @Nonnull final ToolType tool,
+                               @Nullable final PlayerEntity player, @Nullable final BlockState blockState) {
         return this.getWoodenItemTier().getHarvestLevel();
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public float getDestroySpeed(final ItemStack stack, final BlockState state) {
+    public float getDestroySpeed(@Nonnull final ItemStack stack, final BlockState state) {
         final Material material = state.getMaterial();
-        final boolean flag = material != Material.WOOD && material != Material.PLANTS && material != Material.TALL_PLANTS && material != Material.BAMBOO;
-        return this.getToolTypes(stack).stream().anyMatch(state::isToolEffective) || !flag ? this.getWoodenItemTier().getEfficiency() : 1.f;
+        final boolean flag =
+            material != Material.WOOD && material != Material.PLANTS && material != Material.TALL_PLANTS &&
+            material != Material.BAMBOO;
+        return this.getToolTypes(stack).stream().anyMatch(state::isToolEffective) || !flag ? this
+            .getWoodenItemTier()
+            .getEfficiency() : 1.f;
     }
 
     @Override
@@ -64,32 +69,40 @@ public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTier
         return this.getWoodenItemTier().getMaxUses();
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public boolean getIsRepairable(final ItemStack toRepair, final ItemStack repair) {
+    public boolean getIsRepairable(@Nonnull final ItemStack toRepair, @Nonnull final ItemStack repair) {
         return this.getWoodenItemTier().getRepairMaterial().test(repair);
     }
 
     @Override
-    public int getBurnTime(ItemStack itemStack) {
+    public int getBurnTime(final ItemStack itemStack) {
         return this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getBurnTime();
     }
 
     public float getAttackDamage() {
-        return this.getWoodenItemTier().getAttackDamage() + this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackDamage();
+        return this.getWoodenItemTier().getAttackDamage() +
+               this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackDamage();
     }
 
     public float getAttackSpeed() {
         return this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackSpeed();
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(final EquipmentSlotType equipmentSlot) {
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(
+        @Nonnull final EquipmentSlotType equipmentSlot) {
         final Multimap<Attribute, AttributeModifier> attributeModifiers = HashMultimap.create();
         if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-            attributeModifiers.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", this.getAttackDamage(), AttributeModifier.Operation.ADDITION));
-            attributeModifiers.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", this.getAttackSpeed(), AttributeModifier.Operation.ADDITION));
+            attributeModifiers.put(Attributes.ATTACK_DAMAGE,
+                new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
+                    "Tool modifier",
+                    this.getAttackDamage(),
+                    AttributeModifier.Operation.ADDITION));
+            attributeModifiers.put(Attributes.ATTACK_SPEED,
+                new AttributeModifier(ATTACK_SPEED_MODIFIER,
+                    "Tool modifier",
+                    this.getAttackSpeed(),
+                    AttributeModifier.Operation.ADDITION));
         }
         return attributeModifiers;
     }
@@ -101,7 +114,7 @@ public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTier
 
     @Override
     public WoodenTieredObjectType getWoodenTieredObjectType() {
-        return WoodenTieredObjectType.AXE;
+        return WoodenTieredObjectTypes.AXE;
     }
 
     @Override

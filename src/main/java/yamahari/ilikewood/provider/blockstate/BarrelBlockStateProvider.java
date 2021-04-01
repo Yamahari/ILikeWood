@@ -7,17 +7,17 @@ import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class BarrelBlockStateProvider extends AbstractBlockStateProvider {
     public BarrelBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.BARREL);
+        super(generator, helper, WoodenObjectTypes.BARREL);
     }
 
     @Override
     public void registerStateAndModel(final Block block) {
         final String path = Util.toPath(ModelProvider.BLOCK_FOLDER,
-            WoodenObjectType.BARREL.toString(),
+            WoodenObjectTypes.BARREL.getName(),
             "%s",
             ((IWooden) block).getWoodType().getName());
         this.directionalBlock(block, state -> {

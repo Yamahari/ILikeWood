@@ -1,4 +1,4 @@
-package yamahari.ilikewood.provider.recipe;
+package yamahari.ilikewood.provider.recipe.item;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -7,29 +7,20 @@ import net.minecraft.data.SingleItemRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
+import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
-import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public abstract class AbstractItemRecipeProvider extends RecipeProvider {
     private final WoodenObjectType objectType;
-    private final Predicate<IWoodType> predicate;
 
     public AbstractItemRecipeProvider(final DataGenerator generator, final WoodenObjectType objectType) {
-        this(generator, objectType, Util.HAS_PLANKS);
-    }
-
-    public AbstractItemRecipeProvider(final DataGenerator generator, final WoodenObjectType objectType,
-                                      final Predicate<IWoodType> predicate) {
         super(generator);
         this.objectType = objectType;
-        this.predicate = predicate;
     }
 
     protected static SingleItemRecipeBuilder sawmillingRecipe(final Ingredient ingredient, final IItemProvider result) {
@@ -43,13 +34,14 @@ public abstract class AbstractItemRecipeProvider extends RecipeProvider {
 
     @Override
     protected final void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
-        Util.getItemsWith(this.objectType, this.predicate).forEach(item -> this.registerRecipe(item, consumer));
+        WoodenItems.getItems(this.objectType).forEach(item -> this.registerRecipe(item, consumer));
+
     }
 
     @Nonnull
     @Override
     public final String getName() {
-        return String.format("%s - item recipes - %s", Constants.MOD_ID, objectType.toString());
+        return String.format("%s - item recipes - %s", Constants.MOD_ID, objectType.getName());
     }
 
     protected abstract void registerRecipe(Item item, @Nonnull Consumer<IFinishedRecipe> consumer);

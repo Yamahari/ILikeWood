@@ -17,50 +17,44 @@ import net.minecraftforge.fml.RegistryObject;
 import yamahari.ilikewood.block.WoodenSawmillBlock;
 import yamahari.ilikewood.registry.ILikeWoodBlockRegistry;
 import yamahari.ilikewood.registry.WoodenBlocks;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
+import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
 
 public final class ILikeWoodBlockLootTables extends BlockLootTables {
+    @Nonnull
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ILikeWoodBlockRegistry.REGISTRY
-            .getEntries()
-            .stream()
-            .map(RegistryObject::get)
-            .collect(Collectors.toList());
+        return ILikeWoodBlockRegistry.REGISTRY.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList());
     }
 
     @Override
     protected void addTables() {
-        WoodenBlocks
-            .getBlocks(WoodenObjectType.SLAB)
+        WoodenBlocks.getBlocks(WoodenObjectTypes.SLAB)
             .forEach(block -> this.registerLootTable(block, BlockLootTables::droppingSlab));
 
         WoodenBlocks
-            .getBlocks(WoodenObjectType.PANELS,
-                WoodenObjectType.STAIRS,
-                WoodenObjectType.WALL,
-                WoodenObjectType.LADDER,
-                WoodenObjectType.TORCH,
-                WoodenObjectType.CRAFTING_TABLE,
-                WoodenObjectType.SCAFFOLDING,
-                WoodenObjectType.POST,
-                WoodenObjectType.STRIPPED_POST,
-                WoodenObjectType.SOUL_TORCH)
+            .getBlocks(WoodenObjectTypes.PANELS,
+                WoodenObjectTypes.STAIRS,
+                WoodenObjectTypes.WALL,
+                WoodenObjectTypes.LADDER,
+                WoodenObjectTypes.TORCH,
+                WoodenObjectTypes.CRAFTING_TABLE,
+                WoodenObjectTypes.SCAFFOLDING,
+                WoodenObjectTypes.POST,
+                WoodenObjectTypes.STRIPPED_POST,
+                WoodenObjectTypes.SOUL_TORCH)
             .forEach(this::registerDropSelfLootTable);
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectType.BARREL, WoodenObjectType.CHEST, WoodenObjectType.LECTERN)
+        WoodenBlocks.getBlocks(WoodenObjectTypes.BARREL, WoodenObjectTypes.CHEST, WoodenObjectTypes.LECTERN)
             .forEach(block -> this.registerLootTable(block, BlockLootTables::droppingWithName));
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectType.BOOKSHELF)
+        WoodenBlocks.getBlocks(WoodenObjectTypes.BOOKSHELF)
             .forEach(block -> this.registerLootTable(block,
                 b -> droppingWithSilkTouchOrRandomly(b, Items.BOOK, ConstantRange.of(3))));
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectType.COMPOSTER)
+        WoodenBlocks.getBlocks(WoodenObjectTypes.COMPOSTER)
             .forEach(block -> this.registerLootTable(block,
                 b -> LootTable
                     .builder()
@@ -80,8 +74,7 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
             .getBedBlocks()
             .forEach(block -> this.registerLootTable(block, b -> droppingWhen(b, BedBlock.PART, BedPart.HEAD)));
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectType.SAWMILL)
+        WoodenBlocks.getBlocks(WoodenObjectTypes.SAWMILL)
             .forEach(block -> this.registerLootTable(block,
                 b -> droppingWhen(b, WoodenSawmillBlock.MODEL, WoodenSawmillBlock.WoodenSawmillModel.BOTTOM_LEFT)));
     }

@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public final class WoodenWallTorchBlock extends WallTorchBlock implements IWooden {
@@ -26,9 +27,16 @@ public final class WoodenWallTorchBlock extends WallTorchBlock implements IWoode
     }
 
     @Override
-    public void animateTick(final BlockState stateIn, final World worldIn, final BlockPos pos, @SuppressWarnings("NullableProblems") final Random rand) {
+    public void animateTick(final BlockState stateIn, final World worldIn, final BlockPos pos,
+                            @Nonnull final Random rand) {
         final Direction direction = stateIn.get(HORIZONTAL_FACING);
         final Direction opposite = direction.getOpposite();
-        worldIn.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D + 0.27D * (double) opposite.getXOffset(), (double) pos.getY() + 0.92D, (double) pos.getZ() + 0.5D + 0.27D * (double) opposite.getZOffset(), 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(ParticleTypes.SMOKE,
+            (double) pos.getX() + 0.5D + 0.27D * (double) opposite.getXOffset(),
+            (double) pos.getY() + 0.92D,
+            (double) pos.getZ() + 0.5D + 0.27D * (double) opposite.getZOffset(),
+            0.0D,
+            0.0D,
+            0.0D);
     }
 }

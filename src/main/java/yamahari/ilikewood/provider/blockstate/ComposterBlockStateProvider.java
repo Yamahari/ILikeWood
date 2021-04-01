@@ -9,19 +9,19 @@ import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import java.util.stream.IntStream;
 
 public final class ComposterBlockStateProvider extends AbstractBlockStateProvider {
     public ComposterBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, helper, WoodenObjectType.COMPOSTER);
+        super(generator, helper, WoodenObjectTypes.COMPOSTER);
     }
 
     @Override
     public void registerStateAndModel(final Block block) {
         final String woodType = ((IWooden) block).getWoodType().getName();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.COMPOSTER.toString());
+        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.COMPOSTER.getName());
         final ModelFile template = this
             .models()
             .withExistingParent(Util.toPath(path, woodType), modLoc(Util.toPath(path, "template")))

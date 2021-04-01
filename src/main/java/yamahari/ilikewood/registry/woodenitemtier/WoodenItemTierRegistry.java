@@ -19,7 +19,9 @@ public final class WoodenItemTierRegistry implements IWoodenItemTierRegistry {
         try {
             final String dataModId = System.getProperty("ilikewood.datagen.modid");
             if (dataModId != null) {
-                return this.woodenItemTiers.stream().filter(itemTier -> !itemTier.isWood() || itemTier.getModId().equals(dataModId));
+                return this.woodenItemTiers
+                    .stream()
+                    .filter(itemTier -> !itemTier.isWood() || itemTier.getModId().equals(dataModId));
             }
         } catch (NullPointerException | SecurityException | IllegalArgumentException e) {
             ILikeWood.LOGGER.error(e.getMessage());

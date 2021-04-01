@@ -1,4 +1,4 @@
-package yamahari.ilikewood.provider.recipe;
+package yamahari.ilikewood.provider.recipe.blockitem;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
@@ -7,29 +7,21 @@ import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.SingleItemRecipeBuilder;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
+import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
-import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public abstract class AbstractBlockItemRecipeProvider extends RecipeProvider {
     private final WoodenObjectType objectType;
-    private final Predicate<IWoodType> predicate;
 
     public AbstractBlockItemRecipeProvider(final DataGenerator generator, final WoodenObjectType objectType) {
-        this(generator, objectType, Util.HAS_PLANKS);
-    }
-
-    public AbstractBlockItemRecipeProvider(final DataGenerator generator, final WoodenObjectType objectType,
-                                           final Predicate<IWoodType> predicate) {
         super(generator);
         this.objectType = objectType;
-        this.predicate = predicate;
     }
 
     protected static SingleItemRecipeBuilder sawmillingRecipe(final Ingredient ingredient, final IItemProvider result) {
@@ -43,17 +35,17 @@ public abstract class AbstractBlockItemRecipeProvider extends RecipeProvider {
 
     @Override
     protected final void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
-        if (this.objectType == WoodenObjectType.BED) {
-            Util.getBedBlocksWith(this.predicate).forEach(block -> this.registerRecipe(block, consumer));
+        if (this.objectType == WoodenObjectTypes.BED) {
+            WoodenBlocks.getBedBlocks().forEach(block -> this.registerRecipe(block, consumer));
         } else {
-            Util.getBlocksWith(this.objectType, this.predicate).forEach(block -> this.registerRecipe(block, consumer));
+            WoodenBlocks.getBlocks(this.objectType).forEach(block -> this.registerRecipe(block, consumer));
         }
     }
 
     @Nonnull
     @Override
     public final String getName() {
-        return String.format("%s - block item recipes - %s", Constants.MOD_ID, objectType.toString());
+        return String.format("%s - block item recipes - %s", Constants.MOD_ID, objectType.getName());
     }
 
     protected abstract void registerRecipe(Block block, @Nonnull Consumer<IFinishedRecipe> consumer);

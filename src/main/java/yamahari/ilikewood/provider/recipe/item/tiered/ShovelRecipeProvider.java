@@ -8,26 +8,25 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
-import yamahari.ilikewood.provider.recipe.AbstractTieredItemRecipeProvider;
 import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodenObjectType;
-import yamahari.ilikewood.util.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public final class ShovelRecipeProvider extends AbstractTieredItemRecipeProvider {
     public ShovelRecipeProvider(final DataGenerator generator) {
-        super(generator, WoodenTieredObjectType.SHOVEL);
+        super(generator, WoodenTieredObjectTypes.SHOVEL);
     }
 
     @Override
     protected void registerRecipe(final Item item, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) item).getWoodType();
         final Ingredient repair = ((IWoodenTieredItem) item).getWoodenItemTier().getRepairMaterial();
-        final IItemProvider stick = WoodenItems.getItem(WoodenObjectType.STICK, woodType);
+        final IItemProvider stick = WoodenItems.getItem(WoodenObjectTypes.STICK, woodType);
 
         ShapedRecipeBuilder
             .shapedRecipe(item)

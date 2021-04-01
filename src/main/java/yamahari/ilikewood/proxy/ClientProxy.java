@@ -28,7 +28,7 @@ import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.*;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 public final class ClientProxy implements IProxy {
     @SuppressWarnings("unchecked")
@@ -36,36 +36,37 @@ public final class ClientProxy implements IProxy {
     public void onFMLClientSetup(final FMLClientSetupEvent event) {
         ClientRegistry.bindTileEntityRenderer((TileEntityType<WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST
             .get(), WoodenChestTileEntityRenderer::new);
+
         ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) WoodenTileEntityTypes.WOODEN_LECTERN
             .get(), LecternTileEntityRenderer::new);
 
-        WoodenEntityTypes
-            .getEntityTypes(WoodenObjectType.ITEM_FRAME)
+        WoodenEntityTypes.getEntityTypes(WoodenObjectTypes.ITEM_FRAME)
             .forEach(type -> RenderingRegistry.registerEntityRenderingHandler((EntityType<WoodenItemFrameEntity>) type,
                 m -> new WoodenItemFrameRenderer(m, Minecraft.getInstance().getItemRenderer())));
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectType.POST, WoodenObjectType.STRIPPED_POST)
+        WoodenBlocks.getBlocks(WoodenObjectTypes.POST, WoodenObjectTypes.STRIPPED_POST)
             .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getSolid()));
 
         WoodenBlocks
-            .getBlocks(WoodenObjectType.LADDER,
-                WoodenObjectType.TORCH,
-                WoodenObjectType.WALL_TORCH,
-                WoodenObjectType.SCAFFOLDING,
-                WoodenObjectType.SOUL_TORCH,
-                WoodenObjectType.WALL_SOUL_TORCH)
+            .getBlocks(WoodenObjectTypes.LADDER,
+                WoodenObjectTypes.TORCH,
+                WoodenObjectTypes.WALL_TORCH,
+                WoodenObjectTypes.SCAFFOLDING,
+                WoodenObjectTypes.SOUL_TORCH,
+                WoodenObjectTypes.WALL_SOUL_TORCH)
             .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
 
         WoodenBlocks
-            .getBlocks(WoodenObjectType.CRAFTING_TABLE, WoodenObjectType.SAWMILL)
+            .getBlocks(WoodenObjectTypes.CRAFTING_TABLE, WoodenObjectTypes.SAWMILL)
             .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutoutMipped()));
 
         ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) WoodenContainerTypes.WOODEN_WORK_BENCH
             .get(), CraftingScreen::new);
+
         ScreenManager.registerFactory((ContainerType<? extends WoodenSawmillContainer>) WoodenContainerTypes.WOODEN_SAWMILL
             .get(), WoodenSawmillScreen::new);
-        WoodenItems.getItems(WoodenObjectType.BOW).forEach(item -> {
+
+        WoodenItems.getItems(WoodenObjectTypes.BOW).forEach(item -> {
             ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
@@ -81,7 +82,7 @@ public final class ClientProxy implements IProxy {
                     entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
         });
 
-        WoodenItems.getItems(WoodenObjectType.CROSSBOW).forEach(item -> {
+        WoodenItems.getItems(WoodenObjectTypes.CROSSBOW).forEach(item -> {
             ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
@@ -111,8 +112,7 @@ public final class ClientProxy implements IProxy {
 
         });
 
-        WoodenItems
-            .getItems(WoodenObjectType.FISHING_ROD)
+        WoodenItems.getItems(WoodenObjectTypes.FISHING_ROD)
             .forEach(item -> ItemModelsProperties.registerProperty(item,
                 new ResourceLocation("cast"),
                 (itemStack, world, entity) -> {

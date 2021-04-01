@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.DyeColor;
 import net.minecraftforge.fml.RegistryObject;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectType;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -14,7 +14,8 @@ public final class WoodenBlocks {
     static Map<WoodenObjectType, Map<IWoodType, RegistryObject<Block>>> REGISTRY_OBJECTS;
     static Map<IWoodType, Map<DyeColor, RegistryObject<Block>>> BED_REGISTRY_OBJECTS;
 
-    public static RegistryObject<Block> getRegistryObject(final WoodenObjectType woodenObjectType, final IWoodType woodType) {
+    public static RegistryObject<Block> getRegistryObject(final WoodenObjectType woodenObjectType,
+                                                          final IWoodType woodType) {
         return REGISTRY_OBJECTS.get(woodenObjectType).get(woodType);
     }
 
@@ -25,7 +26,6 @@ public final class WoodenBlocks {
     public static Stream<RegistryObject<Block>> getRegistryObjects(final WoodenObjectType... woodenObjectTypes) {
         return Arrays.stream(woodenObjectTypes).flatMap(WoodenBlocks::getRegistryObjects);
     }
-
 
     public static Block getBlock(final WoodenObjectType woodenObjectType, final IWoodType woodType) {
         return getRegistryObject(woodenObjectType, woodType).get();
@@ -39,7 +39,6 @@ public final class WoodenBlocks {
         return getRegistryObjects(woodenObjectTypes).map(RegistryObject::get);
     }
 
-
     public static RegistryObject<Block> getBedRegistryObject(final IWoodType woodType, final DyeColor dyeColor) {
         return BED_REGISTRY_OBJECTS.get(woodType).get(dyeColor);
     }
@@ -51,7 +50,6 @@ public final class WoodenBlocks {
     public static Stream<RegistryObject<Block>> getBedRegistryObjects() {
         return BED_REGISTRY_OBJECTS.values().stream().flatMap(m -> m.values().stream());
     }
-
 
     public static Block getBedBlock(final IWoodType woodType, final DyeColor dyeColor) {
         return getBedRegistryObject(woodType, dyeColor).get();

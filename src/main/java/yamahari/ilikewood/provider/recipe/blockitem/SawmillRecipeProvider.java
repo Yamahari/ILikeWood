@@ -7,24 +7,23 @@ import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
-import yamahari.ilikewood.provider.recipe.AbstractBlockItemRecipeProvider;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public final class SawmillRecipeProvider extends AbstractBlockItemRecipeProvider {
     public SawmillRecipeProvider(final DataGenerator generator) {
-        super(generator, WoodenObjectType.SAWMILL);
+        super(generator, WoodenObjectTypes.SAWMILL);
     }
 
     @Override
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
-        final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+        final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, woodType);
 
         ShapedRecipeBuilder
             .shapedRecipe(block)

@@ -12,13 +12,12 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
-import yamahari.ilikewood.provider.recipe.AbstractBlockItemRecipeProvider;
 import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -26,7 +25,7 @@ import java.util.function.Consumer;
 
 public final class BedRecipeProvider extends AbstractBlockItemRecipeProvider {
     public BedRecipeProvider(final DataGenerator generator) {
-        super(generator, WoodenObjectType.BED);
+        super(generator, WoodenObjectTypes.BED);
     }
 
     @Override
@@ -35,7 +34,7 @@ public final class BedRecipeProvider extends AbstractBlockItemRecipeProvider {
         final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
         final IItemProvider wool =
             Util.getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "WOOL"), Blocks.class);
-        final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectType.PANELS, woodType);
+        final IItemProvider panels = WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, woodType);
         final IItemProvider dye =
             Util.getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "DYE"), Items.class);
         final IItemProvider whiteBed = WoodenBlocks.getBedBlock(woodType, DyeColor.WHITE);

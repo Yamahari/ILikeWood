@@ -8,11 +8,12 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.registry.WoodenItems;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import javax.annotation.Nonnull;
 
@@ -23,7 +24,7 @@ public final class ItemFrameBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected final void registerStatesAndModels() {
-        Util.getItemsWith(WoodenObjectType.ITEM_FRAME, Util.HAS_PLANKS).forEach(this::registerItemFrame);
+        WoodenItems.getItems(WoodenObjectTypes.ITEM_FRAME).forEach(this::registerItemFrame);
     }
 
     @Nonnull
@@ -31,12 +32,12 @@ public final class ItemFrameBlockStateProvider extends BlockStateProvider {
     public final String getName() {
         return String.format("%s - block states & models - %s",
             Constants.MOD_ID,
-            WoodenObjectType.ITEM_FRAME.toString());
+            WoodenObjectTypes.ITEM_FRAME.getName());
     }
 
     private void registerItemFrame(final Item item) {
         final IWoodType woodType = ((IWooden) item).getWoodType();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectType.ITEM_FRAME.toString());
+        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.ITEM_FRAME.getName());
         final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
         final ModelFile itemFrame = this
             .models()

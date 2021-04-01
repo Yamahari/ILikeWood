@@ -11,6 +11,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -23,9 +24,10 @@ public final class Atlases {
 
     static {
         final Map<IWoodType, Map<ChestType, RenderMaterial>> chests = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
-                .filter(Util.HAS_PLANKS.and(Util.HAS_SLAB))
-                .forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
+        ILikeWood.WOOD_TYPE_REGISTRY
+            .getWoodTypes()
+            .filter(woodType -> woodType.getObjectTypes().contains(WoodenObjectTypes.CHEST))
+            .forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
         CHESTS = Collections.unmodifiableMap(chests);
     }
 
@@ -35,8 +37,10 @@ public final class Atlases {
     private static Map<ChestType, RenderMaterial> makeChestMaterials(final IWoodType woodType) {
         final EnumMap<ChestType, RenderMaterial> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
-            materials.put(chestType, new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
-                    new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", chestType.getString(), woodType.getName()))));
+            materials.put(chestType,
+                new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
+                    new ResourceLocation(Constants.MOD_ID,
+                        Util.toPath("entity", "chest", chestType.getString(), woodType.getName()))));
         }
         return materials;
     }
@@ -48,10 +52,12 @@ public final class Atlases {
     @SubscribeEvent
     public static void onTextureStitchPre(final TextureStitchEvent.Pre event) {
         final ResourceLocation atlas = event.getMap().getTextureLocation();
-        CHESTS.values().stream()
-                .flatMap(materials -> materials.values().stream())
-                .filter(material -> material.getAtlasLocation().equals(atlas))
-                .forEach(material -> event.addSprite(material.getTextureLocation()));
+        CHESTS
+            .values()
+            .stream()
+            .flatMap(materials -> materials.values().stream())
+            .filter(material -> material.getAtlasLocation().equals(atlas))
+            .forEach(material -> event.addSprite(material.getTextureLocation()));
 
     }
 }

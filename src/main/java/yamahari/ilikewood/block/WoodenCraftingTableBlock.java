@@ -17,7 +17,9 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+
+import javax.annotation.Nonnull;
 
 public final class WoodenCraftingTableBlock extends CraftingTableBlock implements IWooden {
     private final IWoodType woodType;
@@ -26,16 +28,18 @@ public final class WoodenCraftingTableBlock extends CraftingTableBlock implement
     public WoodenCraftingTableBlock(final IWoodType type) {
         super(Block.Properties.from(Blocks.CRAFTING_TABLE));
         this.woodType = type;
-        this.defaultName = new TranslationTextComponent(
-                StringUtils.joinWith(".", "container", Constants.MOD_ID,
-                        Util.toRegistryName(this.getWoodType().getName(), WoodenObjectType.CRAFTING_TABLE.toString())));
+        this.defaultName = new TranslationTextComponent(StringUtils.joinWith(".",
+            "container",
+            Constants.MOD_ID,
+            Util.toRegistryName(this.getWoodType().getName(), WoodenObjectTypes.CRAFTING_TABLE.getName())));
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public INamedContainerProvider getContainer(final BlockState blockState, final World world, final BlockPos pos) {
-        return new SimpleNamedContainerProvider((windowId, inventory, player) ->
-                new WoodenWorkBenchContainer(windowId, inventory, IWorldPosCallable.of(world, pos)), this.defaultName);
+    public INamedContainerProvider getContainer(@Nonnull final BlockState blockState, @Nonnull final World world,
+                                                @Nonnull final BlockPos pos) {
+        return new SimpleNamedContainerProvider((windowId, inventory, player) -> new WoodenWorkBenchContainer(windowId,
+            inventory,
+            IWorldPosCallable.of(world, pos)), this.defaultName);
     }
 
     @Override
