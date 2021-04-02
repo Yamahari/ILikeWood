@@ -2,12 +2,12 @@
   "replace": false,
   "values": [
     "ilikewood:warped_panels_slab",
+    "ilikewood:spruce_panels_slab",
     "ilikewood:crimson_panels_slab",
+    "ilikewood:jungle_panels_slab",
     "ilikewood:acacia_panels_slab",
     "ilikewood:dark_oak_panels_slab",
-    "ilikewood:spruce_panels_slab",
     "ilikewood:oak_panels_slab",
-    "ilikewood:jungle_panels_slab",
     "ilikewood:birch_panels_slab"
   ]
 }

@@ -2,12 +2,12 @@
   "replace": false,
   "values": [
     "ilikewood:warped_bow",
+    "ilikewood:spruce_bow",
     "ilikewood:crimson_bow",
+    "ilikewood:jungle_bow",
     "ilikewood:acacia_bow",
     "ilikewood:dark_oak_bow",
-    "ilikewood:spruce_bow",
     "ilikewood:oak_bow",
-    "ilikewood:jungle_bow",
     "ilikewood:birch_bow"
   ]
 }

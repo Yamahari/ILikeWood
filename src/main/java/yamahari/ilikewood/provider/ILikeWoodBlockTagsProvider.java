@@ -5,6 +5,7 @@ import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.registry.WoodenBlocks;
@@ -29,6 +30,8 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
     protected void registerTags() {
         registerTag(ILikeWoodBlockTags.BARRELS, WoodenObjectTypes.BARREL);
         registerTag(ILikeWoodBlockTags.CHESTS, WoodenObjectTypes.CHEST);
+        registerTag(Tags.Blocks.CHESTS, WoodenObjectTypes.CHEST);
+        registerTag(Tags.Blocks.CHESTS_WOODEN, WoodenObjectTypes.CHEST);
         registerTag(ILikeWoodBlockTags.COMPOSTER, WoodenObjectTypes.COMPOSTER);
         registerTag(ILikeWoodBlockTags.BOOKSHELFS, WoodenObjectTypes.BOOKSHELF);
         registerTag(ILikeWoodBlockTags.PANELS_SLABS, WoodenObjectTypes.SLAB);
@@ -46,7 +49,9 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         registerTag(ILikeWoodBlockTags.BEDS, WoodenObjectTypes.BED);
         registerTag(ILikeWoodBlockTags.SAWMILLS, WoodenObjectTypes.SAWMILL);
         registerTag(ILikeWoodBlockTags.SOUL_TORCHES, WoodenObjectTypes.SOUL_TORCH);
+        registerTag(BlockTags.PIGLIN_REPELLENTS, WoodenObjectTypes.SOUL_TORCH);
         registerTag(ILikeWoodBlockTags.WALL_SOUL_TORCHES, WoodenObjectTypes.WALL_SOUL_TORCH);
+        registerTag(BlockTags.PIGLIN_REPELLENTS, WoodenObjectTypes.WALL_SOUL_TORCH);
     }
 
     @Override

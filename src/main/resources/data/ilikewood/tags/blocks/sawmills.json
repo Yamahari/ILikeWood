@@ -2,12 +2,12 @@
   "replace": false,
   "values": [
     "ilikewood:warped_sawmill",
+    "ilikewood:spruce_sawmill",
     "ilikewood:crimson_sawmill",
+    "ilikewood:jungle_sawmill",
     "ilikewood:acacia_sawmill",
     "ilikewood:dark_oak_sawmill",
-    "ilikewood:spruce_sawmill",
     "ilikewood:oak_sawmill",
-    "ilikewood:jungle_sawmill",
     "ilikewood:birch_sawmill"
   ]
 }

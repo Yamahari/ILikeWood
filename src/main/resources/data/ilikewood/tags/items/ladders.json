@@ -2,12 +2,12 @@
   "replace": false,
   "values": [
     "ilikewood:warped_ladder",
+    "ilikewood:spruce_ladder",
     "ilikewood:crimson_ladder",
+    "ilikewood:jungle_ladder",
     "ilikewood:acacia_ladder",
     "ilikewood:dark_oak_ladder",
-    "ilikewood:spruce_ladder",
     "ilikewood:oak_ladder",
-    "ilikewood:jungle_ladder",
     "ilikewood:birch_ladder"
   ]
 }
