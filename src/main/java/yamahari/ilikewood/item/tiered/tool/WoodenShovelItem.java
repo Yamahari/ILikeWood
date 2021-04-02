@@ -11,6 +11,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
+import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
@@ -25,7 +26,14 @@ public final class WoodenShovelItem extends ShovelItem implements IWooden, IWood
     private final IWoodenItemTier woodenItemTier;
 
     public WoodenShovelItem(final IWoodType woodType, final IWoodenItemTier woodenItemTier) {
-        super(ItemTier.WOOD, 0.f, 0.f, (new Item.Properties().group(ItemGroup.TOOLS)));
+        super(ItemTier.WOOD,
+            0.f,
+            0.f,
+            woodenItemTier.equals(VanillaWoodenItemTiers.NETHERITE)
+            ? (new Item.Properties()
+                   .group(ItemGroup.TOOLS)
+                   .isImmuneToFire())
+            : (new Item.Properties().group(ItemGroup.TOOLS)));
         this.woodType = woodType;
         this.woodenItemTier = woodenItemTier;
     }
