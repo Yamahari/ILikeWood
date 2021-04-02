@@ -9,6 +9,7 @@ import net.minecraft.world.IBlockReader;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class WoodenBedBlock extends BedBlock implements IWooden {
@@ -69,13 +70,13 @@ public final class WoodenBedBlock extends BedBlock implements IWooden {
     }
 
     @Override
-    public TileEntity createNewTileEntity(@SuppressWarnings("NullableProblems") final IBlockReader reader) {
+    public TileEntity createNewTileEntity(@Nonnull final IBlockReader reader) {
         return null;
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
-    public BlockRenderType getRenderType(final BlockState blockState) {
+    public BlockRenderType getRenderType(@Nonnull final BlockState blockState) {
         return BlockRenderType.MODEL;
     }
 

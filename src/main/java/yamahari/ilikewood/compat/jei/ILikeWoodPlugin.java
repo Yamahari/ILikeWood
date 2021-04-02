@@ -43,6 +43,6 @@ public final class ILikeWoodPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerGuiHandlers(@SuppressWarnings("NullableProblems") final IGuiHandlerRegistration registration) {
+    public void registerGuiHandlers(@Nonnull final IGuiHandlerRegistration registration) {
     }
 }
