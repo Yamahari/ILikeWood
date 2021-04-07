@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:warped_wall_soul_torch",
-    "ilikewood:spruce_wall_soul_torch",
     "ilikewood:crimson_wall_soul_torch",
+    "ilikewood:oak_wall_soul_torch",
     "ilikewood:jungle_wall_soul_torch",
     "ilikewood:acacia_wall_soul_torch",
-    "ilikewood:dark_oak_wall_soul_torch",
-    "ilikewood:oak_wall_soul_torch",
-    "ilikewood:birch_wall_soul_torch"
+    "ilikewood:birch_wall_soul_torch",
+    "ilikewood:warped_wall_soul_torch",
+    "ilikewood:spruce_wall_soul_torch",
+    "ilikewood:dark_oak_wall_soul_torch"
   ]
 }

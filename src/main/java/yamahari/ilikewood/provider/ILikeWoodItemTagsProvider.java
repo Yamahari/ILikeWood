@@ -51,7 +51,6 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.TORCHES, WoodenObjectTypes.TORCH);
         registerTag(ILikeWoodItemTags.STICKS, WoodenObjectTypes.STICK);
         registerTag(Tags.Items.RODS, WoodenObjectTypes.STICK);
-        registerTag(Tags.Items.RODS_WOODEN, WoodenObjectTypes.STICK);
         registerTag(ILikeWoodItemTags.CRAFTING_TABLES, WoodenObjectTypes.CRAFTING_TABLE);
         registerTag(ILikeWoodItemTags.SCAFFOLDINGS, WoodenObjectTypes.SCAFFOLDING);
         registerTag(ILikeWoodItemTags.LECTERNS, WoodenObjectTypes.LECTERN);

@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "ilikewood:warped_post",
-    "ilikewood:spruce_post",
     "ilikewood:crimson_post",
+    "ilikewood:oak_post",
     "ilikewood:jungle_post",
     "ilikewood:acacia_post",
-    "ilikewood:dark_oak_post",
-    "ilikewood:oak_post",
-    "ilikewood:birch_post"
+    "ilikewood:birch_post",
+    "ilikewood:warped_post",
+    "ilikewood:spruce_post",
+    "ilikewood:dark_oak_post"
   ]
 }
