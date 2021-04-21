@@ -173,4 +173,9 @@ task apiJar(type: Jar) {
     from sourceSets.api.output
 }
 
+task dataJar(type: Jar) {
+    classifier = "data"
+    from sourceSets.data.output
+}
+
 jar.finalizedBy('reobfJar')
