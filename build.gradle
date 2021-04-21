@@ -26,7 +26,7 @@ sourceSets {
             srcDirs = ['src/main/java']
         }
         resources {
-            srcDirs = ['src/main/resources']
+            srcDirs = ['src/main/resources', 'src/data/resources']
         }
     }
 
@@ -39,18 +39,19 @@ sourceSets {
         }
     }
 
-    test {
+    data {
         java {
-            srcDirs = ['src/test/java']
+            srcDirs = ['src/data/java']
         }
         resources {
-            srcDirs = ['src/test/resources']
+            srcDirs = ['src/data/resources']
         }
     }
 }
 
 configurations {
     apiCompile.extendsFrom(compile)
+    dataCompile.extendsFrom(compile)
 }
 
 minecraft {
@@ -90,12 +91,13 @@ minecraft {
             property 'ilikewood.datagen.modid', 'ilikewood'
             args '--mod', 'ilikewood',
                     '--all',
-                    '--output', file('src/generated/resources/'),
+                    '--output', file('src/data/resources/'),
                     '--existing', file('src/main/resources/')
             mods {
                 ilikewood {
                     source sourceSets.main
                     source sourceSets.api
+                    source sourceSets.data
                 }
             }
         }
@@ -130,7 +132,18 @@ dependencies {
     //runtimeOnly fg.deobf('build.libs:thermal_foundation:1.16.3-1.1.6')
     //runtimeOnly fg.deobf('build.libs:thermal_expansion:1.16.3-1.1.6')
 
+    // minecolonies-0.14.73-ALPHA-universal
+    //runtimeOnly fg.deobf('build.libs:minecolonies:0.14.73-ALPHA:universal')
+    // structurize-0.13.148-ALPHA-universal
+    //runtimeOnly fg.deobf('build.libs:structurize:0.13.148-ALPHA:universal')
+    // ilikewoodxbiomesoplenty-1.16.5-6.2.2.0
+    //runtimeOnly fg.deobf('build.libs:ilikewoodxbiomesoplenty:1.16.5-6.2.2.0')
+    // BiomesOPlenty-1.16.4-13.0.0.432-universal
+    //runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.4-13.0.0.432:universal')
+
     implementation sourceSets.api.output
+
+    dataImplementation sourceSets.api.output, sourceSets.main.output
 }
 
 jar {
@@ -138,6 +151,7 @@ jar {
     from sourceSets.api.output.classesDirs
     from sourceSets.main.output.resourcesDir
     from sourceSets.api.output.resourcesDir
+    from sourceSets.data.output.resourcesDir
     sourceSets.main.resources {
         exclude 'assets/biomesoplenty/**'
     }

@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "ilikewood:jungle_panels_stairs"
+  },
+  "result": "ilikewood:jungle_panels_stairs",
+  "count": 1
+}

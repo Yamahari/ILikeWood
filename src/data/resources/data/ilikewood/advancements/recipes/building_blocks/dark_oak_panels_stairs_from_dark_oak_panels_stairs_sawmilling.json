@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ilikewood:dark_oak_panels_stairs_from_dark_oak_panels_stairs_sawmilling"
+    ]
+  },
+  "criteria": {
+    "has_panels": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ilikewood:dark_oak_panels_stairs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ilikewood:dark_oak_panels_stairs_from_dark_oak_panels_stairs_sawmilling"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_panels",
+      "has_the_recipe"
+    ]
+  ]
+}

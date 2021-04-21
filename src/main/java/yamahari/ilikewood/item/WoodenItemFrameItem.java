@@ -14,23 +14,26 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
-import yamahari.ilikewood.registry.WoodenEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenEntityType;
+import yamahari.ilikewood.util.objecttype.WoodenItemType;
+
+import javax.annotation.Nonnull;
 
 public final class WoodenItemFrameItem extends WoodenItem {
     private final LazyValue<EntityType<? extends ItemFrameEntity>> entityType;
 
     @SuppressWarnings("unchecked")
     public WoodenItemFrameItem(final IWoodType woodType) {
-        super(woodType, WoodenObjectTypes.ITEM_FRAME, new Item.Properties().group(ItemGroup.DECORATIONS));
-        this.entityType = new LazyValue<>(() -> (EntityType<? extends ItemFrameEntity>) WoodenEntityTypes.getEntityType(
-            WoodenObjectTypes.ITEM_FRAME,
-            this.getWoodType()));
+        super(woodType, WoodenItemType.ITEM_FRAME, new Item.Properties().group(ItemGroup.DECORATIONS));
+        this.entityType =
+            new LazyValue<>(() -> (EntityType<? extends ItemFrameEntity>) ILikeWood.ENTITY_TYPE_REGISTRY.getObject(this.getWoodType(),
+                WoodenEntityType.ITEM_FRAME));
     }
 
-    @SuppressWarnings("NullableProblems")
+    @Nonnull
     @Override
     public ActionResultType onItemUse(final ItemUseContext context) {
         final BlockPos blockPos = context.getPos();
@@ -67,12 +70,6 @@ public final class WoodenItemFrameItem extends WoodenItem {
 
     private boolean canPlace(final PlayerEntity player, final Direction direction, final ItemStack itemStack,
                              final BlockPos blockPos) {
-        // return !direction.getAxis().isVertical() && player.canPlayerEdit(blockPos, direction, itemStack);
         return !World.isOutsideBuildHeight(blockPos) && player.canPlayerEdit(blockPos, direction, itemStack);
-    }
-
-    @Override
-    public int getBurnTime(final ItemStack itemStack) {
-        return -1;
     }
 }

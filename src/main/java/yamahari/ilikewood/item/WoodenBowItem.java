@@ -6,7 +6,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 public final class WoodenBowItem extends BowItem implements IWooden {
     private final IWoodType woodType;
@@ -23,6 +23,6 @@ public final class WoodenBowItem extends BowItem implements IWooden {
 
     @Override
     public int getBurnTime(final ItemStack itemStack) {
-        return this.getWoodType().getProperties(WoodenObjectTypes.BOW).getBurnTime();
+        return this.getWoodType().getProperties(WoodenItemType.BOW).getBurnTime();
     }
 }

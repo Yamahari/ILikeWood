@@ -17,11 +17,11 @@ import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
-import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
 import yamahari.ilikewood.registry.WoodenRecipeTypes;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -92,10 +92,10 @@ public final class WoodenSawmillContainer extends Container {
     public boolean canInteractWith(@Nonnull final PlayerEntity player) {
         return this.worldPosCallable.applyOrElse((world, blockPos) -> {
             final BlockState blockState = world.getBlockState(blockPos);
-            return WoodenBlocks.getBlocks(WoodenObjectTypes.SAWMILL).anyMatch(blockState::isIn) && player.getDistanceSq(
-                (double) blockPos.getX() + 0.5D,
-                (double) blockPos.getY() + 0.5D,
-                (double) blockPos.getZ() + 0.5D) <= 64.0D;
+            return ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.SAWMILL).anyMatch(blockState::isIn) &&
+                   player.getDistanceSq((double) blockPos.getX() + 0.5D,
+                       (double) blockPos.getY() + 0.5D,
+                       (double) blockPos.getZ() + 0.5D) <= 64.0D;
         }, true);
     }
 

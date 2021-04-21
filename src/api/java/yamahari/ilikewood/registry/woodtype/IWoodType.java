@@ -1,7 +1,8 @@
 package yamahari.ilikewood.registry.woodtype;
 
-import yamahari.ilikewood.util.objecttype.WoodenObjectType;
-import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
+import yamahari.ilikewood.util.objecttype.WoodenItemType;
+import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 import java.util.Set;
 
@@ -10,15 +11,25 @@ public interface IWoodType {
 
     String getName();
 
-    Properties getProperties(final WoodenObjectType woodenObjectType);
+    //Properties getProperties(final WoodenObjectType woodenObjectType);
+
+    Properties getProperties(final WoodenBlockType blockType);
+
+    Properties getProperties(final WoodenItemType itemType);
 
     default float getEnchantingPowerBonus() {
         return 1.F;
     }
 
-    Set<WoodenObjectType> getObjectTypes();
+    Set<WoodenBlockType> getBlockTypes();
 
-    Set<WoodenTieredObjectType> getTieredObjectTypes();
+    Set<WoodenItemType> getItemTypes();
+
+    Set<WoodenTieredItemType> getTieredItemTypes();
+
+    Set<WoodenBlockType> getBuiltinBlockTypes();
+
+    Set<WoodenItemType> getBuiltinItemTypes();
 
     final class Properties {
         private final int burnTime;

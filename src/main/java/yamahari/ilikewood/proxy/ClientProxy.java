@@ -21,14 +21,20 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.gui.screen.WoodenSawmillScreen;
 import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
-import yamahari.ilikewood.registry.*;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.registry.WoodenContainerTypes;
+import yamahari.ilikewood.registry.WoodenTileEntityTypes;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
+import yamahari.ilikewood.util.objecttype.WoodenEntityType;
+import yamahari.ilikewood.util.objecttype.WoodenItemType;
+
+import java.util.stream.Stream;
 
 public final class ClientProxy implements IProxy {
     @SuppressWarnings("unchecked")
@@ -40,24 +46,26 @@ public final class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntityRenderer((TileEntityType<? extends LecternTileEntity>) WoodenTileEntityTypes.WOODEN_LECTERN
             .get(), LecternTileEntityRenderer::new);
 
-        WoodenEntityTypes.getEntityTypes(WoodenObjectTypes.ITEM_FRAME)
+        ILikeWood.ENTITY_TYPE_REGISTRY
+            .getObjects(WoodenEntityType.ITEM_FRAME)
             .forEach(type -> RenderingRegistry.registerEntityRenderingHandler((EntityType<WoodenItemFrameEntity>) type,
                 m -> new WoodenItemFrameRenderer(m, Minecraft.getInstance().getItemRenderer())));
 
-        WoodenBlocks.getBlocks(WoodenObjectTypes.POST, WoodenObjectTypes.STRIPPED_POST)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(Stream.of(WoodenBlockType.POST, WoodenBlockType.STRIPPED_POST))
             .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getSolid()));
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectTypes.LADDER,
-                WoodenObjectTypes.TORCH,
-                WoodenObjectTypes.WALL_TORCH,
-                WoodenObjectTypes.SCAFFOLDING,
-                WoodenObjectTypes.SOUL_TORCH,
-                WoodenObjectTypes.WALL_SOUL_TORCH)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(Stream.of(WoodenBlockType.LADDER,
+                WoodenBlockType.TORCH,
+                WoodenBlockType.WALL_TORCH,
+                WoodenBlockType.SCAFFOLDING,
+                WoodenBlockType.SOUL_TORCH,
+                WoodenBlockType.WALL_SOUL_TORCH))
             .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectTypes.CRAFTING_TABLE, WoodenObjectTypes.SAWMILL)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(Stream.of(WoodenBlockType.CRAFTING_TABLE, WoodenBlockType.SAWMILL))
             .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutoutMipped()));
 
         ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) WoodenContainerTypes.WOODEN_WORK_BENCH
@@ -66,7 +74,7 @@ public final class ClientProxy implements IProxy {
         ScreenManager.registerFactory((ContainerType<? extends WoodenSawmillContainer>) WoodenContainerTypes.WOODEN_SAWMILL
             .get(), WoodenSawmillScreen::new);
 
-        WoodenItems.getItems(WoodenObjectTypes.BOW).forEach(item -> {
+        ILikeWood.ITEM_REGISTRY.getObjects(WoodenItemType.BOW).forEach(item -> {
             ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
@@ -82,7 +90,7 @@ public final class ClientProxy implements IProxy {
                     entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
         });
 
-        WoodenItems.getItems(WoodenObjectTypes.CROSSBOW).forEach(item -> {
+        ILikeWood.ITEM_REGISTRY.getObjects(WoodenItemType.CROSSBOW).forEach(item -> {
             ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
@@ -112,7 +120,8 @@ public final class ClientProxy implements IProxy {
 
         });
 
-        WoodenItems.getItems(WoodenObjectTypes.FISHING_ROD)
+        ILikeWood.ITEM_REGISTRY
+            .getObjects(WoodenItemType.FISHING_ROD)
             .forEach(item -> ItemModelsProperties.registerProperty(item,
                 new ResourceLocation("cast"),
                 (itemStack, world, entity) -> {

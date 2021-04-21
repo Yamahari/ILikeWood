@@ -8,7 +8,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.IWorldReader;
-import yamahari.ilikewood.util.objecttype.WoodenObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -17,9 +17,9 @@ import java.util.Map;
 public class WoodenWallOrFloorItem extends WoodenBlockItem {
     private final Block wallBlock;
 
-    public WoodenWallOrFloorItem(final WoodenObjectType objectType, final Block floorBlock, final Block wallBlock,
+    public WoodenWallOrFloorItem(final WoodenBlockType blockType, final Block floorBlock, final Block wallBlock,
                                  final Item.Properties properties) {
-        super(objectType, floorBlock, properties);
+        super(blockType, floorBlock, properties);
         this.wallBlock = wallBlock;
     }
 

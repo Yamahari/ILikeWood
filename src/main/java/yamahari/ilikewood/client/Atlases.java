@@ -11,7 +11,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -26,7 +26,7 @@ public final class Atlases {
         final Map<IWoodType, Map<ChestType, RenderMaterial>> chests = new HashMap<>();
         ILikeWood.WOOD_TYPE_REGISTRY
             .getWoodTypes()
-            .filter(woodType -> woodType.getObjectTypes().contains(WoodenObjectTypes.CHEST))
+            .filter(woodType -> woodType.getBlockTypes().contains(WoodenBlockType.CHEST))
             .forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
         CHESTS = Collections.unmodifiableMap(chests);
     }

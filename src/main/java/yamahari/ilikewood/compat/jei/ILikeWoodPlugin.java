@@ -8,11 +8,11 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.container.WoodenWorkBenchContainer;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
-import yamahari.ilikewood.registry.WoodenBlocks;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 
@@ -38,8 +38,8 @@ public final class ILikeWoodPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(final IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(WoodenBlocks.getBlock(WoodenObjectTypes.CRAFTING_TABLE,
-            VanillaWoodTypes.OAK)), VanillaRecipeCategoryUid.CRAFTING);
+        registration.addRecipeCatalyst(new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK,
+            WoodenBlockType.CRAFTING_TABLE)), VanillaRecipeCategoryUid.CRAFTING);
     }
 
     @Override

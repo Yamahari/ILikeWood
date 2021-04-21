@@ -5,16 +5,16 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelProvider;
+import yamahari.ilikewood.plugin.vanilla.util.resources.WoodenLogResource;
+import yamahari.ilikewood.plugin.vanilla.util.resources.WoodenPlanksResource;
+import yamahari.ilikewood.plugin.vanilla.util.resources.WoodenSlabResource;
+import yamahari.ilikewood.plugin.vanilla.util.resources.WoodenStrippedLogResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenPlanksResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenSlabResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.resources.WoodenLogResource;
-import yamahari.ilikewood.util.resources.WoodenPlanksResource;
-import yamahari.ilikewood.util.resources.WoodenSlabResource;
-import yamahari.ilikewood.util.resources.WoodenStrippedLogResource;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,11 +25,6 @@ public final class VanillaWoodenResources {
     public static final Map<IWoodType, IWoodenLogResource> LOGS;
     public static final Map<IWoodType, IWoodenStrippedLogResource> STRIPPED_LOGS;
     public static final Map<IWoodType, IWoodenSlabResource> SLABS;
-
-    private static String getLogPostFix(final IWoodType woodType) {
-        return woodType.equals(VanillaWoodTypes.CRIMSON) || woodType.equals(VanillaWoodTypes.WARPED) ? "stem" : "log";
-    }
-
     private static final Map<IWoodType, AbstractBlock.Properties> PLANKS_PROPERTIES =
         new ImmutableMap.Builder<IWoodType, AbstractBlock.Properties>()
             .put(VanillaWoodTypes.ACACIA, AbstractBlock.Properties.from(Blocks.ACACIA_PLANKS))
@@ -88,5 +83,9 @@ public final class VanillaWoodenResources {
     }
 
     private VanillaWoodenResources() {
+    }
+
+    private static String getLogPostFix(final IWoodType woodType) {
+        return woodType.equals(VanillaWoodTypes.CRIMSON) || woodType.equals(VanillaWoodTypes.WARPED) ? "stem" : "log";
     }
 }

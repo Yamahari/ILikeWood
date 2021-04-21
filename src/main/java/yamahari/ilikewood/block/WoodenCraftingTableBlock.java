@@ -17,7 +17,7 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 
@@ -31,7 +31,7 @@ public final class WoodenCraftingTableBlock extends CraftingTableBlock implement
         this.defaultName = new TranslationTextComponent(StringUtils.joinWith(".",
             "container",
             Constants.MOD_ID,
-            Util.toRegistryName(this.getWoodType().getName(), WoodenObjectTypes.CRAFTING_TABLE.getName())));
+            Util.toRegistryName(this.getWoodType().getName(), WoodenBlockType.CRAFTING_TABLE.getName())));
     }
 
     @Override

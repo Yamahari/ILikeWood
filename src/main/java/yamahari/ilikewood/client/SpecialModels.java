@@ -11,7 +11,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,9 +30,9 @@ public final class SpecialModels {
 
         ILikeWood.WOOD_TYPE_REGISTRY
             .getWoodTypes()
-            .filter(woodType -> woodType.getObjectTypes().contains(WoodenObjectTypes.ITEM_FRAME))
+            .filter(woodType -> woodType.getItemTypes().contains(WoodenItemType.ITEM_FRAME))
             .forEach(woodType -> {
-                final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenObjectTypes.ITEM_FRAME.getName());
+                final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenItemType.ITEM_FRAME.getName());
                 itemFrameModels.put(woodType,
                     new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName())));
                 itemFrameMapModels.put(woodType,
@@ -43,6 +43,9 @@ public final class SpecialModels {
         ITEM_FRAME_MAP_MODELS = Collections.unmodifiableMap(itemFrameMapModels);
     }
 
+    private SpecialModels() {
+    }
+
     @SubscribeEvent
     public static void onModelRegistry(final ModelRegistryEvent event) {
         Stream
@@ -50,8 +53,5 @@ public final class SpecialModels {
             .flatMap(Collection::stream)
             .map(Map.Entry::getValue)
             .forEach(ModelLoader::addSpecialModel);
-    }
-
-    private SpecialModels() {
     }
 }

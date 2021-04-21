@@ -11,8 +11,7 @@ import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
-import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 import javax.annotation.Nonnull;
 
@@ -61,17 +60,17 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
 
     @Override
     public int getBurnTime(final ItemStack itemStack) {
-        return this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getBurnTime();
+        return this.getWoodenItemTier().getProperties(this.getTieredItemType()).getBurnTime();
     }
 
     @Override
     public float getAttackDamage() {
         return this.getWoodenItemTier().getAttackDamage() +
-               this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackDamage();
+               this.getWoodenItemTier().getProperties(this.getTieredItemType()).getAttackDamage();
     }
 
     public float getAttackSpeed() {
-        return this.getWoodenItemTier().getProperties(this.getWoodenTieredObjectType()).getAttackSpeed();
+        return this.getWoodenItemTier().getProperties(this.getTieredItemType()).getAttackSpeed();
     }
 
     @Override
@@ -99,8 +98,8 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
     }
 
     @Override
-    public WoodenTieredObjectType getWoodenTieredObjectType() {
-        return WoodenTieredObjectTypes.SWORD;
+    public WoodenTieredItemType getTieredItemType() {
+        return WoodenTieredItemType.SWORD;
     }
 
     @Override

@@ -1,0 +1,8 @@
+{
+  "type": "ilikewood:sawmilling",
+  "ingredient": {
+    "item": "ilikewood:oak_panels_stairs"
+  },
+  "result": "ilikewood:oak_panels_stairs",
+  "count": 1
+}

@@ -2,8 +2,9 @@ package yamahari.ilikewood.registry.woodenitemtier;
 
 import net.minecraft.item.IItemTier;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.tiered.WoodenTieredObjectType;
+import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
+// TODO Does this really need to extend IWooden??
 public interface IWoodenItemTier extends IItemTier, IWooden {
     String getModId();
 
@@ -13,7 +14,7 @@ public interface IWoodenItemTier extends IItemTier, IWooden {
         return true;
     }
 
-    Properties getProperties(final WoodenTieredObjectType woodenTieredObjectType);
+    Properties getProperties(final WoodenTieredItemType tieredItemType);
 
     final class Properties {
         private final float attackSpeed;

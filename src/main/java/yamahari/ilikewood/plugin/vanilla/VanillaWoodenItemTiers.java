@@ -2,45 +2,52 @@ package yamahari.ilikewood.plugin.vanilla;
 
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import yamahari.ilikewood.registry.WoodenBlocks;
+import yamahari.ilikewood.plugin.vanilla.util.WoodenItemTier;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.WoodenItemTier;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 public final class VanillaWoodenItemTiers {
     public static final IWoodenItemTier ACACIA = new WoodenItemTier(VanillaWoodTypes.ACACIA,
         Constants.ACACIA,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.ACACIA)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.ACACIA,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier BIRCH = new WoodenItemTier(VanillaWoodTypes.BIRCH,
         Constants.BIRCH,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.BIRCH)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.BIRCH,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier CRIMSON = new WoodenItemTier(VanillaWoodTypes.CRIMSON,
         Constants.CRIMSON,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.CRIMSON)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.CRIMSON,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier DARK_OAK = new WoodenItemTier(VanillaWoodTypes.DARK_OAK,
         Constants.DARK_OAK,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.DARK_OAK)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.DARK_OAK,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier JUNGLE = new WoodenItemTier(VanillaWoodTypes.JUNGLE,
         Constants.JUNGLE,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.JUNGLE)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.JUNGLE,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier OAK = new WoodenItemTier(VanillaWoodTypes.OAK,
         Constants.OAK,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.OAK)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier SPRUCE = new WoodenItemTier(VanillaWoodTypes.SPRUCE,
         Constants.SPRUCE,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.SPRUCE)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.SPRUCE,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier WARPED = new WoodenItemTier(VanillaWoodTypes.WARPED,
         Constants.WARPED,
         true,
-        () -> Ingredient.fromItems(WoodenBlocks.getBlock(WoodenObjectTypes.PANELS, VanillaWoodTypes.WARPED)));
+        () -> Ingredient.fromItems(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.WARPED,
+            WoodenBlockType.PANELS)));
     public static final IWoodenItemTier STONE = new WoodenItemTier(VanillaWoodTypes.DUMMY,
         Constants.STONE,
         false,
@@ -53,7 +60,6 @@ public final class VanillaWoodenItemTiers {
         Constants.GOLDEN,
         false,
         () -> Ingredient.fromItems(Items.GOLD_INGOT));
-    // TODO make netherite items not burn in lava
     public static final IWoodenItemTier NETHERITE = new WoodenItemTier(VanillaWoodTypes.DUMMY,
         Constants.NETHERITE,
         false,

@@ -20,10 +20,10 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
-import yamahari.ilikewood.registry.WoodenItems;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,7 +40,7 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
                                  final World world) {
         super(entityType, world);
         this.woodType = woodType;
-        this.drop = new LazyValue<>(WoodenItems.getRegistryObject(WoodenObjectTypes.ITEM_FRAME, woodType));
+        this.drop = new LazyValue<>(ILikeWood.ITEM_REGISTRY.getRegistryObject(woodType, WoodenItemType.ITEM_FRAME));
     }
 
     public WoodenItemFrameEntity(final IWoodType woodType, final EntityType<? extends ItemFrameEntity> entityType,
@@ -48,7 +48,7 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
         super(entityType, world);
         this.woodType = woodType;
         this.hangingPosition = blockPos;
-        this.drop = new LazyValue<>(WoodenItems.getRegistryObject(WoodenObjectTypes.ITEM_FRAME, woodType));
+        this.drop = new LazyValue<>(ILikeWood.ITEM_REGISTRY.getRegistryObject(woodType, WoodenItemType.ITEM_FRAME));
         this.updateFacingWithBoundingBox(direction);
     }
 

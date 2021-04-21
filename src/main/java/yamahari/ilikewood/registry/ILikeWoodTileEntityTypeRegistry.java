@@ -4,11 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.tileentity.WoodenBarrelTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 public final class ILikeWoodTileEntityTypeRegistry {
     public static final DeferredRegister<TileEntityType<?>> REGISTRY =
@@ -19,19 +20,19 @@ public final class ILikeWoodTileEntityTypeRegistry {
         WoodenTileEntityTypes.WOODEN_BARREL = REGISTRY.register("wooden_barrel",
             () -> TileEntityType.Builder
                 .create(() -> new WoodenBarrelTileEntity(WoodenTileEntityTypes.WOODEN_BARREL.get()),
-                    WoodenBlocks.getBlocks(WoodenObjectTypes.BARREL).toArray(Block[]::new))
+                    ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.BARREL).toArray(Block[]::new))
                 .build(null));
 
         WoodenTileEntityTypes.WOODEN_CHEST = REGISTRY.register("wooden_chest",
             () -> TileEntityType.Builder
                 .create(() -> new WoodenChestTileEntity(WoodenTileEntityTypes.WOODEN_CHEST.get()),
-                    WoodenBlocks.getBlocks(WoodenObjectTypes.CHEST).toArray(Block[]::new))
+                    ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.CHEST).toArray(Block[]::new))
                 .build(null));
 
         WoodenTileEntityTypes.WOODEN_LECTERN = REGISTRY.register("wooden_lectern",
             () -> TileEntityType.Builder
                 .create(WoodenLecternTileEntity::new,
-                    WoodenBlocks.getBlocks(WoodenObjectTypes.LECTERN).toArray(Block[]::new))
+                    ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.LECTERN).toArray(Block[]::new))
                 .build(null));
     }
 
