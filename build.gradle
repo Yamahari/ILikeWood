@@ -175,7 +175,7 @@ task apiJar(type: Jar) {
 
 task dataJar(type: Jar) {
     classifier = "data"
-    from sourceSets.data.output
+    from sourceSets.data.output.classesDirs
 }
 
 jar.finalizedBy('reobfJar')
