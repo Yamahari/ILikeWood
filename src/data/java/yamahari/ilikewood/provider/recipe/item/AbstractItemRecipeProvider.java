@@ -9,8 +9,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;

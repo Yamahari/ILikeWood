@@ -6,7 +6,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 

@@ -10,8 +10,8 @@ import net.minecraft.item.crafting.Ingredient;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;

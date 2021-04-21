@@ -4,10 +4,10 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 public final class FishingRodItemModelProvider extends AbstractItemModelProvider {
     public FishingRodItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {

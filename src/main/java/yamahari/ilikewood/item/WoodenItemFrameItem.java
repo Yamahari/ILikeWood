@@ -16,9 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
+import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.objecttype.WoodenEntityType;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 import javax.annotation.Nonnull;
 

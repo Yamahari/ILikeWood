@@ -1,4 +1,4 @@
-package yamahari.ilikewood.util.objecttype;
+package yamahari.ilikewood.registry.objecttype;
 
 public abstract class AbstractWoodenObjectType {
     private final String name;

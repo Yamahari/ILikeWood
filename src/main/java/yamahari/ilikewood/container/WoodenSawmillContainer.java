@@ -21,7 +21,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
 import yamahari.ilikewood.registry.WoodenRecipeTypes;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 import java.util.List;

@@ -5,8 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 import javax.annotation.Nonnull;
 

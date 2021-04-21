@@ -13,10 +13,10 @@ import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

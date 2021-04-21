@@ -4,9 +4,9 @@ import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 public final class WoodenFishingRodItem extends FishingRodItem implements IWooden {
     private final IWoodType woodType;

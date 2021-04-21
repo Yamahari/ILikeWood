@@ -11,10 +11,10 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
-import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
     public ILikeWoodItemTagsProvider(final DataGenerator generator, final ILikeWoodBlockTagsProvider blockTagsProvider,

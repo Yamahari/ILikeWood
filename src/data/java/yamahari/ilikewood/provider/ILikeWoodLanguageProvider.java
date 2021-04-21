@@ -4,10 +4,10 @@ import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
-import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 import java.util.Arrays;
 import java.util.Objects;

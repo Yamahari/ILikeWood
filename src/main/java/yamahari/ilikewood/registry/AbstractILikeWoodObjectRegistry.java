@@ -5,9 +5,9 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import yamahari.ilikewood.registry.objecttype.AbstractWoodenObjectType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.AbstractWoodenObjectType;
 
 import java.util.HashMap;
 import java.util.Map;

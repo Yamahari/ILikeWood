@@ -2,9 +2,9 @@ package yamahari.ilikewood.item;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 public class WoodenItem extends Item implements IWooden {
     private final IWoodType woodType;

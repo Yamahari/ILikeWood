@@ -11,8 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.container.WoodenWorkBenchContainer;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 

@@ -11,8 +11,8 @@ import yamahari.ilikewood.item.WoodenBedItem;
 import yamahari.ilikewood.item.WoodenBlockItem;
 import yamahari.ilikewood.item.WoodenScaffoldingItem;
 import yamahari.ilikewood.item.WoodenWallOrFloorItem;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import java.util.Collections;
 import java.util.HashMap;

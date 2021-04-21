@@ -11,11 +11,11 @@ import yamahari.ilikewood.item.tiered.WoodenSwordItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenAxeItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenPickAxeItem;
 import yamahari.ilikewood.item.tiered.tool.WoodenShovelItem;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 import java.util.Collections;
 import java.util.HashMap;

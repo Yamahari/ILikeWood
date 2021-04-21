@@ -16,13 +16,13 @@ import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
 import yamahari.ilikewood.proxy.IProxy;
 import yamahari.ilikewood.registry.*;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.resource.WoodenResourceRegistry;
 import yamahari.ilikewood.registry.woodenitemtier.WoodenItemTierRegistry;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.registry.woodtype.WoodTypeRegistry;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 import java.util.ArrayList;
 import java.util.List;

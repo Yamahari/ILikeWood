@@ -5,7 +5,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 

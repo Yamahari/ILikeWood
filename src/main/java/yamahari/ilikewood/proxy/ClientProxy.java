@@ -30,9 +30,9 @@ import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
-import yamahari.ilikewood.util.objecttype.WoodenEntityType;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 
 import java.util.stream.Stream;
 

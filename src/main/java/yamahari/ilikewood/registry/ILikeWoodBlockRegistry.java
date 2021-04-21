@@ -11,9 +11,9 @@ import yamahari.ilikewood.block.post.WoodenPostBlock;
 import yamahari.ilikewood.block.post.WoodenStrippedPostBlock;
 import yamahari.ilikewood.block.torch.WoodenTorchBlock;
 import yamahari.ilikewood.block.torch.WoodenWallTorchBlock;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import java.util.Collections;
 import java.util.HashMap;

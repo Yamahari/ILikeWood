@@ -1,8 +1,8 @@
 package yamahari.ilikewood.registry.woodtype;
 
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
-import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 
 import java.util.Collections;
 import java.util.HashMap;

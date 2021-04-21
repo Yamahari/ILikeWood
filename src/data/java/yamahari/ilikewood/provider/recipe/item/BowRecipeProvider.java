@@ -8,9 +8,9 @@ import net.minecraft.item.Items;
 import net.minecraft.util.IItemProvider;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;

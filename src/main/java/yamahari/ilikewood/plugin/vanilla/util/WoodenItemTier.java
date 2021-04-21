@@ -3,10 +3,10 @@ package yamahari.ilikewood.plugin.vanilla.util;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenTieredItemType;
 
 import java.util.Collections;
 import java.util.HashMap;

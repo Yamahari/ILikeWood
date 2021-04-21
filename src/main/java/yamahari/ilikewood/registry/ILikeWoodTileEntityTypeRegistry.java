@@ -8,8 +8,8 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.tileentity.WoodenBarrelTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 public final class ILikeWoodTileEntityTypeRegistry {
     public static final DeferredRegister<TileEntityType<?>> REGISTRY =

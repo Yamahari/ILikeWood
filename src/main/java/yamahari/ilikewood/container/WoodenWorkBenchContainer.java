@@ -8,7 +8,7 @@ import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.util.IWorldPosCallable;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 

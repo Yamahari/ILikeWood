@@ -1,4 +1,4 @@
-package yamahari.ilikewood.util.objecttype;
+package yamahari.ilikewood.registry.objecttype;
 
 import net.minecraft.item.Item;
 

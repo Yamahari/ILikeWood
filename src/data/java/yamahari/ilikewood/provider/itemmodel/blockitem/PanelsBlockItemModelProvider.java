@@ -3,7 +3,7 @@ package yamahari.ilikewood.provider.itemmodel.blockitem;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 public final class PanelsBlockItemModelProvider extends AbstractBlockItemModelProvider {
     public PanelsBlockItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {

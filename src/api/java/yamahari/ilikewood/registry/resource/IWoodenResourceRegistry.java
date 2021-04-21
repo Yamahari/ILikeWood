@@ -1,12 +1,12 @@
 package yamahari.ilikewood.registry.resource;
 
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenPlanksResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenSlabResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
-import yamahari.ilikewood.util.objecttype.WoodenItemType;
 
 public interface IWoodenResourceRegistry {
     void registerPlanksResource(IWoodType woodType, IWoodenPlanksResource planks);

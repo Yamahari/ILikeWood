@@ -13,48 +13,54 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.functions.ExplosionDecay;
 import net.minecraft.state.properties.BedPart;
-import net.minecraftforge.fml.RegistryObject;
+import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenSawmillBlock;
-import yamahari.ilikewood.registry.ILikeWoodBlockRegistry;
-import yamahari.ilikewood.registry.WoodenBlocks;
-import yamahari.ilikewood.util.objecttype.WoodenObjectTypes;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class ILikeWoodBlockLootTables extends BlockLootTables {
     @Nonnull
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ILikeWoodBlockRegistry.REGISTRY.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList());
+        // TODO remove LOG_PILE filter once log piles are added back!
+        return ILikeWood.BLOCK_REGISTRY
+            .getObjects(WoodenBlockType.getAll().filter(blockType -> !blockType.equals(WoodenBlockType.LOG_PILE)))
+            .collect(Collectors.toList());
     }
 
     @Override
     protected void addTables() {
-        WoodenBlocks.getBlocks(WoodenObjectTypes.SLAB)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(WoodenBlockType.PANELS_SLAB)
             .forEach(block -> this.registerLootTable(block, BlockLootTables::droppingSlab));
 
-        WoodenBlocks
-            .getBlocks(WoodenObjectTypes.PANELS,
-                WoodenObjectTypes.STAIRS,
-                WoodenObjectTypes.WALL,
-                WoodenObjectTypes.LADDER,
-                WoodenObjectTypes.TORCH,
-                WoodenObjectTypes.CRAFTING_TABLE,
-                WoodenObjectTypes.SCAFFOLDING,
-                WoodenObjectTypes.POST,
-                WoodenObjectTypes.STRIPPED_POST,
-                WoodenObjectTypes.SOUL_TORCH)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(Stream.of(WoodenBlockType.PANELS,
+                WoodenBlockType.PANELS_STAIRS,
+                WoodenBlockType.WALL,
+                WoodenBlockType.LADDER,
+                WoodenBlockType.TORCH,
+                WoodenBlockType.CRAFTING_TABLE,
+                WoodenBlockType.SCAFFOLDING,
+                WoodenBlockType.POST,
+                WoodenBlockType.STRIPPED_POST,
+                WoodenBlockType.SOUL_TORCH))
             .forEach(this::registerDropSelfLootTable);
 
-        WoodenBlocks.getBlocks(WoodenObjectTypes.BARREL, WoodenObjectTypes.CHEST, WoodenObjectTypes.LECTERN)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(Stream.of(WoodenBlockType.BARREL, WoodenBlockType.CHEST, WoodenBlockType.LECTERN))
             .forEach(block -> this.registerLootTable(block, BlockLootTables::droppingWithName));
 
-        WoodenBlocks.getBlocks(WoodenObjectTypes.BOOKSHELF)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(WoodenBlockType.BOOKSHELF)
             .forEach(block -> this.registerLootTable(block,
                 b -> droppingWithSilkTouchOrRandomly(b, Items.BOOK, ConstantRange.of(3))));
 
-        WoodenBlocks.getBlocks(WoodenObjectTypes.COMPOSTER)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(WoodenBlockType.COMPOSTER)
             .forEach(block -> this.registerLootTable(block,
                 b -> LootTable
                     .builder()
@@ -70,11 +76,12 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
                                 .newBuilder()
                                 .withIntProp(ComposterBlock.LEVEL, 8))))));
 
-        WoodenBlocks
-            .getBedBlocks()
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(WoodenBlockType.getBeds())
             .forEach(block -> this.registerLootTable(block, b -> droppingWhen(b, BedBlock.PART, BedPart.HEAD)));
 
-        WoodenBlocks.getBlocks(WoodenObjectTypes.SAWMILL)
+        ILikeWood.BLOCK_REGISTRY
+            .getObjects(WoodenBlockType.SAWMILL)
             .forEach(block -> this.registerLootTable(block,
                 b -> droppingWhen(b, WoodenSawmillBlock.MODEL, WoodenSawmillBlock.WoodenSawmillModel.BOTTOM_LEFT)));
     }

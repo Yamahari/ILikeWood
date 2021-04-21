@@ -9,13 +9,13 @@ import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenSawmillBlock;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenPlanksResource;
 import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import java.util.EnumMap;
 import java.util.Map;

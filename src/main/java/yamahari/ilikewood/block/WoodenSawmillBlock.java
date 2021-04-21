@@ -26,10 +26,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.container.WoodenSawmillContainer;
+import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
-import yamahari.ilikewood.util.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
