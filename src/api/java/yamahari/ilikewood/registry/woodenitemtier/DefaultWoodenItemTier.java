@@ -1,10 +1,9 @@
-package yamahari.ilikewood.plugin.vanilla.util;
+package yamahari.ilikewood.registry.woodenitemtier;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
-import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 
@@ -13,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class WoodenItemTier implements IWoodenItemTier {
-    private static final Map<String, Integer> DEFAULT_HARVEST_LEVEL = new ImmutableMap.Builder<String, Integer>()
+public final class DefaultWoodenItemTier implements IWoodenItemTier {
+    public static final Map<String, Integer> DEFAULT_HARVEST_LEVEL = new ImmutableMap.Builder<String, Integer>()
         .put(Constants.WOOD, 0)
         .put(Constants.STONE, 1)
         .put(Constants.IRON, 2)
@@ -23,7 +22,7 @@ public final class WoodenItemTier implements IWoodenItemTier {
         .put(Constants.NETHERITE, 4)
         .build();
 
-    private static final Map<String, Integer> DEFAULT_MAX_USES = new ImmutableMap.Builder<String, Integer>()
+    public static final Map<String, Integer> DEFAULT_MAX_USES = new ImmutableMap.Builder<String, Integer>()
         .put(Constants.WOOD, 59)
         .put(Constants.STONE, 131)
         .put(Constants.IRON, 250)
@@ -32,7 +31,7 @@ public final class WoodenItemTier implements IWoodenItemTier {
         .put(Constants.NETHERITE, 2031)
         .build();
 
-    private static final Map<String, Float> DEFAULT_EFFICIENCY = new ImmutableMap.Builder<String, Float>()
+    public static final Map<String, Float> DEFAULT_EFFICIENCY = new ImmutableMap.Builder<String, Float>()
         .put(Constants.WOOD, 2.0F)
         .put(Constants.STONE, 4.0F)
         .put(Constants.IRON, 6.0F)
@@ -41,7 +40,7 @@ public final class WoodenItemTier implements IWoodenItemTier {
         .put(Constants.NETHERITE, 9.0F)
         .build();
 
-    private static final Map<String, Float> DEFAULT_ATTACK_DAMAGE = new ImmutableMap.Builder<String, Float>()
+    public static final Map<String, Float> DEFAULT_ATTACK_DAMAGE = new ImmutableMap.Builder<String, Float>()
         .put(Constants.WOOD, 0.0F)
         .put(Constants.STONE, 1.0F)
         .put(Constants.IRON, 2.0F)
@@ -50,7 +49,7 @@ public final class WoodenItemTier implements IWoodenItemTier {
         .put(Constants.NETHERITE, 4.0F)
         .build();
 
-    private static final Map<String, Integer> DEFAULT_ENCHANTABILITY = new ImmutableMap.Builder<String, Integer>()
+    public static final Map<String, Integer> DEFAULT_ENCHANTABILITY = new ImmutableMap.Builder<String, Integer>()
         .put(Constants.WOOD, 15)
         .put(Constants.STONE, 5)
         .put(Constants.IRON, 14)
@@ -59,7 +58,7 @@ public final class WoodenItemTier implements IWoodenItemTier {
         .put(Constants.NETHERITE, 15)
         .build();
 
-    private static final Map<String, Map<String, Float>> DEFAULT_TIERED_ATTACK_SPEED =
+    public static final Map<String, Map<String, Float>> DEFAULT_TIERED_ATTACK_SPEED =
         new ImmutableMap.Builder<String, Map<String, Float>>()
             .put(Constants.WOOD,
                 ImmutableMap.of(WoodenTieredItemType.AXE.getName(),
@@ -129,7 +128,7 @@ public final class WoodenItemTier implements IWoodenItemTier {
                     -2.4F))
             .build();
 
-    private static final Map<String, Map<String, Float>> DEFAULT_TIERED_ATTACK_DAMAGE =
+    public static final Map<String, Map<String, Float>> DEFAULT_TIERED_ATTACK_DAMAGE =
         new ImmutableMap.Builder<String, Map<String, Float>>()
             .put(Constants.WOOD,
                 ImmutableMap.of(WoodenTieredItemType.AXE.getName(),
@@ -199,6 +198,16 @@ public final class WoodenItemTier implements IWoodenItemTier {
                     3.0F))
             .build();
 
+    public static final Map<String, Map<WoodenTieredItemType, Properties>> DEFAULT_PROPERTIES =
+        new ImmutableMap.Builder<String, Map<WoodenTieredItemType, Properties>>()
+            .put(Constants.WOOD, getDefaultWoodProperties())
+            .put(Constants.STONE, getDefaultProperties(Constants.STONE))
+            .put(Constants.IRON, getDefaultProperties(Constants.IRON))
+            .put(Constants.DIAMOND, getDefaultProperties(Constants.DIAMOND))
+            .put(Constants.GOLDEN, getDefaultProperties(Constants.GOLDEN))
+            .put(Constants.NETHERITE, getDefaultProperties(Constants.NETHERITE))
+            .build();
+
     private final IWoodType woodType;
     private final String modId;
     private final String name;
@@ -211,14 +220,13 @@ public final class WoodenItemTier implements IWoodenItemTier {
     private final LazyValue<Ingredient> repairMaterial;
     private final Map<WoodenTieredItemType, Properties> properties;
 
-    public WoodenItemTier(final IWoodType woodType, final String name, final boolean isWood,
-                          final Supplier<Ingredient> repairMaterial) {
-        this(woodType, Constants.MOD_ID, name, isWood, repairMaterial);
+    public DefaultWoodenItemTier(final IWoodType woodType, final String modId, final String name,
+                                 final Supplier<Ingredient> repairMaterial) {
+        this(woodType, modId, name, true, repairMaterial);
     }
 
-    // TODO remove config and hardcode values
-    public WoodenItemTier(final IWoodType woodType, final String modId, final String name, final boolean isWood,
-                          final Supplier<Ingredient> repairMaterial) {
+    public DefaultWoodenItemTier(final IWoodType woodType, final String modId, final String name, final boolean isWood,
+                                 final Supplier<Ingredient> repairMaterial) {
         this(woodType,
             modId,
             name,
@@ -231,9 +239,10 @@ public final class WoodenItemTier implements IWoodenItemTier {
             repairMaterial);
     }
 
-    public WoodenItemTier(final IWoodType woodType, final String modId, final String name, final boolean isWood,
-                          final int harvestLevel, final int maxUses, final float efficiency, final float attackDamage,
-                          final int enchantability, final Supplier<Ingredient> repairMaterial) {
+    public DefaultWoodenItemTier(final IWoodType woodType, final String modId, final String name, final boolean isWood,
+                                 final int harvestLevel, final int maxUses, final float efficiency,
+                                 final float attackDamage, final int enchantability,
+                                 final Supplier<Ingredient> repairMaterial) {
         this.woodType = woodType;
         this.modId = modId;
         this.name = name;
@@ -244,17 +253,29 @@ public final class WoodenItemTier implements IWoodenItemTier {
         this.attackDamage = attackDamage;
         this.enchantability = enchantability;
         this.repairMaterial = new LazyValue<>(repairMaterial);
+        this.properties = DEFAULT_PROPERTIES.get(isWood ? Constants.WOOD : name);
+    }
 
+    private static Map<WoodenTieredItemType, Properties> getDefaultWoodProperties() {
+        return getDefaultProperties("", true);
+    }
+
+    private static Map<WoodenTieredItemType, Properties> getDefaultProperties(final String name) {
+        return getDefaultProperties(name, false);
+    }
+
+    private static Map<WoodenTieredItemType, Properties> getDefaultProperties(final String name, final boolean isWood) {
         final Map<WoodenTieredItemType, Properties> properties = new HashMap<>();
         WoodenTieredItemType.getAll().forEach(tieredItemType -> {
             final String type = tieredItemType.getName();
             properties.put(tieredItemType,
-                new WoodenItemTier.Properties(DEFAULT_TIERED_ATTACK_SPEED.get(isWood ? Constants.WOOD : name).get(type),
+                new DefaultWoodenItemTier.Properties(DEFAULT_TIERED_ATTACK_SPEED
+                    .get(isWood ? Constants.WOOD : name)
+                    .get(type),
                     DEFAULT_TIERED_ATTACK_DAMAGE.get(isWood ? Constants.WOOD : name).get(type),
                     isWood ? 200 : -1));
         });
-        this.properties = Collections.unmodifiableMap(properties);
-
+        return Collections.unmodifiableMap(properties);
     }
 
     @Override
@@ -308,7 +329,6 @@ public final class WoodenItemTier implements IWoodenItemTier {
 
     @Override
     public Properties getProperties(final WoodenTieredItemType tieredItemType) {
-        assert this.properties.containsKey(tieredItemType);
         return properties.get(tieredItemType);
     }
 }

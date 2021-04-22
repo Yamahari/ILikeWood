@@ -20,12 +20,12 @@ public final class DummyWoodType implements IWoodType {
     }
 
     @Override
-    public Properties getProperties(WoodenBlockType blockType) {
+    public Properties getProperties(final WoodenBlockType blockType) {
         throw new RuntimeException("");
     }
 
     @Override
-    public Properties getProperties(WoodenItemType itemType) {
+    public Properties getProperties(final WoodenItemType itemType) {
         throw new RuntimeException("");
     }
 
