@@ -38,20 +38,10 @@ sourceSets {
             srcDirs = ['src/api/resources']
         }
     }
-
-    data {
-        java {
-            srcDirs = ['src/data/java']
-        }
-        resources {
-            srcDirs = ['src/data/resources']
-        }
-    }
 }
 
 configurations {
     apiCompile.extendsFrom(compile)
-    dataCompile.extendsFrom(compile)
 }
 
 minecraft {
@@ -97,7 +87,6 @@ minecraft {
                 ilikewood {
                     source sourceSets.main
                     source sourceSets.api
-                    source sourceSets.data
                 }
             }
         }
@@ -142,8 +131,6 @@ dependencies {
     //runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.4-13.0.0.432:universal')
 
     implementation sourceSets.api.output
-
-    dataImplementation sourceSets.api.output, sourceSets.main.output
 }
 
 jar {
@@ -151,7 +138,7 @@ jar {
     from sourceSets.api.output.classesDirs
     from sourceSets.main.output.resourcesDir
     from sourceSets.api.output.resourcesDir
-    from sourceSets.data.output.resourcesDir
+
     sourceSets.main.resources {
         exclude 'assets/biomesoplenty/**'
     }
@@ -168,14 +155,9 @@ jar {
     }
 }
 
-task apiJar(type: Jar) {
+task apiJar(type: Jar, dependsOn: apiClasses) {
     classifier = "api"
     from sourceSets.api.output
-}
-
-task dataJar(type: Jar) {
-    classifier = "data"
-    from sourceSets.data.output.classesDirs
 }
 
 jar.finalizedBy('reobfJar')
