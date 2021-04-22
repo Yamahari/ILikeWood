@@ -3643,6 +3643,7 @@ d1e5ea2f241c2604d62ceacff41dba8f94f1059c data/ilikewood/tags/items/stripped_post
 855482a98b2f80bab4761bac83b1cf07823bd15e data/ilikewood/tags/items/swords.json
 cb5c5828f33bf721012de7a5b6a5afaac439c9f9 data/ilikewood/tags/items/torches.json
 13caf8ddf4e47df4cbf320101e4f75b9bc3b6556 data/ilikewood/tags/items/walls.json
+0d8cb5ba1867308a7f4bf04137a58333bcf5ac7b data/minecraft/tags/blocks/climbable.json
 b97784a88236e1e76a233e31c0dd30e318306267 data/minecraft/tags/blocks/piglin_repellents.json
 13caf8ddf4e47df4cbf320101e4f75b9bc3b6556 data/minecraft/tags/blocks/walls.json
 7ac1cc8eedd94ee57d75f6db57627375e6092ed1 data/minecraft/tags/items/piglin_loved.json
