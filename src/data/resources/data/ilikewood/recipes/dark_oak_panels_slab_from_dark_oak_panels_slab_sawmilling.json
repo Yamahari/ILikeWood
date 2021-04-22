@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "ilikewood:dark_oak_panels_slab"
-  },
-  "result": "ilikewood:dark_oak_panels_slab",
-  "count": 2
-}

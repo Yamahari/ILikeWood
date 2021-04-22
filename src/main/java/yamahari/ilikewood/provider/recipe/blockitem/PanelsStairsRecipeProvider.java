@@ -28,7 +28,7 @@ public final class PanelsStairsRecipeProvider extends AbstractBlockItemRecipePro
     @Override
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
-        final IItemProvider panels = ILikeWood.getBlock(((IWooden) block).getWoodType(), WoodenBlockType.PANELS_STAIRS);
+        final IItemProvider panels = ILikeWood.getBlock(((IWooden) block).getWoodType(), WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
             .shapedRecipe(block, 4)

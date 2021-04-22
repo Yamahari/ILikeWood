@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "ilikewood:warped_panels_slab"
-  },
-  "result": "ilikewood:warped_panels_slab",
-  "count": 2
-}

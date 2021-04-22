@@ -29,7 +29,7 @@ public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvi
     @Override
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
-        final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS_SLAB);
+        final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
             .shapedRecipe(block, 6)
