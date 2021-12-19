@@ -77,24 +77,24 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
 
     private RegistryObject<Item> registerBlockItem(final IWoodType woodType, final WoodenBlockType blockType,
                                                    final ItemGroup itemGroup) {
-        return this.registerBlockItem(woodType, blockType, new Item.Properties().group(itemGroup));
+        return this.registerBlockItem(woodType, blockType, new Item.Properties().tab(itemGroup));
     }
 
     private RegistryObject<Item> registerBuildingBlockItem(final IWoodType woodType, final WoodenBlockType blockType) {
-        return this.registerBlockItem(woodType, blockType, ItemGroup.BUILDING_BLOCKS);
+        return this.registerBlockItem(woodType, blockType, ItemGroup.TAB_BUILDING_BLOCKS);
     }
 
     private RegistryObject<Item> registerDecorationBlockItem(final IWoodType woodType,
                                                              final WoodenBlockType blockType) {
-        return this.registerBlockItem(woodType, blockType, ItemGroup.DECORATIONS);
+        return this.registerBlockItem(woodType, blockType, ItemGroup.TAB_DECORATIONS);
     }
 
     private RegistryObject<Item> registerMiscBlockItem(final IWoodType woodType, final WoodenBlockType blockType) {
-        return this.registerBlockItem(woodType, blockType, ItemGroup.MISC);
+        return this.registerBlockItem(woodType, blockType, ItemGroup.TAB_MISC);
     }
 
     private RegistryObject<Item> registerRedstoneBlockItem(final IWoodType woodType, final WoodenBlockType blockType) {
-        return this.registerBlockItem(woodType, blockType, ItemGroup.REDSTONE);
+        return this.registerBlockItem(woodType, blockType, ItemGroup.TAB_REDSTONE);
     }
 
     private RegistryObject<Item> registerPanelsBlockItem(final IWoodType woodType) {
@@ -161,7 +161,7 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
             WoodenBlockType.CHEST,
             new Item.Properties()
                 .setISTER(() -> WoodenChestItemStackTileEntityRenderer::new)
-                .group(ItemGroup.DECORATIONS));
+                .tab(ItemGroup.TAB_DECORATIONS));
     }
 
     private RegistryObject<Item> registerBedBlockItem(final IWoodType woodType, final WoodenBlockType bedBlockType) {
@@ -179,7 +179,7 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
             () -> new WoodenWallOrFloorItem(torchBlockType,
                 torch.get(),
                 wallTorch.get(),
-                new Item.Properties().group(ItemGroup.DECORATIONS)));
+                new Item.Properties().tab(ItemGroup.TAB_DECORATIONS)));
     }
 
     private RegistryObject<Item> registerTorchBlockItem(final IWoodType woodType) {

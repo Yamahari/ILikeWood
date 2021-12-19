@@ -24,23 +24,23 @@ public class WoodenWallOrFloorItem extends WoodenBlockItem {
     }
 
     @Override
-    protected BlockState getStateForPlacement(@Nonnull final BlockItemUseContext context) {
+    protected BlockState getPlacementState(@Nonnull final BlockItemUseContext context) {
         final BlockState state = this.wallBlock.getStateForPlacement(context);
-        final IWorldReader world = context.getWorld();
-        final BlockPos pos = context.getPos();
+        final IWorldReader world = context.getLevel();
+        final BlockPos pos = context.getClickedPos();
 
         return Arrays
             .stream(context.getNearestLookingDirections())
             .map(direction -> direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : state)
-            .filter(s -> s != null && s.isValidPosition(world, pos))
+            .filter(s -> s != null && s.canSurvive(world, pos))
             .findFirst()
-            .filter(s -> world.placedBlockCollides(s, pos, ISelectionContext.dummy()))
+            .filter(s -> world.isUnobstructed(s, pos, ISelectionContext.empty()))
             .orElse(null);
     }
 
     @Override
-    public void addToBlockToItemMap(@Nonnull final Map<Block, Item> blockToItemMap, @Nonnull final Item item) {
-        super.addToBlockToItemMap(blockToItemMap, item);
+    public void registerBlocks(@Nonnull final Map<Block, Item> blockToItemMap, @Nonnull final Item item) {
+        super.registerBlocks(blockToItemMap, item);
         blockToItemMap.put(this.wallBlock, item);
     }
 

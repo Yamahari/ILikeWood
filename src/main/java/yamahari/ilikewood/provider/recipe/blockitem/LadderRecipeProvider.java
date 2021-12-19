@@ -26,13 +26,13 @@ public final class LadderRecipeProvider extends AbstractBlockItemRecipeProvider 
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block, 3)
-            .key('I', stick)
-            .patternLine("I I")
-            .patternLine("III")
-            .patternLine("I I")
-            .addCriterion("has_stick", hasItem(stick))
-            .setGroup(ILikeWoodBlockTags.LADDERS.getName().getPath())
-            .build(consumer);
+            .shaped(block, 3)
+            .define('I', stick)
+            .pattern("I I")
+            .pattern("III")
+            .pattern("I I")
+            .unlockedBy("has_stick", has(stick))
+            .group(ILikeWoodBlockTags.LADDERS.getName().getPath())
+            .save(consumer);
     }
 }

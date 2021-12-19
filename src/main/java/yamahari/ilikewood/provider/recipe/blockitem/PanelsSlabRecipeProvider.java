@@ -32,16 +32,16 @@ public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvi
         final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block, 6)
-            .key('#', panels)
-            .patternLine("###")
-            .addCriterion("has_panels", hasItem(panels))
-            .setGroup(ILikeWoodBlockTags.PANELS_SLABS.getName().getPath())
-            .build(consumer);
+            .shaped(block, 6)
+            .define('#', panels)
+            .pattern("###")
+            .unlockedBy("has_panels", has(panels))
+            .group(ILikeWoodBlockTags.PANELS_SLABS.getName().getPath())
+            .save(consumer);
 
-        sawmillingRecipe(Ingredient.fromItems(panels), block, 2)
-            .addCriterion("has_panels", hasItem(panels))
-            .build(consumer,
+        sawmillingRecipe(Ingredient.of(panels), block, 2)
+            .unlocks("has_panels", has(panels))
+            .save(consumer,
                 new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(block.getRegistryName().getPath(),
                         "from",
@@ -53,19 +53,19 @@ public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvi
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
             ShapedRecipeBuilder
-                .shapedRecipe(Objects.requireNonNull(planks))
-                .key('S', block)
-                .patternLine("S")
-                .patternLine("S")
-                .addCriterion("has_panels_slab", hasItem(block))
-                .setGroup("ilikewood:planks")
-                .build(consumer,
+                .shaped(Objects.requireNonNull(planks))
+                .define('S', block)
+                .pattern("S")
+                .pattern("S")
+                .unlockedBy("has_panels_slab", has(block))
+                .group("ilikewood:planks")
+                .save(consumer,
                     Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" +
                     block.getRegistryName().getPath());
 
-            sawmillingRecipe(Ingredient.fromItems(planks), block, 2)
-                .addCriterion("has_planks", hasItem(planks))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(planks), block, 2)
+                .unlocks("has_planks", has(planks))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),
                             "from",

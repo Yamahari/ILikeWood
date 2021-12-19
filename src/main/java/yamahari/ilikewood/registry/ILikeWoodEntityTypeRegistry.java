@@ -35,13 +35,12 @@ public final class ILikeWoodEntityTypeRegistry
     private RegistryObject<EntityType<?>> registerItemFrameEntityType(final IWoodType woodType) {
         final String name = Util.toRegistryName(woodType.getName(), WoodenItemType.ITEM_FRAME.getName());
         return this.registry.register(name,
-            () -> EntityType.Builder.<WoodenItemFrameEntity>create((entityType, world) -> new WoodenItemFrameEntity(
-                woodType,
+            () -> EntityType.Builder.<WoodenItemFrameEntity>of((entityType, world) -> new WoodenItemFrameEntity(woodType,
                 entityType,
                 world), EntityClassification.MISC)
-                .size(0.5F, 0.5F)
-                .trackingRange(10)
-                .func_233608_b_(Integer.MAX_VALUE)
+                .sized(0.5F, 0.5F)
+                .clientTrackingRange(10)
+                .updateInterval(Integer.MAX_VALUE)
                 .build(name));
     }
 

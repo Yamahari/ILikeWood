@@ -122,7 +122,7 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
         return this.register(woodType,
             WoodenBlockType.PANELS_STAIRS,
             () -> new WoodenStairsBlock(woodType,
-                ILikeWood.getBlock(woodType, WoodenBlockType.PANELS).getDefaultState(),
+                ILikeWood.getBlock(woodType, WoodenBlockType.PANELS).defaultBlockState(),
                 ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getProperties()));
     }
 
@@ -149,7 +149,7 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
                                                          final IWoodType woodType) {
         return this.register(woodType, wallTorchBlockType, () -> {
             final Block torch = this.registryObjects.get(torchBlockType).get(woodType).get();
-            return new WoodenWallTorchBlock(woodType, Block.Properties.from(torch).lootFrom(torch));
+            return new WoodenWallTorchBlock(woodType, Block.Properties.copy(torch).lootFrom(() -> torch));
         });
     }
 

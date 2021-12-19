@@ -10,7 +10,7 @@ public final class WoodenComposterBlock extends ComposterBlock implements IWoode
     private final IWoodType type;
 
     public WoodenComposterBlock(final IWoodType type) {
-        super(Block.Properties.from(Blocks.COMPOSTER));
+        super(Block.Properties.copy(Blocks.COMPOSTER));
         this.type = type;
     }
 

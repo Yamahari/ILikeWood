@@ -27,14 +27,14 @@ public final class FishingRodRecipeProvider extends AbstractItemRecipeProvider {
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(item)
-            .key('#', stick)
-            .key('X', Items.STRING)
-            .patternLine("  #")
-            .patternLine(" #X")
-            .patternLine("# X")
-            .addCriterion("has_string", hasItem(Items.STRING))
-            .setGroup(ILikeWoodItemTags.FISHING_POLES.getName().getPath())
-            .build(consumer);
+            .shaped(item)
+            .define('#', stick)
+            .define('X', Items.STRING)
+            .pattern("  #")
+            .pattern(" #X")
+            .pattern("# X")
+            .unlockedBy("has_string", has(Items.STRING))
+            .group(ILikeWoodItemTags.FISHING_POLES.getName().getPath())
+            .save(consumer);
     }
 }

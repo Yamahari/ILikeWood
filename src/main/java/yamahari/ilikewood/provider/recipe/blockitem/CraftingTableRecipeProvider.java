@@ -25,12 +25,12 @@ public final class CraftingTableRecipeProvider extends AbstractBlockItemRecipePr
         final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('#', panels)
-            .patternLine("##")
-            .patternLine("##")
-            .addCriterion("has_panels", hasItem(panels))
-            .setGroup(ILikeWoodBlockTags.CRAFTING_TABLES.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('#', panels)
+            .pattern("##")
+            .pattern("##")
+            .unlockedBy("has_panels", has(panels))
+            .group(ILikeWoodBlockTags.CRAFTING_TABLES.getName().getPath())
+            .save(consumer);
     }
 }

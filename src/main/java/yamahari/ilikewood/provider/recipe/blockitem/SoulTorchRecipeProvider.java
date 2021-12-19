@@ -26,19 +26,19 @@ public class SoulTorchRecipeProvider extends AbstractBlockItemRecipeProvider {
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
-        final Ingredient coals = Ingredient.fromTag(ItemTags.COALS);
-        final Ingredient soul = Ingredient.fromTag(ItemTags.SOUL_FIRE_BASE_BLOCKS);
+        final Ingredient coals = Ingredient.of(ItemTags.COALS);
+        final Ingredient soul = Ingredient.of(ItemTags.SOUL_FIRE_BASE_BLOCKS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block, 4)
-            .key('I', stick)
-            .key('#', coals)
-            .key('S', soul)
-            .patternLine("#")
-            .patternLine("I")
-            .patternLine("S")
-            .addCriterion("has_soul_fire_base", hasItem(ItemTags.SOUL_FIRE_BASE_BLOCKS))
-            .setGroup(ILikeWoodBlockTags.SOUL_TORCHES.getName().getPath())
-            .build(consumer);
+            .shaped(block, 4)
+            .define('I', stick)
+            .define('#', coals)
+            .define('S', soul)
+            .pattern("#")
+            .pattern("I")
+            .pattern("S")
+            .unlockedBy("has_soul_fire_base", has(ItemTags.SOUL_FIRE_BASE_BLOCKS))
+            .group(ILikeWoodBlockTags.SOUL_TORCHES.getName().getPath())
+            .save(consumer);
     }
 }

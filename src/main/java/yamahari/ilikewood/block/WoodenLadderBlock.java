@@ -10,7 +10,7 @@ public final class WoodenLadderBlock extends LadderBlock implements IWooden {
     private final IWoodType type;
 
     public WoodenLadderBlock(final IWoodType type) {
-        super(Block.Properties.from(Blocks.LADDER));
+        super(Block.Properties.copy(Blocks.LADDER));
         this.type = type;
     }
 

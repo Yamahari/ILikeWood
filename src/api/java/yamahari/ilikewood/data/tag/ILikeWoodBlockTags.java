@@ -10,8 +10,7 @@ import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodBlockTags {
     public static final TagRegistry<Block> COLLECTION =
-        TagRegistryManager.create(new ResourceLocation(Constants.MOD_ID, "block"),
-            ITagCollectionSupplier::getBlockTags);
+        TagRegistryManager.create(new ResourceLocation(Constants.MOD_ID, "block"), ITagCollectionSupplier::getBlocks);
     public static final INamedTag<Block> PANELS = makeWrapperTag("panels");
     public static final INamedTag<Block> PANELS_SLABS = makeWrapperTag("panels_slab");
     public static final INamedTag<Block> PANELS_STAIRS = makeWrapperTag("panels_stairs");

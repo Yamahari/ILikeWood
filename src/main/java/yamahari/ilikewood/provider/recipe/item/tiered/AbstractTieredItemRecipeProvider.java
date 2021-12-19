@@ -25,15 +25,15 @@ public abstract class AbstractTieredItemRecipeProvider extends RecipeProvider {
         this.tieredItemType = tieredItemType;
     }
 
-    protected static InventoryChangeTrigger.Instance hasItem(final Ingredient ingredientIn) {
-        return InventoryChangeTrigger.Instance.forItems(Arrays
-            .stream(ingredientIn.getMatchingStacks())
+    protected static InventoryChangeTrigger.Instance has(final Ingredient ingredientIn) {
+        return InventoryChangeTrigger.Instance.hasItems(Arrays
+            .stream(ingredientIn.getItems())
             .map(ItemStack::getItem)
             .toArray(Item[]::new));
     }
 
     @Override
-    protected void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void buildShapelessRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
         ILikeWood.TIERED_ITEM_REGISTRY
             .getObjects(this.tieredItemType)
             .filter(tieredItem -> !((IWoodenTieredItem) tieredItem)

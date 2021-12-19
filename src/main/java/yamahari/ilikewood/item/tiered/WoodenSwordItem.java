@@ -25,9 +25,9 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
             0.f,
             woodenItemTier.equals(VanillaWoodenItemTiers.NETHERITE)
             ? (new Item.Properties()
-                   .group(ItemGroup.TOOLS)
-                   .isImmuneToFire())
-            : (new Item.Properties().group(ItemGroup.TOOLS)));
+                   .tab(ItemGroup.TAB_TOOLS)
+                   .fireResistant())
+            : (new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
         this.woodType = woodType;
         this.woodenItemTier = woodenItemTier;
     }
@@ -39,23 +39,23 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
     }
 
     @Override
-    public int getItemEnchantability() {
-        return this.getWoodenItemTier().getEnchantability();
+    public int getEnchantmentValue() {
+        return this.getWoodenItemTier().getEnchantmentValue();
     }
 
     @Override
-    public boolean isDamageable() {
+    public boolean canBeDepleted() {
         return this.getMaxDamage(null) > 0;
     }
 
     @Override
     public int getMaxDamage(final ItemStack stack) {
-        return this.getWoodenItemTier().getMaxUses();
+        return this.getWoodenItemTier().getUses();
     }
 
     @Override
-    public boolean getIsRepairable(@Nonnull final ItemStack toRepair, @Nonnull final ItemStack repair) {
-        return this.getWoodenItemTier().getRepairMaterial().test(repair);
+    public boolean isValidRepairItem(@Nonnull final ItemStack toRepair, @Nonnull final ItemStack repair) {
+        return this.getWoodenItemTier().getRepairIngredient().test(repair);
     }
 
     @Override
@@ -64,8 +64,8 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
     }
 
     @Override
-    public float getAttackDamage() {
-        return this.getWoodenItemTier().getAttackDamage() +
+    public float getDamage() {
+        return this.getWoodenItemTier().getAttackDamageBonus() +
                this.getWoodenItemTier().getProperties(this.getTieredItemType()).getAttackDamage();
     }
 
@@ -74,17 +74,17 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(
         @Nonnull final EquipmentSlotType equipmentSlot) {
         final Multimap<Attribute, AttributeModifier> attributeModifiers = HashMultimap.create();
         if (equipmentSlot == EquipmentSlotType.MAINHAND) {
             attributeModifiers.put(Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
+                new AttributeModifier(BASE_ATTACK_DAMAGE_UUID,
                     "Weapon modifier",
-                    this.getAttackDamage(),
+                    this.getDamage(),
                     AttributeModifier.Operation.ADDITION));
             attributeModifiers.put(Attributes.ATTACK_SPEED,
-                new AttributeModifier(ATTACK_SPEED_MODIFIER,
+                new AttributeModifier(BASE_ATTACK_SPEED_UUID,
                     "Weapon modifier",
                     this.getAttackSpeed(),
                     AttributeModifier.Operation.ADDITION));

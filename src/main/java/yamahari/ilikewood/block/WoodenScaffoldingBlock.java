@@ -30,7 +30,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     final IWoodType woodType;
 
     public WoodenScaffoldingBlock(final IWoodType woodType) {
-        super(Block.Properties.from(Blocks.SCAFFOLDING));
+        super(Block.Properties.copy(Blocks.SCAFFOLDING));
         this.woodType = woodType;
     }
 
@@ -40,15 +40,15 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         final BlockState state = reader.getBlockState(mutable);
         int distance = 7;
         if (state.getBlock() instanceof ScaffoldingBlock) {
-            distance = state.get(DISTANCE);
-        } else if (state.isSolidSide(reader, mutable, Direction.UP)) {
+            distance = state.getValue(DISTANCE);
+        } else if (state.isFaceSturdy(reader, mutable, Direction.UP)) {
             return 0;
         }
 
         for (final Direction direction : Direction.Plane.HORIZONTAL) {
-            final BlockState translatedState = reader.getBlockState(mutable.setPos(pos).move(direction));
+            final BlockState translatedState = reader.getBlockState(mutable.set(pos).move(direction));
             if (translatedState.getBlock() instanceof ScaffoldingBlock) {
-                distance = Math.min(distance, translatedState.get(DISTANCE) + 1);
+                distance = Math.min(distance, translatedState.getValue(DISTANCE) + 1);
                 if (distance == 1) {
                     break;
                 }
@@ -63,19 +63,19 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
                                @Nonnull final BlockPos pos, @Nonnull final ISelectionContext context) {
         final boolean flag;
         if (context instanceof EntitySelectionContext) {
-            flag = ((EntitySelectionContext) context).item instanceof WoodenScaffoldingItem;
+            flag = ((EntitySelectionContext) context).heldItem instanceof WoodenScaffoldingItem;
         } else {
-            flag = ILikeWoodItemTags.SCAFFOLDINGS.getAllElements().stream().anyMatch(context::hasItem);
+            flag = ILikeWoodItemTags.SCAFFOLDINGS.getValues().stream().anyMatch(context::isHoldingItem);
         }
         if (flag) {
-            return VoxelShapes.fullCube();
+            return VoxelShapes.block();
         }
-        return state.get(BOTTOM) ? FULL_SHAPE : TOP_SLAB_SHAPE;
+        return state.getValue(BOTTOM) ? UNSTABLE_SHAPE : STABLE_SHAPE;
     }
 
     @Override
-    public boolean isReplaceable(@Nonnull final BlockState state, final BlockItemUseContext context) {
-        return context.getItem().getItem() instanceof WoodenScaffoldingItem;
+    public boolean canBeReplaced(@Nonnull final BlockState state, final BlockItemUseContext context) {
+        return context.getItemInHand().getItem() instanceof WoodenScaffoldingItem;
     }
 
     @Override
@@ -83,38 +83,38 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
                      @Nonnull final Random rand) {
         final int distance = getDistance(world, pos);
         final BlockState blockState =
-            state.with(DISTANCE, distance).with(BOTTOM, this.hasScaffoldingBelow(world, pos, distance));
-        if (blockState.get(DISTANCE) == 7) {
-            if (state.get(DISTANCE) == 7) {
-                world.addEntity(new FallingBlockEntity(world,
+            state.setValue(DISTANCE, distance).setValue(BOTTOM, this.isBottom(world, pos, distance));
+        if (blockState.getValue(DISTANCE) == 7) {
+            if (state.getValue(DISTANCE) == 7) {
+                world.addFreshEntity(new FallingBlockEntity(world,
                     (double) pos.getX() + 0.5D,
                     pos.getY(),
                     (double) pos.getZ() + 0.5D,
-                    blockState.with(WATERLOGGED, Boolean.FALSE)));
+                    blockState.setValue(WATERLOGGED, Boolean.FALSE)));
             } else {
                 world.destroyBlock(pos, true);
             }
         } else if (state != blockState) {
-            world.setBlockState(pos, blockState, 3);
+            world.setBlock(pos, blockState, 3);
         }
     }
 
     @Override
-    public boolean isValidPosition(@Nonnull final BlockState state, @Nonnull final IWorldReader world,
-                                   @Nonnull final BlockPos pos) {
+    public boolean canSurvive(@Nonnull final BlockState state, @Nonnull final IWorldReader world,
+                              @Nonnull final BlockPos pos) {
         return getDistance(world, pos) < 7;
     }
 
     @Override
     public BlockState getStateForPlacement(final BlockItemUseContext context) {
-        final BlockPos blockpos = context.getPos();
-        final World world = context.getWorld();
+        final BlockPos blockpos = context.getClickedPos();
+        final World world = context.getLevel();
         final int distance = getDistance(world, blockpos);
         return this
-            .getDefaultState()
-            .with(WATERLOGGED, world.getFluidState(blockpos).getFluid() == Fluids.WATER)
-            .with(DISTANCE, distance)
-            .with(BOTTOM, this.hasScaffoldingBelow(world, blockpos, distance));
+            .defaultBlockState()
+            .setValue(WATERLOGGED, world.getFluidState(blockpos).getType() == Fluids.WATER)
+            .setValue(DISTANCE, distance)
+            .setValue(BOTTOM, this.isBottom(world, blockpos, distance));
     }
 
     @Override

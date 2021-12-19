@@ -17,11 +17,11 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public final class WoodenTorchBlock extends TorchBlock implements IWooden {
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 11.0D, 10.0D);
+    private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 11.0D, 10.0D);
     private final IWoodType woodType;
 
     public WoodenTorchBlock(final IWoodType woodType) {
-        super(Block.Properties.from(Blocks.TORCH), ParticleTypes.FLAME);
+        super(Block.Properties.copy(Blocks.TORCH), ParticleTypes.FLAME);
         this.woodType = woodType;
     }
 

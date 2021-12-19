@@ -85,8 +85,8 @@ public final class SawmillBlockStateProvider extends AbstractBlockStateProvider 
             .getVariantBuilder(block)
             .forAllStates(state -> ConfiguredModel
                 .builder()
-                .modelFile(models.get(state.get(WoodenSawmillBlock.MODEL)))
-                .rotationY(((state.get(WoodenSawmillBlock.HORIZONTAL_FACING).getHorizontalIndex() + 2) % 4) * 90)
+                .modelFile(models.get(state.getValue(WoodenSawmillBlock.MODEL)))
+                .rotationY(((state.getValue(WoodenSawmillBlock.HORIZONTAL_FACING).get2DDataValue() + 2) % 4) * 90)
                 .uvLock(false)
                 .build());
     }

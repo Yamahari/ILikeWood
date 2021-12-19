@@ -57,7 +57,7 @@ public final class ILikeWoodItemRegistry extends AbstractILikeWoodObjectRegistry
     private RegistryObject<Item> registerStickItem(final IWoodType woodType) {
         return this.register(woodType,
             WoodenItemType.STICK,
-            () -> new WoodenItem(woodType, WoodenItemType.STICK, new Item.Properties().group(ItemGroup.MATERIALS)));
+            () -> new WoodenItem(woodType, WoodenItemType.STICK, new Item.Properties().tab(ItemGroup.TAB_MATERIALS)));
     }
 
     private RegistryObject<Item> registerBowItem(final IWoodType woodType) {

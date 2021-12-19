@@ -26,14 +26,14 @@ public final class ItemFrameRecipeProvider extends AbstractItemRecipeProvider {
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(item)
-            .key('#', stick)
-            .key('X', Items.LEATHER)
-            .patternLine("###")
-            .patternLine("#X#")
-            .patternLine("###")
-            .addCriterion("has_leather", hasItem(Items.LEATHER))
-            .setGroup(ILikeWoodItemTags.ITEM_FRAMES.getName().getPath())
-            .build(consumer);
+            .shaped(item)
+            .define('#', stick)
+            .define('X', Items.LEATHER)
+            .pattern("###")
+            .pattern("#X#")
+            .pattern("###")
+            .unlockedBy("has_leather", has(Items.LEATHER))
+            .group(ILikeWoodItemTags.ITEM_FRAMES.getName().getPath())
+            .save(consumer);
     }
 }

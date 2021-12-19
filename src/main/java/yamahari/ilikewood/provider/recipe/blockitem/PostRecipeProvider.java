@@ -35,18 +35,18 @@ public final class PostRecipeProvider extends AbstractBlockItemRecipeProvider {
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getResource());
 
             ShapedRecipeBuilder
-                .shapedRecipe(block, 6)
-                .key('#', Objects.requireNonNull(log))
-                .patternLine("#")
-                .patternLine("#")
-                .patternLine("#")
-                .addCriterion("has_log", hasItem(log))
-                .setGroup(ILikeWoodBlockTags.POSTS.getName().getPath())
-                .build(consumer);
+                .shaped(block, 6)
+                .define('#', Objects.requireNonNull(log))
+                .pattern("#")
+                .pattern("#")
+                .pattern("#")
+                .unlockedBy("has_log", has(log))
+                .group(ILikeWoodBlockTags.POSTS.getName().getPath())
+                .save(consumer);
 
-            sawmillingRecipe(Ingredient.fromItems(log), block, 2)
-                .addCriterion("has_log", hasItem(log))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(log), block, 2)
+                .unlocks("has_log", has(log))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),
                             "from",
@@ -61,9 +61,9 @@ public final class PostRecipeProvider extends AbstractBlockItemRecipeProvider {
                 try {
                     final Block strippedPost = ILikeWood.getBlock(woodType, WoodenBlockType.STRIPPED_POST);
 
-                    sawmillingRecipe(Ingredient.fromItems(strippedLog), strippedPost, 2)
-                        .addCriterion("has_stripped_log", hasItem(strippedLog))
-                        .build(consumer,
+                    sawmillingRecipe(Ingredient.of(strippedLog), strippedPost, 2)
+                        .unlocks("has_stripped_log", has(strippedLog))
+                        .save(consumer,
                             new ResourceLocation(Constants.MOD_ID,
                                 Util.toRegistryName(strippedPost.getRegistryName().getPath(),
                                     "from",

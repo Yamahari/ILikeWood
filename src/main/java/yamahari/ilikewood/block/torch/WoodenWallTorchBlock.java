@@ -29,12 +29,12 @@ public final class WoodenWallTorchBlock extends WallTorchBlock implements IWoode
     @Override
     public void animateTick(final BlockState stateIn, final World worldIn, final BlockPos pos,
                             @Nonnull final Random rand) {
-        final Direction direction = stateIn.get(HORIZONTAL_FACING);
+        final Direction direction = stateIn.getValue(FACING);
         final Direction opposite = direction.getOpposite();
         worldIn.addParticle(ParticleTypes.SMOKE,
-            (double) pos.getX() + 0.5D + 0.27D * (double) opposite.getXOffset(),
+            (double) pos.getX() + 0.5D + 0.27D * (double) opposite.getStepX(),
             (double) pos.getY() + 0.92D,
-            (double) pos.getZ() + 0.5D + 0.27D * (double) opposite.getZOffset(),
+            (double) pos.getZ() + 0.5D + 0.27D * (double) opposite.getStepZ(),
             0.0D,
             0.0D,
             0.0D);

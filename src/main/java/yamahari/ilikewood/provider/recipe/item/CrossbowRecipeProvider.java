@@ -26,16 +26,16 @@ public final class CrossbowRecipeProvider extends AbstractItemRecipeProvider {
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(item)
-            .key('#', stick)
-            .key('~', Items.STRING)
-            .key('\u0026', Items.IRON_INGOT)
-            .key('$', Items.TRIPWIRE_HOOK)
-            .patternLine("#\u0026#")
-            .patternLine("~$~")
-            .patternLine(" # ")
-            .addCriterion("has_string", hasItem(Items.STRING))
-            .setGroup(ILikeWoodItemTags.BOWS.getName().getPath())
-            .build(consumer);
+            .shaped(item)
+            .define('#', stick)
+            .define('~', Items.STRING)
+            .define('\u0026', Items.IRON_INGOT)
+            .define('$', Items.TRIPWIRE_HOOK)
+            .pattern("#\u0026#")
+            .pattern("~$~")
+            .pattern(" # ")
+            .unlockedBy("has_string", has(Items.STRING))
+            .group(ILikeWoodItemTags.BOWS.getName().getPath())
+            .save(consumer);
     }
 }

@@ -19,10 +19,9 @@ public final class WoodenChestItemStackTileEntityRenderer extends ItemStackTileE
     private WoodenChestTileEntity chestTileEntity = null;
 
     @Override
-    public void func_239207_a_(final ItemStack itemStack,
-                               @Nonnull final ItemCameraTransforms.TransformType transformType,
-                               @Nonnull final MatrixStack matrixStack, @Nonnull final IRenderTypeBuffer buffer,
-                               final int combinedLight, final int combinedOverlay) {
+    public void renderByItem(final ItemStack itemStack, @Nonnull final ItemCameraTransforms.TransformType transformType,
+                             @Nonnull final MatrixStack matrixStack, @Nonnull final IRenderTypeBuffer buffer,
+                             final int combinedLight, final int combinedOverlay) {
         final Item item = itemStack.getItem();
         if (item instanceof BlockItem) {
             final Block block = ((BlockItem) item).getBlock();
@@ -31,8 +30,7 @@ public final class WoodenChestItemStackTileEntityRenderer extends ItemStackTileE
                     this.chestTileEntity = new WoodenChestTileEntity(((WoodenChestBlock) block).getWoodType(),
                         WoodenTileEntityTypes.WOODEN_CHEST.get());
                 }
-                TileEntityRendererDispatcher.instance.renderItem(this.chestTileEntity,
-                    matrixStack,
+                TileEntityRendererDispatcher.instance.renderItem(this.chestTileEntity, matrixStack,
                     buffer,
                     combinedLight,
                     combinedOverlay);

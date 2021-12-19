@@ -11,7 +11,7 @@ public final class WoodenWallBlock extends WallBlock implements IWooden {
     private final IWoodType type;
 
     public WoodenWallBlock(final IWoodType type) {
-        super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.F).sound(SoundType.WOOD));
+        super(Block.Properties.of(Material.WOOD).strength(2.F).sound(SoundType.WOOD));
         this.type = type;
     }
 

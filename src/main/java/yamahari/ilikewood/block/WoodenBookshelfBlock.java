@@ -9,7 +9,7 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 public final class WoodenBookshelfBlock extends WoodenBlock {
     public WoodenBookshelfBlock(final IWoodType type) {
-        super(type, Block.Properties.from(Blocks.BOOKSHELF));
+        super(type, Block.Properties.copy(Blocks.BOOKSHELF));
     }
 
     @Override

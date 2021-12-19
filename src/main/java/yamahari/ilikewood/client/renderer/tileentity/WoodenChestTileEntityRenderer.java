@@ -23,7 +23,7 @@ public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer
     protected RenderMaterial getMaterial(final WoodenChestTileEntity woodenChestTileEntity,
                                          @Nonnull final ChestType chestType) {
         final IWoodType woodType;
-        if (woodenChestTileEntity.hasWorld()) {
+        if (woodenChestTileEntity.hasLevel()) {
             final Block block = woodenChestTileEntity.getBlockState().getBlock();
             woodType =
                 block instanceof WoodenChestBlock ? ((WoodenChestBlock) block).getWoodType() : VanillaWoodTypes.DUMMY;

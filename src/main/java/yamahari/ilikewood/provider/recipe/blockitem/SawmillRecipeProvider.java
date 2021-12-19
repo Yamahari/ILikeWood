@@ -26,14 +26,14 @@ public final class SawmillRecipeProvider extends AbstractBlockItemRecipeProvider
         final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('I', Items.IRON_INGOT)
-            .key('#', panels)
-            .patternLine("II")
-            .patternLine("##")
-            .patternLine("##")
-            .setGroup(ILikeWoodBlockTags.SAWMILLS.getName().getPath())
-            .addCriterion("has_panels", hasItem(panels))
-            .build(consumer);
+            .shaped(block)
+            .define('I', Items.IRON_INGOT)
+            .define('#', panels)
+            .pattern("II")
+            .pattern("##")
+            .pattern("##")
+            .group(ILikeWoodBlockTags.SAWMILLS.getName().getPath())
+            .unlockedBy("has_panels", has(panels))
+            .save(consumer);
     }
 }

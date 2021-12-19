@@ -38,25 +38,25 @@ public final class BedRecipeProvider extends AbstractBlockItemRecipeProvider {
             Util.getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "DYE"), Items.class);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('#', wool)
-            .key('X', panels)
-            .patternLine("###")
-            .patternLine("XXX")
-            .addCriterion("has_wool", hasItem(wool))
-            .setGroup(ILikeWoodBlockTags.BEDS.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('#', wool)
+            .define('X', panels)
+            .pattern("###")
+            .pattern("XXX")
+            .unlockedBy("has_wool", has(wool))
+            .group(ILikeWoodBlockTags.BEDS.getName().getPath())
+            .save(consumer);
 
         if (!color.equals(DyeColor.WHITE)) {
             try {
                 final IItemProvider whiteBed = ILikeWood.getBlock(woodType, WoodenBlockType.WHITE_BED);
                 ShapelessRecipeBuilder
-                    .shapelessRecipe(block)
-                    .addIngredient(whiteBed)
-                    .addIngredient(dye)
-                    .addCriterion("has_dye", hasItem(dye))
-                    .setGroup(ILikeWoodBlockTags.BEDS.getName().getPath())
-                    .build(consumer,
+                    .shapeless(block)
+                    .requires(whiteBed)
+                    .requires(dye)
+                    .unlockedBy("has_dye", has(dye))
+                    .group(ILikeWoodBlockTags.BEDS.getName().getPath())
+                    .save(consumer,
                         new ResourceLocation(Constants.MOD_ID,
                             Util.toRegistryName(block.getRegistryName().getPath(),
                                 "from",
@@ -72,12 +72,12 @@ public final class BedRecipeProvider extends AbstractBlockItemRecipeProvider {
                     try {
                         final IItemProvider coloredBed = ILikeWood.getBlock(woodType, bedBlockType);
                         ShapelessRecipeBuilder
-                            .shapelessRecipe(block)
-                            .addIngredient(coloredBed)
-                            .addIngredient(dye)
-                            .addCriterion("has_dye", hasItem(dye))
-                            .setGroup(ILikeWoodBlockTags.BEDS.getName().getPath())
-                            .build(consumer,
+                            .shapeless(block)
+                            .requires(coloredBed)
+                            .requires(dye)
+                            .unlockedBy("has_dye", has(dye))
+                            .group(ILikeWoodBlockTags.BEDS.getName().getPath())
+                            .save(consumer,
                                 new ResourceLocation(Constants.MOD_ID,
                                     Util.toRegistryName(block.getRegistryName().getPath(),
                                         "from",

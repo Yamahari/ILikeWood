@@ -12,12 +12,12 @@ public final class WoodenCrossbowItem extends CrossbowItem implements IWooden {
     private final IWoodType woodType;
 
     public WoodenCrossbowItem(final IWoodType woodType) {
-        super(new Item.Properties().maxStackSize(1).group(ItemGroup.COMBAT).maxDamage(326));
+        super(new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_COMBAT).durability(326));
         this.woodType = woodType;
     }
 
     @Override
-    public boolean isCrossbow(final ItemStack stack) {
+    public boolean useOnRelease(final ItemStack stack) {
         return stack.getItem() instanceof CrossbowItem;
     }
 

@@ -1,12 +1,13 @@
 package yamahari.ilikewood.registry.woodenitemtier;
 
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -212,21 +213,21 @@ public final class DefaultWoodenItemTier implements IWoodenItemTier {
     private final String modId;
     private final String name;
     private final boolean isWood;
-    private final int harvestLevel;
-    private final int maxUses;
-    private final float efficiency;
-    private final float attackDamage;
-    private final int enchantability;
-    private final LazyValue<Ingredient> repairMaterial;
+    private final int level;
+    private final int uses;
+    private final float speed;
+    private final float attackDamageBonus;
+    private final int enchantmentValue;
+    private final Supplier<Ingredient> repairIngredient;
     private final Map<WoodenTieredItemType, Properties> properties;
 
     public DefaultWoodenItemTier(final IWoodType woodType, final String modId, final String name,
-                                 final Supplier<Ingredient> repairMaterial) {
-        this(woodType, modId, name, true, repairMaterial);
+                                 final Supplier<Ingredient> repairIngredient) {
+        this(woodType, modId, name, true, repairIngredient);
     }
 
     public DefaultWoodenItemTier(final IWoodType woodType, final String modId, final String name, final boolean isWood,
-                                 final Supplier<Ingredient> repairMaterial) {
+                                 final Supplier<Ingredient> repairIngredient) {
         this(woodType,
             modId,
             name,
@@ -236,23 +237,22 @@ public final class DefaultWoodenItemTier implements IWoodenItemTier {
             DEFAULT_EFFICIENCY.get(isWood ? Constants.WOOD : name),
             DEFAULT_ATTACK_DAMAGE.get(isWood ? Constants.WOOD : name),
             DEFAULT_ENCHANTABILITY.get(isWood ? Constants.WOOD : name),
-            repairMaterial);
+            repairIngredient);
     }
 
     public DefaultWoodenItemTier(final IWoodType woodType, final String modId, final String name, final boolean isWood,
-                                 final int harvestLevel, final int maxUses, final float efficiency,
-                                 final float attackDamage, final int enchantability,
-                                 final Supplier<Ingredient> repairMaterial) {
+                                 final int level, final int uses, final float speed, final float attackDamageBonus,
+                                 final int enchantmentValue, final Supplier<Ingredient> repairIngredient) {
         this.woodType = woodType;
         this.modId = modId;
         this.name = name;
         this.isWood = isWood;
-        this.harvestLevel = harvestLevel;
-        this.maxUses = maxUses;
-        this.efficiency = efficiency;
-        this.attackDamage = attackDamage;
-        this.enchantability = enchantability;
-        this.repairMaterial = new LazyValue<>(repairMaterial);
+        this.level = level;
+        this.uses = uses;
+        this.speed = speed;
+        this.attackDamageBonus = attackDamageBonus;
+        this.enchantmentValue = enchantmentValue;
+        this.repairIngredient = Suppliers.memoize(repairIngredient::get);
         this.properties = DEFAULT_PROPERTIES.get(isWood ? Constants.WOOD : name);
     }
 
@@ -269,9 +269,7 @@ public final class DefaultWoodenItemTier implements IWoodenItemTier {
         WoodenTieredItemType.getAll().forEach(tieredItemType -> {
             final String type = tieredItemType.getName();
             properties.put(tieredItemType,
-                new DefaultWoodenItemTier.Properties(DEFAULT_TIERED_ATTACK_SPEED
-                    .get(isWood ? Constants.WOOD : name)
-                    .get(type),
+                new Properties(DEFAULT_TIERED_ATTACK_SPEED.get(isWood ? Constants.WOOD : name).get(type),
                     DEFAULT_TIERED_ATTACK_DAMAGE.get(isWood ? Constants.WOOD : name).get(type),
                     isWood ? 200 : -1));
         });
@@ -299,32 +297,34 @@ public final class DefaultWoodenItemTier implements IWoodenItemTier {
     }
 
     @Override
-    public int getHarvestLevel() {
-        return this.harvestLevel;
+    public int getLevel() {
+        return this.level;
     }
 
     @Override
-    public int getMaxUses() {
-        return this.maxUses;
+    public int getUses() {
+        return this.uses;
     }
 
     @Override
-    public float getEfficiency() {
-        return this.efficiency;
+    public float getSpeed() {
+        return this.speed;
     }
 
     @Override
-    public float getAttackDamage() {
-        return this.attackDamage;
+    public float getAttackDamageBonus() {
+        return this.attackDamageBonus;
     }
 
     @Override
-    public int getEnchantability() {
-        return this.enchantability;
+    public int getEnchantmentValue() {
+        return this.enchantmentValue;
     }
 
-    public Ingredient getRepairMaterial() {
-        return repairMaterial.getValue();
+    @Nonnull
+    @Override
+    public Ingredient getRepairIngredient() {
+        return repairIngredient.get();
     }
 
     @Override

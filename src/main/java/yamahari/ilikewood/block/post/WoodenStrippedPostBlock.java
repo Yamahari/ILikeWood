@@ -43,21 +43,21 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
         UP = BlockStateProperties.UP;
         DOWN = BlockStateProperties.DOWN;
 
-        final VoxelShape verticalPost = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
-        final VoxelShape nsPost = Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 16.0D);
-        final VoxelShape ewPost = Block.makeCuboidShape(0.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
+        final VoxelShape verticalPost = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+        final VoxelShape nsPost = Block.box(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 16.0D);
+        final VoxelShape ewPost = Block.box(0.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
 
         final double apothem = 0.25D;
         final VoxelShape[] sides = new VoxelShape[FACING_VALUES.length];
 
         for (int i = 0; i < FACING_VALUES.length; ++i) {
             final Direction direction = FACING_VALUES[i];
-            sides[i] = VoxelShapes.create(0.5D + Math.min(-apothem, (double) direction.getXOffset() * 0.5D),
-                0.5D + Math.min(-apothem, (double) direction.getYOffset() * 0.5D),
-                0.5D + Math.min(-apothem, (double) direction.getZOffset() * 0.5D),
-                0.5D + Math.max(apothem, (double) direction.getXOffset() * 0.5D),
-                0.5D + Math.max(apothem, (double) direction.getYOffset() * 0.5D),
-                0.5D + Math.max(apothem, (double) direction.getZOffset() * 0.5D));
+            sides[i] = VoxelShapes.box(0.5D + Math.min(-apothem, (double) direction.getStepX() * 0.5D),
+                0.5D + Math.min(-apothem, (double) direction.getStepY() * 0.5D),
+                0.5D + Math.min(-apothem, (double) direction.getStepZ() * 0.5D),
+                0.5D + Math.max(apothem, (double) direction.getStepX() * 0.5D),
+                0.5D + Math.max(apothem, (double) direction.getStepY() * 0.5D),
+                0.5D + Math.max(apothem, (double) direction.getStepZ() * 0.5D));
         }
 
         VERTICAL_AABBS = createShapes(verticalPost, sides, Direction.Axis.Y);
@@ -68,18 +68,18 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
     private final IWoodType woodType;
 
     public WoodenStrippedPostBlock(final IWoodType woodType) {
-        super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
+        super(Block.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD));
         this.woodType = woodType;
-        this.setDefaultState(this
-            .getDefaultState()
-            .with(AXIS, Direction.Axis.Y)
-            .with(WATERLOGGED, false)
-            .with(NORTH, false)
-            .with(EAST, false)
-            .with(SOUTH, false)
-            .with(WEST, false)
-            .with(UP, false)
-            .with(DOWN, false));
+        this.registerDefaultState(this
+            .defaultBlockState()
+            .setValue(AXIS, Direction.Axis.Y)
+            .setValue(WATERLOGGED, false)
+            .setValue(NORTH, false)
+            .setValue(EAST, false)
+            .setValue(SOUTH, false)
+            .setValue(WEST, false)
+            .setValue(UP, false)
+            .setValue(DOWN, false));
     }
 
     private static VoxelShape[] createShapes(final VoxelShape post, final VoxelShape[] sides,
@@ -104,10 +104,10 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
     private static VoxelShape getVoxelShape(final BlockState blockState) {
         int i = 0;
         int offset = 0;
-        final Direction.Axis axis = blockState.get(AXIS);
+        final Direction.Axis axis = blockState.getValue(AXIS);
         for (final Direction direction : FACING_VALUES) {
             if (axis != direction.getAxis()) {
-                if (blockState.get(SixWayBlock.FACING_TO_PROPERTY_MAP.get(direction))) {
+                if (blockState.getValue(SixWayBlock.PROPERTY_BY_DIRECTION.get(direction))) {
                     i |= 1 << offset;
                 }
                 ++offset;
@@ -125,8 +125,8 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
     }
 
     @Override
-    protected void fillStateContainer(@Nonnull final StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(@Nonnull final StateContainer.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, WATERLOGGED);
     }
 
@@ -134,7 +134,7 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
     @SuppressWarnings({"deprecation"})
     @Override
     public FluidState getFluidState(final BlockState blockState) {
-        return blockState.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(blockState);
+        return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     @Override
@@ -161,38 +161,39 @@ public class WoodenStrippedPostBlock extends RotatedPillarBlock implements IWood
 
     @Override
     public BlockState getStateForPlacement(final BlockItemUseContext blockItemUseContext) {
-        final IBlockReader blockReader = blockItemUseContext.getWorld();
-        final BlockPos blockPos = blockItemUseContext.getPos();
+        final IBlockReader blockReader = blockItemUseContext.getLevel();
+        final BlockPos blockPos = blockItemUseContext.getClickedPos();
 
-        final Block down = blockReader.getBlockState(blockPos.down()).getBlock();
-        final Block up = blockReader.getBlockState(blockPos.up()).getBlock();
+        final Block down = blockReader.getBlockState(blockPos.below()).getBlock();
+        final Block up = blockReader.getBlockState(blockPos.above()).getBlock();
         final Block north = blockReader.getBlockState(blockPos.north()).getBlock();
         final Block east = blockReader.getBlockState(blockPos.east()).getBlock();
         final Block south = blockReader.getBlockState(blockPos.south()).getBlock();
         final Block west = blockReader.getBlockState(blockPos.west()).getBlock();
 
-        final FluidState fluidState = blockItemUseContext.getWorld().getFluidState(blockItemUseContext.getPos());
+        final FluidState fluidState = blockItemUseContext.getLevel().getFluidState(blockItemUseContext.getClickedPos());
 
-        final Direction.Axis axis = blockItemUseContext.getFace().getAxis();
+        final Direction.Axis axis = blockItemUseContext.getClickedFace().getAxis();
         return this
-            .getDefaultState()
-            .with(AXIS, blockItemUseContext.getFace().getAxis())
-            .with(DOWN, down instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
-            .with(UP, up instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
-            .with(NORTH, north instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
-            .with(EAST, east instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
-            .with(SOUTH, south instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
-            .with(WEST, west instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
-            .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+            .defaultBlockState()
+            .setValue(AXIS, blockItemUseContext.getClickedFace().getAxis())
+            .setValue(DOWN, down instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
+            .setValue(UP, up instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Y)
+            .setValue(NORTH, north instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
+            .setValue(EAST, east instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
+            .setValue(SOUTH, south instanceof WoodenStrippedPostBlock && axis != Direction.Axis.Z)
+            .setValue(WEST, west instanceof WoodenStrippedPostBlock && axis != Direction.Axis.X)
+            .setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Nonnull
     @SuppressWarnings({"deprecation"})
     @Override
-    public BlockState updatePostPlacement(final BlockState blockState0, @Nonnull final Direction direction,
-                                          final BlockState blockState1, @Nonnull final IWorld world,
-                                          @Nonnull final BlockPos blockPos, @Nonnull final BlockPos blockPos1) {
-        return blockState0.with(SixWayBlock.FACING_TO_PROPERTY_MAP.get(direction),
-            blockState1.getBlock() instanceof WoodenStrippedPostBlock && direction.getAxis() != blockState0.get(AXIS));
+    public BlockState updateShape(final BlockState blockState0, @Nonnull final Direction direction,
+                                  final BlockState blockState1, @Nonnull final IWorld world,
+                                  @Nonnull final BlockPos blockPos, @Nonnull final BlockPos blockPos1) {
+        return blockState0.setValue(SixWayBlock.PROPERTY_BY_DIRECTION.get(direction),
+            blockState1.getBlock() instanceof WoodenStrippedPostBlock &&
+            direction.getAxis() != blockState0.getValue(AXIS));
     }
 }

@@ -22,13 +22,13 @@ public final class ComposterRecipeProvider extends AbstractBlockItemRecipeProvid
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IItemProvider slab = ILikeWood.getBlock(((IWooden) block).getWoodType(), WoodenBlockType.PANELS_SLAB);
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('#', slab)
-            .patternLine("# #")
-            .patternLine("# #")
-            .patternLine("###")
-            .addCriterion("has_panels", hasItem(slab))
-            .setGroup(ILikeWoodBlockTags.COMPOSTER.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('#', slab)
+            .pattern("# #")
+            .pattern("# #")
+            .pattern("###")
+            .unlockedBy("has_panels", has(slab))
+            .group(ILikeWoodBlockTags.COMPOSTER.getName().getPath())
+            .save(consumer);
     }
 }

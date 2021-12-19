@@ -27,14 +27,14 @@ public final class LecternRecipeProvider extends AbstractBlockItemRecipeProvider
         final IItemProvider bookshelf = ILikeWood.getBlock(woodType, WoodenBlockType.BOOKSHELF);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('S', slab)
-            .key('B', bookshelf)
-            .patternLine("SSS")
-            .patternLine(" B ")
-            .patternLine(" S ")
-            .addCriterion("has_book", hasItem(Items.BOOK))
-            .setGroup(ILikeWoodBlockTags.LECTERNS.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('S', slab)
+            .define('B', bookshelf)
+            .pattern("SSS")
+            .pattern(" B ")
+            .pattern(" S ")
+            .unlockedBy("has_book", has(Items.BOOK))
+            .group(ILikeWoodBlockTags.LECTERNS.getName().getPath())
+            .save(consumer);
     }
 }

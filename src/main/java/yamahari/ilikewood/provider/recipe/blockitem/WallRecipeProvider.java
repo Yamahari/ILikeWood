@@ -34,17 +34,17 @@ public final class WallRecipeProvider extends AbstractBlockItemRecipeProvider {
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getResource());
 
             ShapedRecipeBuilder
-                .shapedRecipe(block, 6)
-                .key('#', Objects.requireNonNull(log))
-                .patternLine("###")
-                .patternLine("###")
-                .addCriterion("has_log", hasItem(log))
-                .setGroup(ILikeWoodBlockTags.WALLS.getName().getPath())
-                .build(consumer);
+                .shaped(block, 6)
+                .define('#', Objects.requireNonNull(log))
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_log", has(log))
+                .group(ILikeWoodBlockTags.WALLS.getName().getPath())
+                .save(consumer);
 
-            sawmillingRecipe(Ingredient.fromItems(log), block)
-                .addCriterion("has_log", hasItem(log))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(log), block)
+                .unlocks("has_log", has(log))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),
                             "from",

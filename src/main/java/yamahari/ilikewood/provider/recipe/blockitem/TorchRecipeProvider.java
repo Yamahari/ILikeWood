@@ -26,16 +26,16 @@ public final class TorchRecipeProvider extends AbstractBlockItemRecipeProvider {
     protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
-        final Ingredient coals = Ingredient.fromTag(ItemTags.COALS);
+        final Ingredient coals = Ingredient.of(ItemTags.COALS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block, 4)
-            .key('I', stick)
-            .key('#', coals)
-            .patternLine("#")
-            .patternLine("I")
-            .addCriterion("has_coal", hasItem(ItemTags.COALS))
-            .setGroup(ILikeWoodBlockTags.TORCHES.getName().getPath())
-            .build(consumer);
+            .shaped(block, 4)
+            .define('I', stick)
+            .define('#', coals)
+            .pattern("#")
+            .pattern("I")
+            .unlockedBy("has_coal", has(ItemTags.COALS))
+            .group(ILikeWoodBlockTags.TORCHES.getName().getPath())
+            .save(consumer);
     }
 }

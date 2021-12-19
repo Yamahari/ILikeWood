@@ -12,7 +12,7 @@ public final class WoodenBowItem extends BowItem implements IWooden {
     private final IWoodType woodType;
 
     public WoodenBowItem(final IWoodType woodType) {
-        super(new Item.Properties().maxDamage(384).group(ItemGroup.COMBAT));
+        super(new Item.Properties().durability(384).tab(ItemGroup.TAB_COMBAT));
         this.woodType = woodType;
     }
 

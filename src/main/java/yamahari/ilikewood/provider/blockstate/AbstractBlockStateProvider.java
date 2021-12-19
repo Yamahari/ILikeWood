@@ -94,12 +94,12 @@ public abstract class AbstractBlockStateProvider extends BlockStateProvider {
             .condition(WoodenStrippedPostBlock.AXIS, Direction.Axis.Z)
             .end();
 
-        SixWayBlock.FACING_TO_PROPERTY_MAP.forEach((direction, property) -> {
+        SixWayBlock.PROPERTY_BY_DIRECTION.forEach((direction, property) -> {
             if (direction.getAxis().isHorizontal()) {
                 builder
                     .part()
                     .modelFile(side)
-                    .rotationY((((int) direction.getHorizontalAngle()) + 180) % 360)
+                    .rotationY((((int) direction.toYRot()) + 180) % 360)
                     .uvLock(false)
                     .addModel()
                     .condition(property, true);

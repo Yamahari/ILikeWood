@@ -24,14 +24,14 @@ public final class BookshelfRecipeProvider extends AbstractBlockItemRecipeProvid
         final IItemProvider panels = ILikeWood.getBlock(((IWooden) block).getWoodType(), WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('#', panels)
-            .key('X', Items.BOOK)
-            .patternLine("###")
-            .patternLine("XXX")
-            .patternLine("###")
-            .addCriterion("has_book", hasItem(Items.BOOK))
-            .setGroup(ILikeWoodBlockTags.BOOKSHELFS.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('#', panels)
+            .define('X', Items.BOOK)
+            .pattern("###")
+            .pattern("XXX")
+            .pattern("###")
+            .unlockedBy("has_book", has(Items.BOOK))
+            .group(ILikeWoodBlockTags.BOOKSHELFS.getName().getPath())
+            .save(consumer);
     }
 }

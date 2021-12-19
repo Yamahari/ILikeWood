@@ -17,7 +17,7 @@ public final class WoodenChestBlock extends ChestBlock implements IWooden {
 
     @SuppressWarnings("unchecked")
     public WoodenChestBlock(final IWoodType woodType) {
-        super(Block.Properties.from(Blocks.CHEST),
+        super(Block.Properties.copy(Blocks.CHEST),
             () -> (TileEntityType<? extends WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get());
         this.woodType = woodType;
     }

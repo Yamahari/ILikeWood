@@ -19,16 +19,14 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
 
     private void registerTag(final ITag.INamedTag<Block> tag, final WoodenBlockType blockType) {
         if (blockType.equals(WoodenBlockType.WHITE_BED)) {
-            this
-                .getOrCreateBuilder(tag)
-                .add(ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.getBeds()).toArray(Block[]::new));
+            this.tag(tag).add(ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.getBeds()).toArray(Block[]::new));
         } else {
-            this.getOrCreateBuilder(tag).add(ILikeWood.BLOCK_REGISTRY.getObjects(blockType).toArray(Block[]::new));
+            this.tag(tag).add(ILikeWood.BLOCK_REGISTRY.getObjects(blockType).toArray(Block[]::new));
         }
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         registerTag(ILikeWoodBlockTags.BARRELS, WoodenBlockType.BARREL);
         registerTag(ILikeWoodBlockTags.CHESTS, WoodenBlockType.CHEST);
         registerTag(Tags.Blocks.CHESTS, WoodenBlockType.CHEST);

@@ -27,14 +27,14 @@ public final class ScaffoldingRecipeProvider extends AbstractBlockItemRecipeProv
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('I', stick)
-            .key('~', Items.STRING)
-            .patternLine("I~I")
-            .patternLine("I I")
-            .patternLine("I I")
-            .addCriterion("has_stick", hasItem(stick))
-            .setGroup(ILikeWoodBlockTags.SCAFFOLDINGS.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('I', stick)
+            .define('~', Items.STRING)
+            .pattern("I~I")
+            .pattern("I I")
+            .pattern("I I")
+            .unlockedBy("has_stick", has(stick))
+            .group(ILikeWoodBlockTags.SCAFFOLDINGS.getName().getPath())
+            .save(consumer);
     }
 }

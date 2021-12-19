@@ -17,7 +17,7 @@ public final class WoodenSawmillRecipe extends AbstractWoodenSawmillRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK, WoodenBlockType.SAWMILL));
     }
 }

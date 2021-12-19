@@ -18,10 +18,10 @@ public abstract class AbstractWoodenSawmillRecipe extends SingleItemRecipe {
     }
 
     public final boolean matches(final IInventory inventory, @Nonnull final World world) {
-        return this.ingredient.test(inventory.getStackInSlot(0));
+        return this.ingredient.test(inventory.getItem(0));
     }
 
     @Nonnull
     @Override
-    abstract public ItemStack getIcon();
+    abstract public ItemStack getToastSymbol();
 }

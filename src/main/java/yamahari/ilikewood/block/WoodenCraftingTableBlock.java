@@ -26,7 +26,7 @@ public final class WoodenCraftingTableBlock extends CraftingTableBlock implement
     private final ITextComponent defaultName;
 
     public WoodenCraftingTableBlock(final IWoodType type) {
-        super(Block.Properties.from(Blocks.CRAFTING_TABLE));
+        super(Block.Properties.copy(Blocks.CRAFTING_TABLE));
         this.woodType = type;
         this.defaultName = new TranslationTextComponent(StringUtils.joinWith(".",
             "container",
@@ -35,11 +35,11 @@ public final class WoodenCraftingTableBlock extends CraftingTableBlock implement
     }
 
     @Override
-    public INamedContainerProvider getContainer(@Nonnull final BlockState blockState, @Nonnull final World world,
-                                                @Nonnull final BlockPos pos) {
+    public INamedContainerProvider getMenuProvider(@Nonnull final BlockState blockState, @Nonnull final World world,
+                                                   @Nonnull final BlockPos pos) {
         return new SimpleNamedContainerProvider((windowId, inventory, player) -> new WoodenWorkBenchContainer(windowId,
             inventory,
-            IWorldPosCallable.of(world, pos)), this.defaultName);
+            IWorldPosCallable.create(world, pos)), this.defaultName);
     }
 
     @Override

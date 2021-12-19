@@ -26,14 +26,14 @@ public final class BarrelRecipeProvider extends AbstractBlockItemRecipeProvider 
         final IItemProvider slab = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS_SLAB);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('P', panels)
-            .key('S', slab)
-            .patternLine("PSP")
-            .patternLine("P P")
-            .patternLine("PSP")
-            .addCriterion("has_panels", hasItem(panels))
-            .setGroup(ILikeWoodBlockTags.BARRELS.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('P', panels)
+            .define('S', slab)
+            .pattern("PSP")
+            .pattern("P P")
+            .pattern("PSP")
+            .unlockedBy("has_panels", has(panels))
+            .group(ILikeWoodBlockTags.BARRELS.getName().getPath())
+            .save(consumer);
     }
 }

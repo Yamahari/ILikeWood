@@ -25,18 +25,18 @@ public final class PickaxeRecipeProvider extends AbstractTieredItemRecipeProvide
     @Override
     protected void registerRecipe(final Item tieredItem, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) tieredItem).getWoodType();
-        final Ingredient repair = ((IWoodenTieredItem) tieredItem).getWoodenItemTier().getRepairMaterial();
+        final Ingredient repair = ((IWoodenTieredItem) tieredItem).getWoodenItemTier().getRepairIngredient();
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(tieredItem)
-            .key('I', stick)
-            .key('#', repair)
-            .patternLine("###")
-            .patternLine(" I ")
-            .patternLine(" I ")
-            .addCriterion("has_material", hasItem(repair))
-            .setGroup(ILikeWoodItemTags.PICKAXES.getName().getPath())
-            .build(consumer);
+            .shaped(tieredItem)
+            .define('I', stick)
+            .define('#', repair)
+            .pattern("###")
+            .pattern(" I ")
+            .pattern(" I ")
+            .unlockedBy("has_material", has(repair))
+            .group(ILikeWoodItemTags.PICKAXES.getName().getPath())
+            .save(consumer);
     }
 }

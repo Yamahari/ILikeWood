@@ -21,7 +21,7 @@ public final class BarrelBlockStateProvider extends AbstractBlockStateProvider {
             "%s",
             ((IWooden) block).getWoodType().getName());
         this.directionalBlock(block, state -> {
-            final boolean open = state.get(BarrelBlock.PROPERTY_OPEN);
+            final boolean open = state.getValue(BarrelBlock.OPEN);
             return this
                 .models()
                 .cubeBottomTop(String.format(path, (open ? "open" : "")),

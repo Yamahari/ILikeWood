@@ -24,26 +24,22 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
 
     private void registerTag(final ITag.INamedTag<Item> tag, final WoodenBlockType blockType) {
         if (blockType.equals(WoodenBlockType.WHITE_BED)) {
-            this
-                .getOrCreateBuilder(tag)
-                .add(ILikeWood.BLOCK_ITEM_REGISTRY.getObjects(WoodenBlockType.getBeds()).toArray(Item[]::new));
+            this.tag(tag).add(ILikeWood.BLOCK_ITEM_REGISTRY.getObjects(WoodenBlockType.getBeds()).toArray(Item[]::new));
         } else {
-            this.getOrCreateBuilder(tag).add(ILikeWood.BLOCK_ITEM_REGISTRY.getObjects(blockType).toArray(Item[]::new));
+            this.tag(tag).add(ILikeWood.BLOCK_ITEM_REGISTRY.getObjects(blockType).toArray(Item[]::new));
         }
     }
 
     private void registerTag(final ITag.INamedTag<Item> tag, final WoodenItemType itemType) {
-        this.getOrCreateBuilder(tag).add(ILikeWood.ITEM_REGISTRY.getObjects(itemType).toArray(Item[]::new));
+        this.tag(tag).add(ILikeWood.ITEM_REGISTRY.getObjects(itemType).toArray(Item[]::new));
     }
 
     private void registerTag(final ITag.INamedTag<Item> tag, final WoodenTieredItemType tieredItemType) {
-        this
-            .getOrCreateBuilder(tag)
-            .add(ILikeWood.TIERED_ITEM_REGISTRY.getObjects(tieredItemType).toArray(Item[]::new));
+        this.tag(tag).add(ILikeWood.TIERED_ITEM_REGISTRY.getObjects(tieredItemType).toArray(Item[]::new));
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         registerTag(ILikeWoodItemTags.BARRELS, WoodenBlockType.BARREL);
         registerTag(ILikeWoodItemTags.CHESTS, WoodenBlockType.CHEST);
         registerTag(Tags.Items.CHESTS, WoodenBlockType.CHEST);
@@ -78,8 +74,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.SHOVELS, WoodenTieredItemType.SHOVEL);
         registerTag(ILikeWoodItemTags.SWORDS, WoodenTieredItemType.SWORD);
 
-        this
-            .getOrCreateBuilder(ItemTags.PIGLIN_LOVED)
+        this.tag(ItemTags.PIGLIN_LOVED)
             .add(WoodenTieredItemType
                 .getAll()
                 .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)

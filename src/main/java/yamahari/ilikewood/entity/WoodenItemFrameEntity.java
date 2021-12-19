@@ -30,9 +30,9 @@ import javax.annotation.Nullable;
 
 public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, IEntityAdditionalSpawnData {
     private static final DataParameter<ItemStack> ITEM =
-        EntityDataManager.createKey(WoodenItemFrameEntity.class, DataSerializers.ITEMSTACK);
+        EntityDataManager.defineId(WoodenItemFrameEntity.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<Integer> ROTATION =
-        EntityDataManager.createKey(WoodenItemFrameEntity.class, DataSerializers.VARINT);
+        EntityDataManager.defineId(WoodenItemFrameEntity.class, DataSerializers.INT);
     private final IWoodType woodType;
     private final LazyValue<Item> drop;
 
@@ -47,77 +47,77 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
                                  final World world, final BlockPos blockPos, final Direction direction) {
         super(entityType, world);
         this.woodType = woodType;
-        this.hangingPosition = blockPos;
+        this.pos = blockPos;
         this.drop = new LazyValue<>(ILikeWood.ITEM_REGISTRY.getRegistryObject(woodType, WoodenItemType.ITEM_FRAME));
-        this.updateFacingWithBoundingBox(direction);
+        this.setDirection(direction);
     }
 
     @Override
-    protected void registerData() {
-        this.getDataManager().register(ITEM, ItemStack.EMPTY);
-        this.getDataManager().register(ROTATION, 0);
+    protected void defineSynchedData() {
+        this.getEntityData().define(ITEM, ItemStack.EMPTY);
+        this.getEntityData().define(ROTATION, 0);
     }
 
     @Nonnull
     @Override
-    public ItemStack getDisplayedItem() {
-        return this.getDataManager().get(ITEM);
+    public ItemStack getItem() {
+        return this.getEntityData().get(ITEM);
     }
 
     @Override
-    public void setDisplayedItemWithUpdate(ItemStack stack, final boolean b) {
+    public void setItem(ItemStack stack, final boolean b) {
         if (!stack.isEmpty()) {
             stack = stack.copy();
             stack.setCount(1);
-            stack.setAttachedEntity(this);
+            stack.setEntityRepresentation(this);
         }
 
-        this.getDataManager().set(ITEM, stack);
+        this.getEntityData().set(ITEM, stack);
         if (!stack.isEmpty()) {
-            this.playSound(SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
+            this.playSound(SoundEvents.ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
         }
 
-        if (b && this.hangingPosition != null) {
-            this.world.updateComparatorOutputLevel(this.hangingPosition, Blocks.AIR);
+        if (b && this.pos != null) {
+            this.level.updateNeighbourForOutputSignal(this.pos, Blocks.AIR);
         }
     }
 
     @Override
-    public void notifyDataManagerChange(final DataParameter<?> key) {
+    public void onSyncedDataUpdated(final DataParameter<?> key) {
         if (key.equals(ITEM)) {
-            ItemStack itemstack = this.getDisplayedItem();
-            if (!itemstack.isEmpty() && itemstack.getItemFrame() != this) {
-                itemstack.setAttachedEntity(this);
+            ItemStack itemstack = this.getItem();
+            if (!itemstack.isEmpty() && itemstack.getFrame() != this) {
+                itemstack.setEntityRepresentation(this);
             }
         }
     }
 
     @Override
-    public void dropItemOrSelf(@Nullable final Entity entityIn, final boolean dropSelf) {
+    public void dropItem(@Nullable final Entity entityIn, final boolean dropSelf) {
         if (!this.fixed) {
-            ItemStack itemstack = this.getDisplayedItem();
-            this.setDisplayedItem(ItemStack.EMPTY);
-            if (!this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+            ItemStack itemstack = this.getItem();
+            this.setItem(ItemStack.EMPTY);
+            if (!this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
                 if (entityIn == null) {
-                    this.removeItem(itemstack);
+                    this.removeFramedMap(itemstack);
                 }
             } else {
                 if (entityIn instanceof PlayerEntity) {
                     PlayerEntity playerentity = (PlayerEntity) entityIn;
-                    if (playerentity.abilities.isCreativeMode) {
-                        this.removeItem(itemstack);
+                    if (playerentity.abilities.instabuild) {
+                        this.removeFramedMap(itemstack);
                         return;
                     }
                 }
                 if (dropSelf) {
-                    this.entityDropItem(this.drop.getValue());
+                    this.spawnAtLocation(this.drop.get());
 
                 }
                 if (!itemstack.isEmpty()) {
                     itemstack = itemstack.copy();
-                    this.removeItem(itemstack);
-                    if (this.rand.nextFloat() < this.itemDropChance) {
-                        this.entityDropItem(itemstack);
+                    this.removeFramedMap(itemstack);
+                    if (this.random.nextFloat() < this.dropChance) {
+                        this.spawnAtLocation(itemstack);
                     }
                 }
             }
@@ -126,34 +126,34 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
 
     @Override
     public int getRotation() {
-        return this.getDataManager().get(ROTATION);
+        return this.getEntityData().get(ROTATION);
     }
 
     @Override
     public void setRotation(int rotationIn, boolean p_174865_2_) {
-        this.getDataManager().set(ROTATION, rotationIn % 8);
-        if (p_174865_2_ && this.hangingPosition != null) {
-            this.world.updateComparatorOutputLevel(this.hangingPosition, Blocks.AIR);
+        this.getEntityData().set(ROTATION, rotationIn % 8);
+        if (p_174865_2_ && this.pos != null) {
+            this.level.updateNeighbourForOutputSignal(this.pos, Blocks.AIR);
         }
     }
 
     @Nonnull
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
     public void writeSpawnData(final PacketBuffer buffer) {
-        buffer.writeBlockPos(this.getHangingPosition());
-        buffer.writeInt(this.facingDirection.getIndex());
+        buffer.writeBlockPos(this.pos);
+        buffer.writeInt(this.direction.get3DDataValue());
     }
 
     @Override
     public void readSpawnData(final PacketBuffer additionalData) {
-        this.hangingPosition = additionalData.readBlockPos();
-        this.facingDirection = Direction.byIndex(additionalData.readInt());
-        this.updateBoundingBox();
+        this.pos = additionalData.readBlockPos();
+        this.direction = Direction.from3DDataValue(additionalData.readInt());
+        this.recalculateBoundingBox();
     }
 
     @Override

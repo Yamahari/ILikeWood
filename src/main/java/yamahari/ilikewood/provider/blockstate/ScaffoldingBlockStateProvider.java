@@ -21,7 +21,7 @@ public final class ScaffoldingBlockStateProvider extends AbstractBlockStateProvi
         final String woodType = ((IWooden) block).getWoodType().getName();
         final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenBlockType.SCAFFOLDING.getName());
         this.getVariantBuilder(block).forAllStates(blockState -> {
-            final String stable = blockState.get(ScaffoldingBlock.BOTTOM) ? "unstable" : "stable";
+            final String stable = blockState.getValue(ScaffoldingBlock.BOTTOM) ? "unstable" : "stable";
             final ModelFile template = this
                 .models()
                 .withExistingParent(Util.toPath(path, stable, woodType), modLoc(Util.toPath(path, stable, "template")))

@@ -35,7 +35,7 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
     protected void addTables() {
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.PANELS_SLAB)
-            .forEach(block -> this.registerLootTable(block, BlockLootTables::droppingSlab));
+            .forEach(block -> this.add(block, BlockLootTables::createSlabItemTable));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.PANELS,
@@ -48,41 +48,43 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
                 WoodenBlockType.POST,
                 WoodenBlockType.STRIPPED_POST,
                 WoodenBlockType.SOUL_TORCH))
-            .forEach(this::registerDropSelfLootTable);
+            .forEach(this::dropSelf);
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.BARREL, WoodenBlockType.CHEST, WoodenBlockType.LECTERN))
-            .forEach(block -> this.registerLootTable(block, BlockLootTables::droppingWithName));
+            .forEach(block -> this.add(block, BlockLootTables::createNameableBlockEntityTable));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.BOOKSHELF)
-            .forEach(block -> this.registerLootTable(block,
-                b -> droppingWithSilkTouchOrRandomly(b, Items.BOOK, ConstantRange.of(3))));
+            .forEach(block -> this.add(block,
+                b -> createSingleItemTableWithSilkTouch(b, Items.BOOK, ConstantRange.exactly(3))));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.COMPOSTER)
-            .forEach(block -> this.registerLootTable(block,
+            .forEach(block -> this.add(block,
                 b -> LootTable
-                    .builder()
-                    .addLootPool(LootPool
-                        .builder()
-                        .addEntry(ItemLootEntry.builder(block).acceptFunction(ExplosionDecay.builder())))
-                    .addLootPool(LootPool
-                        .builder()
-                        .addEntry(ItemLootEntry.builder(Items.BONE_MEAL))
-                        .acceptCondition(BlockStateProperty
-                            .builder(b)
-                            .fromProperties(StatePropertiesPredicate.Builder
-                                .newBuilder()
-                                .withIntProp(ComposterBlock.LEVEL, 8))))));
+                    .lootTable()
+                    .withPool(LootPool
+                        .lootPool()
+                        .add(ItemLootEntry.lootTableItem(block).apply(ExplosionDecay.explosionDecay())))
+                    .withPool(LootPool
+                        .lootPool()
+                        .add(ItemLootEntry.lootTableItem(Items.BONE_MEAL))
+                        .when(BlockStateProperty
+                            .hasBlockStateProperties(b)
+                            .setProperties(StatePropertiesPredicate.Builder
+                                .properties()
+                                .hasProperty(ComposterBlock.LEVEL, 8))))));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.getBeds())
-            .forEach(block -> this.registerLootTable(block, b -> droppingWhen(b, BedBlock.PART, BedPart.HEAD)));
+            .forEach(block -> this.add(block, b -> createSinglePropConditionTable(b, BedBlock.PART, BedPart.HEAD)));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.SAWMILL)
-            .forEach(block -> this.registerLootTable(block,
-                b -> droppingWhen(b, WoodenSawmillBlock.MODEL, WoodenSawmillBlock.WoodenSawmillModel.BOTTOM_LEFT)));
+            .forEach(block -> this.add(block,
+                b -> createSinglePropConditionTable(b,
+                    WoodenSawmillBlock.MODEL,
+                    WoodenSawmillBlock.WoodenSawmillModel.BOTTOM_LEFT)));
     }
 }

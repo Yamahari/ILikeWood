@@ -67,8 +67,8 @@ public final class BedBlockStateProvider extends AbstractBlockStateProvider {
             .getVariantBuilder(block)
             .forAllStates(state -> ConfiguredModel
                 .builder()
-                .modelFile(state.get(BlockStateProperties.BED_PART).equals(BedPart.HEAD) ? head : foot)
-                .rotationY(((state.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalIndex() + 2) % 4) * 90)
+                .modelFile(state.getValue(BlockStateProperties.BED_PART).equals(BedPart.HEAD) ? head : foot)
+                .rotationY(((state.getValue(BlockStateProperties.HORIZONTAL_FACING).get2DDataValue() + 2) % 4) * 90)
                 .uvLock(false)
                 .build());
     }

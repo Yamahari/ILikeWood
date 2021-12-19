@@ -33,7 +33,7 @@ public abstract class AbstractItemRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected final void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected final void buildShapelessRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
         ILikeWood.ITEM_REGISTRY.getObjects(this.itemType).forEach(item -> this.registerRecipe(item, consumer));
 
     }

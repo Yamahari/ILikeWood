@@ -25,18 +25,18 @@ public final class SwordRecipeProvider extends AbstractTieredItemRecipeProvider 
     @Override
     protected void registerRecipe(final Item tieredItem, @Nonnull final Consumer<IFinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) tieredItem).getWoodType();
-        final Ingredient repair = ((IWoodenTieredItem) tieredItem).getWoodenItemTier().getRepairMaterial();
+        final Ingredient repair = ((IWoodenTieredItem) tieredItem).getWoodenItemTier().getRepairIngredient();
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(tieredItem)
-            .key('I', stick)
-            .key('#', repair)
-            .patternLine("#")
-            .patternLine("#")
-            .patternLine("I")
-            .addCriterion("has_material", hasItem(repair))
-            .setGroup(ILikeWoodItemTags.SWORDS.getName().getPath())
-            .build(consumer);
+            .shaped(tieredItem)
+            .define('I', stick)
+            .define('#', repair)
+            .pattern("#")
+            .pattern("#")
+            .pattern("I")
+            .unlockedBy("has_material", has(repair))
+            .group(ILikeWoodItemTags.SWORDS.getName().getPath())
+            .save(consumer);
     }
 }

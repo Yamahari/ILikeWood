@@ -33,7 +33,7 @@ public abstract class AbstractBlockItemRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected final void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected final void buildShapelessRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
         if (this.blockType == WoodenBlockType.WHITE_BED) {
             ILikeWood.BLOCK_REGISTRY
                 .getObjects(WoodenBlockType.getBeds())

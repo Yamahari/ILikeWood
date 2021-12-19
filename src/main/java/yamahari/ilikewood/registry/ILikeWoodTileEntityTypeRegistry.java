@@ -19,19 +19,19 @@ public final class ILikeWoodTileEntityTypeRegistry {
         // TODO data fixer
         WoodenTileEntityTypes.WOODEN_BARREL = REGISTRY.register("wooden_barrel",
             () -> TileEntityType.Builder
-                .create(() -> new WoodenBarrelTileEntity(WoodenTileEntityTypes.WOODEN_BARREL.get()),
+                .of(() -> new WoodenBarrelTileEntity(WoodenTileEntityTypes.WOODEN_BARREL.get()),
                     ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.BARREL).toArray(Block[]::new))
                 .build(null));
 
         WoodenTileEntityTypes.WOODEN_CHEST = REGISTRY.register("wooden_chest",
             () -> TileEntityType.Builder
-                .create(() -> new WoodenChestTileEntity(WoodenTileEntityTypes.WOODEN_CHEST.get()),
+                .of(() -> new WoodenChestTileEntity(WoodenTileEntityTypes.WOODEN_CHEST.get()),
                     ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.CHEST).toArray(Block[]::new))
                 .build(null));
 
         WoodenTileEntityTypes.WOODEN_LECTERN = REGISTRY.register("wooden_lectern",
             () -> TileEntityType.Builder
-                .create(WoodenLecternTileEntity::new,
+                .of(WoodenLecternTileEntity::new,
                     ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.LECTERN).toArray(Block[]::new))
                 .build(null));
     }

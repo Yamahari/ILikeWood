@@ -26,14 +26,14 @@ public final class BowRecipeProvider extends AbstractItemRecipeProvider {
         final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
-            .shapedRecipe(item)
-            .key('#', stick)
-            .key('X', Items.STRING)
-            .patternLine(" #X")
-            .patternLine("# X")
-            .patternLine(" #X")
-            .addCriterion("has_string", hasItem(Items.STRING))
-            .setGroup(ILikeWoodItemTags.BOWS.getName().getPath())
-            .build(consumer);
+            .shaped(item)
+            .define('#', stick)
+            .define('X', Items.STRING)
+            .pattern(" #X")
+            .pattern("# X")
+            .pattern(" #X")
+            .unlockedBy("has_string", has(Items.STRING))
+            .group(ILikeWoodItemTags.BOWS.getName().getPath())
+            .save(consumer);
     }
 }

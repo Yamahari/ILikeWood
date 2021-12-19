@@ -14,7 +14,7 @@ public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
     private final IWoodType woodType;
 
     public WoodenBarrelBlock(final IWoodType woodType) {
-        super(Block.Properties.from(Blocks.BARREL));
+        super(Block.Properties.copy(Blocks.BARREL));
         this.woodType = woodType;
     }
 

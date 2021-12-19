@@ -53,7 +53,7 @@ public final class ClientProxy implements IProxy {
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.POST, WoodenBlockType.STRIPPED_POST))
-            .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getSolid()));
+            .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.solid()));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.LADDER,
@@ -62,59 +62,60 @@ public final class ClientProxy implements IProxy {
                 WoodenBlockType.SCAFFOLDING,
                 WoodenBlockType.SOUL_TORCH,
                 WoodenBlockType.WALL_SOUL_TORCH))
-            .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
+            .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.cutout()));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.CRAFTING_TABLE, WoodenBlockType.SAWMILL))
-            .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutoutMipped()));
+            .forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.cutoutMipped()));
 
-        ScreenManager.registerFactory((ContainerType<? extends WorkbenchContainer>) WoodenContainerTypes.WOODEN_WORK_BENCH
-            .get(), CraftingScreen::new);
+        ScreenManager.register((ContainerType<? extends WorkbenchContainer>) WoodenContainerTypes.WOODEN_WORK_BENCH.get(),
+            CraftingScreen::new);
 
-        ScreenManager.registerFactory((ContainerType<? extends WoodenSawmillContainer>) WoodenContainerTypes.WOODEN_SAWMILL
-            .get(), WoodenSawmillScreen::new);
+        ScreenManager.register((ContainerType<? extends WoodenSawmillContainer>) WoodenContainerTypes.WOODEN_SAWMILL.get(),
+            WoodenSawmillScreen::new);
 
         ILikeWood.ITEM_REGISTRY.getObjects(WoodenItemType.BOW).forEach(item -> {
-            ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
+            ItemModelsProperties.register(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
                 } else {
-                    return entity.getActiveItemStack() != itemStack
+                    return entity.getUseItem() != itemStack
                            ? 0.0F
-                           : (float) (itemStack.getUseDuration() - entity.getItemInUseCount()) / 20.0F;
+                           : (float) (itemStack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
                 }
             });
-            ItemModelsProperties.registerProperty(item,
+            ItemModelsProperties.register(item,
                 new ResourceLocation("pulling"),
-                (itemStack, world, entity) ->
-                    entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
+                (itemStack, world, entity) -> entity != null && entity.isUsingItem() && entity.getUseItem() == itemStack
+                                              ? 1.0F
+                                              : 0.0F);
         });
 
         ILikeWood.ITEM_REGISTRY.getObjects(WoodenItemType.CROSSBOW).forEach(item -> {
-            ItemModelsProperties.registerProperty(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
+            ItemModelsProperties.register(item, new ResourceLocation("pull"), (itemStack, world, entity) -> {
                 if (entity == null) {
                     return 0.0F;
                 } else {
                     return CrossbowItem.isCharged(itemStack)
                            ? 0.0F
-                           : (float) (itemStack.getUseDuration() - entity.getItemInUseCount()) /
-                             (float) CrossbowItem.getChargeTime(itemStack);
+                           : (float) (itemStack.getUseDuration() - entity.getUseItemRemainingTicks()) /
+                             (float) CrossbowItem.getChargeDuration(itemStack);
                 }
             });
-            ItemModelsProperties.registerProperty(item,
+            ItemModelsProperties.register(item,
                 new ResourceLocation("pulling"),
                 (itemStack, world, entity) ->
-                    entity != null && entity.isHandActive() && entity.getActiveItemStack() == itemStack &&
+                    entity != null && entity.isUsingItem() && entity.getUseItem() == itemStack &&
                     !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
 
-            ItemModelsProperties.registerProperty(item,
+            ItemModelsProperties.register(item,
                 new ResourceLocation("charged"),
                 (itemStack, world, entity) -> entity != null && CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
 
-            ItemModelsProperties.registerProperty(item,
+            ItemModelsProperties.register(item,
                 new ResourceLocation("firework"),
                 (itemStack, world, entity) -> entity != null && CrossbowItem.isCharged(itemStack) &&
-                                              CrossbowItem.hasChargedProjectile(itemStack, Items.FIREWORK_ROCKET)
+                                              CrossbowItem.containsChargedProjectile(itemStack, Items.FIREWORK_ROCKET)
                                               ? 1.0F
                                               : 0.0F);
 
@@ -122,20 +123,22 @@ public final class ClientProxy implements IProxy {
 
         ILikeWood.ITEM_REGISTRY
             .getObjects(WoodenItemType.FISHING_ROD)
-            .forEach(item -> ItemModelsProperties.registerProperty(item,
+            .forEach(item -> ItemModelsProperties.register(item,
                 new ResourceLocation("cast"),
                 (itemStack, world, entity) -> {
                     if (entity == null) {
                         return 0.0F;
                     } else {
-                        boolean flag = entity.getHeldItemMainhand() == itemStack;
-                        boolean flag1 = entity.getHeldItemOffhand() == itemStack;
-                        if (entity.getHeldItemMainhand().getItem() instanceof FishingRodItem) {
+                        boolean flag = entity.getMainHandItem() == itemStack;
+                        boolean flag1 = entity.getOffhandItem() == itemStack;
+                        if (entity.getMainHandItem().getItem() instanceof FishingRodItem) {
                             flag1 = false;
                         }
 
-                        return (flag || flag1) && entity instanceof PlayerEntity &&
-                               ((PlayerEntity) entity).fishingBobber != null ? 1.0F : 0.0F;
+                        return
+                            (flag || flag1) && entity instanceof PlayerEntity && ((PlayerEntity) entity).fishing != null
+                            ? 1.0F
+                            : 0.0F;
                     }
                 }));
     }

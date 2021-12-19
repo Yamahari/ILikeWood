@@ -27,14 +27,14 @@ public final class VanillaWoodenResources {
     public static final Map<IWoodType, IWoodenSlabResource> SLABS;
     private static final Map<IWoodType, AbstractBlock.Properties> PLANKS_PROPERTIES =
         new ImmutableMap.Builder<IWoodType, AbstractBlock.Properties>()
-            .put(VanillaWoodTypes.ACACIA, AbstractBlock.Properties.from(Blocks.ACACIA_PLANKS))
-            .put(VanillaWoodTypes.BIRCH, AbstractBlock.Properties.from(Blocks.BIRCH_PLANKS))
-            .put(VanillaWoodTypes.CRIMSON, AbstractBlock.Properties.from(Blocks.CRIMSON_PLANKS))
-            .put(VanillaWoodTypes.DARK_OAK, AbstractBlock.Properties.from(Blocks.DARK_OAK_PLANKS))
-            .put(VanillaWoodTypes.JUNGLE, AbstractBlock.Properties.from(Blocks.JUNGLE_PLANKS))
-            .put(VanillaWoodTypes.OAK, AbstractBlock.Properties.from(Blocks.OAK_PLANKS))
-            .put(VanillaWoodTypes.SPRUCE, AbstractBlock.Properties.from(Blocks.SPRUCE_PLANKS))
-            .put(VanillaWoodTypes.WARPED, AbstractBlock.Properties.from(Blocks.WARPED_PLANKS))
+            .put(VanillaWoodTypes.ACACIA, AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS))
+            .put(VanillaWoodTypes.BIRCH, AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS))
+            .put(VanillaWoodTypes.CRIMSON, AbstractBlock.Properties.copy(Blocks.CRIMSON_PLANKS))
+            .put(VanillaWoodTypes.DARK_OAK, AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS))
+            .put(VanillaWoodTypes.JUNGLE, AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS))
+            .put(VanillaWoodTypes.OAK, AbstractBlock.Properties.copy(Blocks.OAK_PLANKS))
+            .put(VanillaWoodTypes.SPRUCE, AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS))
+            .put(VanillaWoodTypes.WARPED, AbstractBlock.Properties.copy(Blocks.WARPED_PLANKS))
             .build();
 
     static {

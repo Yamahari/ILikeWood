@@ -34,9 +34,9 @@ public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider 
             final IItemProvider planks =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
-            sawmillingRecipe(Ingredient.fromItems(planks), block)
-                .addCriterion("has_planks", hasItem(planks))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(planks), block)
+                .unlocks("has_planks", has(planks))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),
                             "from",
@@ -49,22 +49,22 @@ public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider 
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getSlab(woodType).getResource());
 
             ShapedRecipeBuilder
-                .shapedRecipe(block)
-                .key('#', Objects.requireNonNull(slab))
-                .patternLine("#")
-                .patternLine("#")
-                .addCriterion("has_slab", hasItem(slab))
-                .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
-                .build(consumer);
+                .shaped(block)
+                .define('#', Objects.requireNonNull(slab))
+                .pattern("#")
+                .pattern("#")
+                .unlockedBy("has_slab", has(slab))
+                .group(ILikeWoodBlockTags.PANELS.getName().getPath())
+                .save(consumer);
         }
 
         if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasLog(woodType)) {
             final IItemProvider log =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getResource());
 
-            sawmillingRecipe(Ingredient.fromItems(log), block, 4)
-                .addCriterion("has_log", hasItem(log))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(log), block, 4)
+                .unlocks("has_log", has(log))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),
                             "from",
@@ -77,9 +77,9 @@ public final class PanelsRecipeProvider extends AbstractBlockItemRecipeProvider 
                 .getStrippedLog(woodType)
                 .getResource());
 
-            sawmillingRecipe(Ingredient.fromItems(stripped_log), block, 4)
-                .addCriterion("has_stripped_log", hasItem(stripped_log))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(stripped_log), block, 4)
+                .unlocks("has_stripped_log", has(stripped_log))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),
                             "from",

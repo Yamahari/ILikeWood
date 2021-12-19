@@ -38,9 +38,9 @@ public final class Atlases {
         final EnumMap<ChestType, RenderMaterial> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
             materials.put(chestType,
-                new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_ATLAS,
+                new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_SHEET,
                     new ResourceLocation(Constants.MOD_ID,
-                        Util.toPath("entity", "chest", chestType.getString(), woodType.getName()))));
+                        Util.toPath("entity", "chest", chestType.getSerializedName(), woodType.getName()))));
         }
         return materials;
     }
@@ -51,13 +51,13 @@ public final class Atlases {
 
     @SubscribeEvent
     public static void onTextureStitchPre(final TextureStitchEvent.Pre event) {
-        final ResourceLocation atlas = event.getMap().getTextureLocation();
+        final ResourceLocation atlas = event.getMap().location();
         CHESTS
             .values()
             .stream()
             .flatMap(materials -> materials.values().stream())
-            .filter(material -> material.getAtlasLocation().equals(atlas))
-            .forEach(material -> event.addSprite(material.getTextureLocation()));
+            .filter(material -> material.atlasLocation().equals(atlas))
+            .forEach(material -> event.addSprite(material.texture()));
 
     }
 }

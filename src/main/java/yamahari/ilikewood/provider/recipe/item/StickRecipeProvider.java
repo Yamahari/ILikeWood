@@ -32,17 +32,17 @@ public final class StickRecipeProvider extends AbstractItemRecipeProvider {
         final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(item, 4)
-            .key('#', panels)
-            .patternLine("#")
-            .patternLine("#")
-            .addCriterion("has_panels", hasItem(panels))
-            .setGroup(ILikeWoodItemTags.STICKS.getName().getPath())
-            .build(consumer);
+            .shaped(item, 4)
+            .define('#', panels)
+            .pattern("#")
+            .pattern("#")
+            .unlockedBy("has_panels", has(panels))
+            .group(ILikeWoodItemTags.STICKS.getName().getPath())
+            .save(consumer);
 
-        sawmillingRecipe(Ingredient.fromItems(panels), item, 2)
-            .addCriterion("has_panels", hasItem(panels))
-            .build(consumer,
+        sawmillingRecipe(Ingredient.of(panels), item, 2)
+            .unlocks("has_panels", has(panels))
+            .save(consumer,
                 new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(item.getRegistryName().getPath(),
                         "from",
@@ -53,9 +53,9 @@ public final class StickRecipeProvider extends AbstractItemRecipeProvider {
             final IItemProvider planks =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
-            sawmillingRecipe(Ingredient.fromItems(planks), item, 2)
-                .addCriterion("has_planks", hasItem(planks))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(planks), item, 2)
+                .unlocks("has_planks", has(planks))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(item.getRegistryName().getPath(),
                             "from",

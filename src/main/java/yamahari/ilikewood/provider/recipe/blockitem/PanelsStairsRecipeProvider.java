@@ -31,18 +31,18 @@ public final class PanelsStairsRecipeProvider extends AbstractBlockItemRecipePro
         final IItemProvider panels = ILikeWood.getBlock(((IWooden) block).getWoodType(), WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block, 4)
-            .key('#', panels)
-            .patternLine("#  ")
-            .patternLine("## ")
-            .patternLine("###")
-            .addCriterion("has_panels", hasItem(panels))
-            .setGroup(ILikeWoodBlockTags.PANELS.getName().getPath())
-            .build(consumer);
+            .shaped(block, 4)
+            .define('#', panels)
+            .pattern("#  ")
+            .pattern("## ")
+            .pattern("###")
+            .unlockedBy("has_panels", has(panels))
+            .group(ILikeWoodBlockTags.PANELS.getName().getPath())
+            .save(consumer);
 
-        sawmillingRecipe(Ingredient.fromItems(panels), block)
-            .addCriterion("has_panels", hasItem(panels))
-            .build(consumer,
+        sawmillingRecipe(Ingredient.of(panels), block)
+            .unlocks("has_panels", has(panels))
+            .save(consumer,
                 new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(block.getRegistryName().getPath(),
                         "from",
@@ -53,9 +53,9 @@ public final class PanelsStairsRecipeProvider extends AbstractBlockItemRecipePro
             final IItemProvider planks =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
-            sawmillingRecipe(Ingredient.fromItems(planks), block)
-                .addCriterion("has_planks", hasItem(planks))
-                .build(consumer,
+            sawmillingRecipe(Ingredient.of(planks), block)
+                .unlocks("has_planks", has(planks))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),
                             "from",

@@ -26,7 +26,7 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void buildShapelessRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
         WoodenTieredItemType
             .getAll()
             .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
@@ -45,9 +45,9 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
                 tieredItem.getTieredItemType());
 
             SmithingRecipeBuilder
-                .smithingRecipe(Ingredient.fromItems(item), Ingredient.fromItems(Items.NETHERITE_INGOT), output)
-                .addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
-                .build(consumer,
+                .smithing(Ingredient.of(item), Ingredient.of(Items.NETHERITE_INGOT), output)
+                .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
+                .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(output.getRegistryName().getPath(), "smithing")));
         } catch (final IllegalArgumentException ignored) {

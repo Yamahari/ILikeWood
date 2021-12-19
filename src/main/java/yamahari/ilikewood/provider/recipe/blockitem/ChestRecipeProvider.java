@@ -23,13 +23,13 @@ public final class ChestRecipeProvider extends AbstractBlockItemRecipeProvider {
         final IItemProvider panels = ILikeWood.getBlock(((IWooden) block).getWoodType(), WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
-            .shapedRecipe(block)
-            .key('#', panels)
-            .patternLine("###")
-            .patternLine("# #")
-            .patternLine("###")
-            .addCriterion("has_panels", hasItem(panels))
-            .setGroup(ILikeWoodBlockTags.CHESTS.getName().getPath())
-            .build(consumer);
+            .shaped(block)
+            .define('#', panels)
+            .pattern("###")
+            .pattern("# #")
+            .pattern("###")
+            .unlockedBy("has_panels", has(panels))
+            .group(ILikeWoodBlockTags.CHESTS.getName().getPath())
+            .save(consumer);
     }
 }

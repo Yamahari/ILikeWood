@@ -1,11 +1,11 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -41,11 +41,15 @@ sourceSets {
 }
 
 configurations {
-    apiCompile.extendsFrom(compile)
+//apiImplementation.extendsFrom(implementation)
+//    apiCompile.extendsFrom(compile)
+//    apiCompileOnly.extendsFrom(compileOnly)
+//    apiRuntimeOnly.extendsFrom(runtimeOnly)
+    apiImplementation.extendsFrom(minecraft)
 }
 
 minecraft {
-    mappings channel: 'snapshot', version: '20201028-1.16.3'
+    mappings channel: 'official', version: '1.16.5'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -141,23 +145,34 @@ jar {
 
     sourceSets.main.resources {
         exclude 'assets/biomesoplenty/**'
+        exclude '.cache'
     }
-    manifest {
-        attributes([
+
+    manifest.attributes([
                 "Specification-Title"     : "ilikewood",
                 "Specification-Vendor"    : "yamahari",
-                "Specification-Version"   : "${version}",
+                "Specification-Version"   : "${project.version}",
                 "Implementation-Title"    : "ilikewood",
-                "Implementation-Version"  : "${version}",
+                "Implementation-Version"  : "${project.version}",
                 "Implementation-Vendor"   : "yamahari",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
+    ])
+
+    finalizedBy 'reobfJar'
 }
 
 task apiJar(type: Jar, dependsOn: apiClasses) {
-    classifier = "api"
+    archiveClassifier.set('api')
     from sourceSets.api.output
+    afterEvaluate { finalizedBy reobfApiJar }
 }
 
-jar.finalizedBy('reobfJar')
+reobf {
+    apiJar { classpath.from(sourceSets.api.compileClasspath) }
+    jar { classpath.from(sourceSets.main.compileClasspath) }
+}
+
+task reobf {
+    dependsOn reobfJar
+    dependsOn reobfApiJar
+}

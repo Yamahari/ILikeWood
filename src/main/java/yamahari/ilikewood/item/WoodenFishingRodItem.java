@@ -12,7 +12,7 @@ public final class WoodenFishingRodItem extends FishingRodItem implements IWoode
     private final IWoodType woodType;
 
     public WoodenFishingRodItem(final IWoodType woodType) {
-        super((new Item.Properties()).maxDamage(64).group(ItemGroup.TOOLS));
+        super((new Item.Properties()).durability(64).tab(ItemGroup.TAB_TOOLS));
         this.woodType = woodType;
     }
 

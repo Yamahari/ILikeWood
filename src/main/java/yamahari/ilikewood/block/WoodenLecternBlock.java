@@ -24,7 +24,7 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
     private final IWoodType woodType;
 
     public WoodenLecternBlock(final IWoodType woodType) {
-        super(Block.Properties.from(Blocks.LECTERN));
+        super(Block.Properties.copy(Blocks.LECTERN));
         this.woodType = woodType;
     }
 
@@ -40,19 +40,18 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
 
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(final BlockState state, @Nonnull final World world,
-                                             @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player,
-                                             @Nonnull final Hand hand,
-                                             @Nonnull final BlockRayTraceResult rayTraceResult) {
-        if (state.get(HAS_BOOK)) {
-            if (!world.isRemote) {
-                this.openContainer(world, pos, player);
+    public ActionResultType use(final BlockState state, @Nonnull final World world, @Nonnull final BlockPos pos,
+                                @Nonnull final PlayerEntity player, @Nonnull final Hand hand,
+                                @Nonnull final BlockRayTraceResult rayTraceResult) {
+        if (state.getValue(HAS_BOOK)) {
+            if (!world.isClientSide) {
+                this.openScreen(world, pos, player);
             }
             return ActionResultType.SUCCESS;
         } else {
-            final ItemStack held = player.getHeldItem(hand);
+            final ItemStack held = player.getItemInHand(hand);
             if (!held.isEmpty()) {
-                return held.getItem().isIn(ItemTags.LECTERN_BOOKS) && tryPlaceBook(world, pos, state, held)
+                return held.getItem().is(ItemTags.LECTERN_BOOKS) && tryPlaceBook(world, pos, state, held)
                        ? ActionResultType.SUCCESS
                        : ActionResultType.PASS;
             }

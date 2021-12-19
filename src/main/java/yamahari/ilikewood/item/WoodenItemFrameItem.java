@@ -27,7 +27,7 @@ public final class WoodenItemFrameItem extends WoodenItem {
 
     @SuppressWarnings("unchecked")
     public WoodenItemFrameItem(final IWoodType woodType) {
-        super(woodType, WoodenItemType.ITEM_FRAME, new Item.Properties().group(ItemGroup.DECORATIONS));
+        super(woodType, WoodenItemType.ITEM_FRAME, new Item.Properties().tab(ItemGroup.TAB_DECORATIONS));
         this.entityType =
             new LazyValue<>(() -> (EntityType<? extends ItemFrameEntity>) ILikeWood.ENTITY_TYPE_REGISTRY.getObject(this.getWoodType(),
                 WoodenEntityType.ITEM_FRAME));
@@ -35,33 +35,33 @@ public final class WoodenItemFrameItem extends WoodenItem {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(final ItemUseContext context) {
-        final BlockPos blockPos = context.getPos();
-        final Direction direction = context.getFace();
-        final BlockPos offsetPos = blockPos.offset(direction);
+    public ActionResultType useOn(final ItemUseContext context) {
+        final BlockPos blockPos = context.getClickedPos();
+        final Direction direction = context.getClickedFace();
+        final BlockPos offsetPos = blockPos.relative(direction);
         final PlayerEntity player = context.getPlayer();
-        final ItemStack itemStack = context.getItem();
+        final ItemStack itemStack = context.getItemInHand();
 
         if (player != null && !this.canPlace(player, direction, itemStack, offsetPos)) {
             return ActionResultType.FAIL;
         } else {
-            final World world = context.getWorld();
+            final World world = context.getLevel();
             final HangingEntity hangingEntity =
-                new WoodenItemFrameEntity(this.getWoodType(), this.entityType.getValue(), world, offsetPos, direction);
+                new WoodenItemFrameEntity(this.getWoodType(), this.entityType.get(), world, offsetPos, direction);
 
             final CompoundNBT compoundNBT = itemStack.getTag();
             if (compoundNBT != null) {
-                EntityType.applyItemNBT(world, player, hangingEntity, compoundNBT);
+                EntityType.updateCustomEntityTag(world, player, hangingEntity, compoundNBT);
             }
 
-            if (hangingEntity.onValidSurface()) {
-                if (!world.isRemote) {
-                    hangingEntity.playPlaceSound();
-                    world.addEntity(hangingEntity);
+            if (hangingEntity.survives()) {
+                if (!world.isClientSide) {
+                    hangingEntity.playPlacementSound();
+                    world.addFreshEntity(hangingEntity);
                 }
 
                 itemStack.shrink(1);
-                return ActionResultType.func_233537_a_(world.isRemote);
+                return ActionResultType.sidedSuccess(world.isClientSide);
             } else {
                 return ActionResultType.CONSUME;
             }
@@ -70,6 +70,6 @@ public final class WoodenItemFrameItem extends WoodenItem {
 
     private boolean canPlace(final PlayerEntity player, final Direction direction, final ItemStack itemStack,
                              final BlockPos blockPos) {
-        return !World.isOutsideBuildHeight(blockPos) && player.canPlayerEdit(blockPos, direction, itemStack);
+        return !World.isOutsideBuildHeight(blockPos) && player.mayUseItemAt(blockPos, direction, itemStack);
     }
 }
