@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:spruce_log"
-  },
-  "result": "ilikewood:spruce_post",
-  "count": 2
-}

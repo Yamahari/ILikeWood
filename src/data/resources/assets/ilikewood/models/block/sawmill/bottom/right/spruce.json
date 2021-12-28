@@ -1,9 +1,0 @@
-{
-  "parent": "ilikewood:block/sawmill/bottom/right/template",
-  "textures": {
-    "log_end": "minecraft:block/spruce_log_top",
-    "log_side": "minecraft:block/spruce_log",
-    "stripped_log_side": "minecraft:block/stripped_spruce_log",
-    "log_pile": "ilikewood:block/log_pile/spruce"
-  }
-}

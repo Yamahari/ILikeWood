@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:oak_planks"
-  },
-  "result": "ilikewood:oak_panels_slab",
-  "count": 2
-}

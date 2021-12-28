@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:block/item_frame/template",
-  "textures": {
-    "planks": "minecraft:block/spruce_planks"
-  }
-}

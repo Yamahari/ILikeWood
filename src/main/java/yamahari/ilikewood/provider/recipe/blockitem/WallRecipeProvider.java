@@ -1,12 +1,12 @@
 package yamahari.ilikewood.provider.recipe.blockitem;
 
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
@@ -27,23 +27,18 @@ public final class WallRecipeProvider extends AbstractBlockItemRecipeProvider {
     }
 
     @Override
-    protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipe(final Block block, @Nonnull final Consumer<FinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasLog(woodType)) {
-            final IItemProvider log =
+            final ItemLike log =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType).getResource());
 
-            ShapedRecipeBuilder
-                .shaped(block, 6)
-                .define('#', Objects.requireNonNull(log))
-                .pattern("###")
-                .pattern("###")
+            ShapedRecipeBuilder.shaped(block, 6).define('#', Objects.requireNonNull(log)).pattern("###").pattern("###")
                 .unlockedBy("has_log", has(log))
                 .group(ILikeWoodBlockTags.WALLS.getName().getPath())
                 .save(consumer);
 
-            sawmillingRecipe(Ingredient.of(log), block)
-                .unlocks("has_log", has(log))
+            sawmillingRecipe(Ingredient.of(log), block).unlockedBy("has_log", has(log))
                 .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),

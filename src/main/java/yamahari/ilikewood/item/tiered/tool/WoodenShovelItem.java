@@ -2,14 +2,14 @@ package yamahari.ilikewood.item.tiered.tool;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
@@ -25,35 +25,27 @@ public final class WoodenShovelItem extends ShovelItem implements IWooden, IWood
     private final IWoodenItemTier woodenItemTier;
 
     public WoodenShovelItem(final IWoodType woodType, final IWoodenItemTier woodenItemTier) {
-        super(ItemTier.WOOD,
-            0.f,
-            0.f,
+        super(Tiers.WOOD,
+            0.0F,
+            0.0F,
             woodenItemTier.equals(VanillaWoodenItemTiers.NETHERITE)
             ? (new Item.Properties()
-                   .tab(ItemGroup.TAB_TOOLS)
+                   .tab(CreativeModeTab.TAB_TOOLS)
                    .fireResistant())
-            : (new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
+            : (new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
         this.woodType = woodType;
         this.woodenItemTier = woodenItemTier;
     }
 
     @Nonnull
     @Override
-    public IItemTier getTier() {
+    public Tier getTier() {
         return this.getWoodenItemTier();
     }
 
     @Override
-    public int getHarvestLevel(@Nonnull final ItemStack stack, @Nonnull final ToolType tool,
-                               @Nullable final PlayerEntity player, @Nullable final BlockState blockState) {
-        return this.getWoodenItemTier().getLevel();
-    }
-
-    @Override
     public float getDestroySpeed(@Nonnull final ItemStack stack, final BlockState state) {
-        return this.getToolTypes(stack).stream().anyMatch(state::isToolEffective)
-               ? this.getWoodenItemTier().getSpeed()
-               : 1.f;
+        return BlockTags.MINEABLE_WITH_SHOVEL.contains(state.getBlock()) ? this.getWoodenItemTier().getSpeed() : 1.0F;
     }
 
     @Override
@@ -77,7 +69,7 @@ public final class WoodenShovelItem extends ShovelItem implements IWooden, IWood
     }
 
     @Override
-    public int getBurnTime(final ItemStack itemStack) {
+    public int getBurnTime(final ItemStack itemStack, final @Nullable RecipeType<?> recipeType) {
         return this.getWoodenItemTier().getProperties(this.getTieredItemType()).getBurnTime();
     }
 
@@ -92,9 +84,9 @@ public final class WoodenShovelItem extends ShovelItem implements IWooden, IWood
 
     @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(
-        @Nonnull final EquipmentSlotType equipmentSlot) {
+        @Nonnull final EquipmentSlot equipmentSlot) {
         final Multimap<Attribute, AttributeModifier> attributeModifiers = HashMultimap.create();
-        if (equipmentSlot == EquipmentSlotType.MAINHAND) {
+        if (equipmentSlot == EquipmentSlot.MAINHAND) {
             attributeModifiers.put(Attributes.ATTACK_DAMAGE,
                 new AttributeModifier(BASE_ATTACK_DAMAGE_UUID,
                     "Tool modifier",

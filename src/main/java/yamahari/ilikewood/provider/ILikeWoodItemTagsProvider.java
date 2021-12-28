@@ -1,10 +1,10 @@
 package yamahari.ilikewood.provider;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ItemTagsProvider;
-import net.minecraft.item.Item;
-import net.minecraft.tags.ITag;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
@@ -22,7 +22,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         super(generator, blockTagsProvider, Constants.MOD_ID, existingFileHelper);
     }
 
-    private void registerTag(final ITag.INamedTag<Item> tag, final WoodenBlockType blockType) {
+    private void registerTag(final Tag.Named<Item> tag, final WoodenBlockType blockType) {
         if (blockType.equals(WoodenBlockType.WHITE_BED)) {
             this.tag(tag).add(ILikeWood.BLOCK_ITEM_REGISTRY.getObjects(WoodenBlockType.getBeds()).toArray(Item[]::new));
         } else {
@@ -30,11 +30,11 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         }
     }
 
-    private void registerTag(final ITag.INamedTag<Item> tag, final WoodenItemType itemType) {
+    private void registerTag(final Tag.Named<Item> tag, final WoodenItemType itemType) {
         this.tag(tag).add(ILikeWood.ITEM_REGISTRY.getObjects(itemType).toArray(Item[]::new));
     }
 
-    private void registerTag(final ITag.INamedTag<Item> tag, final WoodenTieredItemType tieredItemType) {
+    private void registerTag(final Tag.Named<Item> tag, final WoodenTieredItemType tieredItemType) {
         this.tag(tag).add(ILikeWood.TIERED_ITEM_REGISTRY.getObjects(tieredItemType).toArray(Item[]::new));
     }
 

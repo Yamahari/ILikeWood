@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:stripped_dark_oak_log"
-  },
-  "result": "ilikewood:dark_oak_panels",
-  "count": 4
-}

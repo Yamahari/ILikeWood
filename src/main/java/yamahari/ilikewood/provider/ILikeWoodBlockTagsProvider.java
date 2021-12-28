@@ -1,10 +1,10 @@
 package yamahari.ilikewood.provider;
 
-import net.minecraft.block.Block;
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
@@ -17,7 +17,7 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         super(generator, Constants.MOD_ID, existingFileHelper);
     }
 
-    private void registerTag(final ITag.INamedTag<Block> tag, final WoodenBlockType blockType) {
+    private void registerTag(final Tag.Named<Block> tag, final WoodenBlockType blockType) {
         if (blockType.equals(WoodenBlockType.WHITE_BED)) {
             this.tag(tag).add(ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.getBeds()).toArray(Block[]::new));
         } else {
@@ -53,6 +53,10 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         registerTag(BlockTags.PIGLIN_REPELLENTS, WoodenBlockType.SOUL_TORCH);
         registerTag(ILikeWoodBlockTags.WALL_SOUL_TORCHES, WoodenBlockType.WALL_SOUL_TORCH);
         registerTag(BlockTags.PIGLIN_REPELLENTS, WoodenBlockType.WALL_SOUL_TORCH);
+
+        registerTag(BlockTags.MINEABLE_WITH_AXE, WoodenBlockType.SAWMILL);
+        // TODO this is no needed?
+        //  registerTag(Tags.Blocks.NEEDS_WOOD_TOOL, WoodenBlockType.SAWMILL);
     }
 
     @Override

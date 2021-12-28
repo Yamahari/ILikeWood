@@ -1,8 +1,8 @@
 package yamahari.ilikewood.data.recipe;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;

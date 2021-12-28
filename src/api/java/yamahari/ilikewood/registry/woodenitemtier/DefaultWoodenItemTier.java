@@ -2,7 +2,7 @@ package yamahari.ilikewood.registry.woodenitemtier;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;

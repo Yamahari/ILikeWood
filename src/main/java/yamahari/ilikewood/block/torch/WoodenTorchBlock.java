@@ -1,15 +1,15 @@
 package yamahari.ilikewood.block.torch;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.TorchBlock;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.TorchBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
@@ -32,13 +32,13 @@ public final class WoodenTorchBlock extends TorchBlock implements IWooden {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final IBlockReader worldIn,
-                               @Nonnull final BlockPos pos, @Nonnull final ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final BlockGetter worldIn,
+                               @Nonnull final BlockPos pos, @Nonnull final CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public void animateTick(@Nonnull final BlockState stateIn, final World worldIn, BlockPos pos,
+    public void animateTick(@Nonnull final BlockState stateIn, final Level worldIn, BlockPos pos,
                             @Nonnull final Random rand) {
         worldIn.addParticle(ParticleTypes.SMOKE,
             (double) pos.getX() + 0.5D,

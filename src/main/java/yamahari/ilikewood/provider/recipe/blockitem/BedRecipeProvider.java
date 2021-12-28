@@ -1,15 +1,15 @@
 package yamahari.ilikewood.provider.recipe.blockitem;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
@@ -28,13 +28,13 @@ public final class BedRecipeProvider extends AbstractBlockItemRecipeProvider {
     }
 
     @Override
-    protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipe(final Block block, @Nonnull final Consumer<FinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
         final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
-        final IItemProvider wool =
+        final ItemLike wool =
             Util.getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "WOOL"), Blocks.class);
-        final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
-        final IItemProvider dye =
+        final ItemLike panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
+        final ItemLike dye =
             Util.getIngredient(Util.toRegistryName(color.toString().toUpperCase(), "DYE"), Items.class);
 
         ShapedRecipeBuilder
@@ -49,7 +49,7 @@ public final class BedRecipeProvider extends AbstractBlockItemRecipeProvider {
 
         if (!color.equals(DyeColor.WHITE)) {
             try {
-                final IItemProvider whiteBed = ILikeWood.getBlock(woodType, WoodenBlockType.WHITE_BED);
+                final ItemLike whiteBed = ILikeWood.getBlock(woodType, WoodenBlockType.WHITE_BED);
                 ShapelessRecipeBuilder
                     .shapeless(block)
                     .requires(whiteBed)
@@ -70,7 +70,7 @@ public final class BedRecipeProvider extends AbstractBlockItemRecipeProvider {
                 .filter(bedBlockType -> !bedBlockType.equals(WoodenBlockType.WHITE_BED))
                 .forEach(bedBlockType -> {
                     try {
-                        final IItemProvider coloredBed = ILikeWood.getBlock(woodType, bedBlockType);
+                        final ItemLike coloredBed = ILikeWood.getBlock(woodType, bedBlockType);
                         ShapelessRecipeBuilder
                             .shapeless(block)
                             .requires(coloredBed)

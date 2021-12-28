@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "ilikewood:spruce_panels"
-  },
-  "result": "ilikewood:spruce_panels_slab",
-  "count": 2
-}

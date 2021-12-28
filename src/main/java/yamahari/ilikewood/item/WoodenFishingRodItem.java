@@ -1,9 +1,11 @@
 package yamahari.ilikewood.item;
 
-import net.minecraft.item.FishingRodItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.FishingRodItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.Nullable;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
@@ -12,7 +14,7 @@ public final class WoodenFishingRodItem extends FishingRodItem implements IWoode
     private final IWoodType woodType;
 
     public WoodenFishingRodItem(final IWoodType woodType) {
-        super((new Item.Properties()).durability(64).tab(ItemGroup.TAB_TOOLS));
+        super((new Item.Properties()).durability(64).tab(CreativeModeTab.TAB_TOOLS));
         this.woodType = woodType;
     }
 
@@ -22,7 +24,7 @@ public final class WoodenFishingRodItem extends FishingRodItem implements IWoode
     }
 
     @Override
-    public int getBurnTime(final ItemStack itemStack) {
+    public int getBurnTime(final ItemStack itemStack, @Nullable final RecipeType<?> recipeType) {
         return this.getWoodType().getProperties(WoodenItemType.FISHING_ROD).getBurnTime();
     }
 }

@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:crimson_stem"
-  },
-  "result": "ilikewood:crimson_post",
-  "count": 2
-}

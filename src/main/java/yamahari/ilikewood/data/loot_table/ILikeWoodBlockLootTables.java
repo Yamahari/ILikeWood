@@ -1,18 +1,18 @@
 package yamahari.ilikewood.data.loot_table;
 
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
-import net.minecraft.block.BedBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.data.loot.BlockLootTables;
-import net.minecraft.item.Items;
-import net.minecraft.loot.ConstantRange;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.conditions.BlockStateProperty;
-import net.minecraft.loot.functions.ExplosionDecay;
-import net.minecraft.state.properties.BedPart;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenSawmillBlock;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class ILikeWoodBlockLootTables extends BlockLootTables {
+public final class ILikeWoodBlockLootTables extends BlockLoot {
     @Nonnull
     @Override
     protected Iterable<Block> getKnownBlocks() {
@@ -35,7 +35,7 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
     protected void addTables() {
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.PANELS_SLAB)
-            .forEach(block -> this.add(block, BlockLootTables::createSlabItemTable));
+            .forEach(block -> this.add(block, BlockLoot::createSlabItemTable));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.PANELS,
@@ -52,12 +52,12 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.BARREL, WoodenBlockType.CHEST, WoodenBlockType.LECTERN))
-            .forEach(block -> this.add(block, BlockLootTables::createNameableBlockEntityTable));
+            .forEach(block -> this.add(block, BlockLoot::createNameableBlockEntityTable));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.BOOKSHELF)
             .forEach(block -> this.add(block,
-                b -> createSingleItemTableWithSilkTouch(b, Items.BOOK, ConstantRange.exactly(3))));
+                b -> createSingleItemTableWithSilkTouch(b, Items.BOOK, ConstantValue.exactly(3))));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.COMPOSTER)
@@ -66,11 +66,11 @@ public final class ILikeWoodBlockLootTables extends BlockLootTables {
                     .lootTable()
                     .withPool(LootPool
                         .lootPool()
-                        .add(ItemLootEntry.lootTableItem(block).apply(ExplosionDecay.explosionDecay())))
+                        .add(LootItem.lootTableItem(block).apply(ApplyExplosionDecay.explosionDecay())))
                     .withPool(LootPool
                         .lootPool()
-                        .add(ItemLootEntry.lootTableItem(Items.BONE_MEAL))
-                        .when(BlockStateProperty
+                        .add(LootItem.lootTableItem(Items.BONE_MEAL))
+                        .when(LootItemBlockStatePropertyCondition
                             .hasBlockStateProperties(b)
                             .setProperties(StatePropertiesPredicate.Builder
                                 .properties()

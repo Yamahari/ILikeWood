@@ -1,29 +1,29 @@
 package yamahari.ilikewood.container;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.WorkbenchContainer;
-import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 
-public final class WoodenWorkBenchContainer extends WorkbenchContainer {
-    public WoodenWorkBenchContainer(final int windowId, final PlayerInventory inventory) {
-        this(windowId, inventory, IWorldPosCallable.NULL);
+public final class WoodenWorkBenchContainer extends CraftingMenu {
+    public WoodenWorkBenchContainer(final int windowId, final Inventory inventory) {
+        this(windowId, inventory, ContainerLevelAccess.NULL);
     }
 
-    public WoodenWorkBenchContainer(final int windowId, final PlayerInventory inventory,
-                                    final IWorldPosCallable callable) {
+    public WoodenWorkBenchContainer(final int windowId, final Inventory inventory,
+                                    final ContainerLevelAccess callable) {
         super(windowId, inventory, callable);
     }
 
     @Override
-    public boolean stillValid(@Nonnull final PlayerEntity player) {
+    public boolean stillValid(@Nonnull final Player player) {
         return this.access.evaluate((world, blockPos) -> {
             final BlockState blockState = world.getBlockState(blockPos);
             return ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.CRAFTING_TABLE).anyMatch(blockState::is) &&
@@ -34,7 +34,7 @@ public final class WoodenWorkBenchContainer extends WorkbenchContainer {
     }
 
     @Override
-    public ContainerType<?> getType() {
+    public MenuType<?> getType() {
         return WoodenContainerTypes.WOODEN_WORK_BENCH.get();
     }
 }

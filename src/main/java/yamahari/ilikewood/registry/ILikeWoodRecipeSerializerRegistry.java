@@ -1,36 +1,41 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.SingleItemRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.data.recipe.WoodenSawmillRecipe;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodRecipeSerializerRegistry {
-    public static final DeferredRegister<IRecipeSerializer<?>> REGISTRY =
+    public static final DeferredRegister<RecipeSerializer<?>> REGISTRY =
         DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Constants.MOD_ID);
 
     static {
-        WoodenRecipeSerializers.SAWMILLING =
-            REGISTRY.register("sawmilling", () -> new SingleItemRecipe.Serializer<>(WoodenSawmillRecipe::new));
+        WoodenRecipeSerializers.SAWMILLING = REGISTRY.register("sawmilling", WoodenSawmillRecipeSerializer::new);
         WoodenRecipeTypes.SAWMILLING = register("sawmilling");
     }
 
     private ILikeWoodRecipeSerializerRegistry() {
     }
 
-    private static <T extends IRecipe<?>> IRecipeType<T> register(final String key) {
+    private static <T extends Recipe<?>> RecipeType<T> register(final String key) {
         return Registry.register(Registry.RECIPE_TYPE,
             new ResourceLocation(Constants.MOD_ID, key),
-            new IRecipeType<T>() {
+            new RecipeType<T>() {
                 public String toString() {
                     return String.format("%s:%s", Constants.MOD_ID, key);
                 }
             });
+    }
+
+    private static class WoodenSawmillRecipeSerializer extends SingleItemRecipe.Serializer<WoodenSawmillRecipe> {
+        public WoodenSawmillRecipeSerializer() {
+            super(WoodenSawmillRecipe::new);
+        }
     }
 }

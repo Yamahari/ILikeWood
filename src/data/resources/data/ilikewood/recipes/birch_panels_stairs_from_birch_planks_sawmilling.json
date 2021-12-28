@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:birch_planks"
-  },
-  "result": "ilikewood:birch_panels_stairs",
-  "count": 1
-}

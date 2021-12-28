@@ -1,11 +1,11 @@
 package yamahari.ilikewood.registry.woodenitemtier;
 
-import net.minecraft.item.IItemTier;
+import net.minecraft.world.item.Tier;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.IWooden;
 
 // TODO Does this really need to extend IWooden??
-public interface IWoodenItemTier extends IItemTier, IWooden {
+public interface IWoodenItemTier extends Tier, IWooden {
     String getModId();
 
     String getName();

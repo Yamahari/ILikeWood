@@ -1,14 +1,17 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
     private final IWoodType woodType;
@@ -19,13 +22,9 @@ public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
     }
 
     @Override
-    public boolean hasTileEntity(final BlockState state) {
-        return true;
-    }
-
-    @Override
-    public TileEntity createTileEntity(final BlockState state, final IBlockReader world) {
-        return WoodenTileEntityTypes.WOODEN_BARREL.get().create();
+    @Nullable
+    public BlockEntity newBlockEntity(@Nonnull final BlockPos blockPos, @Nonnull final BlockState state) {
+        return WoodenTileEntityTypes.WOODEN_BARREL.get().create(blockPos, state);
     }
 
     @Override

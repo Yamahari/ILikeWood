@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "ilikewood:item/stick/axe/warped",
-    "layer1": "ilikewood:item/axe/stone"
-  }
-}

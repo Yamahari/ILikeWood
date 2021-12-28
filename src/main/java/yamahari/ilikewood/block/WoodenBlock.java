@@ -1,6 +1,6 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 

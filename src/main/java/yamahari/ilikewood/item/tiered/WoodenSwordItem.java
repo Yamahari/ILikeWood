@@ -2,11 +2,12 @@ package yamahari.ilikewood.item.tiered;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeType;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
@@ -14,27 +15,28 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class WoodenSwordItem extends SwordItem implements IWooden, IWoodenTieredItem {
     private final IWoodType woodType;
     private final IWoodenItemTier woodenItemTier;
 
     public WoodenSwordItem(final IWoodType woodType, final IWoodenItemTier woodenItemTier) {
-        super(ItemTier.WOOD,
+        super(Tiers.WOOD,
             0,
             0.f,
             woodenItemTier.equals(VanillaWoodenItemTiers.NETHERITE)
             ? (new Item.Properties()
-                   .tab(ItemGroup.TAB_TOOLS)
+                   .tab(CreativeModeTab.TAB_TOOLS)
                    .fireResistant())
-            : (new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
+            : (new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
         this.woodType = woodType;
         this.woodenItemTier = woodenItemTier;
     }
 
     @Nonnull
     @Override
-    public IItemTier getTier() {
+    public Tier getTier() {
         return this.getWoodenItemTier();
     }
 
@@ -59,7 +61,7 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
     }
 
     @Override
-    public int getBurnTime(final ItemStack itemStack) {
+    public int getBurnTime(final ItemStack itemStack, final @Nullable RecipeType<?> recipeType) {
         return this.getWoodenItemTier().getProperties(this.getTieredItemType()).getBurnTime();
     }
 
@@ -75,9 +77,9 @@ public final class WoodenSwordItem extends SwordItem implements IWooden, IWooden
 
     @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(
-        @Nonnull final EquipmentSlotType equipmentSlot) {
+        @Nonnull final EquipmentSlot equipmentSlot) {
         final Multimap<Attribute, AttributeModifier> attributeModifiers = HashMultimap.create();
-        if (equipmentSlot == EquipmentSlotType.MAINHAND) {
+        if (equipmentSlot == EquipmentSlot.MAINHAND) {
             attributeModifiers.put(Attributes.ATTACK_DAMAGE,
                 new AttributeModifier(BASE_ATTACK_DAMAGE_UUID,
                     "Weapon modifier",

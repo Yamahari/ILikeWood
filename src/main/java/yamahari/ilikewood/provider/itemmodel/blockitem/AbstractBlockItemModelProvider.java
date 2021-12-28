@@ -1,7 +1,7 @@
 package yamahari.ilikewood.provider.itemmodel.blockitem;
 
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;

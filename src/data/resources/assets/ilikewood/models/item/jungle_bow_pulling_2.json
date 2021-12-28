@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:item/jungle_bow",
-  "textures": {
-    "layer0": "ilikewood:item/bow/pulling/2/jungle"
-  }
-}

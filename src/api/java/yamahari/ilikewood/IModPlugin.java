@@ -1,8 +1,8 @@
 package yamahari.ilikewood;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import yamahari.ilikewood.registry.IWoodenObjectRegistry;
 import yamahari.ilikewood.registry.IWoodenTieredItemRegistry;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;

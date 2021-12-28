@@ -1,9 +1,11 @@
 package yamahari.ilikewood.item;
 
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.Nullable;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
@@ -12,7 +14,7 @@ public final class WoodenCrossbowItem extends CrossbowItem implements IWooden {
     private final IWoodType woodType;
 
     public WoodenCrossbowItem(final IWoodType woodType) {
-        super(new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_COMBAT).durability(326));
+        super(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT).durability(326));
         this.woodType = woodType;
     }
 
@@ -27,7 +29,7 @@ public final class WoodenCrossbowItem extends CrossbowItem implements IWooden {
     }
 
     @Override
-    public int getBurnTime(final ItemStack itemStack) {
+    public int getBurnTime(final ItemStack itemStack, @Nullable final RecipeType<?> recipeType) {
         return this.getWoodType().getProperties(WoodenItemType.CROSSBOW).getBurnTime();
     }
 }

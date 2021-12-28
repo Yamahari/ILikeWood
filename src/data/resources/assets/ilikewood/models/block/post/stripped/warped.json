@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:block/post/template",
-  "textures": {
-    "wall": "minecraft:block/stripped_warped_stem"
-  }
-}

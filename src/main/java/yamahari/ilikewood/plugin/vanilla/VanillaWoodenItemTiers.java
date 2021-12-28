@@ -1,7 +1,7 @@
 package yamahari.ilikewood.plugin.vanilla;
 
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodenitemtier.DefaultWoodenItemTier;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;

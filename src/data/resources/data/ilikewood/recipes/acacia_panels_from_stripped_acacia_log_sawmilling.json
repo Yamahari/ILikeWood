@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:stripped_acacia_log"
-  },
-  "result": "ilikewood:acacia_panels",
-  "count": 4
-}

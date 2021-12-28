@@ -13,12 +13,13 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
-version = '1.16.5-6.3.0.0'
+version = '1.18.1-7.0.0.0'
 group = 'yamahari.ilikewood'
 archivesBaseName = 'ilikewood'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = JavaVersion.VERSION_1_8 // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets {
     main {
@@ -41,15 +42,11 @@ sourceSets {
 }
 
 configurations {
-//apiImplementation.extendsFrom(implementation)
-//    apiCompile.extendsFrom(compile)
-//    apiCompileOnly.extendsFrom(compileOnly)
-//    apiRuntimeOnly.extendsFrom(runtimeOnly)
     apiImplementation.extendsFrom(minecraft)
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
+    mappings channel: 'official', version: '1.18.1'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -116,23 +113,10 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.5'
 
-    compileOnly fg.deobf('mezz.jei:jei-1.16.5:7.+:api')
-    runtimeOnly fg.deobf('mezz.jei:jei-1.16.5:7.+')
-
-    //runtimeOnly fg.deobf('build.libs:cofh_core:1.16.3-1.1.6')
-    //runtimeOnly fg.deobf('build.libs:thermal_foundation:1.16.3-1.1.6')
-    //runtimeOnly fg.deobf('build.libs:thermal_expansion:1.16.3-1.1.6')
-
-    // minecolonies-0.14.73-ALPHA-universal
-    //runtimeOnly fg.deobf('build.libs:minecolonies:0.14.73-ALPHA:universal')
-    // structurize-0.13.148-ALPHA-universal
-    //runtimeOnly fg.deobf('build.libs:structurize:0.13.148-ALPHA:universal')
-    // ilikewoodxbiomesoplenty-1.16.5-6.2.2.0
-    //runtimeOnly fg.deobf('build.libs:ilikewoodxbiomesoplenty:1.16.5-6.2.2.0')
-    // BiomesOPlenty-1.16.4-13.0.0.432-universal
-    //runtimeOnly fg.deobf('build.libs:BiomesOPlenty:1.16.4-13.0.0.432:universal')
+    compileOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.47:api')
+    runtimeOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.47')
 
     implementation sourceSets.api.output
 }

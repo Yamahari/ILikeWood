@@ -1,11 +1,11 @@
 package yamahari.ilikewood.provider.recipe.item;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
@@ -21,9 +21,9 @@ public final class CrossbowRecipeProvider extends AbstractItemRecipeProvider {
     }
 
     @Override
-    protected void registerRecipe(final Item item, @Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipe(final Item item, @Nonnull final Consumer<FinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) item).getWoodType();
-        final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
+        final ItemLike stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
         ShapedRecipeBuilder
             .shaped(item)

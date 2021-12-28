@@ -1,25 +1,25 @@
 package yamahari.ilikewood.entity;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.Direction;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import net.minecraftforge.network.NetworkHooks;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -28,27 +28,29 @@ import yamahari.ilikewood.util.IWooden;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, IEntityAdditionalSpawnData {
-    private static final DataParameter<ItemStack> ITEM =
-        EntityDataManager.defineId(WoodenItemFrameEntity.class, DataSerializers.ITEM_STACK);
-    private static final DataParameter<Integer> ROTATION =
-        EntityDataManager.defineId(WoodenItemFrameEntity.class, DataSerializers.INT);
+public class WoodenItemFrameEntity extends ItemFrame implements IWooden, IEntityAdditionalSpawnData {
+    private static final EntityDataAccessor<ItemStack> ITEM =
+        SynchedEntityData.defineId(WoodenItemFrameEntity.class, EntityDataSerializers.ITEM_STACK);
+    private static final EntityDataAccessor<Integer> ROTATION =
+        SynchedEntityData.defineId(WoodenItemFrameEntity.class, EntityDataSerializers.INT);
     private final IWoodType woodType;
-    private final LazyValue<Item> drop;
+    private final LazyLoadedValue<Item> drop;
 
-    public WoodenItemFrameEntity(final IWoodType woodType, final EntityType<? extends ItemFrameEntity> entityType,
-                                 final World world) {
+    public WoodenItemFrameEntity(final IWoodType woodType, final EntityType<? extends ItemFrame> entityType,
+                                 final Level world) {
         super(entityType, world);
         this.woodType = woodType;
-        this.drop = new LazyValue<>(ILikeWood.ITEM_REGISTRY.getRegistryObject(woodType, WoodenItemType.ITEM_FRAME));
+        this.drop =
+            new LazyLoadedValue<>(ILikeWood.ITEM_REGISTRY.getRegistryObject(woodType, WoodenItemType.ITEM_FRAME));
     }
 
-    public WoodenItemFrameEntity(final IWoodType woodType, final EntityType<? extends ItemFrameEntity> entityType,
-                                 final World world, final BlockPos blockPos, final Direction direction) {
+    public WoodenItemFrameEntity(final IWoodType woodType, final EntityType<? extends ItemFrame> entityType,
+                                 final Level world, final BlockPos blockPos, final Direction direction) {
         super(entityType, world);
         this.woodType = woodType;
         this.pos = blockPos;
-        this.drop = new LazyValue<>(ILikeWood.ITEM_REGISTRY.getRegistryObject(woodType, WoodenItemType.ITEM_FRAME));
+        this.drop =
+            new LazyLoadedValue<>(ILikeWood.ITEM_REGISTRY.getRegistryObject(woodType, WoodenItemType.ITEM_FRAME));
         this.setDirection(direction);
     }
 
@@ -83,7 +85,7 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
     }
 
     @Override
-    public void onSyncedDataUpdated(final DataParameter<?> key) {
+    public void onSyncedDataUpdated(final EntityDataAccessor<?> key) {
         if (key.equals(ITEM)) {
             ItemStack itemstack = this.getItem();
             if (!itemstack.isEmpty() && itemstack.getFrame() != this) {
@@ -102,9 +104,9 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
                     this.removeFramedMap(itemstack);
                 }
             } else {
-                if (entityIn instanceof PlayerEntity) {
-                    PlayerEntity playerentity = (PlayerEntity) entityIn;
-                    if (playerentity.abilities.instabuild) {
+                if (entityIn instanceof Player) {
+                    Player playerentity = (Player) entityIn;
+                    if (playerentity.getAbilities().instabuild) {
                         this.removeFramedMap(itemstack);
                         return;
                     }
@@ -139,18 +141,18 @@ public class WoodenItemFrameEntity extends ItemFrameEntity implements IWooden, I
 
     @Nonnull
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
-    public void writeSpawnData(final PacketBuffer buffer) {
+    public void writeSpawnData(final FriendlyByteBuf buffer) {
         buffer.writeBlockPos(this.pos);
         buffer.writeInt(this.direction.get3DDataValue());
     }
 
     @Override
-    public void readSpawnData(final PacketBuffer additionalData) {
+    public void readSpawnData(final FriendlyByteBuf additionalData) {
         this.pos = additionalData.readBlockPos();
         this.direction = Direction.from3DDataValue(additionalData.readInt());
         this.recalculateBoundingBox();

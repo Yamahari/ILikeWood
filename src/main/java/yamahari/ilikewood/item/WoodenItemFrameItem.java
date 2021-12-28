@@ -1,19 +1,19 @@
 package yamahari.ilikewood.item;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.HangingEntity;
-import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import com.google.common.base.Suppliers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.HangingEntity;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
@@ -21,35 +21,36 @@ import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 public final class WoodenItemFrameItem extends WoodenItem {
-    private final LazyValue<EntityType<? extends ItemFrameEntity>> entityType;
+    private final Supplier<EntityType<? extends ItemFrame>> entityType;
 
-    @SuppressWarnings("unchecked")
     public WoodenItemFrameItem(final IWoodType woodType) {
-        super(woodType, WoodenItemType.ITEM_FRAME, new Item.Properties().tab(ItemGroup.TAB_DECORATIONS));
+        super(woodType, WoodenItemType.ITEM_FRAME, new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS));
+        // noinspection unchecked
         this.entityType =
-            new LazyValue<>(() -> (EntityType<? extends ItemFrameEntity>) ILikeWood.ENTITY_TYPE_REGISTRY.getObject(this.getWoodType(),
+            Suppliers.memoize(() -> (EntityType<? extends ItemFrame>) ILikeWood.ENTITY_TYPE_REGISTRY.getObject(this.getWoodType(),
                 WoodenEntityType.ITEM_FRAME));
     }
 
     @Nonnull
     @Override
-    public ActionResultType useOn(final ItemUseContext context) {
+    public InteractionResult useOn(final UseOnContext context) {
         final BlockPos blockPos = context.getClickedPos();
         final Direction direction = context.getClickedFace();
         final BlockPos offsetPos = blockPos.relative(direction);
-        final PlayerEntity player = context.getPlayer();
+        final Player player = context.getPlayer();
         final ItemStack itemStack = context.getItemInHand();
 
         if (player != null && !this.canPlace(player, direction, itemStack, offsetPos)) {
-            return ActionResultType.FAIL;
+            return InteractionResult.FAIL;
         } else {
-            final World world = context.getLevel();
+            final Level world = context.getLevel();
             final HangingEntity hangingEntity =
                 new WoodenItemFrameEntity(this.getWoodType(), this.entityType.get(), world, offsetPos, direction);
 
-            final CompoundNBT compoundNBT = itemStack.getTag();
+            final CompoundTag compoundNBT = itemStack.getTag();
             if (compoundNBT != null) {
                 EntityType.updateCustomEntityTag(world, player, hangingEntity, compoundNBT);
             }
@@ -61,15 +62,15 @@ public final class WoodenItemFrameItem extends WoodenItem {
                 }
 
                 itemStack.shrink(1);
-                return ActionResultType.sidedSuccess(world.isClientSide);
+                return InteractionResult.sidedSuccess(world.isClientSide);
             } else {
-                return ActionResultType.CONSUME;
+                return InteractionResult.CONSUME;
             }
         }
     }
 
-    private boolean canPlace(final PlayerEntity player, final Direction direction, final ItemStack itemStack,
+    private boolean canPlace(final Player player, final Direction direction, final ItemStack itemStack,
                              final BlockPos blockPos) {
-        return !World.isOutsideBuildHeight(blockPos) && player.mayUseItemAt(blockPos, direction, itemStack);
+        return !player.level.isOutsideBuildHeight(blockPos) && player.mayUseItemAt(blockPos, direction, itemStack);
     }
 }

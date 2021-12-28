@@ -1,8 +1,8 @@
 package yamahari.ilikewood.client;
 
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.state.properties.ChestType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,10 +20,10 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class Atlases {
-    private static final Map<IWoodType, Map<ChestType, RenderMaterial>> CHESTS;
+    private static final Map<IWoodType, Map<ChestType, Material>> CHESTS;
 
     static {
-        final Map<IWoodType, Map<ChestType, RenderMaterial>> chests = new HashMap<>();
+        final Map<IWoodType, Map<ChestType, Material>> chests = new HashMap<>();
         ILikeWood.WOOD_TYPE_REGISTRY
             .getWoodTypes()
             .filter(woodType -> woodType.getBlockTypes().contains(WoodenBlockType.CHEST))
@@ -34,24 +34,24 @@ public final class Atlases {
     private Atlases() {
     }
 
-    private static Map<ChestType, RenderMaterial> makeChestMaterials(final IWoodType woodType) {
-        final EnumMap<ChestType, RenderMaterial> materials = new EnumMap<>(ChestType.class);
+    private static Map<ChestType, Material> makeChestMaterials(final IWoodType woodType) {
+        final EnumMap<ChestType, Material> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
             materials.put(chestType,
-                new RenderMaterial(net.minecraft.client.renderer.Atlases.CHEST_SHEET,
+                new Material(net.minecraft.client.renderer.Sheets.CHEST_SHEET,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toPath("entity", "chest", chestType.getSerializedName(), woodType.getName()))));
         }
         return materials;
     }
 
-    public static Map<ChestType, RenderMaterial> getChestMaterials(final IWoodType woodType) {
+    public static Map<ChestType, Material> getChestMaterials(final IWoodType woodType) {
         return CHESTS.get(woodType);
     }
 
     @SubscribeEvent
     public static void onTextureStitchPre(final TextureStitchEvent.Pre event) {
-        final ResourceLocation atlas = event.getMap().location();
+        final ResourceLocation atlas = event.getAtlas().location();
         CHESTS
             .values()
             .stream()

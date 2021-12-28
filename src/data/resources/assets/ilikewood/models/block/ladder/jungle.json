@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:block/ladder/template",
-  "textures": {
-    "ladder": "ilikewood:block/ladder/jungle"
-  }
-}

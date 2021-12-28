@@ -1,11 +1,11 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.registries.RegistryObject;
 
 // TODO same refactor as for other registries
 public final class WoodenRecipeSerializers {
-    public static RegistryObject<IRecipeSerializer<?>> SAWMILLING;
+    public static RegistryObject<RecipeSerializer<?>> SAWMILLING;
 
     private WoodenRecipeSerializers() {
     }

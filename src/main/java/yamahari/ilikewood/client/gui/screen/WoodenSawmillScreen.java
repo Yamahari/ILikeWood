@@ -1,47 +1,50 @@
 package yamahari.ilikewood.client.gui.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
 import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-// TODO AT Stoncecutter methods and use those instead
-public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer> {
-    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation("textures/gui/container/stonecutter.png");
+public class WoodenSawmillScreen extends AbstractContainerScreen<WoodenSawmillContainer> {
+    private static final ResourceLocation BACKGROUND_TEXTURE =
+        new ResourceLocation("textures/gui/container/stonecutter.png");
     private float sliderProgress;
     private boolean clickedOnScroll;
     private int recipeIndexOffset;
     private boolean hasItemsInInputSlot;
 
-    public WoodenSawmillScreen(final WoodenSawmillContainer container, final PlayerInventory playerInventory, final ITextComponent title) {
+    public WoodenSawmillScreen(final WoodenSawmillContainer container, final Inventory playerInventory,
+                               final Component title) {
         super(container, playerInventory, title);
         container.setInventoryUpdateListener(this::onInventoryUpdate);
         --this.titleLabelY;
     }
 
     @Override
-    public void render(@Nonnull final MatrixStack matrixStack, final int mouseX, final int mouseY, final float partialTicks) {
+    public void render(@Nonnull final PoseStack matrixStack, final int mouseX, final int mouseY,
+                       final float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    protected void renderBg(@Nonnull final MatrixStack matrixStack, final float partialTicks, final int x,
-                            final int y) {
+    protected void renderBg(@Nonnull final PoseStack matrixStack, final float partialTicks, final int x, final int y) {
         this.renderBackground(matrixStack);
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bind(BACKGROUND_TEXTURE);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         int i = this.leftPos;
         int j = this.topPos;
         this.blit(matrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
@@ -55,7 +58,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     @Override
-    protected void renderTooltip(@Nonnull final MatrixStack matrixStack, final int x, final int y) {
+    protected void renderTooltip(@Nonnull final PoseStack matrixStack, final int x, final int y) {
         super.renderTooltip(matrixStack, x, y);
         if (this.hasItemsInInputSlot) {
             int i = this.leftPos + 52;
@@ -75,7 +78,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
 
     }
 
-    private void renderButtons(final MatrixStack matrixStack, final int x, final int y, final int p_238853_4_,
+    private void renderButtons(final PoseStack matrixStack, final int x, final int y, final int p_238853_4_,
                                final int p_238853_5_, final int p_238853_6_) {
         for (int i = this.recipeIndexOffset; i < p_238853_6_ && i < this.menu.getRecipeListSize(); ++i) {
             int j = i - this.recipeIndexOffset;
@@ -124,7 +127,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
                     Minecraft
                         .getInstance()
                         .getSoundManager()
-                        .play(SimpleSound.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+                        .play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
                     this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
                     return true;
                 }
@@ -142,12 +145,13 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
     }
 
     @Override
-    public boolean mouseDragged(final double mouseX, final double mouseY, final int button, final double dragX, final double dragY) {
+    public boolean mouseDragged(final double mouseX, final double mouseY, final int button, final double dragX,
+                                final double dragY) {
         if (this.clickedOnScroll && this.canScroll()) {
             int i = this.topPos + 14;
             int j = i + 54;
             this.sliderProgress = ((float) mouseY - (float) i - 7.5F) / ((float) (j - i) - 15.0F);
-            this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
+            this.sliderProgress = Mth.clamp(this.sliderProgress, 0.0F, 1.0F);
             this.recipeIndexOffset = (int) ((double) (this.sliderProgress * (float) this.getHiddenRows()) + 0.5D) * 4;
             return true;
         } else {
@@ -160,7 +164,7 @@ public class WoodenSawmillScreen extends ContainerScreen<WoodenSawmillContainer>
         if (this.canScroll()) {
             int i = this.getHiddenRows();
             this.sliderProgress = (float) ((double) this.sliderProgress - delta / (double) i);
-            this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
+            this.sliderProgress = Mth.clamp(this.sliderProgress, 0.0F, 1.0F);
             this.recipeIndexOffset = (int) ((double) (this.sliderProgress * (float) i) + 0.5D) * 4;
         }
 

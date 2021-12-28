@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:jungle_log"
-  },
-  "result": "ilikewood:jungle_panels",
-  "count": 4
-}

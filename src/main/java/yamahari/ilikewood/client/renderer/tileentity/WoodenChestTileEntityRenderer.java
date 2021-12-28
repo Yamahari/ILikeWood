@@ -1,10 +1,10 @@
 package yamahari.ilikewood.client.renderer.tileentity;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.tileentity.ChestTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.state.properties.ChestType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.ChestRenderer;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import yamahari.ilikewood.block.WoodenChestBlock;
 import yamahari.ilikewood.client.Atlases;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
@@ -13,15 +13,15 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import javax.annotation.Nonnull;
 
-public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer<WoodenChestTileEntity> {
-    public WoodenChestTileEntityRenderer(final TileEntityRendererDispatcher dispatcher) {
-        super(dispatcher);
+public final class WoodenChestTileEntityRenderer extends ChestRenderer<WoodenChestTileEntity> {
+    public WoodenChestTileEntityRenderer(final BlockEntityRendererProvider.Context context) {
+        super(context);
     }
 
     @Nonnull
     @Override
-    protected RenderMaterial getMaterial(final WoodenChestTileEntity woodenChestTileEntity,
-                                         @Nonnull final ChestType chestType) {
+    protected Material getMaterial(final WoodenChestTileEntity woodenChestTileEntity,
+                                   @Nonnull final ChestType chestType) {
         final IWoodType woodType;
         if (woodenChestTileEntity.hasLevel()) {
             final Block block = woodenChestTileEntity.getBlockState().getBlock();
@@ -30,8 +30,7 @@ public final class WoodenChestTileEntityRenderer extends ChestTileEntityRenderer
         } else {
             woodType = woodenChestTileEntity.getWoodType();
         }
-        return Atlases
-            .getChestMaterials(!woodType.equals(VanillaWoodTypes.DUMMY) ? woodType : VanillaWoodTypes.OAK)
+        return Atlases.getChestMaterials(!woodType.equals(VanillaWoodTypes.DUMMY) ? woodType : VanillaWoodTypes.OAK)
             .get(chestType);
     }
 }

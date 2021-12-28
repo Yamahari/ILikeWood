@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:block/crafting_table/template",
-  "textures": {
-    "planks": "minecraft:block/crimson_planks"
-  }
-}

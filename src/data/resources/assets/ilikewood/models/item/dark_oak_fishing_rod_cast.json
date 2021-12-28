@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:item/dark_oak_fishing_rod",
-  "textures": {
-    "layer0": "ilikewood:item/fishing_rod/cast/dark_oak"
-  }
-}

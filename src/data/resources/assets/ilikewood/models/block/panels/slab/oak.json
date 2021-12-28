@@ -1,6 +1,0 @@
-{
-  "parent": "ilikewood:block/panels/slab/template",
-  "textures": {
-    "planks": "minecraft:block/oak_planks"
-  }
-}

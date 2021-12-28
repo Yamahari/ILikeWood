@@ -1,13 +1,13 @@
 package yamahari.ilikewood.provider.recipe.item.tiered;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.SmithingRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.UpgradeRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
@@ -26,7 +26,7 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void buildShapelessRecipes(@Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void buildCraftingRecipes(@Nonnull final Consumer<FinishedRecipe> consumer) {
         WoodenTieredItemType
             .getAll()
             .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
@@ -36,7 +36,7 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
             .forEach(tieredItem -> this.registerRecipe(tieredItem, consumer));
     }
 
-    private void registerRecipe(final Item item, @Nonnull final Consumer<IFinishedRecipe> consumer) {
+    private void registerRecipe(final Item item, @Nonnull final Consumer<FinishedRecipe> consumer) {
         final IWoodenTieredItem tieredItem = ((IWoodenTieredItem) item);
         final IWoodType woodType = ((IWooden) item).getWoodType();
         try {
@@ -44,7 +44,7 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
                 woodType,
                 tieredItem.getTieredItemType());
 
-            SmithingRecipeBuilder
+            UpgradeRecipeBuilder
                 .smithing(Ingredient.of(item), Ingredient.of(Items.NETHERITE_INGOT), output)
                 .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
                 .save(consumer,

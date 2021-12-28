@@ -1,11 +1,11 @@
 package yamahari.ilikewood.data.recipe;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.SingleItemRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
+import net.minecraft.world.level.Level;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
 import yamahari.ilikewood.registry.WoodenRecipeTypes;
 
@@ -17,7 +17,7 @@ public abstract class AbstractWoodenSawmillRecipe extends SingleItemRecipe {
         super(WoodenRecipeTypes.SAWMILLING, WoodenRecipeSerializers.SAWMILLING.get(), id, group, ingredient, result);
     }
 
-    public final boolean matches(final IInventory inventory, @Nonnull final World world) {
+    public final boolean matches(final Container inventory, @Nonnull final Level world) {
         return this.ingredient.test(inventory.getItem(0));
     }
 

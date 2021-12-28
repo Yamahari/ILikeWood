@@ -1,12 +1,12 @@
 package yamahari.ilikewood.block.torch;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.WallTorchBlock;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
@@ -27,7 +27,7 @@ public final class WoodenWallTorchBlock extends WallTorchBlock implements IWoode
     }
 
     @Override
-    public void animateTick(final BlockState stateIn, final World worldIn, final BlockPos pos,
+    public void animateTick(final BlockState stateIn, final Level worldIn, final BlockPos pos,
                             @Nonnull final Random rand) {
         final Direction direction = stateIn.getValue(FACING);
         final Direction opposite = direction.getOpposite();

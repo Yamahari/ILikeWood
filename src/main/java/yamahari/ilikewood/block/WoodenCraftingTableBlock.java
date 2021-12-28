@@ -1,16 +1,16 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CraftingTableBlock;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CraftingTableBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.container.WoodenWorkBenchContainer;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
@@ -23,23 +23,23 @@ import javax.annotation.Nonnull;
 
 public final class WoodenCraftingTableBlock extends CraftingTableBlock implements IWooden {
     private final IWoodType woodType;
-    private final ITextComponent defaultName;
+    private final Component defaultName;
 
     public WoodenCraftingTableBlock(final IWoodType type) {
         super(Block.Properties.copy(Blocks.CRAFTING_TABLE));
         this.woodType = type;
-        this.defaultName = new TranslationTextComponent(StringUtils.joinWith(".",
+        this.defaultName = new TranslatableComponent(StringUtils.joinWith(".",
             "container",
             Constants.MOD_ID,
             Util.toRegistryName(this.getWoodType().getName(), WoodenBlockType.CRAFTING_TABLE.getName())));
     }
 
     @Override
-    public INamedContainerProvider getMenuProvider(@Nonnull final BlockState blockState, @Nonnull final World world,
-                                                   @Nonnull final BlockPos pos) {
-        return new SimpleNamedContainerProvider((windowId, inventory, player) -> new WoodenWorkBenchContainer(windowId,
+    public MenuProvider getMenuProvider(@Nonnull final BlockState blockState, @Nonnull final Level world,
+                                        @Nonnull final BlockPos pos) {
+        return new SimpleMenuProvider((windowId, inventory, player) -> new WoodenWorkBenchContainer(windowId,
             inventory,
-            IWorldPosCallable.create(world, pos)), this.defaultName);
+            ContainerLevelAccess.create(world, pos)), this.defaultName);
     }
 
     @Override

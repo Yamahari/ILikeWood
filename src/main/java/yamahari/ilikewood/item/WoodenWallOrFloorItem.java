@@ -1,13 +1,13 @@
 package yamahari.ilikewood.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
@@ -24,9 +24,9 @@ public class WoodenWallOrFloorItem extends WoodenBlockItem {
     }
 
     @Override
-    protected BlockState getPlacementState(@Nonnull final BlockItemUseContext context) {
+    protected BlockState getPlacementState(@Nonnull final BlockPlaceContext context) {
         final BlockState state = this.wallBlock.getStateForPlacement(context);
-        final IWorldReader world = context.getLevel();
+        final LevelReader world = context.getLevel();
         final BlockPos pos = context.getClickedPos();
 
         return Arrays
@@ -34,7 +34,7 @@ public class WoodenWallOrFloorItem extends WoodenBlockItem {
             .map(direction -> direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : state)
             .filter(s -> s != null && s.canSurvive(world, pos))
             .findFirst()
-            .filter(s -> world.isUnobstructed(s, pos, ISelectionContext.empty()))
+            .filter(s -> world.isUnobstructed(s, pos, CollisionContext.empty()))
             .orElse(null);
     }
 

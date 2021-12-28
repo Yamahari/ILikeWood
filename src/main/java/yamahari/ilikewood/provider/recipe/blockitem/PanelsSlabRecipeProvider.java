@@ -1,12 +1,12 @@
 package yamahari.ilikewood.provider.recipe.blockitem;
 
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
@@ -27,9 +27,9 @@ public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvi
     }
 
     @Override
-    protected void registerRecipe(final Block block, @Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipe(final Block block, @Nonnull final Consumer<FinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) block).getWoodType();
-        final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
+        final ItemLike panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
             .shaped(block, 6)
@@ -39,8 +39,7 @@ public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvi
             .group(ILikeWoodBlockTags.PANELS_SLABS.getName().getPath())
             .save(consumer);
 
-        sawmillingRecipe(Ingredient.of(panels), block, 2)
-            .unlocks("has_panels", has(panels))
+        sawmillingRecipe(Ingredient.of(panels), block, 2).unlockedBy("has_panels", has(panels))
             .save(consumer,
                 new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(block.getRegistryName().getPath(),
@@ -49,7 +48,7 @@ public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvi
                         WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
 
         if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType)) {
-            final IItemProvider planks =
+            final ItemLike planks =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
             ShapedRecipeBuilder
@@ -63,8 +62,7 @@ public final class PanelsSlabRecipeProvider extends AbstractBlockItemRecipeProvi
                     Constants.MOD_ID + ":" + planks.asItem().getRegistryName().getPath() + "_from_" +
                     block.getRegistryName().getPath());
 
-            sawmillingRecipe(Ingredient.of(planks), block, 2)
-                .unlocks("has_planks", has(planks))
+            sawmillingRecipe(Ingredient.of(planks), block, 2).unlockedBy("has_planks", has(planks))
                 .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(block.getRegistryName().getPath(),

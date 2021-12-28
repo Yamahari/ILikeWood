@@ -1,10 +1,10 @@
 package yamahari.ilikewood.provider.blockstate;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SixWayBlock;
+import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PipeBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
@@ -94,7 +94,7 @@ public abstract class AbstractBlockStateProvider extends BlockStateProvider {
             .condition(WoodenStrippedPostBlock.AXIS, Direction.Axis.Z)
             .end();
 
-        SixWayBlock.PROPERTY_BY_DIRECTION.forEach((direction, property) -> {
+        PipeBlock.PROPERTY_BY_DIRECTION.forEach((direction, property) -> {
             if (direction.getAxis().isHorizontal()) {
                 builder
                     .part()

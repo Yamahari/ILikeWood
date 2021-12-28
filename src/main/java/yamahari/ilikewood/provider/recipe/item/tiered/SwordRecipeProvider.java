@@ -1,11 +1,11 @@
 package yamahari.ilikewood.provider.recipe.item.tiered;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
@@ -23,17 +23,12 @@ public final class SwordRecipeProvider extends AbstractTieredItemRecipeProvider 
     }
 
     @Override
-    protected void registerRecipe(final Item tieredItem, @Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipe(final Item tieredItem, @Nonnull final Consumer<FinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) tieredItem).getWoodType();
         final Ingredient repair = ((IWoodenTieredItem) tieredItem).getWoodenItemTier().getRepairIngredient();
-        final IItemProvider stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
+        final ItemLike stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
-        ShapedRecipeBuilder
-            .shaped(tieredItem)
-            .define('I', stick)
-            .define('#', repair)
-            .pattern("#")
-            .pattern("#")
+        ShapedRecipeBuilder.shaped(tieredItem).define('I', stick).define('#', repair).pattern("#").pattern("#")
             .pattern("I")
             .unlockedBy("has_material", has(repair))
             .group(ILikeWoodItemTags.SWORDS.getName().getPath())

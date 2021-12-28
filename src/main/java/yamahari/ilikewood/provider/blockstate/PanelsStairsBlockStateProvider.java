@@ -1,8 +1,8 @@
 package yamahari.ilikewood.provider.blockstate;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.StairsBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -23,6 +23,6 @@ public final class PanelsStairsBlockStateProvider extends AbstractBlockStateProv
         final ModelFile stairsOuter =
             this.templateWithPlanks(block, "/outer", Util.toPath(ModelProvider.BLOCK_FOLDER, "panels", "stairs"));
 
-        this.stairsBlock((StairsBlock) block, stairs, stairsInner, stairsOuter);
+        this.stairsBlock((StairBlock) block, stairs, stairsInner, stairsOuter);
     }
 }

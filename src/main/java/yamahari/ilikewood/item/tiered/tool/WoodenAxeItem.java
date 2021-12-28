@@ -2,15 +2,14 @@ package yamahari.ilikewood.item.tiered.tool;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
@@ -26,39 +25,27 @@ public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTier
     private final IWoodenItemTier woodenItemTier;
 
     public WoodenAxeItem(final IWoodType woodType, final IWoodenItemTier woodenItemTier) {
-        super(ItemTier.WOOD,
+        super(Tiers.WOOD,
             0.0F,
             0.0F,
             woodenItemTier.equals(VanillaWoodenItemTiers.NETHERITE)
             ? (new Item.Properties()
-                   .tab(ItemGroup.TAB_TOOLS)
+                   .tab(CreativeModeTab.TAB_TOOLS)
                    .fireResistant())
-            : (new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
+            : (new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
         this.woodType = woodType;
         this.woodenItemTier = woodenItemTier;
     }
 
     @Nonnull
     @Override
-    public IItemTier getTier() {
+    public Tier getTier() {
         return this.getWoodenItemTier();
     }
 
     @Override
-    public int getHarvestLevel(@Nonnull final ItemStack stack, @Nonnull final ToolType tool,
-                               @Nullable final PlayerEntity player, @Nullable final BlockState blockState) {
-        return this.getWoodenItemTier().getLevel();
-    }
-
-    @Override
     public float getDestroySpeed(@Nonnull final ItemStack stack, final BlockState state) {
-        final Material material = state.getMaterial();
-        final boolean flag =
-            material != Material.WOOD && material != Material.PLANT && material != Material.REPLACEABLE_PLANT &&
-            material != Material.BAMBOO;
-        return this.getToolTypes(stack).stream().anyMatch(state::isToolEffective) || !flag ? this
-            .getWoodenItemTier()
-            .getSpeed() : 1.0F;
+        return BlockTags.MINEABLE_WITH_AXE.contains(state.getBlock()) ? this.getWoodenItemTier().getSpeed() : 1.0F;
     }
 
     @Override
@@ -82,10 +69,11 @@ public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTier
     }
 
     @Override
-    public int getBurnTime(final ItemStack itemStack) {
+    public int getBurnTime(final ItemStack itemStack, final @Nullable RecipeType<?> recipeType) {
         return this.getWoodenItemTier().getProperties(this.getTieredItemType()).getBurnTime();
     }
 
+    @Override
     public float getAttackDamage() {
         return this.getWoodenItemTier().getAttackDamageBonus() +
                this.getWoodenItemTier().getProperties(this.getTieredItemType()).getAttackDamage();
@@ -95,11 +83,12 @@ public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTier
         return this.getWoodenItemTier().getProperties(this.getTieredItemType()).getAttackSpeed();
     }
 
+    // TODO deprecated, see super method
     @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(
-        @Nonnull final EquipmentSlotType equipmentSlot) {
+        @Nonnull final EquipmentSlot equipmentSlot) {
         final Multimap<Attribute, AttributeModifier> attributeModifiers = HashMultimap.create();
-        if (equipmentSlot == EquipmentSlotType.MAINHAND) {
+        if (equipmentSlot == EquipmentSlot.MAINHAND) {
             attributeModifiers.put(Attributes.ATTACK_DAMAGE,
                 new AttributeModifier(BASE_ATTACK_DAMAGE_UUID,
                     "Tool modifier",

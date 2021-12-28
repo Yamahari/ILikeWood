@@ -1,6 +1,6 @@
 package yamahari.ilikewood.plugin.vanilla.util.resources;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource;
 
 public final class WoodenStrippedLogResource implements IWoodenStrippedLogResource {

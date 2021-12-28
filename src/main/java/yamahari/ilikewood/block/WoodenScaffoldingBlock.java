@@ -1,23 +1,22 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ScaffoldingBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.EntitySelectionContext;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ScaffoldingBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
 import yamahari.ilikewood.item.WoodenScaffoldingItem;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -34,9 +33,9 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         this.woodType = woodType;
     }
 
-    public static int getDistance(final IBlockReader reader, final BlockPos pos) {
-        final BlockPos.Mutable mutable =
-            (new BlockPos.Mutable(pos.getX(), pos.getY(), pos.getZ())).move(Direction.DOWN);
+    public static int getDistance(final BlockGetter reader, final BlockPos pos) {
+        final BlockPos.MutableBlockPos mutable =
+            (new BlockPos.MutableBlockPos(pos.getX(), pos.getY(), pos.getZ())).move(Direction.DOWN);
         final BlockState state = reader.getBlockState(mutable);
         int distance = 7;
         if (state.getBlock() instanceof ScaffoldingBlock) {
@@ -59,27 +58,22 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
 
     @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final IBlockReader reader,
-                               @Nonnull final BlockPos pos, @Nonnull final ISelectionContext context) {
-        final boolean flag;
-        if (context instanceof EntitySelectionContext) {
-            flag = ((EntitySelectionContext) context).heldItem instanceof WoodenScaffoldingItem;
-        } else {
-            flag = ILikeWoodItemTags.SCAFFOLDINGS.getValues().stream().anyMatch(context::isHoldingItem);
+    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final BlockGetter reader,
+                               @Nonnull final BlockPos pos, @Nonnull final CollisionContext context) {
+        if (ILikeWoodItemTags.SCAFFOLDINGS.getValues().stream().anyMatch(context::isHoldingItem)) {
+            return Shapes.block();
         }
-        if (flag) {
-            return VoxelShapes.block();
-        }
+
         return state.getValue(BOTTOM) ? UNSTABLE_SHAPE : STABLE_SHAPE;
     }
 
     @Override
-    public boolean canBeReplaced(@Nonnull final BlockState state, final BlockItemUseContext context) {
+    public boolean canBeReplaced(@Nonnull final BlockState state, final BlockPlaceContext context) {
         return context.getItemInHand().getItem() instanceof WoodenScaffoldingItem;
     }
 
     @Override
-    public void tick(final BlockState state, @Nonnull final ServerWorld world, @Nonnull final BlockPos pos,
+    public void tick(final BlockState state, @Nonnull final ServerLevel world, @Nonnull final BlockPos pos,
                      @Nonnull final Random rand) {
         final int distance = getDistance(world, pos);
         final BlockState blockState =
@@ -100,15 +94,15 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     @Override
-    public boolean canSurvive(@Nonnull final BlockState state, @Nonnull final IWorldReader world,
+    public boolean canSurvive(@Nonnull final BlockState state, @Nonnull final LevelReader world,
                               @Nonnull final BlockPos pos) {
         return getDistance(world, pos) < 7;
     }
 
     @Override
-    public BlockState getStateForPlacement(final BlockItemUseContext context) {
+    public BlockState getStateForPlacement(final BlockPlaceContext context) {
         final BlockPos blockpos = context.getClickedPos();
-        final World world = context.getLevel();
+        final Level world = context.getLevel();
         final int distance = getDistance(world, blockpos);
         return this
             .defaultBlockState()
@@ -118,7 +112,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     @Override
-    public boolean isScaffolding(final BlockState state, final IWorldReader world, final BlockPos pos,
+    public boolean isScaffolding(final BlockState state, final LevelReader world, final BlockPos pos,
                                  final LivingEntity entity) {
         return true;
     }

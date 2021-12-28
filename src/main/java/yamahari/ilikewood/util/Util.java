@@ -1,9 +1,9 @@
 package yamahari.ilikewood.util;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
 
@@ -21,10 +21,10 @@ public final class Util {
         return StringUtils.join(elements, "/");
     }
 
-    public static IItemProvider getIngredient(final String name, final Class<?> objectHolder) {
+    public static ItemLike getIngredient(final String name, final Class<?> objectHolder) {
         try {
             final Field block = objectHolder.getDeclaredField(name);
-            return (IItemProvider) block.get(null);
+            return (ItemLike) block.get(null);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             ILikeWood.LOGGER.error(e.getMessage());
         }
@@ -40,14 +40,14 @@ public final class Util {
             return shape;
         }
 
-        final VoxelShape[] buffer = new VoxelShape[]{shape, VoxelShapes.empty()};
+        final VoxelShape[] buffer = new VoxelShape[]{shape, Shapes.empty()};
 
         final int times = (to.get2DDataValue() - from.get2DDataValue() + 4) % 4;
         for (int i = 0; i < times; i++) {
             buffer[0].forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> buffer[1] =
-                VoxelShapes.or(buffer[1], VoxelShapes.box(1 - maxZ, minY, minX, 1 - minZ, maxY, maxX)));
+                Shapes.or(buffer[1], Shapes.box(1 - maxZ, minY, minX, 1 - minZ, maxY, maxX)));
             buffer[0] = buffer[1];
-            buffer[1] = VoxelShapes.empty();
+            buffer[1] = Shapes.empty();
         }
 
         return buffer[0];

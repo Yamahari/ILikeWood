@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "minecraft:warped_planks"
-  },
-  "result": "ilikewood:warped_panels_stairs",
-  "count": 1
-}

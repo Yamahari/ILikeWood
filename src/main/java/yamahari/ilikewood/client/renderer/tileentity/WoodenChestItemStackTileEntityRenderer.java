@@ -1,26 +1,39 @@
 package yamahari.ilikewood.client.renderer.tileentity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import yamahari.ilikewood.block.WoodenChestBlock;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 
 import javax.annotation.Nonnull;
 
-public final class WoodenChestItemStackTileEntityRenderer extends ItemStackTileEntityRenderer {
+public final class WoodenChestItemStackTileEntityRenderer extends BlockEntityWithoutLevelRenderer {
+    private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     private WoodenChestTileEntity chestTileEntity = null;
 
+    public WoodenChestItemStackTileEntityRenderer() {
+        super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+        this.blockEntityRenderDispatcher = Minecraft.getInstance().getBlockEntityRenderDispatcher();
+    }
+
     @Override
-    public void renderByItem(final ItemStack itemStack, @Nonnull final ItemCameraTransforms.TransformType transformType,
-                             @Nonnull final MatrixStack matrixStack, @Nonnull final IRenderTypeBuffer buffer,
+    public void onResourceManagerReload(@Nonnull final ResourceManager resourceManager) {
+        // Do nothing
+    }
+
+    @Override
+    public void renderByItem(final ItemStack itemStack, @Nonnull final ItemTransforms.TransformType transformType,
+                             @Nonnull final PoseStack matrixStack, @Nonnull final MultiBufferSource buffer,
                              final int combinedLight, final int combinedOverlay) {
         final Item item = itemStack.getItem();
         if (item instanceof BlockItem) {
@@ -28,9 +41,11 @@ public final class WoodenChestItemStackTileEntityRenderer extends ItemStackTileE
             if (block instanceof WoodenChestBlock) {
                 if (this.chestTileEntity == null) {
                     this.chestTileEntity = new WoodenChestTileEntity(((WoodenChestBlock) block).getWoodType(),
-                        WoodenTileEntityTypes.WOODEN_CHEST.get());
+                        BlockPos.ZERO,
+                        block.defaultBlockState());
                 }
-                TileEntityRendererDispatcher.instance.renderItem(this.chestTileEntity, matrixStack,
+                this.blockEntityRenderDispatcher.renderItem(this.chestTileEntity,
+                    matrixStack,
                     buffer,
                     combinedLight,
                     combinedOverlay);

@@ -1,9 +1,0 @@
-{
-  "parent": "ilikewood:block/bed/foot/template",
-  "textures": {
-    "planks": "minecraft:block/warped_planks",
-    "frame": "ilikewood:block/bed/frame/warped",
-    "top": "ilikewood:block/bed/sheets/foot/top/white",
-    "sides": "ilikewood:block/bed/sheets/foot/sides/white"
-  }
-}

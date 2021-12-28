@@ -1,9 +1,9 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
@@ -57,7 +57,9 @@ public final class ILikeWoodItemRegistry extends AbstractILikeWoodObjectRegistry
     private RegistryObject<Item> registerStickItem(final IWoodType woodType) {
         return this.register(woodType,
             WoodenItemType.STICK,
-            () -> new WoodenItem(woodType, WoodenItemType.STICK, new Item.Properties().tab(ItemGroup.TAB_MATERIALS)));
+            () -> new WoodenItem(woodType,
+                WoodenItemType.STICK,
+                new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     }
 
     private RegistryObject<Item> registerBowItem(final IWoodType woodType) {

@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "ilikewood:jungle_panels"
-  },
-  "result": "ilikewood:jungle_stick",
-  "count": 2
-}

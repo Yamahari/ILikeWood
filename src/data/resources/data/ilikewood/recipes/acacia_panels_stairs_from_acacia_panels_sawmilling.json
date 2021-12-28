@@ -1,8 +1,0 @@
-{
-  "type": "ilikewood:sawmilling",
-  "ingredient": {
-    "item": "ilikewood:acacia_panels"
-  },
-  "result": "ilikewood:acacia_panels_stairs",
-  "count": 1
-}

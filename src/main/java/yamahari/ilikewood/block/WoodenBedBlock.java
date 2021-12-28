@@ -1,11 +1,15 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
@@ -70,18 +74,18 @@ public final class WoodenBedBlock extends BedBlock implements IWooden {
     }
 
     @Override
-    public TileEntity newBlockEntity(@Nonnull final IBlockReader reader) {
+    public BlockEntity newBlockEntity(@Nonnull final BlockPos blockPos, @Nonnull final BlockState blockState) {
         return null;
     }
 
     @Nonnull
     @Override
-    public BlockRenderType getRenderShape(@Nonnull final BlockState blockState) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(@Nonnull final BlockState blockState) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public boolean isBed(final BlockState state, final IBlockReader world, final BlockPos pos,
+    public boolean isBed(final BlockState state, final BlockGetter world, final BlockPos pos,
                          @Nullable final Entity player) {
         return true;
     }

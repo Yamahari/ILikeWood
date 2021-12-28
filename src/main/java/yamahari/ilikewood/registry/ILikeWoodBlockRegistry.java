@@ -1,10 +1,10 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.item.DyeColor;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.*;
 import yamahari.ilikewood.block.post.WoodenPostBlock;
@@ -113,7 +113,7 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
     }
 
     private RegistryObject<Block> registerPanelsBlock(final IWoodType woodType) {
-        final AbstractBlock.Properties properties =
+        final BlockBehaviour.Properties properties =
             ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getProperties();
         return this.register(woodType, WoodenBlockType.PANELS, () -> new WoodenBlock(woodType, properties));
     }
@@ -127,7 +127,7 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
     }
 
     private RegistryObject<Block> registerPanelsSlabBlock(final IWoodType woodType) {
-        final AbstractBlock.Properties properties =
+        final BlockBehaviour.Properties properties =
             ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getProperties();
         return this.register(woodType, WoodenBlockType.PANELS_SLAB, () -> new WoodenSlabBlock(woodType, properties));
     }

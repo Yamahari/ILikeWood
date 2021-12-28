@@ -1,10 +1,10 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.WoodenHoeItem;
 import yamahari.ilikewood.item.tiered.WoodenSwordItem;

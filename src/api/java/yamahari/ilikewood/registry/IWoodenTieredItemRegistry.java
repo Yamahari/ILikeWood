@@ -1,7 +1,7 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.registry.woodtype.IWoodType;

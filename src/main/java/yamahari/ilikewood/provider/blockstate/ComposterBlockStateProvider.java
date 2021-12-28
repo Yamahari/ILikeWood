@@ -1,8 +1,8 @@
 package yamahari.ilikewood.provider.blockstate;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.ComposterBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;

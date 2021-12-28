@@ -1,11 +1,11 @@
 package yamahari.ilikewood.registry.resource.resources;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import yamahari.ilikewood.registry.resource.IWoodenResource;
 
 public interface IWoodenPlanksResource extends IWoodenResource {
     ResourceLocation getTexture();
 
-    AbstractBlock.Properties getProperties();
+    BlockBehaviour.Properties getProperties();
 }

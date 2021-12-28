@@ -1,22 +1,17 @@
 package yamahari.ilikewood.container;
 
 import com.google.common.collect.Lists;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.IntReferenceHolder;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
@@ -26,20 +21,13 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public final class WoodenSawmillContainer extends Container {
+public final class WoodenSawmillContainer extends AbstractContainerMenu {
     final Slot inputInventorySlot;
     final Slot outputInventorySlot;
-    private final IWorldPosCallable worldPosCallable;
-    private final IntReferenceHolder selectedRecipe = IntReferenceHolder.standalone();
-    private final World world;
-    private final CraftResultInventory inventory = new CraftResultInventory();
-    private List<AbstractWoodenSawmillRecipe> recipes = Lists.newArrayList();
-
-    private ItemStack itemStackInput = ItemStack.EMPTY;
-    private long lastOnTake;
-    private Runnable inventoryUpdateListener = () -> {
-    };
-    public final IInventory inputInventory = new Inventory(1) {
+    private final ContainerLevelAccess worldPosCallable;
+    private final DataSlot selectedRecipe = DataSlot.standalone();
+    private final Level world;
+    public final Container inputInventory = new SimpleContainer(1) {
         @Override
         public void setChanged() {
             super.setChanged();
@@ -47,13 +35,20 @@ public final class WoodenSawmillContainer extends Container {
             WoodenSawmillContainer.this.inventoryUpdateListener.run();
         }
     };
+    private List<AbstractWoodenSawmillRecipe> recipes = Lists.newArrayList();
 
-    public WoodenSawmillContainer(final int windowId, final PlayerInventory playerInventory) {
-        this(windowId, playerInventory, IWorldPosCallable.NULL);
+    private ItemStack itemStackInput = ItemStack.EMPTY;
+    private long lastOnTake;
+    private Runnable inventoryUpdateListener = () -> {
+    };
+    private final ResultContainer inventory = new ResultContainer();
+
+    public WoodenSawmillContainer(final int windowId, final Inventory playerInventory) {
+        this(windowId, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public WoodenSawmillContainer(final int windowId, final PlayerInventory playerInventory,
-                                  final IWorldPosCallable worldPosCallable) {
+    public WoodenSawmillContainer(final int windowId, final Inventory playerInventory,
+                                  final ContainerLevelAccess worldPosCallable) {
         super(WoodenContainerTypes.WOODEN_SAWMILL.get(), windowId);
         this.worldPosCallable = worldPosCallable;
         this.world = playerInventory.player.level;
@@ -90,7 +85,7 @@ public final class WoodenSawmillContainer extends Container {
     }
 
     @Override
-    public boolean stillValid(@Nonnull final PlayerEntity player) {
+    public boolean stillValid(@Nonnull final Player player) {
         return this.worldPosCallable.evaluate((world, blockPos) -> {
             final BlockState blockState = world.getBlockState(blockPos);
             return ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.SAWMILL).anyMatch(blockState::is) &&
@@ -101,7 +96,7 @@ public final class WoodenSawmillContainer extends Container {
     }
 
     @Override
-    public boolean clickMenuButton(@Nonnull final PlayerEntity playerIn, final int id) {
+    public boolean clickMenuButton(@Nonnull final Player playerIn, final int id) {
         if (this.isIdInRange(id)) {
             this.selectedRecipe.set(id);
             this.setupResultSlot();
@@ -114,7 +109,7 @@ public final class WoodenSawmillContainer extends Container {
     }
 
     @Override
-    public void slotsChanged(@Nonnull final IInventory inventoryIn) {
+    public void slotsChanged(@Nonnull final Container inventoryIn) {
         final ItemStack itemstack = this.inputInventorySlot.getItem();
         if (itemstack.getItem() != this.itemStackInput.getItem()) {
             this.itemStackInput = itemstack.copy();
@@ -122,7 +117,7 @@ public final class WoodenSawmillContainer extends Container {
         }
     }
 
-    private void setupRecipeList(final IInventory inventory, final ItemStack stack) {
+    private void setupRecipeList(final Container inventory, final ItemStack stack) {
         this.recipes.clear();
         this.selectedRecipe.set(-1);
         this.outputInventorySlot.set(ItemStack.EMPTY);
@@ -146,7 +141,7 @@ public final class WoodenSawmillContainer extends Container {
 
     @Nonnull
     @Override
-    public ContainerType<?> getType() {
+    public MenuType<?> getType() {
         return WoodenContainerTypes.WOODEN_SAWMILL.get();
     }
 
@@ -161,7 +156,7 @@ public final class WoodenSawmillContainer extends Container {
 
     @Nonnull
     @Override
-    public ItemStack quickMoveStack(@Nonnull final PlayerEntity playerIn, final int index) {
+    public ItemStack quickMoveStack(@Nonnull final Player playerIn, final int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         final Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
@@ -180,7 +175,7 @@ public final class WoodenSawmillContainer extends Container {
                 }
             } else if (this.world
                 .getRecipeManager()
-                .getRecipeFor(WoodenRecipeTypes.SAWMILLING, new Inventory(stackInSlot), this.world)
+                .getRecipeFor(WoodenRecipeTypes.SAWMILLING, new SimpleContainer(stackInSlot), this.world)
                 .isPresent()) {
                 if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                     return ItemStack.EMPTY;
@@ -210,18 +205,16 @@ public final class WoodenSawmillContainer extends Container {
     }
 
     @Override
-    public void removed(@Nonnull final PlayerEntity playerIn) {
+    public void removed(@Nonnull final Player playerIn) {
         super.removed(playerIn);
         this.inventory.removeItemNoUpdate(1);
-        this.worldPosCallable.execute((world, blockPos) -> this.clearContainer(playerIn,
-            playerIn.level,
-            this.inputInventory));
+        this.worldPosCallable.execute((world, blockPos) -> this.clearContainer(playerIn, this.inputInventory));
     }
 
     private static final class WoodenSawmillContainerOutputSlot extends Slot {
         private final WoodenSawmillContainer container;
 
-        public WoodenSawmillContainerOutputSlot(final IInventory inventoryIn, final int index, final int xPosition,
+        public WoodenSawmillContainerOutputSlot(final Container inventoryIn, final int index, final int xPosition,
                                                 final int yPosition, final WoodenSawmillContainer container) {
             super(inventoryIn, index, xPosition, yPosition);
             this.container = container;
@@ -233,7 +226,7 @@ public final class WoodenSawmillContainer extends Container {
         }
 
         @Override
-        public ItemStack onTake(@Nonnull final PlayerEntity player, final ItemStack stack) {
+        public void onTake(@Nonnull final Player player, final ItemStack stack) {
             stack.onCraftedBy(player.level, player, stack.getCount());
             this.container.inventory.awardUsedRecipes(player);
             ItemStack itemstack = this.container.inputInventorySlot.remove(1);
@@ -247,14 +240,14 @@ public final class WoodenSawmillContainer extends Container {
                     world.playSound(null,
                         blockPos,
                         SoundEvents.UI_STONECUTTER_TAKE_RESULT,
-                        SoundCategory.BLOCKS,
+                        SoundSource.BLOCKS,
                         1.0F,
                         1.0F);
                     this.container.lastOnTake = gameTime;
                 }
 
             });
-            return super.onTake(player, stack);
+            super.onTake(player, stack);
         }
     }
 }

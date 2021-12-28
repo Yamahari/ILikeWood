@@ -1,9 +1,9 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
@@ -37,7 +37,7 @@ public final class ILikeWoodEntityTypeRegistry
         return this.registry.register(name,
             () -> EntityType.Builder.<WoodenItemFrameEntity>of((entityType, world) -> new WoodenItemFrameEntity(woodType,
                 entityType,
-                world), EntityClassification.MISC)
+                world), MobCategory.MISC)
                 .sized(0.5F, 0.5F)
                 .clientTrackingRange(10)
                 .updateInterval(Integer.MAX_VALUE)

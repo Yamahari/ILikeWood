@@ -1,7 +1,7 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
@@ -12,25 +12,25 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodTileEntityTypeRegistry {
-    public static final DeferredRegister<TileEntityType<?>> REGISTRY =
-        DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Constants.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> REGISTRY =
+        DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Constants.MOD_ID);
 
     static {
         // TODO data fixer
         WoodenTileEntityTypes.WOODEN_BARREL = REGISTRY.register("wooden_barrel",
-            () -> TileEntityType.Builder
-                .of(() -> new WoodenBarrelTileEntity(WoodenTileEntityTypes.WOODEN_BARREL.get()),
+            () -> BlockEntityType.Builder
+                .of(WoodenBarrelTileEntity::new,
                     ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.BARREL).toArray(Block[]::new))
                 .build(null));
 
         WoodenTileEntityTypes.WOODEN_CHEST = REGISTRY.register("wooden_chest",
-            () -> TileEntityType.Builder
-                .of(() -> new WoodenChestTileEntity(WoodenTileEntityTypes.WOODEN_CHEST.get()),
+            () -> BlockEntityType.Builder
+                .of(WoodenChestTileEntity::new,
                     ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.CHEST).toArray(Block[]::new))
                 .build(null));
 
         WoodenTileEntityTypes.WOODEN_LECTERN = REGISTRY.register("wooden_lectern",
-            () -> TileEntityType.Builder
+            () -> BlockEntityType.Builder
                 .of(WoodenLecternTileEntity::new,
                     ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.LECTERN).toArray(Block[]::new))
                 .build(null));

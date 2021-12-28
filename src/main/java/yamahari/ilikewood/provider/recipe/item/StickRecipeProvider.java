@@ -1,12 +1,12 @@
 package yamahari.ilikewood.provider.recipe.item;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
@@ -27,9 +27,9 @@ public final class StickRecipeProvider extends AbstractItemRecipeProvider {
     }
 
     @Override
-    protected void registerRecipe(final Item item, @Nonnull final Consumer<IFinishedRecipe> consumer) {
+    protected void registerRecipe(final Item item, @Nonnull final Consumer<FinishedRecipe> consumer) {
         final IWoodType woodType = ((IWooden) item).getWoodType();
-        final IItemProvider panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
+        final ItemLike panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
 
         ShapedRecipeBuilder
             .shaped(item, 4)
@@ -40,8 +40,7 @@ public final class StickRecipeProvider extends AbstractItemRecipeProvider {
             .group(ILikeWoodItemTags.STICKS.getName().getPath())
             .save(consumer);
 
-        sawmillingRecipe(Ingredient.of(panels), item, 2)
-            .unlocks("has_panels", has(panels))
+        sawmillingRecipe(Ingredient.of(panels), item, 2).unlockedBy("has_panels", has(panels))
             .save(consumer,
                 new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(item.getRegistryName().getPath(),
@@ -50,11 +49,10 @@ public final class StickRecipeProvider extends AbstractItemRecipeProvider {
                         WoodenRecipeSerializers.SAWMILLING.get().getRegistryName().getPath())));
 
         if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType)) {
-            final IItemProvider planks =
+            final ItemLike planks =
                 ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getResource());
 
-            sawmillingRecipe(Ingredient.of(planks), item, 2)
-                .unlocks("has_planks", has(planks))
+            sawmillingRecipe(Ingredient.of(planks), item, 2).unlockedBy("has_planks", has(planks))
                 .save(consumer,
                     new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(item.getRegistryName().getPath(),

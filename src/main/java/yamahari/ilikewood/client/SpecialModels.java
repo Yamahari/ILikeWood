@@ -1,9 +1,9 @@
 package yamahari.ilikewood.client;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -52,6 +52,6 @@ public final class SpecialModels {
             .of(ITEM_FRAME_MAP_MODELS.entrySet(), ITEM_FRAME_MODELS.entrySet())
             .flatMap(Collection::stream)
             .map(Map.Entry::getValue)
-            .forEach(ModelLoader::addSpecialModel);
+            .forEach(ForgeModelBakery::addSpecialModel);
     }
 }

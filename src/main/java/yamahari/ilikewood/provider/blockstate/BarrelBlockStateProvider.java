@@ -1,8 +1,8 @@
 package yamahari.ilikewood.provider.blockstate;
 
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;

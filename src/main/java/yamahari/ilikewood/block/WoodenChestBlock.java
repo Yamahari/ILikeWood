@@ -1,16 +1,19 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class WoodenChestBlock extends ChestBlock implements IWooden {
     private final IWoodType woodType;
@@ -18,18 +21,14 @@ public final class WoodenChestBlock extends ChestBlock implements IWooden {
     @SuppressWarnings("unchecked")
     public WoodenChestBlock(final IWoodType woodType) {
         super(Block.Properties.copy(Blocks.CHEST),
-            () -> (TileEntityType<? extends WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get());
+            () -> (BlockEntityType<? extends WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get());
         this.woodType = woodType;
     }
 
     @Override
-    public boolean hasTileEntity(final BlockState state) {
-        return true;
-    }
-
-    @Override
-    public TileEntity createTileEntity(final BlockState state, final IBlockReader world) {
-        return WoodenTileEntityTypes.WOODEN_CHEST.get().create();
+    @Nullable
+    public BlockEntity newBlockEntity(@Nonnull final BlockPos blockPos, @Nonnull final BlockState state) {
+        return WoodenTileEntityTypes.WOODEN_CHEST.get().create(blockPos, state);
     }
 
     @Override

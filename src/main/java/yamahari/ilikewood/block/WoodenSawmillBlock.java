@@ -1,29 +1,36 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
@@ -36,8 +43,6 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Stream;
-
-import static net.minecraftforge.common.util.Constants.BlockFlags.DEFAULT;
 
 public class WoodenSawmillBlock extends WoodenBlock {
     public static final EnumProperty<WoodenSawmillModel> MODEL = EnumProperty.create("model", WoodenSawmillModel.class);
@@ -76,13 +81,13 @@ public class WoodenSawmillBlock extends WoodenBlock {
         final VoxelShape logPile1Right = Block.box(0.0, 3.0, 10.0, 4.0, 7.0, 14.0);
         final VoxelShape logPile2Right = Block.box(0.0, 3.0, 2.0, 4.0, 7.0, 6.0);
 
-        final VoxelShape logPileLeft = VoxelShapes.or(logPile0Left, logPile1Left, logPile2Left, logPile3Left);
-        final VoxelShape logPileRight = VoxelShapes.or(logPile0Right, logPile1Right, logPile2Right);
+        final VoxelShape logPileLeft = Shapes.or(logPile0Left, logPile1Left, logPile2Left, logPile3Left);
+        final VoxelShape logPileRight = Shapes.or(logPile0Right, logPile1Right, logPile2Right);
 
         final VoxelShape bottomLeft =
-            VoxelShapes.or(tableTop, legNW, legSw, crossBeamLeftN, crossBeamLeftS, crossBeamLeftW, logPileLeft);
+            Shapes.or(tableTop, legNW, legSw, crossBeamLeftN, crossBeamLeftS, crossBeamLeftW, logPileLeft);
         final VoxelShape bottomRight =
-            VoxelShapes.or(tableTop, legNe, legSe, crossBeamRightN, crossBeamRightS, crossBeamRightE, logPileRight);
+            Shapes.or(tableTop, legNe, legSe, crossBeamRightN, crossBeamRightS, crossBeamRightE, logPileRight);
         final VoxelShape topLeft = Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
         final VoxelShape topRight = Block.box(0.0, 0.0, 8.0, 16.0, 5.0, 8.0);
 
@@ -101,21 +106,15 @@ public class WoodenSawmillBlock extends WoodenBlock {
         SHAPES = Collections.unmodifiableMap(shapes);
     }
 
-    private final ITextComponent containerName;
+    private final Component containerName;
 
     public WoodenSawmillBlock(final IWoodType woodType) {
-        super(woodType,
-            AbstractBlock.Properties
-                .of(Material.WOOD)
-                .sound(SoundType.WOOD)
-                .strength(2.0F)
-                .harvestLevel(0)
-                .harvestTool(ToolType.AXE));
+        super(woodType, BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F));
         this.registerDefaultState(this
             .defaultBlockState()
             .setValue(MODEL, WoodenSawmillModel.BOTTOM_LEFT)
             .setValue(HORIZONTAL_FACING, Direction.NORTH));
-        this.containerName = new TranslationTextComponent(StringUtils.joinWith(".",
+        this.containerName = new TranslatableComponent(StringUtils.joinWith(".",
             "container",
             Constants.MOD_ID,
             Util.toRegistryName(this.getWoodType().getName(), WoodenBlockType.SAWMILL.getName())));
@@ -139,7 +138,7 @@ public class WoodenSawmillBlock extends WoodenBlock {
     @Nonnull
     @Override
     public BlockState updateShape(final BlockState state, @Nonnull final Direction facing,
-                                  @Nonnull final BlockState facingState, @Nonnull final IWorld world,
+                                  @Nonnull final BlockState facingState, @Nonnull final LevelAccessor world,
                                   @Nonnull final BlockPos currentPos, @Nonnull final BlockPos facingPos) {
         final WoodenSawmillModel model = state.getValue(MODEL);
         if (facing == getDirectionToNext(state.getValue(MODEL), state.getValue(HORIZONTAL_FACING))) {
@@ -152,18 +151,18 @@ public class WoodenSawmillBlock extends WoodenBlock {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(final BlockState state, @Nonnull final IBlockReader worldIn, @Nonnull final BlockPos pos,
-                               @Nonnull final ISelectionContext context) {
+    public VoxelShape getShape(final BlockState state, @Nonnull final BlockGetter worldIn, @Nonnull final BlockPos pos,
+                               @Nonnull final CollisionContext context) {
         return SHAPES.get(state.getValue(MODEL)).get(state.getValue(HORIZONTAL_FACING));
     }
 
     @Override
-    protected void createBlockStateDefinition(final StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(MODEL, HORIZONTAL_FACING);
     }
 
     @Override
-    public void setPlacedBy(final World worldIn, @Nonnull final BlockPos pos, @Nonnull final BlockState state,
+    public void setPlacedBy(final Level worldIn, @Nonnull final BlockPos pos, @Nonnull final BlockState state,
                             final LivingEntity placer, @Nonnull final ItemStack stack) {
         if (!worldIn.isClientSide) {
             final Direction direction = state.getValue(HORIZONTAL_FACING);
@@ -171,16 +170,16 @@ public class WoodenSawmillBlock extends WoodenBlock {
             final BlockPos topLeft = pos.above();
             final BlockPos topRight = bottomRight.above();
 
-            worldIn.setBlock(bottomRight, state.setValue(MODEL, WoodenSawmillModel.BOTTOM_RIGHT), DEFAULT);
-            worldIn.setBlock(topLeft, state.setValue(MODEL, WoodenSawmillModel.TOP_LEFT), DEFAULT);
-            worldIn.setBlock(topRight, state.setValue(MODEL, WoodenSawmillModel.TOP_RIGHT), DEFAULT);
+            worldIn.setBlock(bottomRight, state.setValue(MODEL, WoodenSawmillModel.BOTTOM_RIGHT), Block.UPDATE_ALL);
+            worldIn.setBlock(topLeft, state.setValue(MODEL, WoodenSawmillModel.TOP_LEFT), Block.UPDATE_ALL);
+            worldIn.setBlock(topRight, state.setValue(MODEL, WoodenSawmillModel.TOP_RIGHT), Block.UPDATE_ALL);
             worldIn.blockUpdated(pos, Blocks.AIR);
-            state.updateNeighbourShapes(worldIn, pos, DEFAULT);
+            state.updateNeighbourShapes(worldIn, pos, Block.UPDATE_ALL);
         }
     }
 
     @Override
-    public BlockState getStateForPlacement(final BlockItemUseContext context) {
+    public BlockState getStateForPlacement(final BlockPlaceContext context) {
         final Direction direction = context.getHorizontalDirection();
         final BlockPos bottomLeft = context.getClickedPos();
         final BlockPos bottomRight = bottomLeft.relative(direction.getClockWise());
@@ -197,26 +196,26 @@ public class WoodenSawmillBlock extends WoodenBlock {
 
     @Nonnull
     @Override
-    public ActionResultType use(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos,
-                                @Nonnull final PlayerEntity player, @Nonnull final Hand hand,
-                                @Nonnull final BlockRayTraceResult hit) {
+    public InteractionResult use(@Nonnull final BlockState state, final Level world, @Nonnull final BlockPos pos,
+                                 @Nonnull final Player player, @Nonnull final InteractionHand hand,
+                                 @Nonnull final BlockHitResult hit) {
         if (world.isClientSide) {
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else {
             player.openMenu(state.getMenuProvider(world, pos));
-            return ActionResultType.CONSUME;
+            return InteractionResult.CONSUME;
         }
     }
 
     @Override
-    public INamedContainerProvider getMenuProvider(@Nonnull final BlockState state, @Nonnull final World world,
-                                                   @Nonnull final BlockPos pos) {
-        return new SimpleNamedContainerProvider((id, inventory, player) -> new WoodenSawmillContainer(id,
+    public MenuProvider getMenuProvider(@Nonnull final BlockState state, @Nonnull final Level world,
+                                        @Nonnull final BlockPos pos) {
+        return new SimpleMenuProvider((id, inventory, player) -> new WoodenSawmillContainer(id,
             inventory,
-            IWorldPosCallable.create(world, pos)), containerName);
+            ContainerLevelAccess.create(world, pos)), containerName);
     }
 
-    public enum WoodenSawmillModel implements IStringSerializable {
+    public enum WoodenSawmillModel implements StringRepresentable {
         BOTTOM_LEFT("bottom_left"), BOTTOM_RIGHT("bottom_right"), TOP_LEFT("top_left"), TOP_RIGHT("top_right");
 
         private final String name;

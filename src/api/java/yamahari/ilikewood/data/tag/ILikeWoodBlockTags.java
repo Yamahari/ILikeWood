@@ -1,41 +1,37 @@
 package yamahari.ilikewood.data.tag;
 
-import net.minecraft.block.Block;
-import net.minecraft.tags.ITag.INamedTag;
-import net.minecraft.tags.ITagCollectionSupplier;
-import net.minecraft.tags.TagRegistry;
-import net.minecraft.tags.TagRegistryManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodBlockTags {
-    public static final TagRegistry<Block> COLLECTION =
-        TagRegistryManager.create(new ResourceLocation(Constants.MOD_ID, "block"), ITagCollectionSupplier::getBlocks);
-    public static final INamedTag<Block> PANELS = makeWrapperTag("panels");
-    public static final INamedTag<Block> PANELS_SLABS = makeWrapperTag("panels_slab");
-    public static final INamedTag<Block> PANELS_STAIRS = makeWrapperTag("panels_stairs");
-    public static final INamedTag<Block> BARRELS = makeWrapperTag("barrels");
-    public static final INamedTag<Block> CHESTS = makeWrapperTag("chests");
-    public static final INamedTag<Block> COMPOSTER = makeWrapperTag("composter");
-    public static final INamedTag<Block> BOOKSHELFS = makeWrapperTag("bookshelfs");
-    public static final INamedTag<Block> WALLS = makeWrapperTag("walls");
-    public static final INamedTag<Block> LADDERS = makeWrapperTag("ladders");
-    public static final INamedTag<Block> TORCHES = makeWrapperTag("torches");
-    public static final INamedTag<Block> WALL_TORCHES = makeWrapperTag("wall_torches");
-    public static final INamedTag<Block> CRAFTING_TABLES = makeWrapperTag("crafting_tables");
-    public static final INamedTag<Block> SCAFFOLDINGS = makeWrapperTag("scaffoldings");
-    public static final INamedTag<Block> LECTERNS = makeWrapperTag("lecterns");
-    public static final INamedTag<Block> POSTS = makeWrapperTag("posts");
-    public static final INamedTag<Block> STRIPPED_POSTS = makeWrapperTag("stripped_posts");
-    public static final INamedTag<Block> BEDS = makeWrapperTag("beds");
-    public static final INamedTag<Block> SAWMILLS = makeWrapperTag("sawmills");
-    public static final INamedTag<Block> SOUL_TORCHES = makeWrapperTag("soul_torches");
-    public static final INamedTag<Block> WALL_SOUL_TORCHES = makeWrapperTag("wall_soul_torches");
+    public static final Tags.IOptionalNamedTag<Block> PANELS = createOptional("panels");
+    public static final Tags.IOptionalNamedTag<Block> PANELS_SLABS = createOptional("panels_slab");
+    public static final Tags.IOptionalNamedTag<Block> PANELS_STAIRS = createOptional("panels_stairs");
+    public static final Tags.IOptionalNamedTag<Block> BARRELS = createOptional("barrels");
+    public static final Tags.IOptionalNamedTag<Block> CHESTS = createOptional("chests");
+    public static final Tags.IOptionalNamedTag<Block> COMPOSTER = createOptional("composter");
+    public static final Tags.IOptionalNamedTag<Block> BOOKSHELFS = createOptional("bookshelfs");
+    public static final Tags.IOptionalNamedTag<Block> WALLS = createOptional("walls");
+    public static final Tags.IOptionalNamedTag<Block> LADDERS = createOptional("ladders");
+    public static final Tags.IOptionalNamedTag<Block> TORCHES = createOptional("torches");
+    public static final Tags.IOptionalNamedTag<Block> WALL_TORCHES = createOptional("wall_torches");
+    public static final Tags.IOptionalNamedTag<Block> CRAFTING_TABLES = createOptional("crafting_tables");
+    public static final Tags.IOptionalNamedTag<Block> SCAFFOLDINGS = createOptional("scaffoldings");
+    public static final Tags.IOptionalNamedTag<Block> LECTERNS = createOptional("lecterns");
+    public static final Tags.IOptionalNamedTag<Block> POSTS = createOptional("posts");
+    public static final Tags.IOptionalNamedTag<Block> STRIPPED_POSTS = createOptional("stripped_posts");
+    public static final Tags.IOptionalNamedTag<Block> BEDS = createOptional("beds");
+    public static final Tags.IOptionalNamedTag<Block> SAWMILLS = createOptional("sawmills");
+    public static final Tags.IOptionalNamedTag<Block> SOUL_TORCHES = createOptional("soul_torches");
+    public static final Tags.IOptionalNamedTag<Block> WALL_SOUL_TORCHES = createOptional("wall_soul_torches");
 
     private ILikeWoodBlockTags() {
     }
 
-    private static INamedTag<Block> makeWrapperTag(final String id) {
-        return COLLECTION.createOptional(new ResourceLocation(Constants.MOD_ID, id), null);
+    private static Tags.IOptionalNamedTag<Block> createOptional(final String id) {
+        return BlockTags.createOptional(new ResourceLocation(Constants.MOD_ID, id));
     }
 }

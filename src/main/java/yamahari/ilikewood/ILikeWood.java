@@ -1,7 +1,7 @@
 package yamahari.ilikewood;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -131,9 +131,9 @@ public final class ILikeWood {
             .getAllScanData()
             .stream()
             .flatMap(scanData -> scanData.getAnnotations().stream())
-            .filter(annotationData -> Objects.equals(annotationData.getAnnotationType(),
+            .filter(annotationData -> Objects.equals(annotationData.annotationType(),
                 Type.getType(ILikeWoodPlugin.class)))
-            .map(ModFileScanData.AnnotationData::getMemberName)
+            .map(ModFileScanData.AnnotationData::memberName)
             .collect(Collectors.toList());
 
         for (final String name : names) {

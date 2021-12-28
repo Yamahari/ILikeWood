@@ -1,25 +1,25 @@
 package yamahari.ilikewood.client.renderer.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.model.ModelManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.storage.MapData;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import net.minecraft.world.phys.Vec3;
 import yamahari.ilikewood.client.SpecialModels;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -31,33 +31,33 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     private final Minecraft mc = Minecraft.getInstance();
     private final ItemRenderer itemRenderer;
 
-    public WoodenItemFrameRenderer(final EntityRendererManager renderManagerIn, final ItemRenderer itemRendererIn) {
-        super(renderManagerIn);
+    public WoodenItemFrameRenderer(final EntityRendererProvider.Context context, final ItemRenderer itemRendererIn) {
+        super(context);
         this.itemRenderer = itemRendererIn;
     }
 
     @Override
     public void render(@Nonnull final WoodenItemFrameEntity itemFrame, final float entityYaw, final float partialTicks,
-                       @Nonnull final MatrixStack matrixStackIn, @Nonnull final IRenderTypeBuffer bufferIn,
+                       @Nonnull final PoseStack matrixStackIn, @Nonnull final MultiBufferSource bufferIn,
                        final int packedLightIn) {
         super.render(itemFrame, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pushPose();
         final Direction direction = itemFrame.getDirection();
-        final Vector3d renderOffset = this.getRenderOffset(itemFrame, partialTicks);
+        final Vec3 renderOffset = this.getRenderOffset(itemFrame, partialTicks);
         matrixStackIn.translate(-renderOffset.x(), -renderOffset.y(), -renderOffset.z());
         final double d0 = 0.46875D;
         matrixStackIn.translate((double) direction.getStepX() * d0,
             (double) direction.getStepY() * d0,
             (double) direction.getStepZ() * d0);
-        matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(itemFrame.xRot));
-        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180.0F - itemFrame.yRot));
+        matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(itemFrame.getXRot()));
+        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180.0F - itemFrame.getYRot()));
         final boolean invisible = itemFrame.isInvisible();
         final ItemStack displayedItem = itemFrame.getItem();
         if (!invisible) {
-            final BlockRendererDispatcher dispatcher = this.mc.getBlockRenderer();
+            final BlockRenderDispatcher dispatcher = this.mc.getBlockRenderer();
             final ModelManager manager = dispatcher.getBlockModelShaper().getModelManager();
             final IWoodType woodType = ((IWooden) itemFrame).getWoodType();
-            final ResourceLocation location = displayedItem.getItem() instanceof FilledMapItem
+            final ResourceLocation location = displayedItem.getItem() instanceof MapItem
                                               ? SpecialModels.ITEM_FRAME_MAP_MODELS.get(woodType)
                                               : SpecialModels.ITEM_FRAME_MODELS.get(woodType);
             matrixStackIn.pushPose();
@@ -65,7 +65,7 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
             dispatcher
                 .getModelRenderer()
                 .renderModel(matrixStackIn.last(),
-                    bufferIn.getBuffer(Atlases.solidBlockSheet()),
+                    bufferIn.getBuffer(Sheets.solidBlockSheet()),
                     null,
                     manager.getModel(location),
                     1.0F,
@@ -77,7 +77,7 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
         }
 
         if (!displayedItem.isEmpty()) {
-            final MapData mapdata = FilledMapItem.getOrCreateSavedData(displayedItem, itemFrame.level);
+            final MapItemSavedData mapdata = MapItem.getSavedData(displayedItem, itemFrame.level);
             if (mapdata != null) {
                 if (invisible) {
                     matrixStackIn.translate(0.0D, 0.0D, 0.5D);
@@ -90,8 +90,11 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
                 final float f = 0.0078125F;
                 matrixStackIn.scale(f, f, f);
                 matrixStackIn.translate(-64.0D, -64.0D, 0.0D);
+                final Integer mapId = MapItem.getMapId(displayedItem);
                 matrixStackIn.translate(0.0D, 0.0D, -1.0D);
-                this.mc.gameRenderer.getMapRenderer().render(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
+                this.mc.gameRenderer
+                    .getMapRenderer()
+                    .render(matrixStackIn, bufferIn, mapId, mapdata, true, packedLightIn);
             } else {
                 if (direction == Direction.DOWN || direction == Direction.UP) {
                     matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
@@ -106,11 +109,12 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
                 }
                 matrixStackIn.scale(0.5F, 0.5F, 0.5F);
                 this.itemRenderer.renderStatic(displayedItem,
-                    ItemCameraTransforms.TransformType.FIXED,
+                    ItemTransforms.TransformType.FIXED,
                     packedLightIn,
                     OverlayTexture.NO_OVERLAY,
                     matrixStackIn,
-                    bufferIn);
+                    bufferIn,
+                    itemFrame.getId());
             }
         }
         matrixStackIn.popPose();
@@ -118,8 +122,8 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
 
     @Nonnull
     @Override
-    public Vector3d getRenderOffset(final WoodenItemFrameEntity entityIn, final float partialTicks) {
-        return new Vector3d((float) entityIn.getDirection().getStepX() * 0.3F,
+    public Vec3 getRenderOffset(final WoodenItemFrameEntity entityIn, final float partialTicks) {
+        return new Vec3((float) entityIn.getDirection().getStepX() * 0.3F,
             -0.25D,
             (float) entityIn.getDirection().getStepZ() * 0.3F);
     }
@@ -131,7 +135,7 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     @Nonnull
     @Override
     public ResourceLocation getTextureLocation(@Nonnull final WoodenItemFrameEntity entity) {
-        return AtlasTexture.LOCATION_BLOCKS;
+        return TextureAtlas.LOCATION_BLOCKS;
     }
 
     @Override
@@ -147,9 +151,9 @@ public class WoodenItemFrameRenderer extends EntityRenderer<WoodenItemFrameEntit
     }
 
     @Override
-    protected void renderNameTag(@Nonnull final WoodenItemFrameEntity entityIn,
-                                 @Nonnull final ITextComponent displayNameIn, @Nonnull final MatrixStack matrixStackIn,
-                                 @Nonnull final IRenderTypeBuffer bufferIn, final int packedLightIn) {
+    protected void renderNameTag(@Nonnull final WoodenItemFrameEntity entityIn, @Nonnull final Component displayNameIn,
+                                 @Nonnull final PoseStack matrixStackIn, @Nonnull final MultiBufferSource bufferIn,
+                                 final int packedLightIn) {
         super.renderNameTag(entityIn, entityIn.getItem().getDisplayName(), matrixStackIn, bufferIn, packedLightIn);
     }
 }

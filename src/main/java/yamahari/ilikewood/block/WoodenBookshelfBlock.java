@@ -1,10 +1,10 @@
 package yamahari.ilikewood.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 public final class WoodenBookshelfBlock extends WoodenBlock {
@@ -13,7 +13,7 @@ public final class WoodenBookshelfBlock extends WoodenBlock {
     }
 
     @Override
-    public float getEnchantPowerBonus(final BlockState state, final IWorldReader world, final BlockPos pos) {
+    public float getEnchantPowerBonus(final BlockState state, final LevelReader world, final BlockPos pos) {
         return this.getWoodType().getEnchantingPowerBonus();
     }
 }

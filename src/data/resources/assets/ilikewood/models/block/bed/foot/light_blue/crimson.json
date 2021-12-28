@@ -1,9 +1,0 @@
-{
-  "parent": "ilikewood:block/bed/foot/template",
-  "textures": {
-    "planks": "minecraft:block/crimson_planks",
-    "frame": "ilikewood:block/bed/frame/crimson",
-    "top": "ilikewood:block/bed/sheets/foot/top/light_blue",
-    "sides": "ilikewood:block/bed/sheets/foot/sides/light_blue"
-  }
-}
