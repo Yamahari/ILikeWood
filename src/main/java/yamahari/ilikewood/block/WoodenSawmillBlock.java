@@ -166,7 +166,7 @@ public class WoodenSawmillBlock extends WoodenBlock {
                             final LivingEntity placer, @Nonnull final ItemStack stack) {
         if (!worldIn.isClientSide) {
             final Direction direction = state.getValue(HORIZONTAL_FACING);
-            final BlockPos bottomRight = pos.relative(direction.getCounterClockWise());
+            final BlockPos bottomRight = pos.relative(direction.getClockWise());
             final BlockPos topLeft = pos.above();
             final BlockPos topRight = bottomRight.above();
 
