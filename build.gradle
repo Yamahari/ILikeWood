@@ -15,7 +15,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'java'
 apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
-version = '1.18.1-7.0.0.0'
+version = '1.18.1-7.0.0.1'
 group = 'yamahari.ilikewood'
 archivesBaseName = 'ilikewood'
 
