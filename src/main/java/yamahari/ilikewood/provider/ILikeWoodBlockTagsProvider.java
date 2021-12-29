@@ -29,8 +29,6 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
     protected void addTags() {
         registerTag(ILikeWoodBlockTags.BARRELS, WoodenBlockType.BARREL);
         registerTag(ILikeWoodBlockTags.CHESTS, WoodenBlockType.CHEST);
-        registerTag(Tags.Blocks.CHESTS, WoodenBlockType.CHEST);
-        registerTag(Tags.Blocks.CHESTS_WOODEN, WoodenBlockType.CHEST);
         registerTag(ILikeWoodBlockTags.COMPOSTER, WoodenBlockType.COMPOSTER);
         registerTag(ILikeWoodBlockTags.BOOKSHELFS, WoodenBlockType.BOOKSHELF);
         registerTag(ILikeWoodBlockTags.PANELS_SLABS, WoodenBlockType.PANELS_SLAB);
@@ -39,24 +37,49 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         registerTag(ILikeWoodBlockTags.POSTS, WoodenBlockType.POST);
         registerTag(ILikeWoodBlockTags.STRIPPED_POSTS, WoodenBlockType.STRIPPED_POST);
         registerTag(ILikeWoodBlockTags.WALLS, WoodenBlockType.WALL);
-        registerTag(BlockTags.WALLS, WoodenBlockType.WALL);
         registerTag(ILikeWoodBlockTags.LADDERS, WoodenBlockType.LADDER);
-        registerTag(BlockTags.CLIMBABLE, WoodenBlockType.LADDER);
         registerTag(ILikeWoodBlockTags.TORCHES, WoodenBlockType.TORCH);
         registerTag(ILikeWoodBlockTags.WALL_TORCHES, WoodenBlockType.WALL_TORCH);
         registerTag(ILikeWoodBlockTags.CRAFTING_TABLES, WoodenBlockType.CRAFTING_TABLE);
         registerTag(ILikeWoodBlockTags.SCAFFOLDINGS, WoodenBlockType.SCAFFOLDING);
-        registerTag(BlockTags.CLIMBABLE, WoodenBlockType.SCAFFOLDING);
+        registerTag(ILikeWoodBlockTags.LECTERNS, WoodenBlockType.LECTERN);
         registerTag(ILikeWoodBlockTags.BEDS, WoodenBlockType.WHITE_BED);
         registerTag(ILikeWoodBlockTags.SAWMILLS, WoodenBlockType.SAWMILL);
         registerTag(ILikeWoodBlockTags.SOUL_TORCHES, WoodenBlockType.SOUL_TORCH);
-        registerTag(BlockTags.PIGLIN_REPELLENTS, WoodenBlockType.SOUL_TORCH);
         registerTag(ILikeWoodBlockTags.WALL_SOUL_TORCHES, WoodenBlockType.WALL_SOUL_TORCH);
-        registerTag(BlockTags.PIGLIN_REPELLENTS, WoodenBlockType.WALL_SOUL_TORCH);
 
-        registerTag(BlockTags.MINEABLE_WITH_AXE, WoodenBlockType.SAWMILL);
-        // TODO this is no needed?
-        //  registerTag(Tags.Blocks.NEEDS_WOOD_TOOL, WoodenBlockType.SAWMILL);
+        this.tag(Tags.Blocks.CHESTS).addTag(ILikeWoodBlockTags.CHESTS);
+        this.tag(Tags.Blocks.CHESTS_WOODEN).addTag(ILikeWoodBlockTags.CHESTS);
+
+        this.tag(BlockTags.WALLS).addTag(ILikeWoodBlockTags.WALLS);
+
+        // noinspection unchecked
+        this.tag(BlockTags.CLIMBABLE).addTags(ILikeWoodBlockTags.LADDERS, ILikeWoodBlockTags.SCAFFOLDINGS);
+
+        // noinspection unchecked
+        this
+            .tag(BlockTags.PIGLIN_REPELLENTS)
+            .addTags(ILikeWoodBlockTags.SOUL_TORCHES, ILikeWoodBlockTags.WALL_SOUL_TORCHES);
+
+        // noinspection unchecked
+        this
+            .tag(BlockTags.MINEABLE_WITH_AXE)
+            .addTags(ILikeWoodBlockTags.PANELS,
+                ILikeWoodBlockTags.PANELS_SLABS,
+                ILikeWoodBlockTags.PANELS_STAIRS,
+                ILikeWoodBlockTags.BARRELS,
+                ILikeWoodBlockTags.CHESTS,
+                ILikeWoodBlockTags.COMPOSTER,
+                ILikeWoodBlockTags.BOOKSHELFS,
+                ILikeWoodBlockTags.WALLS,
+                ILikeWoodBlockTags.LADDERS,
+                ILikeWoodBlockTags.CRAFTING_TABLES,
+                ILikeWoodBlockTags.SCAFFOLDINGS,
+                ILikeWoodBlockTags.LECTERNS,
+                ILikeWoodBlockTags.POSTS,
+                ILikeWoodBlockTags.STRIPPED_POSTS,
+                ILikeWoodBlockTags.BEDS,
+                ILikeWoodBlockTags.SAWMILLS);
     }
 
     @Override

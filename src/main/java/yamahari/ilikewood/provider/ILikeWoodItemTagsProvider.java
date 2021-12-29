@@ -42,8 +42,6 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
     protected void addTags() {
         registerTag(ILikeWoodItemTags.BARRELS, WoodenBlockType.BARREL);
         registerTag(ILikeWoodItemTags.CHESTS, WoodenBlockType.CHEST);
-        registerTag(Tags.Items.CHESTS, WoodenBlockType.CHEST);
-        registerTag(Tags.Items.CHESTS_WOODEN, WoodenBlockType.CHEST);
         registerTag(ILikeWoodItemTags.COMPOSTER, WoodenBlockType.COMPOSTER);
         registerTag(ILikeWoodItemTags.BOOKSHELFS, WoodenBlockType.BOOKSHELF);
         registerTag(ILikeWoodItemTags.PANELS_SLABS, WoodenBlockType.PANELS_SLAB);
@@ -53,7 +51,6 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.LADDERS, WoodenBlockType.LADDER);
         registerTag(ILikeWoodItemTags.TORCHES, WoodenBlockType.TORCH);
         registerTag(ILikeWoodItemTags.STICKS, WoodenItemType.STICK);
-        registerTag(Tags.Items.RODS, WoodenItemType.STICK);
         registerTag(ILikeWoodItemTags.CRAFTING_TABLES, WoodenBlockType.CRAFTING_TABLE);
         registerTag(ILikeWoodItemTags.SCAFFOLDINGS, WoodenBlockType.SCAFFOLDING);
         registerTag(ILikeWoodItemTags.LECTERNS, WoodenBlockType.LECTERN);
@@ -66,7 +63,6 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.SAWMILLS, WoodenBlockType.SAWMILL);
         registerTag(ILikeWoodItemTags.FISHING_POLES, WoodenItemType.FISHING_ROD);
         registerTag(ILikeWoodItemTags.SOUL_TORCHES, WoodenBlockType.SOUL_TORCH);
-        registerTag(ItemTags.PIGLIN_REPELLENTS, WoodenBlockType.SOUL_TORCH);
 
         registerTag(ILikeWoodItemTags.AXES, WoodenTieredItemType.AXE);
         registerTag(ILikeWoodItemTags.HOES, WoodenTieredItemType.HOE);
@@ -74,7 +70,15 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.SHOVELS, WoodenTieredItemType.SHOVEL);
         registerTag(ILikeWoodItemTags.SWORDS, WoodenTieredItemType.SWORD);
 
-        this.tag(ItemTags.PIGLIN_LOVED)
+        this.tag(Tags.Items.CHESTS).addTag(ILikeWoodItemTags.CHESTS);
+        this.tag(Tags.Items.CHESTS_WOODEN).addTag(ILikeWoodItemTags.CHESTS);
+
+        this.tag(Tags.Items.RODS).addTag(ILikeWoodItemTags.STICKS);
+
+        this.tag(ItemTags.PIGLIN_REPELLENTS).addTag(ILikeWoodItemTags.SOUL_TORCHES);
+
+        this
+            .tag(ItemTags.PIGLIN_LOVED)
             .add(WoodenTieredItemType
                 .getAll()
                 .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
