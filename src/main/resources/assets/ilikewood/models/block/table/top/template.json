@@ -1,14 +1,15 @@
 {
-  "parent": "block/block",
   "textures": {
-    "planks": "#planks",
-    "particle": "#planks"
+    "log_side": "#log_side",
+    "log_end": "#log_end",
+    "particle": "#log_side"
   },
   "elements": [
     {
+      "name": "top",
       "from": [
         0,
-        8,
+        13,
         0
       ],
       "to": [
@@ -21,44 +22,40 @@
           "uv": [
             0,
             0,
-            8,
-            16
+            16,
+            3
           ],
-          "rotation": 90,
-          "texture": "#planks",
+          "texture": "#log_side",
           "cullface": "north"
         },
         "east": {
           "uv": [
             0,
             0,
-            8,
-            16
+            16,
+            3
           ],
-          "rotation": 90,
-          "texture": "#planks",
+          "texture": "#log_side",
           "cullface": "east"
         },
         "south": {
           "uv": [
             0,
             0,
-            8,
-            16
+            16,
+            3
           ],
-          "rotation": 90,
-          "texture": "#planks",
+          "texture": "#log_side",
           "cullface": "south"
         },
         "west": {
           "uv": [
             0,
             0,
-            8,
-            16
+            16,
+            3
           ],
-          "rotation": 90,
-          "texture": "#planks",
+          "texture": "#log_side",
           "cullface": "west"
         },
         "up": {
@@ -68,8 +65,7 @@
             16,
             16
           ],
-          "rotation": 90,
-          "texture": "#planks",
+          "texture": "#log_end",
           "cullface": "up"
         },
         "down": {
@@ -79,8 +75,7 @@
             16,
             16
           ],
-          "rotation": 90,
-          "texture": "#planks"
+          "texture": "#log_end"
         }
       }
     }

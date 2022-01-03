@@ -8,6 +8,7 @@ import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.registry.objecttype.AbstractWoodenObjectType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,8 @@ public abstract class AbstractILikeWoodObjectRegistry<T extends IForgeRegistryEn
         throws IllegalArgumentException {
         final Map<IWoodType, RegistryObject<T>> objects = this.registryObjects.get(objectType);
         if (objects != null) {
-            final RegistryObject<T> registryObject = objects.get(woodType);
+            final RegistryObject<T> registryObject =
+                objectType.variesByWoodType() ? objects.get(woodType) : objects.get(Util.DUMMY_WOOD_TYPE);
             if (registryObject != null) {
                 return registryObject;
             }

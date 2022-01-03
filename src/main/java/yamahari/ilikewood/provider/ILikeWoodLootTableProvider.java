@@ -11,6 +11,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import yamahari.ilikewood.data.loot_table.ILikeWoodBlockLootTables;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -25,13 +26,15 @@ public final class ILikeWoodLootTableProvider extends LootTableProvider {
         super(generator);
     }
 
+    @Nonnull
     @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
-        return lootTables;
+        return this.lootTables;
     }
 
     @Override
-    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
+    protected void validate(@Nonnull final Map<ResourceLocation, LootTable> map,
+                            @Nonnull final ValidationContext context) {
         // TODO
     }
 

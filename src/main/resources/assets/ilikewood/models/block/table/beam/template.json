@@ -1,86 +1,82 @@
 {
-  "parent": "block/block",
   "textures": {
-    "planks": "#planks",
-    "particle": "#planks"
+    "log_end": "#log_end",
+    "stripped_log_side": "#stripped_log_side",
+    "particle": "#stripped_log_side"
   },
   "elements": [
     {
+      "name": "beam",
       "from": [
-        0,
-        8,
-        0
+        0.001,
+        10,
+        0.5
       ],
       "to": [
-        16,
-        16,
-        16
+        15.999,
+        12,
+        1.5
       ],
       "faces": {
         "north": {
           "uv": [
+            4,
             0,
-            0,
-            8,
+            6,
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
-          "cullface": "north"
+          "texture": "#stripped_log_side"
         },
         "east": {
           "uv": [
-            0,
-            0,
             8,
-            16
+            7,
+            9,
+            9
           ],
-          "rotation": 90,
-          "texture": "#planks",
+          "texture": "#log_end",
           "cullface": "east"
         },
         "south": {
           "uv": [
+            4,
             0,
-            0,
-            8,
+            6,
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
-          "cullface": "south"
+          "texture": "#stripped_log_side"
         },
         "west": {
           "uv": [
-            0,
-            0,
+            7,
+            7,
             8,
-            16
+            9
           ],
-          "rotation": 90,
-          "texture": "#planks",
+          "texture": "#log_end",
           "cullface": "west"
         },
         "up": {
           "uv": [
+            14,
             0,
-            0,
-            16,
+            15,
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
-          "cullface": "up"
+          "texture": "#stripped_log_side"
         },
         "down": {
           "uv": [
+            1,
             0,
-            0,
-            16,
+            2,
             16
           ],
           "rotation": 90,
-          "texture": "#planks"
+          "texture": "#stripped_log_side"
         }
       }
     }

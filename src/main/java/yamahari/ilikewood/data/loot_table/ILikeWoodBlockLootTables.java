@@ -47,7 +47,9 @@ public final class ILikeWoodBlockLootTables extends BlockLoot {
                 WoodenBlockType.SCAFFOLDING,
                 WoodenBlockType.POST,
                 WoodenBlockType.STRIPPED_POST,
-                WoodenBlockType.SOUL_TORCH))
+                WoodenBlockType.SOUL_TORCH,
+                WoodenBlockType.CHAIR,
+                WoodenBlockType.TABLE))
             .forEach(this::dropSelf);
 
         ILikeWood.BLOCK_REGISTRY

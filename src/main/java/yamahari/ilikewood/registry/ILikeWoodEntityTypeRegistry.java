@@ -5,6 +5,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.entity.WoodenChairEntity;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
@@ -23,6 +24,11 @@ public final class ILikeWoodEntityTypeRegistry
         super(ForgeRegistries.ENTITIES);
     }
 
+    private void registerChairEntityTypes() {
+        this.registryObjects.put(WoodenEntityType.CHAIR,
+            Collections.singletonMap(Util.DUMMY_WOOD_TYPE, registerChairEntityType()));
+    }
+
     private void registerItemFrameEntityTypes() {
         final Map<IWoodType, RegistryObject<EntityType<?>>> entityTypes = new HashMap<>();
         ILikeWood.WOOD_TYPE_REGISTRY
@@ -33,7 +39,7 @@ public final class ILikeWoodEntityTypeRegistry
     }
 
     private RegistryObject<EntityType<?>> registerItemFrameEntityType(final IWoodType woodType) {
-        final String name = Util.toRegistryName(woodType.getName(), WoodenItemType.ITEM_FRAME.getName());
+        final String name = Util.toRegistryName(woodType.getName(), WoodenEntityType.ITEM_FRAME.getName());
         return this.registry.register(name,
             () -> EntityType.Builder.<WoodenItemFrameEntity>of((entityType, world) -> new WoodenItemFrameEntity(woodType,
                 entityType,
@@ -44,16 +50,24 @@ public final class ILikeWoodEntityTypeRegistry
                 .build(name));
     }
 
+    private RegistryObject<EntityType<?>> registerChairEntityType() {
+        final String name = WoodenEntityType.CHAIR.getName();
+        return this.registry.register(name,
+            () -> EntityType.Builder.of(WoodenChairEntity::new, MobCategory.MISC).sized(0.0F, 0.0F).build(name));
+    }
+
     @Override
     protected void register() {
         registerItemFrameEntityTypes();
+        registerChairEntityTypes();
     }
 
     @Override
     public Stream<RegistryObject<EntityType<?>>> getRegistryObjects(final WoodenEntityType objectType) {
         return ILikeWood.WOOD_TYPE_REGISTRY
             .getWoodTypes()
-            .filter(woodType -> woodType.getItemTypes().contains(WoodenItemType.ITEM_FRAME))
-            .map(woodType -> this.getRegistryObject(woodType, objectType));
+            .filter(woodType -> woodType.getEntityTypes().contains(objectType))
+            .map(woodType -> this.getRegistryObject(woodType, objectType))
+            .distinct();
     }
 }

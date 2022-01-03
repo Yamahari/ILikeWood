@@ -9,10 +9,12 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.client.renderer.entity.WoodenChairEntityRenderer;
 import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
+import yamahari.ilikewood.entity.WoodenChairEntity;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
@@ -34,7 +36,12 @@ public final class RegisterRenderersEventHandler {
         ILikeWood.ENTITY_TYPE_REGISTRY
             .getObjects(WoodenEntityType.ITEM_FRAME)
             .forEach(type -> event.registerEntityRenderer((EntityType<WoodenItemFrameEntity>) type,
-                m -> new WoodenItemFrameRenderer(m, Minecraft.getInstance().getItemRenderer())));
+                context -> new WoodenItemFrameRenderer(context, Minecraft.getInstance().getItemRenderer())));
+
+        ILikeWood.ENTITY_TYPE_REGISTRY
+            .getObjects(WoodenEntityType.CHAIR)
+            .forEach(type -> event.registerEntityRenderer((EntityType<WoodenChairEntity>) type,
+                WoodenChairEntityRenderer::new));
 
     }
 }

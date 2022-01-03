@@ -29,25 +29,27 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
 
     @Override
     protected void register() {
-        registerBlocks(WoodenBlockType.PANELS, this::registerPanelsBlock);
-        registerBlocks(WoodenBlockType.PANELS_SLAB, this::registerPanelsSlabBlock);
-        registerBlocks(WoodenBlockType.PANELS_STAIRS, this::registerPanelsStairsBlock);
-        registerBlocks(WoodenBlockType.BARREL, this::registerBarrelBlock);
-        registerBlocks(WoodenBlockType.BOOKSHELF, this::registerBookshelfBlock);
-        registerBlocks(WoodenBlockType.CHEST, this::registerChestBlock);
-        registerBlocks(WoodenBlockType.COMPOSTER, this::registerComposterBlock);
-        registerBlocks(WoodenBlockType.WALL, this::registerWallBlock);
-        registerBlocks(WoodenBlockType.LADDER, this::registerLadderBlock);
-        registerBlocks(WoodenBlockType.TORCH, this::registerTorchBlock);
-        registerBlocks(WoodenBlockType.WALL_TORCH, this::registerWallTorchBlock);
-        registerBlocks(WoodenBlockType.SOUL_TORCH, this::registerSoulTorchBlock);
-        registerBlocks(WoodenBlockType.WALL_SOUL_TORCH, this::registerWallSoulTorchBlock);
-        registerBlocks(WoodenBlockType.CRAFTING_TABLE, this::registerCraftingTableBlock);
-        registerBlocks(WoodenBlockType.SCAFFOLDING, this::registerScaffoldingBlock);
-        registerBlocks(WoodenBlockType.LECTERN, this::registerLecternBlock);
-        registerBlocks(WoodenBlockType.POST, this::registerPostBlock);
-        registerBlocks(WoodenBlockType.STRIPPED_POST, this::registerStrippedPostBlock);
-        registerBlocks(WoodenBlockType.SAWMILL, this::registerSawmillBlock);
+        this.registerBlocks(WoodenBlockType.PANELS, this::registerPanelsBlock);
+        this.registerBlocks(WoodenBlockType.PANELS_SLAB, this::registerPanelsSlabBlock);
+        this.registerBlocks(WoodenBlockType.PANELS_STAIRS, this::registerPanelsStairsBlock);
+        this.registerBlocks(WoodenBlockType.BARREL, this::registerBarrelBlock);
+        this.registerBlocks(WoodenBlockType.BOOKSHELF, this::registerBookshelfBlock);
+        this.registerBlocks(WoodenBlockType.CHEST, this::registerChestBlock);
+        this.registerBlocks(WoodenBlockType.COMPOSTER, this::registerComposterBlock);
+        this.registerBlocks(WoodenBlockType.WALL, this::registerWallBlock);
+        this.registerBlocks(WoodenBlockType.LADDER, this::registerLadderBlock);
+        this.registerBlocks(WoodenBlockType.TORCH, this::registerTorchBlock);
+        this.registerBlocks(WoodenBlockType.WALL_TORCH, this::registerWallTorchBlock);
+        this.registerBlocks(WoodenBlockType.SOUL_TORCH, this::registerSoulTorchBlock);
+        this.registerBlocks(WoodenBlockType.WALL_SOUL_TORCH, this::registerWallSoulTorchBlock);
+        this.registerBlocks(WoodenBlockType.CRAFTING_TABLE, this::registerCraftingTableBlock);
+        this.registerBlocks(WoodenBlockType.SCAFFOLDING, this::registerScaffoldingBlock);
+        this.registerBlocks(WoodenBlockType.LECTERN, this::registerLecternBlock);
+        this.registerBlocks(WoodenBlockType.POST, this::registerPostBlock);
+        this.registerBlocks(WoodenBlockType.STRIPPED_POST, this::registerStrippedPostBlock);
+        this.registerBlocks(WoodenBlockType.SAWMILL, this::registerSawmillBlock);
+        this.registerBlocks(WoodenBlockType.CHAIR, this::registerChairBlock);
+        this.registerBlocks(WoodenBlockType.TABLE, this::registerTableBlock);
 
         final Map<WoodenBlockType, DyeColor> colors = new HashMap<>();
         colors.put(WoodenBlockType.WHITE_BED, DyeColor.WHITE);
@@ -198,5 +200,13 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
 
     private RegistryObject<Block> registerWallSoulTorchBlock(final IWoodType woodType) {
         return registerWallTorchBlock(WoodenBlockType.SOUL_TORCH, WoodenBlockType.WALL_SOUL_TORCH, woodType);
+    }
+
+    private RegistryObject<Block> registerChairBlock(final IWoodType woodType) {
+        return this.register(woodType, WoodenBlockType.CHAIR, () -> new WoodenChairBlock(woodType));
+    }
+
+    private RegistryObject<Block> registerTableBlock(final IWoodType woodType) {
+        return this.register(woodType, WoodenBlockType.TABLE, () -> new WoodenTableBlock(woodType));
     }
 }

@@ -1,6 +1,7 @@
 package yamahari.ilikewood.registry.woodtype;
 
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 
@@ -24,6 +25,8 @@ public interface IWoodType {
     Set<WoodenBlockType> getBlockTypes();
 
     Set<WoodenItemType> getItemTypes();
+
+    Set<WoodenEntityType> getEntityTypes();
 
     Set<WoodenTieredItemType> getTieredItemTypes();
 

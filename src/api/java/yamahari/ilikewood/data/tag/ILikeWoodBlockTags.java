@@ -27,6 +27,8 @@ public final class ILikeWoodBlockTags {
     public static final Tags.IOptionalNamedTag<Block> SAWMILLS = createOptional("sawmills");
     public static final Tags.IOptionalNamedTag<Block> SOUL_TORCHES = createOptional("soul_torches");
     public static final Tags.IOptionalNamedTag<Block> WALL_SOUL_TORCHES = createOptional("wall_soul_torches");
+    public static final Tags.IOptionalNamedTag<Block> CHAIRS = createOptional("chairs");
+    public static final Tags.IOptionalNamedTag<Block> TABLES = createOptional("tables");
 
     private ILikeWoodBlockTags() {
     }
