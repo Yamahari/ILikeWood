@@ -13,9 +13,8 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
-version = '1.18.1-7.0.0.1'
+version = "${version_mc}-${version_major}.${version_api}.${version_minor}.${version_patch}"
 group = 'yamahari.ilikewood'
 archivesBaseName = 'ilikewood'
 
@@ -46,7 +45,7 @@ configurations {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: "${version_mc}"
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -91,8 +90,6 @@ minecraft {
                 }
             }
         }
-
-
     }
 }
 
@@ -113,12 +110,36 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.5'
+    minecraft "net.minecraftforge:forge:${version_mc}-${version_forge}"
 
-    compileOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.47:api')
-    runtimeOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.47')
+    compileOnly fg.deobf("mezz.jei:jei-${version_mc}:${version_jei}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${version_mc}:${version_jei}")
 
     implementation sourceSets.api.output
+}
+
+def replaceVersions = tasks.register('replaceVersions', Copy) {
+    it.outputs.upToDateWhen { false }
+    it.from(sourceSets.main.resources) {
+        include 'META-INF/mods.toml'
+        expand 'version': version,
+                'version_range_mc': version_range_mc,
+                'version_range_loader':  version_range_loader,
+                'version_range_forge': version_range_forge
+    }
+    it.into "$buildDir/resources/main/"
+}
+
+
+processResources {
+    exclude 'META-INF/mods.toml'
+    configure {
+        finalizedBy replaceVersions
+    }
+}
+
+classes.configure {
+    dependsOn(replaceVersions)
 }
 
 jar {
@@ -133,13 +154,13 @@ jar {
     }
 
     manifest.attributes([
-                "Specification-Title"     : "ilikewood",
-                "Specification-Vendor"    : "yamahari",
-                "Specification-Version"   : "${project.version}",
-                "Implementation-Title"    : "ilikewood",
-                "Implementation-Version"  : "${project.version}",
-                "Implementation-Vendor"   : "yamahari",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Specification-Title"     : "ilikewood",
+            "Specification-Vendor"    : "yamahari",
+            "Specification-Version"   : "${project.version}",
+            "Implementation-Title"    : "ilikewood",
+            "Implementation-Version"  : "${project.version}",
+            "Implementation-Vendor"   : "yamahari",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
     ])
 
     finalizedBy 'reobfJar'
