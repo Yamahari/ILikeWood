@@ -1,6 +1,5 @@
 package yamahari.ilikewood.plugin.vanilla;
 
-import yamahari.ilikewood.plugin.vanilla.util.DummyWoodType;
 import yamahari.ilikewood.registry.woodtype.DefaultWoodType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -8,7 +7,6 @@ import yamahari.ilikewood.util.Constants;
 import java.util.stream.Stream;
 
 public final class VanillaWoodTypes {
-    public static final IWoodType DUMMY = new DummyWoodType();
     public static final IWoodType ACACIA = new DefaultWoodType(Constants.MOD_ID, Constants.ACACIA);
     public static final IWoodType BIRCH = new DefaultWoodType(Constants.MOD_ID, Constants.BIRCH);
     public static final IWoodType CRIMSON = new DefaultWoodType(Constants.MOD_ID, Constants.CRIMSON);

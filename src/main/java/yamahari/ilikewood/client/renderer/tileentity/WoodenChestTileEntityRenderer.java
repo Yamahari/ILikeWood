@@ -10,6 +10,7 @@ import yamahari.ilikewood.client.Atlases;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Util;
 
 import javax.annotation.Nonnull;
 
@@ -26,11 +27,12 @@ public final class WoodenChestTileEntityRenderer extends ChestRenderer<WoodenChe
         if (woodenChestTileEntity.hasLevel()) {
             final Block block = woodenChestTileEntity.getBlockState().getBlock();
             woodType =
-                block instanceof WoodenChestBlock ? ((WoodenChestBlock) block).getWoodType() : VanillaWoodTypes.DUMMY;
+                block instanceof WoodenChestBlock ? ((WoodenChestBlock) block).getWoodType() : Util.DUMMY_WOOD_TYPE;
         } else {
             woodType = woodenChestTileEntity.getWoodType();
         }
-        return Atlases.getChestMaterials(!woodType.equals(VanillaWoodTypes.DUMMY) ? woodType : VanillaWoodTypes.OAK)
+        return Atlases
+            .getChestMaterials(!woodType.equals(Util.DUMMY_WOOD_TYPE) ? woodType : VanillaWoodTypes.OAK)
             .get(chestType);
     }
 }

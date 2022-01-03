@@ -6,6 +6,7 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodenitemtier.DefaultWoodenItemTier;
 import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.Util;
 
 public final class VanillaWoodenItemTiers {
     public static final IWoodenItemTier ACACIA = new DefaultWoodenItemTier(VanillaWoodTypes.ACACIA,
@@ -48,31 +49,31 @@ public final class VanillaWoodenItemTiers {
         Constants.WARPED,
         () -> Ingredient.of(VanillaPlugin.BLOCK_REGISTRY.getObject(VanillaWoodTypes.WARPED, WoodenBlockType.PANELS)));
 
-    public static final IWoodenItemTier STONE = new DefaultWoodenItemTier(VanillaWoodTypes.DUMMY,
+    public static final IWoodenItemTier STONE = new DefaultWoodenItemTier(Util.DUMMY_WOOD_TYPE,
         Constants.MOD_ID,
         Constants.STONE,
         false,
         () -> Ingredient.of(Items.COBBLESTONE));
 
-    public static final IWoodenItemTier IRON = new DefaultWoodenItemTier(VanillaWoodTypes.DUMMY,
+    public static final IWoodenItemTier IRON = new DefaultWoodenItemTier(Util.DUMMY_WOOD_TYPE,
         Constants.MOD_ID,
         Constants.IRON,
         false,
         () -> Ingredient.of(Items.IRON_INGOT));
 
-    public static final IWoodenItemTier DIAMOND = new DefaultWoodenItemTier(VanillaWoodTypes.DUMMY,
+    public static final IWoodenItemTier DIAMOND = new DefaultWoodenItemTier(Util.DUMMY_WOOD_TYPE,
         Constants.MOD_ID,
         Constants.DIAMOND,
         false,
         () -> Ingredient.of(Items.DIAMOND));
 
-    public static final IWoodenItemTier GOLDEN = new DefaultWoodenItemTier(VanillaWoodTypes.DUMMY,
+    public static final IWoodenItemTier GOLDEN = new DefaultWoodenItemTier(Util.DUMMY_WOOD_TYPE,
         Constants.MOD_ID,
         Constants.GOLDEN,
         false,
         () -> Ingredient.of(Items.GOLD_INGOT));
 
-    public static final IWoodenItemTier NETHERITE = new DefaultWoodenItemTier(VanillaWoodTypes.DUMMY,
+    public static final IWoodenItemTier NETHERITE = new DefaultWoodenItemTier(Util.DUMMY_WOOD_TYPE,
         Constants.MOD_ID,
         Constants.NETHERITE,
         false,

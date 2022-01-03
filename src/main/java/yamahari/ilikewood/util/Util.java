@@ -6,10 +6,13 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.lang.reflect.Field;
 
 public final class Util {
+    public static final IWoodType DUMMY_WOOD_TYPE = new DummyWoodType();
+
     private Util() {
     }
 

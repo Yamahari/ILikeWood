@@ -1,10 +1,10 @@
-package yamahari.ilikewood.plugin.vanilla.util;
+package yamahari.ilikewood.util;
 
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
-import yamahari.ilikewood.util.Constants;
 
 import java.util.Set;
 
@@ -36,6 +36,11 @@ public final class DummyWoodType implements IWoodType {
 
     @Override
     public Set<WoodenItemType> getItemTypes() {
+        throw new RuntimeException("");
+    }
+
+    @Override
+    public Set<WoodenEntityType> getEntityTypes() {
         throw new RuntimeException("");
     }
 

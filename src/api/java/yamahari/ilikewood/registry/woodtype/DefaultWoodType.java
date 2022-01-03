@@ -1,6 +1,7 @@
 package yamahari.ilikewood.registry.woodtype;
 
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 
@@ -19,6 +20,8 @@ public final class DefaultWoodType implements IWoodType {
         Collections.unmodifiableSet(WoodenItemType.getAll().collect(Collectors.toSet()));
     public static final Set<WoodenTieredItemType> DEFAULT_TIERED_ITEM_TYPES =
         Collections.unmodifiableSet(WoodenTieredItemType.getAll().collect(Collectors.toSet()));
+    public static final Set<WoodenEntityType> DEFAULT_ENTITY_TYPES =
+        Collections.unmodifiableSet(WoodenEntityType.getAll().collect(Collectors.toSet()));
     public static final Set<WoodenBlockType> DEFAULT_BUILTIN_BLOCK_TYPES = Collections.emptySet();
     public static final Set<WoodenItemType> DEFAULT_BUILTIN_ITEM_TYPES = Collections.emptySet();
     private final String modId;
@@ -52,6 +55,8 @@ public final class DefaultWoodType implements IWoodType {
         properties.put(WoodenBlockType.POST, new Properties(300));
         properties.put(WoodenBlockType.STRIPPED_POST, new Properties(300));
         properties.put(WoodenBlockType.WALL, new Properties(300));
+        properties.put(WoodenBlockType.CHAIR, new Properties(300));
+        properties.put(WoodenBlockType.TABLE, new Properties(300));
         return properties;
     }
 
@@ -93,6 +98,11 @@ public final class DefaultWoodType implements IWoodType {
     @Override
     public Set<WoodenItemType> getItemTypes() {
         return DEFAULT_ITEM_TYPES;
+    }
+
+    @Override
+    public Set<WoodenEntityType> getEntityTypes() {
+        return DEFAULT_ENTITY_TYPES;
     }
 
     @Override

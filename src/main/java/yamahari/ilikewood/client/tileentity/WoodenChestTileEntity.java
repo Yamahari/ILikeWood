@@ -9,17 +9,17 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.block.WoodenChestBlock;
-import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
+import yamahari.ilikewood.util.Util;
 
 public final class WoodenChestTileEntity extends ChestBlockEntity implements IWooden {
     private final IWoodType woodType;
 
     public WoodenChestTileEntity(final BlockPos blockPos, final BlockState blockState) {
-        this(VanillaWoodTypes.DUMMY, blockPos, blockState);
+        this(Util.DUMMY_WOOD_TYPE, blockPos, blockState);
     }
 
     public WoodenChestTileEntity(final IWoodType woodType, final BlockPos blockPos, final BlockState blockState) {
