@@ -9,7 +9,7 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
-public class WallSoulTorchBlockStateProvider extends AbstractBlockStateProvider {
+public final class WallSoulTorchBlockStateProvider extends AbstractBlockStateProvider {
     public WallSoulTorchBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
         super(generator, helper, WoodenBlockType.WALL_SOUL_TORCH);
     }
@@ -18,8 +18,7 @@ public class WallSoulTorchBlockStateProvider extends AbstractBlockStateProvider 
     public void registerStateAndModel(final Block block) {
         final String woodType = ((IWooden) block).getWoodType().getName();
         final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenBlockType.TORCH.getName());
-        final ModelFile template = this
-            .models()
+        final ModelFile template = this.models()
             .withExistingParent(Util.toPath(ModelProvider.BLOCK_FOLDER,
                 WoodenBlockType.SOUL_TORCH.getName(),
                 "wall",

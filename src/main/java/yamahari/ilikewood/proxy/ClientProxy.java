@@ -44,7 +44,8 @@ public final class ClientProxy implements IProxy {
             .getObjects(Stream.of(WoodenBlockType.CRAFTING_TABLE,
                 WoodenBlockType.SAWMILL,
                 WoodenBlockType.CHAIR,
-                WoodenBlockType.TABLE))
+                WoodenBlockType.TABLE,
+                WoodenBlockType.STOOL))
             .forEach(block -> ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutoutMipped()));
 
         MenuScreens.register((MenuType<? extends CraftingMenu>) WoodenContainerTypes.WOODEN_WORK_BENCH.get(),

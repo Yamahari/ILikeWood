@@ -42,6 +42,7 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
         this.registerBlockItems(WoodenBlockType.SCAFFOLDING, this::registerScaffoldingBlockItem);
         this.registerBlockItems(WoodenBlockType.CHAIR, this::registerChairBlockItem);
         this.registerBlockItems(WoodenBlockType.TABLE, this::registerTableBlockItem);
+        this.registerBlockItems(WoodenBlockType.STOOL, this::registerStoolBlockItem);
 
         WoodenBlockType
             .getBeds()
@@ -173,7 +174,8 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
         return this.registry.register(torch.getId().getPath(),
             () -> new WoodenWallOrFloorItem(torchBlockType,
                 torch.get(),
-                wallTorch.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+                wallTorch.get(),
+                new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
     private RegistryObject<Item> registerTorchBlockItem(final IWoodType woodType) {
@@ -190,5 +192,9 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
 
     private RegistryObject<Item> registerTableBlockItem(final IWoodType woodType) {
         return this.registerDecorationBlockItem(woodType, WoodenBlockType.TABLE);
+    }
+
+    private RegistryObject<Item> registerStoolBlockItem(final IWoodType woodType) {
+        return this.registerDecorationBlockItem(woodType, WoodenBlockType.STOOL);
     }
 }

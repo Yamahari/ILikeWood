@@ -60,6 +60,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new SoulTorchRecipeProvider(generator));
             generator.addProvider(new ChairRecipeProvider(generator));
             generator.addProvider(new TableRecipeProvider(generator));
+            generator.addProvider(new StoolRecipeProvider(generator));
 
             generator.addProvider(new ILikeWoodLootTableProvider(generator));
             final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator, helper);
@@ -91,6 +92,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new WallSoulTorchBlockStateProvider(generator, helper));
             generator.addProvider(new ChairBlockStateProvider(generator, helper));
             generator.addProvider(new TableBlockStateProvider(generator, helper));
+            generator.addProvider(new StoolBlockStateProvider(generator, helper));
 
             generator.addProvider(new BarrelBlockItemModelProvider(generator, helper));
             generator.addProvider(new BedBlockItemModelProvider(generator, helper));
@@ -122,6 +124,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new StickItemModelProvider(generator, helper));
             generator.addProvider(new ChairBlockItemModelProvider(generator, helper));
             generator.addProvider(new TableBlockItemModelProvider(generator, helper));
+            generator.addProvider(new StoolBlockItemModelProvider(generator, helper));
 
             generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
         }

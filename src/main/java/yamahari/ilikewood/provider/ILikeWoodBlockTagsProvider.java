@@ -49,9 +49,12 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         registerTag(ILikeWoodBlockTags.WALL_SOUL_TORCHES, WoodenBlockType.WALL_SOUL_TORCH);
         registerTag(ILikeWoodBlockTags.CHAIRS, WoodenBlockType.CHAIR);
         registerTag(ILikeWoodBlockTags.TABLES, WoodenBlockType.TABLE);
+        registerTag(ILikeWoodBlockTags.STOOLS, WoodenBlockType.STOOL);
 
         this.tag(Tags.Blocks.CHESTS).addTag(ILikeWoodBlockTags.CHESTS);
         this.tag(Tags.Blocks.CHESTS_WOODEN).addTag(ILikeWoodBlockTags.CHESTS);
+        this.tag(Tags.Blocks.BARRELS).addTag(ILikeWoodBlockTags.BARRELS);
+        this.tag(Tags.Blocks.BARRELS_WOODEN).addTag(ILikeWoodBlockTags.BARRELS);
 
         this.tag(BlockTags.WALLS).addTag(ILikeWoodBlockTags.WALLS);
 
@@ -83,7 +86,8 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
                 ILikeWoodBlockTags.BEDS,
                 ILikeWoodBlockTags.SAWMILLS,
                 ILikeWoodBlockTags.CHAIRS,
-                ILikeWoodBlockTags.TABLES);
+                ILikeWoodBlockTags.TABLES,
+                ILikeWoodBlockTags.STOOLS);
     }
 
     @Override

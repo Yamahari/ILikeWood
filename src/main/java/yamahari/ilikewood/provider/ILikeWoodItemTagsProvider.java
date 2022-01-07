@@ -65,6 +65,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
         registerTag(ILikeWoodItemTags.SOUL_TORCHES, WoodenBlockType.SOUL_TORCH);
         registerTag(ILikeWoodItemTags.CHAIRS, WoodenBlockType.CHAIR);
         registerTag(ILikeWoodItemTags.TABLES, WoodenBlockType.TABLE);
+        registerTag(ILikeWoodItemTags.STOOLS, WoodenBlockType.STOOL);
 
         registerTag(ILikeWoodItemTags.AXES, WoodenTieredItemType.AXE);
         registerTag(ILikeWoodItemTags.HOES, WoodenTieredItemType.HOE);
@@ -74,6 +75,8 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
 
         this.tag(Tags.Items.CHESTS).addTag(ILikeWoodItemTags.CHESTS);
         this.tag(Tags.Items.CHESTS_WOODEN).addTag(ILikeWoodItemTags.CHESTS);
+        this.tag(Tags.Items.BARRELS).addTag(ILikeWoodItemTags.BARRELS);
+        this.tag(Tags.Items.BARRELS_WOODEN).addTag(ILikeWoodItemTags.BARRELS);
 
         this.tag(Tags.Items.RODS).addTag(ILikeWoodItemTags.STICKS);
 
@@ -81,9 +84,7 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
 
         this
             .tag(ItemTags.PIGLIN_LOVED)
-            .add(WoodenTieredItemType
-                .getAll()
-                .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
+            .add(WoodenTieredItemType.getAll().flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
                 .filter(item -> ((IWoodenTieredItem) item).getWoodenItemTier().equals(VanillaWoodenItemTiers.GOLDEN))
                 .toArray(Item[]::new));
     }
