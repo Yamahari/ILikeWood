@@ -160,7 +160,8 @@ jar {
             "Implementation-Title"    : "ilikewood",
             "Implementation-Version"  : "${project.version}",
             "Implementation-Vendor"   : "yamahari",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "Automatic-Module-Name": "ilikewood"
     ])
 
     finalizedBy 'reobfJar'
