@@ -34,6 +34,7 @@ public final class DefaultWoodType implements IWoodType {
 
     private static Map<WoodenBlockType, Properties> createDefaultBlockProperties() {
         final Map<WoodenBlockType, Properties> properties = new HashMap<>();
+
         properties.put(WoodenBlockType.PANELS, new Properties(300));
         properties.put(WoodenBlockType.PANELS_STAIRS, new Properties(300));
         properties.put(WoodenBlockType.PANELS_SLAB, new Properties(150));
@@ -57,16 +58,20 @@ public final class DefaultWoodType implements IWoodType {
         properties.put(WoodenBlockType.WALL, new Properties(300));
         properties.put(WoodenBlockType.CHAIR, new Properties(300));
         properties.put(WoodenBlockType.TABLE, new Properties(300));
+        properties.put(WoodenBlockType.STOOL, new Properties(300));
+
         return properties;
     }
 
     private static Map<WoodenItemType, Properties> createDefaultItemProperties() {
         final Map<WoodenItemType, Properties> properties = new HashMap<>();
+
         properties.put(WoodenItemType.STICK, new Properties(100));
         properties.put(WoodenItemType.BOW, new Properties(300));
         properties.put(WoodenItemType.CROSSBOW, new Properties(300));
         properties.put(WoodenItemType.FISHING_ROD, new Properties(300));
         properties.put(WoodenItemType.ITEM_FRAME, new Properties(-1));
+
         return properties;
     }
 
