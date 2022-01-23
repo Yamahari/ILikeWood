@@ -17,6 +17,8 @@ import yamahari.ilikewood.provider.itemmodel.tiered.*;
 import yamahari.ilikewood.provider.recipe.blockitem.*;
 import yamahari.ilikewood.provider.recipe.item.*;
 import yamahari.ilikewood.provider.recipe.item.tiered.*;
+import yamahari.ilikewood.provider.texture.block.*;
+import yamahari.ilikewood.provider.texture.item.*;
 import yamahari.ilikewood.util.Constants;
 
 @Mod.EventBusSubscriber(value = {Dist.CLIENT,
@@ -29,6 +31,7 @@ public final class GatherDataEventHandler {
     public static void onGatherData(final GatherDataEvent event) {
         final DataGenerator generator = event.getGenerator();
         final ExistingFileHelper helper = event.getExistingFileHelper();
+
         if (event.includeServer()) {
             generator.addProvider(new PanelsRecipeProvider(generator));
             generator.addProvider(new PanelsStairsRecipeProvider(generator));
@@ -69,6 +72,24 @@ public final class GatherDataEventHandler {
         }
 
         if (event.includeClient()) {
+            generator.addProvider(new ChestTextureProvider(generator, helper));
+            generator.addProvider(new BarrelTextureProvider(generator, helper));
+            generator.addProvider(new BedTextureProvider(generator, helper));
+            generator.addProvider(new BookshelfTextureProvider(generator, helper));
+            generator.addProvider(new ComposterTextureProvider(generator, helper));
+            generator.addProvider(new LadderTextureProvider(generator, helper));
+            generator.addProvider(new LecternTextureProvider(generator, helper));
+            generator.addProvider(new LogPileTextureProvider(generator, helper));
+            generator.addProvider(new ScaffoldingTextureProvider(generator, helper));
+            generator.addProvider(new TorchTextureProvider(generator, helper));
+            generator.addProvider(new PostTextureProvider(generator, helper));
+            generator.addProvider(new StrippedPostTextureProvider(generator, helper));
+            generator.addProvider(new BowTextureProvider(generator, helper));
+            generator.addProvider(new CrossbowTextureProvider(generator, helper));
+            generator.addProvider(new FishingRodTextureProvider(generator, helper));
+            generator.addProvider(new ItemFrameTextureProvider(generator, helper));
+            generator.addProvider(new StickAndToolTextureProvider(generator, helper));
+
             generator.addProvider(new PanelsBlockStateProvider(generator, helper));
             generator.addProvider(new PanelsStairsBlockStateProvider(generator, helper));
             generator.addProvider(new PanelsSlabBlockStateProvider(generator, helper));

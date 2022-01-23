@@ -58,4 +58,9 @@ public final class DummyWoodType implements IWoodType {
     public Set<WoodenItemType> getBuiltinItemTypes() {
         throw new RuntimeException("");
     }
+
+    @Override
+    public Colors getColors() {
+        throw new RuntimeException("");
+    }
 }

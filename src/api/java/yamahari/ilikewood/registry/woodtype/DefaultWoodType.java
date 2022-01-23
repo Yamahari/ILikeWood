@@ -26,10 +26,12 @@ public final class DefaultWoodType implements IWoodType {
     public static final Set<WoodenItemType> DEFAULT_BUILTIN_ITEM_TYPES = Collections.emptySet();
     private final String modId;
     private final String name;
+    private final Colors colors;
 
-    public DefaultWoodType(final String modId, final String name) {
+    public DefaultWoodType(final String modId, final String name, final Colors colors) {
         this.modId = modId;
         this.name = name;
+        this.colors = colors;
     }
 
     private static Map<WoodenBlockType, Properties> createDefaultBlockProperties() {
@@ -123,5 +125,10 @@ public final class DefaultWoodType implements IWoodType {
     @Override
     public Set<WoodenItemType> getBuiltinItemTypes() {
         return DEFAULT_BUILTIN_ITEM_TYPES;
+    }
+
+    @Override
+    public Colors getColors() {
+        return this.colors;
     }
 }
