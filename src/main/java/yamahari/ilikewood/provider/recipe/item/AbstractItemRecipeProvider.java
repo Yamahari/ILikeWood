@@ -10,7 +10,9 @@ import net.minecraft.world.level.ItemLike;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.WoodenRecipeSerializers;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.IWooden;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -34,7 +36,9 @@ public abstract class AbstractItemRecipeProvider extends RecipeProvider {
 
     @Override
     protected final void buildCraftingRecipes(@Nonnull final Consumer<FinishedRecipe> consumer) {
-        ILikeWood.ITEM_REGISTRY.getObjects(this.itemType).forEach(item -> this.registerRecipe(item, consumer));
+        ILikeWood.ITEM_REGISTRY
+            .getObjects(this.itemType)
+            .forEach(item -> this.registerRecipes(consumer, ((IWooden) item).getWoodType(), item));
 
     }
 
@@ -44,5 +48,5 @@ public abstract class AbstractItemRecipeProvider extends RecipeProvider {
         return String.format("%s - item recipes - %s", Constants.MOD_ID, itemType.getName());
     }
 
-    protected abstract void registerRecipe(Item item, @Nonnull Consumer<FinishedRecipe> consumer);
+    protected abstract void registerRecipes(@Nonnull Consumer<FinishedRecipe> consumer, IWoodType woodType, Item item);
 }

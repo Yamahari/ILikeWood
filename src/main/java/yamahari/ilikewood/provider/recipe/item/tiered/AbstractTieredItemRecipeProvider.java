@@ -11,7 +11,9 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
+import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.IWooden;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -39,7 +41,7 @@ public abstract class AbstractTieredItemRecipeProvider extends RecipeProvider {
             .filter(tieredItem -> !((IWoodenTieredItem) tieredItem)
                 .getWoodenItemTier()
                 .equals(VanillaWoodenItemTiers.NETHERITE))
-            .forEach(tieredItem -> this.registerRecipe(tieredItem, consumer));
+            .forEach(tieredItem -> this.registerRecipes(consumer, ((IWooden) tieredItem).getWoodType(), tieredItem));
     }
 
     @Nonnull
@@ -48,5 +50,6 @@ public abstract class AbstractTieredItemRecipeProvider extends RecipeProvider {
         return String.format("%s - tiered item recipes - %s", Constants.MOD_ID, tieredItemType.getName());
     }
 
-    protected abstract void registerRecipe(Item tieredItem, @Nonnull Consumer<FinishedRecipe> consumer);
+    protected abstract void registerRecipes(@Nonnull Consumer<FinishedRecipe> consumer, IWoodType woodType,
+                                            Item tieredItem);
 }
