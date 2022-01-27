@@ -6,10 +6,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
-import yamahari.ilikewood.provider.ILikeWoodBlockTagsProvider;
-import yamahari.ilikewood.provider.ILikeWoodItemTagsProvider;
-import yamahari.ilikewood.provider.ILikeWoodLanguageProvider;
-import yamahari.ilikewood.provider.ILikeWoodLootTableProvider;
+import yamahari.ilikewood.provider.*;
 import yamahari.ilikewood.provider.blockstate.*;
 import yamahari.ilikewood.provider.itemmodel.*;
 import yamahari.ilikewood.provider.itemmodel.blockitem.*;
@@ -31,6 +28,8 @@ public final class GatherDataEventHandler {
     public static void onGatherData(final GatherDataEvent event) {
         final DataGenerator generator = event.getGenerator();
         final ExistingFileHelper helper = event.getExistingFileHelper();
+
+        generator.addProvider(new PackMCMetaProvider(generator));
 
         if (event.includeServer()) {
             generator.addProvider(new PanelsRecipeProvider(generator));

@@ -15,8 +15,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'java'
 
 version = "${version_mc}-${version_major}.${version_api}.${version_minor}.${version_patch}"
-group = 'yamahari.ilikewood'
-archivesBaseName = 'ilikewood'
+group = "yamahari.${mod_id}"
+archivesBaseName = "${mod_id}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -78,10 +78,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            property 'ilikewood.datagen.modid', 'ilikewood'
-            args '--mod', 'ilikewood',
+            property "${mod_id}.datagen.modid", "${mod_id}"
+            args '--mod', "${mod_id}",
                     '--all',
-                    '--output', file('src/data/resources/'),
+                    '--output', file("src/data/resources/${mod_id}_resources"),
                     '--existing', file('src/main/resources/')
             mods {
                 ilikewood {
@@ -122,9 +122,10 @@ def replaceVersions = tasks.register('replaceVersions', Copy) {
     it.outputs.upToDateWhen { false }
     it.from(sourceSets.main.resources) {
         include 'META-INF/mods.toml'
-        expand 'version': version,
+        expand 'mod_id': mod_id,
+                'version': version,
                 'version_range_mc': version_range_mc,
-                'version_range_loader':  version_range_loader,
+                'version_range_loader': version_range_loader,
                 'version_range_forge': version_range_forge
     }
     it.into "$buildDir/resources/main/"
@@ -154,14 +155,14 @@ jar {
     }
 
     manifest.attributes([
-            "Specification-Title"     : "ilikewood",
+            "Specification-Title"     : "${mod_id}",
             "Specification-Vendor"    : "yamahari",
             "Specification-Version"   : "${project.version}",
-            "Implementation-Title"    : "ilikewood",
+            "Implementation-Title"    : "${mod_id}",
             "Implementation-Version"  : "${project.version}",
             "Implementation-Vendor"   : "yamahari",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "Automatic-Module-Name": "ilikewood"
+            "Automatic-Module-Name"   : "${mod_id}"
     ])
 
     finalizedBy 'reobfJar'
