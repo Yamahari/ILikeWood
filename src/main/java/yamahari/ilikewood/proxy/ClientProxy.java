@@ -27,6 +27,8 @@ public final class ClientProxy implements IProxy {
     @SuppressWarnings("unchecked")
     @Override
     public void onFMLClientSetup(final FMLClientSetupEvent event) {
+        ILikeWood.LOGGER.info("ClientProxy: FMLClientSetupEvent");
+
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.POST, WoodenBlockType.STRIPPED_POST))
             .forEach(block -> ItemBlockRenderTypes.setRenderLayer(block, RenderType.solid()));
@@ -55,7 +57,6 @@ public final class ClientProxy implements IProxy {
             WoodenSawmillScreen::new);
 
         ILikeWood.ITEM_REGISTRY.getObjects(WoodenItemType.BOW).forEach(item -> {
-            //noinspection deprecation
             ItemProperties.register(item, new ResourceLocation("pull"), (stack, level, entity, i) -> {
                 if (entity == null) {
                     return 0.0F;
@@ -66,7 +67,6 @@ public final class ClientProxy implements IProxy {
                 }
             });
 
-            //noinspection deprecation
             ItemProperties.register(item,
                 new ResourceLocation("pulling"),
                 (stack, level, entity, i) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack
@@ -75,7 +75,6 @@ public final class ClientProxy implements IProxy {
         });
 
         ILikeWood.ITEM_REGISTRY.getObjects(WoodenItemType.CROSSBOW).forEach(item -> {
-            //noinspection deprecation
             ItemProperties.register(item, new ResourceLocation("pull"), (stack, level, entity, i) -> {
                 if (entity == null) {
                     return 0.0F;
@@ -87,18 +86,15 @@ public final class ClientProxy implements IProxy {
                 }
             });
 
-            //noinspection deprecation
             ItemProperties.register(item,
                 new ResourceLocation("pulling"),
                 (stack, level, entity, i) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack &&
                                              !CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
 
-            //noinspection deprecation
             ItemProperties.register(item,
                 new ResourceLocation("charged"),
                 (stack, level, entity, i) -> entity != null && CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
 
-            //noinspection deprecation
             ItemProperties.register(item,
                 new ResourceLocation("firework"),
                 (stack, level, entity, i) -> entity != null && CrossbowItem.isCharged(stack) &&
@@ -107,7 +103,6 @@ public final class ClientProxy implements IProxy {
                                              : 0.0F);
         });
 
-        //noinspection deprecation
         ILikeWood.ITEM_REGISTRY
             .getObjects(WoodenItemType.FISHING_ROD)
             .forEach(item -> ItemProperties.register(item, new ResourceLocation("cast"), (stack, level, entity, i) -> {
@@ -129,5 +124,6 @@ public final class ClientProxy implements IProxy {
 
     @Override
     public void onFMLCommonSetup(final FMLCommonSetupEvent event) {
+        ILikeWood.LOGGER.info("ClientProxy: FMLCommonSetupEvent");
     }
 }

@@ -12,6 +12,8 @@ import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
 
+import javax.annotation.Nonnull;
+
 public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
     public ILikeWoodBlockTagsProvider(final DataGenerator generator, final ExistingFileHelper existingFileHelper) {
         super(generator, Constants.MOD_ID, existingFileHelper);
@@ -90,6 +92,7 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
                 ILikeWoodBlockTags.STOOLS);
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "I Like Wood - Block Tags";

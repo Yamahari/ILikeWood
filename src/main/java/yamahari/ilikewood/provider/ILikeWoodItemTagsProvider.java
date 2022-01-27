@@ -16,6 +16,8 @@ import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.Constants;
 
+import javax.annotation.Nonnull;
+
 public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
     public ILikeWoodItemTagsProvider(final DataGenerator generator, final ILikeWoodBlockTagsProvider blockTagsProvider,
                                      final ExistingFileHelper existingFileHelper) {
@@ -84,11 +86,14 @@ public final class ILikeWoodItemTagsProvider extends ItemTagsProvider {
 
         this
             .tag(ItemTags.PIGLIN_LOVED)
-            .add(WoodenTieredItemType.getAll().flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
+            .add(WoodenTieredItemType
+                .getAll()
+                .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
                 .filter(item -> ((IWoodenTieredItem) item).getWoodenItemTier().equals(VanillaWoodenItemTiers.GOLDEN))
                 .toArray(Item[]::new));
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "I Like Wood - Item Tags";

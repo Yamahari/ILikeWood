@@ -2,19 +2,16 @@ package yamahari.ilikewood.proxy;
 
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import yamahari.ilikewood.ILikeWood;
 
 public class CommonProxy implements IProxy {
-    private static final Logger logger = LogManager.getLogger(CommonProxy.class);
-
     @Override
     public void onFMLClientSetup(FMLClientSetupEvent event) {
-        logger.info("client setup");
+        ILikeWood.LOGGER.info("CommonProxy: FMLClientSetupEvent");
     }
 
     @Override
     public void onFMLCommonSetup(FMLCommonSetupEvent event) {
-        logger.info("common setup");
+        ILikeWood.LOGGER.info("CommonProxy: FMLCommonSetupEvent");
     }
 }

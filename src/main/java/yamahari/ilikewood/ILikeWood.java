@@ -27,7 +27,6 @@ import yamahari.ilikewood.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Mod(Constants.MOD_ID)
@@ -134,7 +133,7 @@ public final class ILikeWood {
             .filter(annotationData -> Objects.equals(annotationData.annotationType(),
                 Type.getType(ILikeWoodPlugin.class)))
             .map(ModFileScanData.AnnotationData::memberName)
-            .collect(Collectors.toList());
+            .toList();
 
         for (final String name : names) {
             try {
