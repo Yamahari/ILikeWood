@@ -25,8 +25,7 @@ public final class AddPackFindersEventHandler {
         for (final IModPlugin plugin : ILikeWood.PLUGINS) {
             final var modId = plugin.getModId();
             final var modFile = ModList.get().getModFileById(modId).getFile();
-            final var s = Util.toRegistryName(Constants.MOD_ID, "resources");
-            final var resourcePath = modFile.findResource(s);
+            final var resourcePath = modFile.findResource(Util.toRegistryName(Constants.MOD_ID, "resources"));
             final var pack = new PathResourcePack(modFile.getFileName() + ":" + resourcePath, resourcePath);
             final PackMetadataSection metaDataSection;
             try {
