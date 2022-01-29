@@ -30,6 +30,6 @@ public final class WoodenCrossbowItem extends CrossbowItem implements IWooden {
 
     @Override
     public int getBurnTime(final ItemStack itemStack, @Nullable final RecipeType<?> recipeType) {
-        return this.getWoodType().getProperties(WoodenItemType.CROSSBOW).getBurnTime();
+        return this.getWoodType().getProperties(WoodenItemType.CROSSBOW).burnTime();
     }
 }

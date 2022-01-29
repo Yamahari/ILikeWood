@@ -17,7 +17,7 @@ public interface IWoodType {
     Properties getProperties(final WoodenItemType itemType);
 
     default float getEnchantingPowerBonus() {
-        return 1.F;
+        return 1.0F;
     }
 
     Set<WoodenBlockType> getBlockTypes();
@@ -34,31 +34,14 @@ public interface IWoodType {
 
     Colors getColors();
 
-    final class Colors {
-        private final int[] colors;
-
-        public Colors(final int c0, final int c1, final int c2, final int c3, final int c4, final int c5, final int c6,
-                      final int c7) {
-            this.colors = new int[]{c0, c1, c2, c3, c4, c5, c6, c7};
-        }
-
-        public int getColor(final int index) throws IllegalArgumentException {
-            if (index < 0 || index > 7) {
-                throw new IllegalArgumentException("Index out of range");
-            }
-            return this.colors[index];
-        }
+    record Properties(int burnTime) {
     }
 
-    final class Properties {
-        private final int burnTime;
-
-        public Properties(final int burnTime) {
-            this.burnTime = burnTime;
-        }
-
-        public int getBurnTime() {
-            return this.burnTime;
+    record Colors(int[] colors) {
+        public Colors {
+            if (colors.length != 8) {
+                throw new IllegalArgumentException("\"colors\" needs to contain 8 colors.");
+            }
         }
     }
 }

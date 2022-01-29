@@ -25,6 +25,6 @@ public final class WoodenFishingRodItem extends FishingRodItem implements IWoode
 
     @Override
     public int getBurnTime(final ItemStack itemStack, @Nullable final RecipeType<?> recipeType) {
-        return this.getWoodType().getProperties(WoodenItemType.FISHING_ROD).getBurnTime();
+        return this.getWoodType().getProperties(WoodenItemType.FISHING_ROD).burnTime();
     }
 }

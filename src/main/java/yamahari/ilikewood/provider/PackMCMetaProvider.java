@@ -18,12 +18,12 @@ public record PackMCMetaProvider(DataGenerator generator) implements DataProvide
     public void run(@Nonnull final HashCache cache) {
         try {
             final var gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+
             final var reader = gson.newJsonReader(Files.newBufferedReader(ModList
                 .get()
                 .getModFileById(Constants.MOD_ID)
                 .getFile()
-                .getFilePath()
-                .resolve("pack.mcmeta")));
+                .findResource("pack.mcmeta")));
             final var jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             final var outMCMeta = new JsonObject();
 

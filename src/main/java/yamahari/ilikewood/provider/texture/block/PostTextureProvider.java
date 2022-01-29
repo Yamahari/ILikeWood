@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.provider.texture.TextureBuilder;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -22,8 +23,14 @@ public final class PostTextureProvider extends AbstractBlockTextureProvider {
 
         final IWoodenLogResource logResource = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType);
 
-        this
+        final TextureBuilder builder = this
             .withExistingParent(Util.toPath(path, woodType.getName()), logResource.getSideTexture())
             .transform(this::postTransformer);
+
+        final IWoodenLogResource.SideTextureProperties properties = logResource.getSideTextureProperties();
+
+        if (properties.animated()) {
+            builder.animate(properties.interpolate(), properties.frameTime());
+        }
     }
 }

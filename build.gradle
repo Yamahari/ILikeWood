@@ -150,7 +150,7 @@ jar {
     from sourceSets.api.output.resourcesDir
 
     sourceSets.main.resources {
-        exclude 'assets/biomesoplenty/**'
+        exclude "${mod_id}_resources/.cache"
         exclude '.cache'
     }
 

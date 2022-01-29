@@ -25,6 +25,6 @@ public class WoodenItem extends Item implements IWooden {
 
     @Override
     public int getBurnTime(final ItemStack itemStack, @Nullable final RecipeType<?> recipeType) {
-        return this.getWoodType().getProperties(this.itemType).getBurnTime();
+        return this.getWoodType().getProperties(this.itemType).burnTime();
     }
 }

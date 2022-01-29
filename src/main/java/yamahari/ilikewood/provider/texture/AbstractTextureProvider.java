@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.AbstractILikeWoodObjectRegistry;
 import yamahari.ilikewood.registry.objecttype.AbstractWoodenObjectType;
@@ -19,13 +18,9 @@ import yamahari.ilikewood.util.Constants;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 
 public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, O extends AbstractWoodenObjectType, R extends AbstractILikeWoodObjectRegistry<T, O>>
@@ -58,11 +53,11 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     private Map<Integer, Integer> createColorMap(final IWoodType woodType) {
         final Map<Integer, Integer> colorMap = new HashMap<>();
 
-        final IWoodType.Colors spruceColors = VanillaWoodTypes.SPRUCE.getColors();
-        final IWoodType.Colors colors = woodType.getColors();
+        final int[] spruceColors = VanillaWoodTypes.SPRUCE.getColors().colors();
+        final int[] colors = woodType.getColors().colors();
 
         for (int i = 0; i < 8; ++i) {
-            colorMap.put(spruceColors.getColor(i), colors.getColor(i));
+            colorMap.put(spruceColors[i], colors[i]);
         }
 
         return Collections.unmodifiableMap(colorMap);
@@ -105,7 +100,7 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
                 for (int x = 0; x < paste.getWidth(); ++x) {
                     result.setPixelRGBA(paste.getX() + x,
                         i * 16 + paste.getY() + y,
-                        copy.getPixelRGBA(x, copy.getHeight() - y - 1));
+                        copy.getPixelRGBA(copy.getWidth() - x - 1, copy.getHeight() - y - 1));
                 }
             }
 
@@ -189,33 +184,12 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
         return new ResourceLocation(name);
     }
 
-    protected void save(final HashCache cache, final TextureBuilder builder) {
-        final ResourceLocation location = builder.getLocation();
-        try {
-            final NativeImage image = builder.build();
-            final Path path = this.generator
-                .getOutputFolder()
-                .resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(),
-                    location.getNamespace(),
-                    TEXTURE.getPrefix(),
-                    location.getPath() + TEXTURE.getSuffix()));
-            final String hash = SHA1.hashBytes(image.asByteArray()).toString();
-            if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {
-                Files.createDirectories(path.getParent());
-                image.writeToFile(path);
-            }
-            cache.putNew(path, hash);
-        } catch (IOException e) {
-            ILikeWood.LOGGER.error("Couldn't create data for {}", location, e);
-        }
-    }
-
     @Override
-    public void run(@Nonnull final HashCache cache) {
+    public void run(@Nonnull final HashCache cache) throws IOException {
         this.objectRegistry.getObjects(this.objectType).forEach(this::createTexture);
 
         for (final TextureBuilder builder : this.generatedTextures.values()) {
-            save(cache, builder);
+            builder.build(this.generator, cache);
         }
     }
 

@@ -18,9 +18,14 @@ import yamahari.ilikewood.registry.woodtype.IWoodTypeRegistry;
 
 public interface IModPlugin {
     /**
-     * @return
+     * @return The mod id of the mod this plugin is meant for.
      */
     String getModId();
+
+    /**
+     * @return The mod id of the plugin. Should match {@link IModPlugin#getModId()} if the plugin is built-into the mod itself.
+     */
+    String getPluginModId();
 
     /**
      * @param registry

@@ -7,4 +7,9 @@ public interface IWoodenLogResource extends IWoodenResource {
     ResourceLocation getEndTexture();
 
     ResourceLocation getSideTexture();
+
+    SideTextureProperties getSideTextureProperties();
+
+    record SideTextureProperties(boolean animated, boolean interpolate, int frameTime) {
+    }
 }

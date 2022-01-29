@@ -59,12 +59,22 @@ public final class VanillaWoodenResources {
             planks.put(woodType,
                 new WoodenPlanksResource(planksTexture, planksResource, PLANKS_PROPERTIES.get(woodType)));
 
-            logs.put(woodType,
-                new WoodenLogResource(new ResourceLocation(logResource.getNamespace(),
-                    Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(logResource.getPath(), "top"))),
-                    new ResourceLocation(logResource.getNamespace(),
-                        Util.toPath(ModelProvider.BLOCK_FOLDER, logResource.getPath())),
-                    logResource));
+            if (woodType.equals(VanillaWoodTypes.WARPED) || woodType.equals(VanillaWoodTypes.CRIMSON)) {
+                logs.put(woodType,
+                    new WoodenLogResource(new ResourceLocation(logResource.getNamespace(),
+                        Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(logResource.getPath(), "top"))),
+                        new ResourceLocation(logResource.getNamespace(),
+                            Util.toPath(ModelProvider.BLOCK_FOLDER, logResource.getPath())),
+                        logResource,
+                        new IWoodenLogResource.SideTextureProperties(true, true, 10)));
+            } else {
+                logs.put(woodType,
+                    new WoodenLogResource(new ResourceLocation(logResource.getNamespace(),
+                        Util.toPath(ModelProvider.BLOCK_FOLDER, Util.toRegistryName(logResource.getPath(), "top"))),
+                        new ResourceLocation(logResource.getNamespace(),
+                            Util.toPath(ModelProvider.BLOCK_FOLDER, logResource.getPath())),
+                        logResource));
+            }
 
             strippedLogs.put(woodType,
                 new WoodenStrippedLogResource(new ResourceLocation(strippedLogResource.getNamespace(),

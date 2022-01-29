@@ -24,9 +24,9 @@ public final class AddPackFindersEventHandler {
     public static void onAddPackFinders(final AddPackFindersEvent event) {
         for (final IModPlugin plugin : ILikeWood.PLUGINS) {
             final var modId = plugin.getModId();
-            final var modFile = ModList.get().getModFileById(modId).getFile();
-            final var resourcePath = modFile.findResource(Util.toRegistryName(Constants.MOD_ID, "resources"));
-            final var pack = new PathResourcePack(modFile.getFileName() + ":" + resourcePath, resourcePath);
+            final var pluginModFile = ModList.get().getModFileById(plugin.getPluginModId()).getFile();
+            final var resourcePath = pluginModFile.findResource(Util.toRegistryName(Constants.MOD_ID, "resources"));
+            final var pack = new PathResourcePack(pluginModFile.getFileName() + ":" + resourcePath, resourcePath);
             final PackMetadataSection metaDataSection;
             try {
                 metaDataSection = pack.getMetadataSection(PackMetadataSection.SERIALIZER);
