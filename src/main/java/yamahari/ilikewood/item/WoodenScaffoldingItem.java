@@ -31,8 +31,7 @@ public final class WoodenScaffoldingItem extends WoodenBlockItem {
         final BlockPos pos = context.getClickedPos();
         final Level world = context.getLevel();
         BlockState state = world.getBlockState(pos);
-        final Block block = this.getBlock();
-        if (state.getBlock() != block) {
+        if (!(state.getBlock() instanceof WoodenScaffoldingBlock)) {
             return WoodenScaffoldingBlock.getDistance(world, pos) == 7 ? null : context;
         } else {
             final Direction direction;
@@ -59,7 +58,7 @@ public final class WoodenScaffoldingItem extends WoodenBlockItem {
                     break;
                 }
                 state = world.getBlockState(mutable);
-                if (state.getBlock() != this.getBlock()) {
+                if (!(state.getBlock() instanceof WoodenScaffoldingBlock)) {
                     if (state.canBeReplaced(context)) {
                         return BlockPlaceContext.at(context, mutable, direction);
                     }

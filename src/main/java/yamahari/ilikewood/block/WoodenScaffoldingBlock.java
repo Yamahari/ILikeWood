@@ -68,11 +68,6 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     @Override
-    public boolean canBeReplaced(@Nonnull final BlockState state, final BlockPlaceContext context) {
-        return context.getItemInHand().getItem() instanceof WoodenScaffoldingItem;
-    }
-
-    @Override
     public void tick(final BlockState state, @Nonnull final ServerLevel world, @Nonnull final BlockPos pos,
                      @Nonnull final Random rand) {
         final int distance = getDistance(world, pos);
@@ -107,14 +102,23 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         return this
             .defaultBlockState()
             .setValue(WATERLOGGED, world.getFluidState(blockpos).getType() == Fluids.WATER)
-            .setValue(DISTANCE, distance)
-            .setValue(BOTTOM, this.isBottom(world, blockpos, distance));
+            .setValue(DISTANCE, distance).setValue(BOTTOM, this.isBottom(world, blockpos, distance));
     }
 
     @Override
     public boolean isScaffolding(final BlockState state, final LevelReader world, final BlockPos pos,
                                  final LivingEntity entity) {
         return true;
+    }
+
+    @Override
+    protected boolean isBottom(@Nonnull final BlockGetter getter, @Nonnull final BlockPos pos, final int distance) {
+        return distance > 0 && !(getter.getBlockState(pos.below()).getBlock() instanceof WoodenScaffoldingBlock);
+    }
+
+    @Override
+    public boolean canBeReplaced(@Nonnull final BlockState blockState, @Nonnull final BlockPlaceContext context) {
+        return context.getItemInHand().getItem() instanceof WoodenScaffoldingItem;
     }
 
     @Override
