@@ -85,15 +85,15 @@ class WoodenStrippedLogResource implements IWoodenStrippedLogResource {
 ```
 
 These four classes are used to tell my API how to find the respective blocks of your mod and some properties about them,
-e.g. if your log is animated or not. The function with `texture` in their name must return the resource location of the
+e.g. if your log is animated or not. The functions with `texture` in their name must return the resource location of the
 respective textures. The function `getResource` must return the resource location of the actual block.
 
 ```java
 class MyModWoodenResources {
     public static final IWoodenLogResource MY_WOOD_TYPE_LOG = new WoodenLogResource(/**/);
-    public static final IWoodenLogResource MY_WOOD_TYPE_PLANKS = new WoodenPlanksResource(/**/);
-    public static final IWoodenLogResource MY_WOOD_TYPE_SLAB = new WoodenSlabResource(/**/);
-    public static final IWoodenLogResource MY_WOOD_TYPE_STRIPPED_LOG = new WoodenStrippedLogResource(/**/);
+    public static final IWoodenPlanksResource MY_WOOD_TYPE_PLANKS = new WoodenPlanksResource(/**/);
+    public static final IWoodenSlabResource MY_WOOD_TYPE_SLAB = new WoodenSlabResource(/**/);
+    public static final IWoodenStrippedLogResource MY_WOOD_TYPE_STRIPPED_LOG = new WoodenStrippedLogResource(/**/);
 }
 ```
 
