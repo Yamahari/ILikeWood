@@ -43,7 +43,8 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
                 WoodenBlockType.SOUL_TORCH,
                 WoodenBlockType.CHAIR,
                 WoodenBlockType.TABLE,
-                WoodenBlockType.STOOL))
+                WoodenBlockType.STOOL,
+                WoodenBlockType.SINGLE_DRESSER))
             .forEach(block -> this.add(block,
                 getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 

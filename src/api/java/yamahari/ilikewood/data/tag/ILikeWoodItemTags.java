@@ -33,6 +33,7 @@ public final class ILikeWoodItemTags {
     public static final Tags.IOptionalNamedTag<Item> CHAIRS = createOptional("chairs");
     public static final Tags.IOptionalNamedTag<Item> TABLES = createOptional("tables");
     public static final Tags.IOptionalNamedTag<Item> STOOLS = createOptional("stools");
+    public static final Tags.IOptionalNamedTag<Item> SINGLE_DRESSER = createOptional("single_dresser");
 
     public static final Tags.IOptionalNamedTag<Item> AXES = createOptional("axes");
     public static final Tags.IOptionalNamedTag<Item> HOES = createOptional("hoes");

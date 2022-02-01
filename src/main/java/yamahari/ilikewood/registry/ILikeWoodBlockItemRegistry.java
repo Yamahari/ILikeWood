@@ -43,6 +43,7 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
         this.registerBlockItems(WoodenBlockType.CHAIR, this::registerChairBlockItem);
         this.registerBlockItems(WoodenBlockType.TABLE, this::registerTableBlockItem);
         this.registerBlockItems(WoodenBlockType.STOOL, this::registerStoolBlockItem);
+        this.registerBlockItems(WoodenBlockType.SINGLE_DRESSER, this::registerSingleDresserBlockItem);
 
         WoodenBlockType
             .getBeds()
@@ -196,5 +197,9 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
 
     private RegistryObject<Item> registerStoolBlockItem(final IWoodType woodType) {
         return this.registerDecorationBlockItem(woodType, WoodenBlockType.STOOL);
+    }
+
+    private RegistryObject<Item> registerSingleDresserBlockItem(final IWoodType woodType) {
+        return this.registerDecorationBlockItem(woodType, WoodenBlockType.SINGLE_DRESSER);
     }
 }

@@ -18,8 +18,8 @@ import yamahari.ilikewood.provider.texture.block.*;
 import yamahari.ilikewood.provider.texture.item.*;
 import yamahari.ilikewood.util.Constants;
 
-@Mod.EventBusSubscriber(value = {Dist.CLIENT,
-                                 Dist.DEDICATED_SERVER}, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(value = {
+    Dist.CLIENT, Dist.DEDICATED_SERVER}, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GatherDataEventHandler {
     private GatherDataEventHandler() {
     }
@@ -63,6 +63,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ChairRecipeProvider(generator));
             generator.addProvider(new TableRecipeProvider(generator));
             generator.addProvider(new StoolRecipeProvider(generator));
+            generator.addProvider(new SingleDresserRecipeProvider(generator));
 
             generator.addProvider(new ILikeWoodLootTableProvider(generator));
             final ILikeWoodBlockTagsProvider blockTagsProvider = new ILikeWoodBlockTagsProvider(generator, helper);
@@ -113,6 +114,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ChairBlockStateProvider(generator, helper));
             generator.addProvider(new TableBlockStateProvider(generator, helper));
             generator.addProvider(new StoolBlockStateProvider(generator, helper));
+            generator.addProvider(new SingleDresserBlockStateProvider(generator, helper));
 
             generator.addProvider(new BarrelBlockItemModelProvider(generator, helper));
             generator.addProvider(new BedBlockItemModelProvider(generator, helper));
@@ -145,6 +147,7 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ChairBlockItemModelProvider(generator, helper));
             generator.addProvider(new TableBlockItemModelProvider(generator, helper));
             generator.addProvider(new StoolBlockItemModelProvider(generator, helper));
+            generator.addProvider(new SingleDresserBlockItemModelProvider(generator, helper));
 
             generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
         }

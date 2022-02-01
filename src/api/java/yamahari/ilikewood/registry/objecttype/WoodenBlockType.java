@@ -42,6 +42,7 @@ public final class WoodenBlockType extends AbstractWoodenObjectType {
     public static final WoodenBlockType CHAIR = new WoodenBlockType("chair");
     public static final WoodenBlockType TABLE = new WoodenBlockType("table");
     public static final WoodenBlockType STOOL = new WoodenBlockType("stool");
+    public static final WoodenBlockType SINGLE_DRESSER = new WoodenBlockType("single_dresser");
 
     private final boolean blockItem;
 
@@ -93,7 +94,8 @@ public final class WoodenBlockType extends AbstractWoodenObjectType {
             WALL,
             CHAIR,
             TABLE,
-            STOOL);
+            STOOL,
+            SINGLE_DRESSER);
     }
 
     public static Stream<WoodenBlockType> getBeds() {

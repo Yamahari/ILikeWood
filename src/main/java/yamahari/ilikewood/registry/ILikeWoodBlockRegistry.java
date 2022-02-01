@@ -51,6 +51,7 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
         this.registerBlocks(WoodenBlockType.CHAIR, this::registerChairBlock);
         this.registerBlocks(WoodenBlockType.TABLE, this::registerTableBlock);
         this.registerBlocks(WoodenBlockType.STOOL, this::registerStoolBlock);
+        this.registerBlocks(WoodenBlockType.SINGLE_DRESSER, this::registerSingleDresserBlock);
 
         final Map<WoodenBlockType, DyeColor> colors = new HashMap<>();
         colors.put(WoodenBlockType.WHITE_BED, DyeColor.WHITE);
@@ -213,5 +214,9 @@ public final class ILikeWoodBlockRegistry extends AbstractILikeWoodObjectRegistr
 
     private RegistryObject<Block> registerStoolBlock(final IWoodType woodType) {
         return this.register(woodType, WoodenBlockType.STOOL, () -> new WoodenStoolBlock(woodType));
+    }
+
+    private RegistryObject<Block> registerSingleDresserBlock(final IWoodType woodType) {
+        return this.register(woodType, WoodenBlockType.SINGLE_DRESSER, () -> new WoodenSingleDresserBlock(woodType));
     }
 }

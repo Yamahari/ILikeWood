@@ -30,6 +30,7 @@ public final class ILikeWoodBlockTags {
     public static final Tags.IOptionalNamedTag<Block> CHAIRS = createOptional("chairs");
     public static final Tags.IOptionalNamedTag<Block> TABLES = createOptional("tables");
     public static final Tags.IOptionalNamedTag<Block> STOOLS = createOptional("stools");
+    public static final Tags.IOptionalNamedTag<Block> SINGLE_DRESSER = createOptional("single_dresser");
 
     private ILikeWoodBlockTags() {
     }

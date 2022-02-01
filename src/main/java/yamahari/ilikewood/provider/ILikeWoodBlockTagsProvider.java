@@ -52,6 +52,7 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
         registerTag(ILikeWoodBlockTags.CHAIRS, WoodenBlockType.CHAIR);
         registerTag(ILikeWoodBlockTags.TABLES, WoodenBlockType.TABLE);
         registerTag(ILikeWoodBlockTags.STOOLS, WoodenBlockType.STOOL);
+        registerTag(ILikeWoodBlockTags.SINGLE_DRESSER, WoodenBlockType.SINGLE_DRESSER);
 
         this.tag(Tags.Blocks.CHESTS).addTag(ILikeWoodBlockTags.CHESTS);
         this.tag(Tags.Blocks.CHESTS_WOODEN).addTag(ILikeWoodBlockTags.CHESTS);
@@ -89,7 +90,8 @@ public final class ILikeWoodBlockTagsProvider extends BlockTagsProvider {
                 ILikeWoodBlockTags.SAWMILLS,
                 ILikeWoodBlockTags.CHAIRS,
                 ILikeWoodBlockTags.TABLES,
-                ILikeWoodBlockTags.STOOLS);
+                ILikeWoodBlockTags.STOOLS,
+                ILikeWoodBlockTags.SINGLE_DRESSER);
     }
 
     @Nonnull
