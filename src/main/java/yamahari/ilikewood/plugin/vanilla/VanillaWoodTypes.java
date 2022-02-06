@@ -1,6 +1,5 @@
 package yamahari.ilikewood.plugin.vanilla;
 
-import com.mojang.blaze3d.platform.NativeImage;
 import yamahari.ilikewood.registry.woodtype.DefaultWoodType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -108,7 +107,7 @@ public final class VanillaWoodTypes {
     }
 
     private static int color(int r, int g, int b) {
-        return NativeImage.combine(0xFF, b, g, r);
+        return 255 << 24 | (b & 255) << 16 | (g & 255) << 8 | (r & 255);
     }
 
     public static Stream<IWoodType> get() {
