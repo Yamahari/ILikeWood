@@ -64,6 +64,7 @@ public final class DefaultWoodType implements IWoodType {
         properties.put(WoodenBlockType.CHAIR, new Properties(300));
         properties.put(WoodenBlockType.TABLE, new Properties(300));
         properties.put(WoodenBlockType.STOOL, new Properties(300));
+        properties.put(WoodenBlockType.SINGLE_DRESSER, new Properties(300));
 
         return properties;
     }
