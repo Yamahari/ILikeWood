@@ -1,3 +1,7 @@
+import org.apache.commons.lang3.StringUtils
+
+import java.util.stream.Collectors
+
 buildscript {
     repositories {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
@@ -166,6 +170,85 @@ jar {
     ])
 
     finalizedBy 'reobfJar'
+}
+
+def objectTypeNames = ['panels']
+
+for (String objectTypeName in objectTypeNames) {
+    def name = Arrays
+            .stream(StringUtils.split(objectTypeName, '_'))
+            .map(StringUtils::capitalize)
+            .collect(Collectors.joining(''))
+
+    def translationName = Arrays
+            .stream(StringUtils.split(objectTypeName, '_'))
+            .map(StringUtils::capitalize)
+            .collect(Collectors.joining(' '))
+
+    def source = """\
+        package yamahari.ilikewood.config.%s;
+        
+        import net.minecraftforge.fml.common.Mod;
+
+        @Mod(\"ilikewood_%s\")
+        public class ILikeWoodConfig%s {
+        }\
+        """.formatted(objectTypeName, objectTypeName, name).stripIndent()
+
+    def toml = """\
+        modLoader=\"javafml\"
+        loaderVersion=\"[39,)\"
+        license=\"MIT\"
+        
+        [[mods]]
+        modId=\"ilikewood_%s\"
+        version=\"1.0.0.0\"
+        displayName="I Like Wood - Config - %s"
+        logoFile="logo.png"
+        credits="Yamahari and the people of Forge"
+        authors="Yamahari"
+        description=\'\'\'
+        This mod enables \"%s\" for the main mod \"I Like Wood\".
+        \'\'\'\
+        """.formatted(objectTypeName, translationName, translationName).stripIndent()
+
+    def outputFolder = file('src/%s/java/yamahari/ilikewood/config/%s'.formatted(objectTypeName, objectTypeName))
+    outputFolder.exists() || outputFolder.mkdirs()
+
+    def outputFile = new File(outputFolder, 'ILikeWoodConfig%s.java'.formatted(name))
+    outputFile.write(source)
+
+    outputFolder = file('src/%s/resources/META-INF'.formatted(objectTypeName))
+    outputFolder.exists() || outputFolder.mkdirs()
+
+    outputFile = new File(outputFolder, 'mods.toml')
+    outputFile.write(toml)
+
+    def sourceSet = sourceSets.create(objectTypeName)
+
+    configurations.named(sourceSet.getImplementationConfigurationName()).configure {
+        extendsFrom configurations.named('minecraft').get()
+    }
+
+    tasks.named(sourceSet.getTaskName('process', 'resources')).configure {
+        it.from(sourceSets.main.resources) {
+            include 'logo.png'
+            include 'pack.mcmeta'
+        }
+    }
+
+    def jarTask = tasks.create('%sJar'.formatted(objectTypeName), org.gradle.jvm.tasks.Jar) {
+        archiveClassifier.set(objectTypeName)
+        from sourceSet.output
+    }
+
+    tasks.named('assemble').configure {
+        dependsOn jarTask
+    }
+
+    dependencies {
+        runtimeOnly 'build.libs:ilikewood-%s:%s'.formatted(version, objectTypeName)
+    }
 }
 
 task apiJar(type: Jar, dependsOn: apiClasses) {

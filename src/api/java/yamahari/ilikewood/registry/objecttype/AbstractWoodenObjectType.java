@@ -1,11 +1,13 @@
 package yamahari.ilikewood.registry.objecttype;
 
-public abstract class AbstractWoodenObjectType {
+public abstract class AbstractWoodenObjectType implements IObjectType {
     private final String name;
+    private final String namePlural;
     private final boolean variesByWoodType;
 
-    public AbstractWoodenObjectType(final String name, final boolean variesByWoodType) {
+    public AbstractWoodenObjectType(final String name, final String namePlural, final boolean variesByWoodType) {
         this.name = name;
+        this.namePlural = namePlural;
         this.variesByWoodType = variesByWoodType;
     }
 
@@ -28,12 +30,17 @@ public abstract class AbstractWoodenObjectType {
         return name.hashCode();
     }
 
-    // TODO wtf was this supposed to be used for?
     public final boolean variesByWoodType() {
         return this.variesByWoodType;
     }
 
+    @Override
     public final String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getNamePlural() {
+        return this.namePlural;
     }
 }

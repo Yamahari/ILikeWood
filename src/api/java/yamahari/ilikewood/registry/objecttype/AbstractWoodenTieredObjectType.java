@@ -2,11 +2,13 @@ package yamahari.ilikewood.registry.objecttype;
 
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public abstract class AbstractWoodenTieredObjectType<T extends IForgeRegistryEntry<? super T>> {
+public abstract class AbstractWoodenTieredObjectType<T extends IForgeRegistryEntry<? super T>> implements IObjectType {
     private final String name;
+    private final String namePlural;
 
-    public AbstractWoodenTieredObjectType(final String name) {
+    public AbstractWoodenTieredObjectType(final String name, final String namePlural) {
         this.name = name;
+        this.namePlural = namePlural;
     }
 
     @Override
@@ -28,7 +30,13 @@ public abstract class AbstractWoodenTieredObjectType<T extends IForgeRegistryEnt
         return name.hashCode();
     }
 
+    @Override
     public final String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getNamePlural() {
+        return this.namePlural;
     }
 }

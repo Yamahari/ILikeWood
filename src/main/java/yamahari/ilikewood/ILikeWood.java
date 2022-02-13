@@ -17,12 +17,16 @@ import yamahari.ilikewood.proxy.CommonProxy;
 import yamahari.ilikewood.proxy.IProxy;
 import yamahari.ilikewood.registry.*;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
+import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.registry.resource.WoodenResourceRegistry;
 import yamahari.ilikewood.registry.woodenitemtier.WoodenItemTierRegistry;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.registry.woodtype.WoodTypeRegistry;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.validation.ObjectTypeValidator;
+import yamahari.ilikewood.validation.WoodTypeValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +48,6 @@ public final class ILikeWood {
     private static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public ILikeWood() {
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_SPEC);
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
-
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(PROXY::onFMLCommonSetup);
@@ -63,7 +63,9 @@ public final class ILikeWood {
             }
         }
 
-        // checkWoodTypes();
+        if (!validate()) {
+            throw new RuntimeException("Validation failed! See log for more details.");
+        }
 
         BLOCK_REGISTRY.register(modEventBus);
         BLOCK_ITEM_REGISTRY.register(modEventBus);
@@ -144,89 +146,43 @@ public final class ILikeWood {
         }
     }
 
-    // TODO check fuel maps & maybe delay throwing exception until every wood type has been checked
-    /*private static void checkWoodTypes() {
-        WOOD_TYPE_REGISTRY.getWoodTypes().forEach(woodType -> {
-            final Set<WoodenObjectType> objectTypes = woodType.getObjectTypes();
-            final Set<WoodenObjectType> builtinObjectTypes = woodType.getBuiltinObjectTypes();
-            for (final WoodenObjectType objectType : objectTypes) {
-                if (objectType.requiresPlanks() && !WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType)) {
-                    throw new RuntimeException(String.format(
-                        "WoodType[%s] has WoodenObjectType[%s] that requires planks resource but no planks resource was registered",
-                        woodType.getName(),
-                        objectType.getName()));
-                }
+    private static boolean validate() {
+        final var blockTypeValidation =
+            WoodenBlockType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
 
-                if (objectType.requiresSlab() && !WOODEN_RESOURCE_REGISTRY.hasSlab(woodType)) {
-                    throw new RuntimeException(String.format(
-                        "WoodType[%s] has WoodenObjectType[%s] that requires slab resource but no slab resource was registered",
-                        woodType.getName(),
-                        objectType.getName()));
-                }
+        if (!blockTypeValidation) {
+            LOGGER.error("Block type validation failed!");
+        }
 
-                if (objectType.requiresLog() && !WOODEN_RESOURCE_REGISTRY.hasLog(woodType)) {
-                    throw new RuntimeException(String.format(
-                        "WoodType[%s] has WoodenObjectType[%s] that requires log resource but no log resource was registered",
-                        woodType.getName(),
-                        objectType.getName()));
-                }
+        final var itemTypeValidation =
+            WoodenItemType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
 
-                if (objectType.requiresStrippedLog() && !WOODEN_RESOURCE_REGISTRY.hasStrippedLog(woodType)) {
-                    throw new RuntimeException(String.format(
-                        "WoodType[%s] has WoodenObjectType[%s] that requires stripped log resource but no stripped log resource was registered",
-                        woodType.getName(),
-                        objectType.getName()));
-                }
-                final Set<WoodenObjectType> dependencies = objectType.getDependencies();
-                for (final WoodenObjectType dependency : dependencies) {
-                    if (!(objectTypes.contains(dependency) || builtinObjectTypes.contains(dependency))) {
-                        throw new RuntimeException(String.format(
-                            "WoodType[%s] has WoodenObjectType[%s] that depends on WoodenObjectType[%s] but no matching object type was found",
-                            woodType.getName(),
-                            objectType.getName(),
-                            dependency.getName()));
-                    }
-                }
-            }
+        if (!itemTypeValidation) {
+            LOGGER.error("Item type validation failed!");
+        }
 
-            if (objectTypes.contains(WoodenObjectTypes.TORCH) && !objectTypes.contains(WoodenObjectTypes.WALL_TORCH)) {
-                throw new RuntimeException(String.format(
-                    "WoodType[%s] has 'torch' object that requires 'wall_torch' object type but no matching object type was found",
-                    woodType.getName()));
-            }
+        final var tieredItemTypeValidation =
+            WoodenTieredItemType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
 
-            if (objectTypes.contains(WoodenObjectTypes.SOUL_TORCH) &&
-                !objectTypes.contains(WoodenObjectTypes.WALL_SOUL_TORCH)) {
-                throw new RuntimeException(String.format(
-                    "WoodType[%s] has 'soul_torch' object that requires 'soul_wall_torch' object type but no matching object type was found",
-                    woodType.getName()));
-            }
+        if (!tieredItemTypeValidation) {
+            LOGGER.error("Tiered item type validation failed!");
+        }
 
-            final Set<WoodenTieredObjectType> tieredObjectTypes = woodType.getTieredObjectTypes();
-            for (final WoodenTieredObjectType tieredObjectType : tieredObjectTypes) {
-                if (!(objectTypes.contains(WoodenObjectTypes.STICK) ||
-                      builtinObjectTypes.contains(WoodenObjectTypes.STICK))) {
-                    throw new RuntimeException(String.format(
-                        "WoodType[%s] has WoodenTieredObjectType[%s] that requires 'stick' object type but no matching object type was found",
-                        woodType.getName(),
-                        tieredObjectType.getName()));
-                }
-            }
+        final var entityTypeValidation =
+            WoodenEntityType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
 
-            for (final WoodenObjectType builtinObjectType : builtinObjectTypes) {
-                if (!WOODEN_RESOURCE_REGISTRY.hasObject(woodType, builtinObjectType)) {
-                    throw new RuntimeException(String.format(
-                        "WoodType[%s] has builtin WoodenObjectType[%s] but no object resource was registered",
-                        woodType.getName(),
-                        builtinObjectType.getName()));
-                }
-                if (objectTypes.contains(builtinObjectType)) {
-                    throw new RuntimeException(String.format(
-                        "WoodType[%s] has WoodenObjectType[%s] that is also marked as 'builtin'.",
-                        woodType.getName(),
-                        builtinObjectType.getName()));
-                }
-            }
-        });
-    }*/
+        if (!entityTypeValidation) {
+            LOGGER.error("Entity type validation failed!");
+        }
+
+        final var woodTypeValidation =
+            WOOD_TYPE_REGISTRY.getWoodTypes().map(WoodTypeValidator::validate).reduce(true, Boolean::logicalAnd);
+
+        if (!woodTypeValidation) {
+            LOGGER.error("Wood type validation failed!");
+        }
+
+        return blockTypeValidation && itemTypeValidation && tieredItemTypeValidation && entityTypeValidation &&
+               woodTypeValidation;
+    }
 }
