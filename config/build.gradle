@@ -1,0 +1,175 @@
+import org.apache.commons.lang3.StringUtils
+
+import java.util.stream.Collectors
+
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+version = "${version_mc}"
+group = "yamahari.${mod_id}"
+archivesBaseName = "${mod_id}"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: "${version_mc}"
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${version_mc}-${version_forge}"
+}
+
+configurations {
+    configJars {
+        canBeConsumed = true
+        canBeResolved = false
+    }
+}
+
+sourceSets {
+    main {
+    }
+}
+
+jar {
+    enabled = false
+}
+
+reobf {
+    jar {
+        enabled = false
+    }
+}
+
+def objectTypeNames = [
+        'panels',
+        'panels_stairs',
+        'panels_slabs',
+        'barrels',
+        'beds',
+        'bookshelves',
+        'composters',
+        'crafting_tables',
+        'chests',
+        'sawmills',
+        'lecterns',
+        'ladders',
+        'scaffoldings',
+        'soul_torches',
+        'torches',
+        'log_piles',
+        'posts',
+        'walls',
+        'chairs',
+        'tables',
+        'stools',
+        'single_dressers',
+        'sticks',
+        'bows',
+        'crossbows',
+        'fishing_rods',
+        'item_frames',
+        'axes',
+        'hoes',
+        'pickaxes',
+        'shovels',
+        'swords'
+]
+
+for (String objectTypeName in objectTypeNames) {
+    def copyObjectTypeName = objectTypeName
+    def name = Arrays
+            .stream(StringUtils.split(copyObjectTypeName, '_'))
+            .map(StringUtils::capitalize)
+            .collect(Collectors.joining(''))
+
+    def translationName = Arrays
+            .stream(StringUtils.split(copyObjectTypeName, '_'))
+            .map(StringUtils::capitalize)
+            .collect(Collectors.joining(' '))
+
+    def source = """\
+        package yamahari.ilikewood.config.${copyObjectTypeName};
+        
+        import net.minecraftforge.fml.common.Mod;
+
+        @Mod(\"ilikewood_${copyObjectTypeName}\")
+        public class ILikeWoodConfig${name} {
+        }\
+        """.stripIndent()
+
+    def toml = """\
+        modLoader=\"javafml\"
+        loaderVersion=\"${version_range_loader}\"
+        license=\"MIT\"
+        
+        [[mods]]
+        modId=\"ilikewood_${copyObjectTypeName}\"
+        version=\"${version_mc}\"
+        displayName="I Like Wood - Config - ${translationName}"
+        logoFile="logo.png"
+        credits="Yamahari and the people of Forge"
+        authors="Yamahari"
+        description=\'\'\'
+        This mod enables \"${translationName}\" for the main mod \"I Like Wood\".
+        \'\'\'\
+        """.stripIndent()
+
+    def outputFolder = file('src/%s/java/yamahari/ilikewood/config/%s'.formatted(copyObjectTypeName, copyObjectTypeName))
+    outputFolder.exists() || outputFolder.mkdirs()
+
+    def outputFile = new File(outputFolder, 'ILikeWoodConfig%s.java'.formatted(name))
+    outputFile.write(source)
+
+    outputFolder = file('src/%s/resources/META-INF'.formatted(copyObjectTypeName))
+    outputFolder.exists() || outputFolder.mkdirs()
+
+    outputFile = new File(outputFolder, 'mods.toml')
+    outputFile.write(toml)
+
+    def sourceSet = sourceSets.create(copyObjectTypeName)
+
+    configurations.named(sourceSet.implementationConfigurationName).configure {
+        extendsFrom configurations.named('minecraft').get()
+    }
+
+    tasks.named(sourceSet.getTaskName('process', 'resources')).configure {
+        it.from(sourceSets.main.resources) {
+            include 'logo.png'
+            include 'pack.mcmeta'
+        }
+    }
+
+    tasks.create(sourceSet.jarTaskName, Jar) {
+        archiveClassifier.set(copyObjectTypeName)
+        from sourceSet.output
+        manifest.attributes([
+                "Specification-Title"     : "${mod_id}-${copyObjectTypeName}",
+                "Specification-Vendor"    : "yamahari",
+                "Specification-Version"   : "${project.version}",
+                "Implementation-Title"    : "${mod_id}",
+                "Implementation-Version"  : "${project.version}",
+                "Implementation-Vendor"   : "yamahari",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "Automatic-Module-Name"   : "${mod_id}-${copyObjectTypeName}"
+        ])
+    }
+}
+
+artifacts {
+    for (String objectTypeName in objectTypeNames) {
+        def copyObjectTypeName = objectTypeName
+        configJars tasks.named(sourceSets.getByName(copyObjectTypeName).jarTaskName)
+    }
+}

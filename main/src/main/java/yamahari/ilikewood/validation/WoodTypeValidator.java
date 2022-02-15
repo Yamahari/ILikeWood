@@ -163,6 +163,58 @@ public final class WoodTypeValidator {
         }, Boolean::logicalAnd);
     }
 
+    private static <T extends IObjectType> boolean validateExclusivity(final Set<T> objectTypes,
+                                                                       final Set<T> builtinObjectTypes,
+                                                                       final IWoodType woodType) {
+        var result = true;
+        final var intersection = Sets.intersection(objectTypes, builtinObjectTypes);
+
+        if (!intersection.isEmpty()) {
+            ILikeWood.LOGGER.error(String.format(
+                "Object types set and builtin object types set for wood type \"%s\" set are not disconnected. Duplicates:",
+                woodType.getName()));
+
+            var builder = new StringBuilder();
+
+            for (final var duplicate : intersection) {
+                builder.append(duplicate.getName());
+                builder.append('\n');
+            }
+
+            ILikeWood.LOGGER.error(builder.toString());
+
+            result = false;
+        }
+
+        return result;
+    }
+
+    private static <T extends IObjectType> boolean validateProperties(final Set<T> objectTypes,
+                                                                      final IWoodType woodType,
+                                                                      final BiFunction<IWoodType, T, IWoodType.Properties> biFunction) {
+        var result = true;
+
+        for (final T objectType : objectTypes) {
+            final var properties = biFunction.apply(woodType, objectType);
+
+            if (properties == null) {
+                ILikeWood.LOGGER.error(String.format("Missing properties for block type \"%s\" of wood type \"%s\"",
+                    objectType.getName(),
+                    woodType.getName()));
+                result = false;
+            } else if (properties.burnTime() < -1) {
+                ILikeWood.LOGGER.error(String.format(
+                    "Invalid burn time \"%d\" for block type \"%s\" of wood type \"%s\"",
+                    properties.burnTime(),
+                    objectType.getName(),
+                    woodType.getName()));
+                result = false;
+            }
+        }
+
+        return result;
+    }
+
     // TODO Fuel Map
     public static boolean validate(final IWoodType woodType) {
         final Set<WoodenBlockType> blockTypes = woodType.getBlockTypes();
@@ -193,6 +245,12 @@ public final class WoodTypeValidator {
                 return entityTypes.contains(entityType);
             }
         };
+
+        final var exclusivityValidation = validateExclusivity(blockTypes, builtinBlockTypes, woodType) &&
+                                          validateExclusivity(itemTypes, builtinItemTypes, woodType);
+
+        final var propertiesValidation = validateProperties(blockTypes, woodType, IWoodType::getProperties) &&
+                                         validateProperties(itemTypes, woodType, IWoodType::getProperties);
 
         final var blockTypesValidation = WoodenBlockType
             .getAll()
@@ -226,7 +284,8 @@ public final class WoodTypeValidator {
             .map(entityType -> validateDependencies(entityType, visitor, woodType))
             .reduce(true, Boolean::logicalAnd);
 
-        return blockTypesValidation && itemTypesValidation && tieredItemTypesValidation && entityTypesValidation;
+        return exclusivityValidation && propertiesValidation && blockTypesValidation && itemTypesValidation &&
+               tieredItemTypesValidation && entityTypesValidation;
     }
 
     private enum ResourceRequirement {

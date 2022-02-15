@@ -23,13 +23,12 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
-/src/generated/resources/
-/src/main/resources/.cache/
 /changelog.txt
 /CREDITS.txt
 /LICENSE.txt
 /README.txt
 
-/src/main/resources/assets/biomesoplenty/
 /logs/
-/src/data/resources/
+/main/src/data/
+/config/src/
+/main/src/main/resources/.cache/

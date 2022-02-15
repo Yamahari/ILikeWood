@@ -22,7 +22,7 @@ public final class ILikeWoodObjectTypesConfig {
         makeFlag(objectTypeFlags, WoodenBlockType.PANELS_STAIRS);
         makeFlag(objectTypeFlags, WoodenBlockType.PANELS_SLAB);
         makeFlag(objectTypeFlags, WoodenBlockType.BARREL);
-        WoodenBlockType.getBeds().forEach(blockType -> makeFlag(objectTypeFlags, blockType));
+        makeBedFlag(objectTypeFlags);
         makeFlag(objectTypeFlags, WoodenBlockType.BOOKSHELF);
         makeFlag(objectTypeFlags, WoodenBlockType.COMPOSTER);
         makeFlag(objectTypeFlags, WoodenBlockType.CRAFTING_TABLE);
@@ -33,8 +33,6 @@ public final class ILikeWoodObjectTypesConfig {
         makeFlag(objectTypeFlags, WoodenBlockType.SCAFFOLDING);
         makeFlag(objectTypeFlags, WoodenBlockType.SOUL_TORCH);
         makeFlag(objectTypeFlags, WoodenBlockType.TORCH);
-        makeFlag(objectTypeFlags, WoodenBlockType.WALL_TORCH);
-        makeFlag(objectTypeFlags, WoodenBlockType.WALL_SOUL_TORCH);
         makeFlag(objectTypeFlags, WoodenBlockType.LOG_PILE);
         makeFlag(objectTypeFlags, WoodenBlockType.POST);
         makeFlag(objectTypeFlags, WoodenBlockType.STRIPPED_POST);
@@ -72,6 +70,11 @@ public final class ILikeWoodObjectTypesConfig {
                 .isLoaded(String.format("%s_%s", Constants.MOD_ID, objectType.getNamePlural()))));
     }
 
+    private static void makeBedFlag(final Map<IObjectType, Supplier<Boolean>> objectTypeFlags) {
+        objectTypeFlags.put(WoodenBlockType.WHITE_BED,
+            Suppliers.memoize(() -> ModList.get().isLoaded(String.format("%s_beds", Constants.MOD_ID))));
+    }
+
     public static boolean isEnabled(final IObjectType objectType) {
         return objectType.acceptVisitor(VISITOR);
     }
@@ -82,6 +85,15 @@ public final class ILikeWoodObjectTypesConfig {
     private static final IObjectTypeVisitor VISITOR = new IObjectTypeVisitor() {
         @Override
         public boolean visit(final WoodenBlockType blockType) {
+            if (blockType.equals(WoodenBlockType.STRIPPED_POST)) {
+                return getFlag(WoodenBlockType.POST);
+            } else if (blockType.equals(WoodenBlockType.WALL_TORCH)) {
+                return getFlag(WoodenBlockType.TORCH);
+            } else if (blockType.equals(WoodenBlockType.WALL_SOUL_TORCH)) {
+                return getFlag(WoodenBlockType.SOUL_TORCH);
+            } else if (WoodenBlockType.getBeds().anyMatch(blockType::equals)) {
+                return getFlag(WoodenBlockType.WHITE_BED);
+            }
             return getFlag(blockType);
         }
 

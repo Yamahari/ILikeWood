@@ -1,10 +1,5 @@
-import org.apache.commons.lang3.StringUtils
-
-import java.util.stream.Collectors
-
 buildscript {
     repositories {
-        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
     }
@@ -12,17 +7,24 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'maven-publish'
 apply plugin: 'java'
+apply plugin: 'idea'
 
 version = "${version_mc}-${version_major}.${version_api}.${version_minor}.${version_patch}"
 group = "yamahari.${mod_id}"
 archivesBaseName = "${mod_id}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: "${version_mc}"
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${version_mc}-${version_forge}"
+}
 
 sourceSets {
     main {
@@ -35,12 +37,9 @@ sourceSets {
     }
 
     api {
-        java {
-            srcDirs = ['src/api/java']
-        }
-        resources {
-            srcDirs = ['src/api/resources']
-        }
+    }
+
+    data {
     }
 }
 
@@ -49,8 +48,6 @@ configurations {
 }
 
 minecraft {
-    mappings channel: 'official', version: "${version_mc}"
-
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -114,13 +111,14 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${version_mc}-${version_forge}"
-
     compileOnly fg.deobf("mezz.jei:jei-${version_mc}:${version_jei}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${version_mc}:${version_jei}")
 
     implementation sourceSets.api.output
+
+    runtimeOnly project(path: ':config', configuration: 'configJars')
 }
+
 
 def replaceVersions = tasks.register('replaceVersions', Copy) {
     it.outputs.upToDateWhen { false }
@@ -172,88 +170,19 @@ jar {
     finalizedBy 'reobfJar'
 }
 
-def objectTypeNames = ['panels']
-
-for (String objectTypeName in objectTypeNames) {
-    def name = Arrays
-            .stream(StringUtils.split(objectTypeName, '_'))
-            .map(StringUtils::capitalize)
-            .collect(Collectors.joining(''))
-
-    def translationName = Arrays
-            .stream(StringUtils.split(objectTypeName, '_'))
-            .map(StringUtils::capitalize)
-            .collect(Collectors.joining(' '))
-
-    def source = """\
-        package yamahari.ilikewood.config.%s;
-        
-        import net.minecraftforge.fml.common.Mod;
-
-        @Mod(\"ilikewood_%s\")
-        public class ILikeWoodConfig%s {
-        }\
-        """.formatted(objectTypeName, objectTypeName, name).stripIndent()
-
-    def toml = """\
-        modLoader=\"javafml\"
-        loaderVersion=\"[39,)\"
-        license=\"MIT\"
-        
-        [[mods]]
-        modId=\"ilikewood_%s\"
-        version=\"1.0.0.0\"
-        displayName="I Like Wood - Config - %s"
-        logoFile="logo.png"
-        credits="Yamahari and the people of Forge"
-        authors="Yamahari"
-        description=\'\'\'
-        This mod enables \"%s\" for the main mod \"I Like Wood\".
-        \'\'\'\
-        """.formatted(objectTypeName, translationName, translationName).stripIndent()
-
-    def outputFolder = file('src/%s/java/yamahari/ilikewood/config/%s'.formatted(objectTypeName, objectTypeName))
-    outputFolder.exists() || outputFolder.mkdirs()
-
-    def outputFile = new File(outputFolder, 'ILikeWoodConfig%s.java'.formatted(name))
-    outputFile.write(source)
-
-    outputFolder = file('src/%s/resources/META-INF'.formatted(objectTypeName))
-    outputFolder.exists() || outputFolder.mkdirs()
-
-    outputFile = new File(outputFolder, 'mods.toml')
-    outputFile.write(toml)
-
-    def sourceSet = sourceSets.create(objectTypeName)
-
-    configurations.named(sourceSet.getImplementationConfigurationName()).configure {
-        extendsFrom configurations.named('minecraft').get()
-    }
-
-    tasks.named(sourceSet.getTaskName('process', 'resources')).configure {
-        it.from(sourceSets.main.resources) {
-            include 'logo.png'
-            include 'pack.mcmeta'
-        }
-    }
-
-    def jarTask = tasks.create('%sJar'.formatted(objectTypeName), org.gradle.jvm.tasks.Jar) {
-        archiveClassifier.set(objectTypeName)
-        from sourceSet.output
-    }
-
-    tasks.named('assemble').configure {
-        dependsOn jarTask
-    }
-
-    dependencies {
-        runtimeOnly 'build.libs:ilikewood-%s:%s'.formatted(version, objectTypeName)
-    }
-}
-
 task apiJar(type: Jar, dependsOn: apiClasses) {
     archiveClassifier.set('api')
     from sourceSets.api.output
+    manifest.attributes([
+            "Specification-Title"     : "${mod_id}-api",
+            "Specification-Vendor"    : "yamahari",
+            "Specification-Version"   : "${project.version}",
+            "Implementation-Title"    : "${mod_id}-api",
+            "Implementation-Version"  : "${project.version}",
+            "Implementation-Vendor"   : "yamahari",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "Automatic-Module-Name"   : "${mod_id}-api"
+    ])
     afterEvaluate { finalizedBy reobfApiJar }
 }
 
