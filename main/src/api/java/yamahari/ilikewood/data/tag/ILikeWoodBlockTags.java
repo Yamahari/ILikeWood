@@ -7,30 +7,31 @@ import net.minecraftforge.common.Tags;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodBlockTags {
-    public static final Tags.IOptionalNamedTag<Block> PANELS = createOptional("panels");
-    public static final Tags.IOptionalNamedTag<Block> PANELS_SLABS = createOptional("panels_slab");
-    public static final Tags.IOptionalNamedTag<Block> PANELS_STAIRS = createOptional("panels_stairs");
-    public static final Tags.IOptionalNamedTag<Block> BARRELS = createOptional("barrels");
-    public static final Tags.IOptionalNamedTag<Block> CHESTS = createOptional("chests");
-    public static final Tags.IOptionalNamedTag<Block> COMPOSTER = createOptional("composter");
-    public static final Tags.IOptionalNamedTag<Block> BOOKSHELFS = createOptional("bookshelfs");
-    public static final Tags.IOptionalNamedTag<Block> WALLS = createOptional("walls");
-    public static final Tags.IOptionalNamedTag<Block> LADDERS = createOptional("ladders");
-    public static final Tags.IOptionalNamedTag<Block> TORCHES = createOptional("torches");
-    public static final Tags.IOptionalNamedTag<Block> WALL_TORCHES = createOptional("wall_torches");
-    public static final Tags.IOptionalNamedTag<Block> CRAFTING_TABLES = createOptional("crafting_tables");
-    public static final Tags.IOptionalNamedTag<Block> SCAFFOLDINGS = createOptional("scaffoldings");
-    public static final Tags.IOptionalNamedTag<Block> LECTERNS = createOptional("lecterns");
-    public static final Tags.IOptionalNamedTag<Block> POSTS = createOptional("posts");
-    public static final Tags.IOptionalNamedTag<Block> STRIPPED_POSTS = createOptional("stripped_posts");
-    public static final Tags.IOptionalNamedTag<Block> BEDS = createOptional("beds");
-    public static final Tags.IOptionalNamedTag<Block> SAWMILLS = createOptional("sawmills");
-    public static final Tags.IOptionalNamedTag<Block> SOUL_TORCHES = createOptional("soul_torches");
-    public static final Tags.IOptionalNamedTag<Block> WALL_SOUL_TORCHES = createOptional("wall_soul_torches");
-    public static final Tags.IOptionalNamedTag<Block> CHAIRS = createOptional("chairs");
-    public static final Tags.IOptionalNamedTag<Block> TABLES = createOptional("tables");
-    public static final Tags.IOptionalNamedTag<Block> STOOLS = createOptional("stools");
-    public static final Tags.IOptionalNamedTag<Block> SINGLE_DRESSER = createOptional("single_dresser");
+    public static final Tags.IOptionalNamedTag<Block> PANELS = createOptional(Constants.PANELS_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> PANELS_SLABS = createOptional(Constants.PANELS_SLAB_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> PANELS_STAIRS = createOptional(Constants.PANELS_STAIRS_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> BARRELS = createOptional(Constants.BARREL_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> CHESTS = createOptional(Constants.CHEST_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> COMPOSTER = createOptional(Constants.COMPOSTER_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> BOOKSHELVES = createOptional(Constants.BOOKSHELF_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> WALLS = createOptional(Constants.WALL_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> LADDERS = createOptional(Constants.LADDER_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> TORCHES = createOptional(Constants.TORCH_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> WALL_TORCHES = createOptional(Constants.WALL_TORCH_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> CRAFTING_TABLES = createOptional(Constants.CRAFTING_TABLE_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> SCAFFOLDINGS = createOptional(Constants.SCAFFOLDING_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> LECTERNS = createOptional(Constants.LECTERN_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> POSTS = createOptional(Constants.POST_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> STRIPPED_POSTS = createOptional(Constants.STRIPPED_POST_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> BEDS = createOptional(Constants.BEDS);
+    public static final Tags.IOptionalNamedTag<Block> SAWMILLS = createOptional(Constants.SAWMILL_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> SOUL_TORCHES = createOptional(Constants.SOUL_TORCH_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> WALL_SOUL_TORCHES =
+        createOptional(Constants.WALL_SOUL_TORCH_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> CHAIRS = createOptional(Constants.CHAIR_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> TABLES = createOptional(Constants.TABLE_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> STOOLS = createOptional(Constants.STOOL_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> SINGLE_DRESSERS = createOptional(Constants.SINGLE_DRESSER_PLURAL);
 
     private ILikeWoodBlockTags() {
     }
