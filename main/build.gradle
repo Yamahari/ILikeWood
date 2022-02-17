@@ -28,18 +28,12 @@ dependencies {
 
 sourceSets {
     main {
-        java {
-            srcDirs = ['src/main/java']
-        }
         resources {
             srcDirs = ['src/main/resources', 'src/data/resources']
         }
     }
 
     api {
-    }
-
-    data {
     }
 }
 
@@ -95,9 +89,6 @@ minecraft {
 }
 
 repositories {
-    flatDir {
-        dirs 'build/libs'
-    }
     maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
@@ -116,7 +107,8 @@ dependencies {
 
     implementation sourceSets.api.output
 
-    runtimeOnly project(path: ':config', configuration: 'configJars')
+    //runtimeOnly project(path: ':config', configuration: 'configJars')
+    //runtimeOnly project(path: ':config', configuration: 'configPanelsOnly')
 }
 
 

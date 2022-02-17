@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
 import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -41,12 +42,16 @@ public final class ILikeWoodItemRegistry extends AbstractILikeWoodObjectRegistry
 
     private void registerItems(final WoodenItemType itemType,
                                final Function<IWoodType, RegistryObject<Item>> function) {
-        final Map<IWoodType, RegistryObject<Item>> items = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY
-            .getWoodTypes()
-            .filter(woodType -> woodType.getItemTypes().contains(itemType))
-            .forEach(woodType -> items.put(woodType, function.apply(woodType)));
-        this.registryObjects.put(itemType, Collections.unmodifiableMap(items));
+        if (ILikeWoodObjectTypesConfig.isEnabled(itemType)) {
+            final Map<IWoodType, RegistryObject<Item>> items = new HashMap<>();
+
+            ILikeWood.WOOD_TYPE_REGISTRY
+                .getWoodTypes()
+                .filter(woodType -> woodType.getItemTypes().contains(itemType))
+                .forEach(woodType -> items.put(woodType, function.apply(woodType)));
+
+            this.registryObjects.put(itemType, Collections.unmodifiableMap(items));
+        }
     }
 
     private RegistryObject<Item> register(final IWoodType woodType, final WoodenItemType itemType,

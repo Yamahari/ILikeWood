@@ -5,6 +5,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
 import yamahari.ilikewood.entity.WoodenChairEntity;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
@@ -41,9 +42,10 @@ public final class ILikeWoodEntityTypeRegistry
     private RegistryObject<EntityType<?>> registerItemFrameEntityType(final IWoodType woodType) {
         final String name = Util.toRegistryName(woodType.getName(), WoodenEntityType.ITEM_FRAME.getName());
         return this.registry.register(name,
-            () -> EntityType.Builder.<WoodenItemFrameEntity>of((entityType, world) -> new WoodenItemFrameEntity(woodType,
-                entityType,
-                world), MobCategory.MISC)
+            () -> EntityType.Builder
+                .<WoodenItemFrameEntity>of((entityType, world) -> new WoodenItemFrameEntity(woodType,
+                    entityType,
+                    world), MobCategory.MISC)
                 .sized(0.5F, 0.5F)
                 .clientTrackingRange(10)
                 .updateInterval(Integer.MAX_VALUE)
@@ -58,8 +60,13 @@ public final class ILikeWoodEntityTypeRegistry
 
     @Override
     protected void register() {
-        registerItemFrameEntityTypes();
-        registerChairEntityTypes();
+        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenEntityType.ITEM_FRAME)) {
+            registerItemFrameEntityTypes();
+        }
+
+        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenEntityType.CHAIR)) {
+            registerChairEntityTypes();
+        }
     }
 
     @Override

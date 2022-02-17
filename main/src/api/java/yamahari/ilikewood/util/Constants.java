@@ -25,6 +25,7 @@ public final class Constants {
     public static final String PANELS_SLAB_PLURAL = "panels_slabs";
     public static final String BARREL = "barrel";
     public static final String BARREL_PLURAL = "barrels";
+    public static final String BEDS = "beds";
     public static final String WHITE_BED = "white_bed";
     public static final String WHITE_BED_PLURAL = "white_beds";
     public static final String ORANGE_BED = "orange_bed";

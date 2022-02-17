@@ -39,7 +39,7 @@ public final class SingleDresserRecipeProvider extends AbstractBlockItemRecipePr
             .pattern("###")
             .pattern("XXX")
             .pattern("XXX")
-            .group(ILikeWoodBlockTags.SINGLE_DRESSER.getName().getPath())
+            .group(ILikeWoodBlockTags.SINGLE_DRESSERS.getName().getPath())
             .unlockedBy("has_stripped_log", has(strippedLog));
 
         ConditionalRecipe

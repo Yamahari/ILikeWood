@@ -37,7 +37,7 @@ public final class BookshelfRecipeProvider extends AbstractBlockItemRecipeProvid
             .pattern("XXX")
             .pattern("###")
             .unlockedBy("has_book", has(Items.BOOK))
-            .group(ILikeWoodBlockTags.BOOKSHELFS.getName().getPath());
+            .group(ILikeWoodBlockTags.BOOKSHELVES.getName().getPath());
 
         ConditionalRecipe
             .builder()

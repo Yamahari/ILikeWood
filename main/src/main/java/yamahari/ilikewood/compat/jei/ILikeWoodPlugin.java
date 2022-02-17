@@ -9,6 +9,7 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
 import yamahari.ilikewood.container.WoodenWorkBenchContainer;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
@@ -27,19 +28,23 @@ public final class ILikeWoodPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerRecipeTransferHandlers(final IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(WoodenWorkBenchContainer.class,
-            VanillaRecipeCategoryUid.CRAFTING,
-            1,
-            9,
-            10,
-            36);
+    public void registerRecipeTransferHandlers(@Nonnull final IRecipeTransferRegistration registration) {
+        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenBlockType.CRAFTING_TABLE)) {
+            registration.addRecipeTransferHandler(WoodenWorkBenchContainer.class,
+                VanillaRecipeCategoryUid.CRAFTING,
+                1,
+                9,
+                10,
+                36);
+        }
     }
 
     @Override
-    public void registerRecipeCatalysts(final IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK,
-            WoodenBlockType.CRAFTING_TABLE)), VanillaRecipeCategoryUid.CRAFTING);
+    public void registerRecipeCatalysts(@Nonnull final IRecipeCatalystRegistration registration) {
+        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenBlockType.CRAFTING_TABLE)) {
+            registration.addRecipeCatalyst(new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK,
+                WoodenBlockType.CRAFTING_TABLE)), VanillaRecipeCategoryUid.CRAFTING);
+        }
     }
 
     @Override

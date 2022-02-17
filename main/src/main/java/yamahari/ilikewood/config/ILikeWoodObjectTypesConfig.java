@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 
 public final class ILikeWoodObjectTypesConfig {
     private static final Map<IObjectType, Supplier<Boolean>> OBJECT_TYPE_FLAGS;
+    private static final Supplier<Boolean> IS_DATA_GEN;
 
     static {
         final Map<IObjectType, Supplier<Boolean>> objectTypeFlags = new HashMap<>();
@@ -55,6 +56,18 @@ public final class ILikeWoodObjectTypesConfig {
         makeFlag(objectTypeFlags, WoodenTieredItemType.SWORD);
 
         OBJECT_TYPE_FLAGS = Collections.unmodifiableMap(objectTypeFlags);
+
+        IS_DATA_GEN = Suppliers.memoize(ILikeWoodObjectTypesConfig::isDataGen);
+    }
+
+    private static boolean isDataGen() {
+        try {
+            final String dataModId = System.getProperty("ilikewood.datagen.modid");
+            return dataModId != null;
+        } catch (NullPointerException | SecurityException | IllegalArgumentException e) {
+            ILikeWood.LOGGER.error(e.getMessage());
+        }
+        return false;
     }
 
     private static boolean getFlag(final IObjectType objectType) {
@@ -76,7 +89,7 @@ public final class ILikeWoodObjectTypesConfig {
     }
 
     public static boolean isEnabled(final IObjectType objectType) {
-        return objectType.acceptVisitor(VISITOR);
+        return IS_DATA_GEN.get() || objectType.acceptVisitor(VISITOR);
     }
 
     // TODO Chair Entity is used for stools also

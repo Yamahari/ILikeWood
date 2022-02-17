@@ -37,7 +37,7 @@ public final class FishingRodRecipeProvider extends AbstractItemRecipeProvider {
             .pattern(" #X")
             .pattern("# X")
             .unlockedBy("has_string", has(Items.STRING))
-            .group(ILikeWoodItemTags.FISHING_POLES.getName().getPath());
+            .group(ILikeWoodItemTags.FISHING_RODS.getName().getPath());
 
         ConditionalRecipe
             .builder()

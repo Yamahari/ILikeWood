@@ -35,6 +35,11 @@ configurations {
         canBeConsumed = true
         canBeResolved = false
     }
+
+    configPanelsOnly {
+        canBeConsumed = true
+        canBeResolved = false
+    }
 }
 
 sourceSets {
@@ -172,4 +177,6 @@ artifacts {
         def copyObjectTypeName = objectTypeName
         configJars tasks.named(sourceSets.getByName(copyObjectTypeName).jarTaskName)
     }
+
+    configPanelsOnly panelsJar
 }
