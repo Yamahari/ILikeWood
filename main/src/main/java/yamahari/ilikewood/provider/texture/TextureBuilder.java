@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.platform.NativeImage;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +14,7 @@ import yamahari.ilikewood.ILikeWood;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.function.Function;
@@ -58,7 +58,7 @@ public class TextureBuilder extends TextureFile {
         return this;
     }
 
-    public void build(@Nonnull final DataGenerator generator, @Nonnull final HashCache cache) throws IOException {
+    public void build(@Nonnull final Path rootPath, @Nonnull final HashCache cache) throws IOException {
         try {
             final var parentResource = this.helper.getResource(this.parent.getLocation(),
                 PackType.CLIENT_RESOURCES,
@@ -67,20 +67,16 @@ public class TextureBuilder extends TextureFile {
             final var parentImage = NativeImage.read(parentResource.getInputStream());
 
             final var image = this.transformer.apply(parentImage);
-            final var pngPath = generator
-                .getOutputFolder()
-                .resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(),
-                    this.getLocation().getNamespace(),
-                    AbstractTextureProvider.TEXTURE.getPrefix(),
-                    this.getLocation().getPath() + AbstractTextureProvider.TEXTURE.getSuffix()));
+            final var pngPath = rootPath.resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(),
+                this.getLocation().getNamespace(),
+                AbstractTextureProvider.TEXTURE.getPrefix(),
+                this.getLocation().getPath() + AbstractTextureProvider.TEXTURE.getSuffix()));
 
             if (this.animated) {
-                final var mcMetaPath = generator
-                    .getOutputFolder()
-                    .resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(),
-                        this.getLocation().getNamespace(),
-                        AbstractTextureProvider.TEXTURE.getPrefix(),
-                        this.getLocation().getPath() + AbstractTextureProvider.TEXTURE.getSuffix()) + ".mcmeta");
+                final var mcMetaPath = rootPath.resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(),
+                    this.getLocation().getNamespace(),
+                    AbstractTextureProvider.TEXTURE.getPrefix(),
+                    this.getLocation().getPath() + AbstractTextureProvider.TEXTURE.getSuffix()) + ".mcmeta");
                 final var jsonObject = new JsonObject();
                 final var animation = new JsonObject();
                 animation.addProperty("interpolate", this.interpolate);

@@ -22,6 +22,7 @@ import yamahari.ilikewood.provider.tag.block.*;
 import yamahari.ilikewood.provider.tag.item.*;
 import yamahari.ilikewood.provider.texture.block.*;
 import yamahari.ilikewood.provider.texture.item.*;
+import yamahari.ilikewood.provider.texture.item.tiered.ToolTextureProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
@@ -136,7 +137,6 @@ public final class GatherDataEventHandler {
                 Constants.SAWMILL_PLURAL,
                 WoodenBlockType.SAWMILL,
                 ILikeWoodBlockTags.SAWMILLS));
-            generator.addProvider(new SoulTorchBlockTagsProvider(generator, helper));
             generator.addProvider(new DefaultBlockTagsProvider(generator,
                 helper,
                 Constants.CHAIR_PLURAL,
@@ -204,12 +204,7 @@ public final class GatherDataEventHandler {
                 Constants.LADDER_PLURAL,
                 WoodenBlockType.LADDER,
                 ILikeWoodItemTags.LADDERS));
-            generator.addProvider(new BlockItemItemTagsProvider(generator,
-                dummy,
-                helper,
-                Constants.TORCH_PLURAL,
-                WoodenBlockType.TORCH,
-                ILikeWoodItemTags.TORCHES));
+            generator.addProvider(new TorchItemTagsProvider(generator, dummy, helper));
             generator.addProvider(new StickItemTagsProvider(generator, dummy, helper));
             generator.addProvider(new BlockItemItemTagsProvider(generator,
                 dummy,
@@ -229,18 +224,7 @@ public final class GatherDataEventHandler {
                 Constants.LECTERN_PLURAL,
                 WoodenBlockType.LECTERN,
                 ILikeWoodItemTags.LECTERNS));
-            generator.addProvider(new BlockItemItemTagsProvider(generator,
-                dummy,
-                helper,
-                Constants.POST_PLURAL,
-                WoodenBlockType.POST,
-                ILikeWoodItemTags.POSTS));
-            generator.addProvider(new BlockItemItemTagsProvider(generator,
-                dummy,
-                helper,
-                Constants.POST_PLURAL,
-                WoodenBlockType.STRIPPED_POST,
-                ILikeWoodItemTags.STRIPPED_POSTS));
+            generator.addProvider(new PostItemTagsProvider(generator, dummy, helper));
             generator.addProvider(new ItemItemTagsProvider(generator,
                 dummy,
                 helper,
@@ -277,7 +261,6 @@ public final class GatherDataEventHandler {
                 Constants.FISHING_ROD_PLURAL,
                 WoodenItemType.FISHING_ROD,
                 ILikeWoodItemTags.FISHING_RODS));
-            generator.addProvider(new SoulTorchItemTagsProvider(generator, dummy, helper));
             generator.addProvider(new BlockItemItemTagsProvider(generator,
                 dummy,
                 helper,
@@ -346,12 +329,16 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ScaffoldingTextureProvider(generator, helper));
             generator.addProvider(new TorchTextureProvider(generator, helper));
             generator.addProvider(new PostTextureProvider(generator, helper));
-            generator.addProvider(new StrippedPostTextureProvider(generator, helper));
             generator.addProvider(new BowTextureProvider(generator, helper));
             generator.addProvider(new CrossbowTextureProvider(generator, helper));
             generator.addProvider(new FishingRodTextureProvider(generator, helper));
             generator.addProvider(new ItemFrameTextureProvider(generator, helper));
-            generator.addProvider(new StickAndToolTextureProvider(generator, helper));
+            generator.addProvider(new StickTextureProvider(generator, helper));
+            WoodenTieredItemType
+                .getAll()
+                .forEach(tieredItemType -> generator.addProvider(new ToolTextureProvider(generator,
+                    helper,
+                    tieredItemType)));
 
             generator.addProvider(new PanelsBlockStateProvider(generator, helper));
             generator.addProvider(new PanelsStairsBlockStateProvider(generator, helper));

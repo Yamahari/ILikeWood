@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
@@ -13,7 +14,7 @@ import java.util.function.Function;
 
 public final class ScaffoldingTextureProvider extends AbstractBlockTextureProvider {
     public ScaffoldingTextureProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, BLOCK_FOLDER, helper, WoodenBlockType.SCAFFOLDING);
+        super(generator, BLOCK_FOLDER, helper, Constants.SCAFFOLDING_PLURAL, WoodenBlockType.SCAFFOLDING);
     }
 
     @Override

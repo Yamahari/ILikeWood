@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
@@ -13,7 +14,11 @@ import java.util.function.Function;
 
 public final class LogPileTextureProvider extends AbstractBlockTextureProvider {
     public LogPileTextureProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, BLOCK_FOLDER, helper, WoodenBlockType.SAWMILL); // TODO Replace with LOG_PILE once added back
+        super(generator,
+            BLOCK_FOLDER,
+            helper,
+            Constants.SAWMILL_PLURAL,
+            WoodenBlockType.SAWMILL); // TODO Replace with LOG_PILE once added back
     }
 
     @Override

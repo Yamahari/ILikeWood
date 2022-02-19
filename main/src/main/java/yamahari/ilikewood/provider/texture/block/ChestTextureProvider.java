@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
@@ -13,7 +14,7 @@ import java.util.function.Function;
 
 public final class ChestTextureProvider extends AbstractBlockTextureProvider {
     public ChestTextureProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, ENTITY_FOLDER, helper, WoodenBlockType.CHEST);
+        super(generator, ENTITY_FOLDER, helper, Constants.CHEST_PLURAL, WoodenBlockType.CHEST);
     }
 
     @Override

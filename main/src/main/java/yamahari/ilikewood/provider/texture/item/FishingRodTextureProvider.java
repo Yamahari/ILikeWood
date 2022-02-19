@@ -6,6 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
@@ -13,7 +14,7 @@ import java.util.function.Function;
 
 public final class FishingRodTextureProvider extends AbstractItemTextureProvider {
     public FishingRodTextureProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, ITEM_FOLDER, helper, WoodenItemType.FISHING_ROD);
+        super(generator, ITEM_FOLDER, helper, Constants.FISHING_ROD_PLURAL, WoodenItemType.FISHING_ROD);
     }
 
     @Override

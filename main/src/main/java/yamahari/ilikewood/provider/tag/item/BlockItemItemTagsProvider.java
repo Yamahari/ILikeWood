@@ -21,6 +21,6 @@ public class BlockItemItemTagsProvider extends AbstractItemTagsProvider {
 
     @Override
     protected void addTags() {
-        registerTag(this.tag, this.blockType);
+        this.registerTag(this.tag, this.blockType);
     }
 }

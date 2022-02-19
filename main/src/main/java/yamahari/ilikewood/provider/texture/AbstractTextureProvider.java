@@ -39,12 +39,14 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     private final DataGenerator generator;
     private final ExistingFileHelper helper;
     private final String folder;
+    private final String root;
 
     public AbstractTextureProvider(final DataGenerator generator, final String folder, final ExistingFileHelper helper,
-                                   final O objectType, final R objectRegistry) {
+                                   final String root, final O objectType, final R objectRegistry) {
         this.generator = generator;
         this.folder = folder;
         this.helper = helper;
+        this.root = root;
         this.objectType = objectType;
         this.factory = location -> new TextureBuilder(location, helper);
         this.objectRegistry = objectRegistry;
@@ -189,13 +191,13 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
         this.objectRegistry.getObjects(this.objectType).forEach(this::createTexture);
 
         for (final TextureBuilder builder : this.generatedTextures.values()) {
-            builder.build(this.generator, cache);
+            builder.build(this.generator.getOutputFolder().resolve(this.root), cache);
         }
     }
 
     @Nonnull
     @Override
-    public final String getName() {
+    public String getName() {
         return String.format("%s - textures - %s", Constants.MOD_ID, this.objectType.getName());
     }
 

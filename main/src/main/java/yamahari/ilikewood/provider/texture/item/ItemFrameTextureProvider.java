@@ -6,6 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
@@ -13,7 +14,7 @@ import java.util.function.Function;
 
 public final class ItemFrameTextureProvider extends AbstractItemTextureProvider {
     public ItemFrameTextureProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, ITEM_FOLDER, helper, WoodenItemType.ITEM_FRAME);
+        super(generator, ITEM_FOLDER, helper, Constants.ITEM_FRAME_PLURAL, WoodenItemType.ITEM_FRAME);
     }
 
     @Override

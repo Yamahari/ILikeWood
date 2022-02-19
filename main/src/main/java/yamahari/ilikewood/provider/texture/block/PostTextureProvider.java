@@ -7,13 +7,15 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.provider.texture.TextureBuilder;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
+import yamahari.ilikewood.registry.resource.resources.IWoodenStrippedLogResource;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
 public final class PostTextureProvider extends AbstractBlockTextureProvider {
     public PostTextureProvider(final DataGenerator generator, final ExistingFileHelper helper) {
-        super(generator, BLOCK_FOLDER, helper, WoodenBlockType.POST);
+        super(generator, BLOCK_FOLDER, helper, Constants.POST_PLURAL, WoodenBlockType.POST);
     }
 
     @Override
@@ -31,6 +33,17 @@ public final class PostTextureProvider extends AbstractBlockTextureProvider {
 
         if (properties.animated()) {
             builder.animate(properties.interpolate(), properties.frameTime());
+        }
+
+        if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasStrippedLog(woodType)) {
+            final String strippedPath = Util.toPath(path, "stripped");
+
+            final IWoodenStrippedLogResource strippedLogResource =
+                ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(woodType);
+
+            this
+                .withExistingParent(Util.toPath(strippedPath, woodType.getName()), strippedLogResource.getSideTexture())
+                .transform(this::postTransformer);
         }
     }
 }

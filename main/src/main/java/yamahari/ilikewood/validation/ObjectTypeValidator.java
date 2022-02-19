@@ -36,8 +36,10 @@ public final class ObjectTypeValidator {
             Sets.newHashSet(WoodenBlockType.PANELS_SLAB, WoodenBlockType.BOOKSHELF));
         objectTypeDependencies.put(WoodenBlockType.LADDER, Sets.newHashSet(WoodenItemType.STICK));
         objectTypeDependencies.put(WoodenBlockType.SCAFFOLDING, DEPENDS_ON_STICKS);
-        objectTypeDependencies.put(WoodenBlockType.SOUL_TORCH, DEPENDS_ON_STICKS);
-        objectTypeDependencies.put(WoodenBlockType.TORCH, DEPENDS_ON_STICKS);
+        objectTypeDependencies.put(WoodenBlockType.SOUL_TORCH,
+            Sets.newHashSet(WoodenBlockType.TORCH, WoodenItemType.STICK));
+        objectTypeDependencies.put(WoodenBlockType.TORCH,
+            Sets.newHashSet(WoodenBlockType.SOUL_TORCH, WoodenItemType.STICK));
         objectTypeDependencies.put(WoodenBlockType.WALL_TORCH,
             Sets.newHashSet(WoodenItemType.STICK, WoodenBlockType.TORCH));
         objectTypeDependencies.put(WoodenBlockType.WALL_SOUL_TORCH,

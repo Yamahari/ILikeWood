@@ -6,10 +6,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.objecttype.*;
 import yamahari.ilikewood.util.Constants;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Supplier;
 
 public final class ILikeWoodObjectTypesConfig {
@@ -32,11 +29,11 @@ public final class ILikeWoodObjectTypesConfig {
         makeFlag(objectTypeFlags, WoodenBlockType.LECTERN);
         makeFlag(objectTypeFlags, WoodenBlockType.LADDER);
         makeFlag(objectTypeFlags, WoodenBlockType.SCAFFOLDING);
-        makeFlag(objectTypeFlags, WoodenBlockType.SOUL_TORCH);
+        // makeFlag(objectTypeFlags, WoodenBlockType.SOUL_TORCH);
         makeFlag(objectTypeFlags, WoodenBlockType.TORCH);
         makeFlag(objectTypeFlags, WoodenBlockType.LOG_PILE);
         makeFlag(objectTypeFlags, WoodenBlockType.POST);
-        makeFlag(objectTypeFlags, WoodenBlockType.STRIPPED_POST);
+        // makeFlag(objectTypeFlags, WoodenBlockType.STRIPPED_POST);
         makeFlag(objectTypeFlags, WoodenBlockType.WALL);
         makeFlag(objectTypeFlags, WoodenBlockType.CHAIR);
         makeFlag(objectTypeFlags, WoodenBlockType.TABLE);
@@ -100,10 +97,10 @@ public final class ILikeWoodObjectTypesConfig {
         public boolean visit(final WoodenBlockType blockType) {
             if (blockType.equals(WoodenBlockType.STRIPPED_POST)) {
                 return getFlag(WoodenBlockType.POST);
-            } else if (blockType.equals(WoodenBlockType.WALL_TORCH)) {
+            } else if (List
+                .of(WoodenBlockType.SOUL_TORCH, WoodenBlockType.WALL_TORCH, WoodenBlockType.WALL_SOUL_TORCH)
+                .contains(blockType)) {
                 return getFlag(WoodenBlockType.TORCH);
-            } else if (blockType.equals(WoodenBlockType.WALL_SOUL_TORCH)) {
-                return getFlag(WoodenBlockType.SOUL_TORCH);
             } else if (WoodenBlockType.getBeds().anyMatch(blockType::equals)) {
                 return getFlag(WoodenBlockType.WHITE_BED);
             }
