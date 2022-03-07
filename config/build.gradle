@@ -40,6 +40,11 @@ configurations {
         canBeConsumed = true
         canBeResolved = false
     }
+
+    configPanelsChain {
+        canBeConsumed = true
+        canBeResolved = false
+    }
 }
 
 sourceSets {
@@ -179,4 +184,5 @@ artifacts {
     }
 
     configPanelsOnly panelsJar
+    configPanelsChain panelsJar, panels_stairsJar, panels_slabsJar
 }

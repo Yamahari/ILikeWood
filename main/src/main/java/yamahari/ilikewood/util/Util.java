@@ -9,6 +9,8 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public final class Util {
     public static final IWoodType DUMMY_WOOD_TYPE = new DummyWoodType();
@@ -54,5 +56,12 @@ public final class Util {
         }
 
         return buffer[0];
+    }
+
+    public static String toTranslationName(final String registryName) {
+        return Arrays
+            .stream(StringUtils.split(registryName, '_'))
+            .map(StringUtils::capitalize)
+            .collect(Collectors.joining(" "));
     }
 }

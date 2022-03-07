@@ -2,7 +2,6 @@ package yamahari.ilikewood.provider.tag.item;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -12,10 +11,8 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.Constants;
-import yamahari.ilikewood.util.Util;
 
 import javax.annotation.Nonnull;
-import java.nio.file.Path;
 
 public abstract class AbstractItemTagsProvider extends ItemTagsProvider {
     private final String root;
@@ -40,19 +37,6 @@ public abstract class AbstractItemTagsProvider extends ItemTagsProvider {
 
     protected void registerTag(final Tag.Named<Item> tag, final WoodenTieredItemType tieredItemType) {
         this.tag(tag).add(ILikeWood.TIERED_ITEM_REGISTRY.getObjects(tieredItemType).toArray(Item[]::new));
-    }
-
-    @Nonnull
-    @Override
-    protected Path getPath(@Nonnull final ResourceLocation resourceLocation) {
-        return this.generator
-            .getOutputFolder()
-            .resolve(Util.toPath(this.root,
-                "data",
-                resourceLocation.getNamespace(),
-                "tags",
-                "items",
-                resourceLocation.getPath() + ".json"));
     }
 
     @Override

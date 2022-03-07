@@ -1,4 +1,4 @@
-package yamahari.ilikewood.data.loot_table;
+package yamahari.ilikewood.data.loot;
 
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLoot;

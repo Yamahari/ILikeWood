@@ -8,6 +8,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -20,16 +21,7 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class Atlases {
-    private static final Map<IWoodType, Map<ChestType, Material>> CHESTS;
-
-    static {
-        final Map<IWoodType, Map<ChestType, Material>> chests = new HashMap<>();
-        ILikeWood.WOOD_TYPE_REGISTRY
-            .getWoodTypes()
-            .filter(woodType -> woodType.getBlockTypes().contains(WoodenBlockType.CHEST))
-            .forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
-        CHESTS = Collections.unmodifiableMap(chests);
-    }
+    private static Map<IWoodType, Map<ChestType, Material>> CHESTS;
 
     private Atlases() {
     }
@@ -51,13 +43,24 @@ public final class Atlases {
 
     @SubscribeEvent
     public static void onTextureStitchPre(final TextureStitchEvent.Pre event) {
-        final ResourceLocation atlas = event.getAtlas().location();
+        final Map<IWoodType, Map<ChestType, Material>> chests = new HashMap<>();
+
+        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenBlockType.CHEST)) {
+            ILikeWood.WOOD_TYPE_REGISTRY
+                .getWoodTypes()
+                .filter(woodType -> woodType.getBlockTypes().contains(WoodenBlockType.CHEST))
+                .forEach(woodType -> chests.put(woodType, makeChestMaterials(woodType)));
+        }
+
+        CHESTS = Collections.unmodifiableMap(chests);
+
+        final var atlas = event.getAtlas().location();
+
         CHESTS
             .values()
             .stream()
             .flatMap(materials -> materials.values().stream())
             .filter(material -> material.atlasLocation().equals(atlas))
             .forEach(material -> event.addSprite(material.texture()));
-
     }
 }

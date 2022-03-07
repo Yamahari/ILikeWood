@@ -2,30 +2,31 @@ package yamahari.ilikewood.event;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import yamahari.ilikewood.data.loot.PanelsLoot;
+import yamahari.ilikewood.data.loot.PanelsSlabLoot;
+import yamahari.ilikewood.data.loot.PanelsStairsLoot;
 import yamahari.ilikewood.data.tag.ILikeWoodBlockTags;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
-import yamahari.ilikewood.provider.ILikeWoodLanguageProvider;
-import yamahari.ilikewood.provider.ILikeWoodLootTableProvider;
 import yamahari.ilikewood.provider.PackMCMetaProvider;
-import yamahari.ilikewood.provider.blockstate.*;
-import yamahari.ilikewood.provider.itemmodel.*;
-import yamahari.ilikewood.provider.itemmodel.blockitem.*;
-import yamahari.ilikewood.provider.itemmodel.tiered.*;
-import yamahari.ilikewood.provider.recipe.blockitem.*;
-import yamahari.ilikewood.provider.recipe.item.*;
-import yamahari.ilikewood.provider.recipe.item.tiered.*;
-import yamahari.ilikewood.provider.tag.block.*;
-import yamahari.ilikewood.provider.tag.item.*;
-import yamahari.ilikewood.provider.texture.block.*;
-import yamahari.ilikewood.provider.texture.item.*;
-import yamahari.ilikewood.provider.texture.item.tiered.ToolTextureProvider;
+import yamahari.ilikewood.provider.blockstate.PanelsBlockStateProvider;
+import yamahari.ilikewood.provider.blockstate.PanelsSlabBlockStateProvider;
+import yamahari.ilikewood.provider.blockstate.PanelsStairsBlockStateProvider;
+import yamahari.ilikewood.provider.itemmodel.blockitem.PanelsBlockItemModelProvider;
+import yamahari.ilikewood.provider.itemmodel.blockitem.PanelsSlabBlockItemModelProvider;
+import yamahari.ilikewood.provider.itemmodel.blockitem.PanelsStairsBlockItemModelProvider;
+import yamahari.ilikewood.provider.lang.DefaultBlockLanguageProvider;
+import yamahari.ilikewood.provider.loot.DefaultBlockLootTableProvider;
+import yamahari.ilikewood.provider.recipe.blockitem.PanelsRecipeProvider;
+import yamahari.ilikewood.provider.recipe.blockitem.PanelsSlabRecipeProvider;
+import yamahari.ilikewood.provider.recipe.blockitem.PanelsStairsRecipeProvider;
+import yamahari.ilikewood.provider.tag.block.DefaultBlockTagsProvider;
+import yamahari.ilikewood.provider.tag.block.DummyBlockTagsProvider;
+import yamahari.ilikewood.provider.tag.item.BlockItemItemTagsProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
-import yamahari.ilikewood.registry.objecttype.WoodenItemType;
-import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.Constants;
 
 @Mod.EventBusSubscriber(value = {
@@ -34,18 +35,125 @@ public final class GatherDataEventHandler {
     private GatherDataEventHandler() {
     }
 
-    @SubscribeEvent
-    public static void onGatherData(final GatherDataEvent event) {
-        final DataGenerator generator = event.getGenerator();
-        final ExistingFileHelper helper = event.getExistingFileHelper();
+    private static GatherDataEvent.DataGeneratorConfig getConfig(final GatherDataEvent event) {
+        return ObfuscationReflectionHelper.getPrivateValue(GatherDataEvent.class, event, "config");
+    }
+
+    private static DataGenerator makeGenerator(final GatherDataEvent.DataGeneratorConfig config, final String root) {
+        return config.makeGenerator(outputPath -> outputPath.resolve(root), true);
+    }
+
+    private static void makePanelsData(final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config) {
+        final var generator = makeGenerator(config, Constants.PANELS_PLURAL);
+        final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
 
         if (event.includeServer()) {
             generator.addProvider(new PanelsRecipeProvider(generator));
+            generator.addProvider(new DefaultBlockTagsProvider(generator,
+                helper,
+                Constants.PANELS_PLURAL,
+                WoodenBlockType.PANELS,
+                ILikeWoodBlockTags.PANELS));
+            generator.addProvider(new BlockItemItemTagsProvider(generator,
+                new DummyBlockTagsProvider(generator, helper),
+                helper,
+                Constants.PANELS_PLURAL,
+                WoodenBlockType.PANELS,
+                ILikeWoodItemTags.PANELS));
+            generator.addProvider(new DefaultBlockLootTableProvider(generator,
+                PanelsLoot::new,
+                Constants.PANELS_PLURAL));
+        }
+
+        if (event.includeClient()) {
+            generator.addProvider(new PanelsBlockStateProvider(generator, helper));
+            generator.addProvider(new PanelsBlockItemModelProvider(generator, helper));
+            generator.addProvider(new DefaultBlockLanguageProvider(generator, WoodenBlockType.PANELS));
+        }
+    }
+
+    private static void makePanelsStairsData(final GatherDataEvent event,
+                                             final GatherDataEvent.DataGeneratorConfig config) {
+        final var generator = makeGenerator(config, Constants.PANELS_STAIRS_PLURAL);
+        final var helper = event.getExistingFileHelper();
+
+        generator.addProvider(new PackMCMetaProvider(generator));
+
+        if (event.includeServer()) {
             generator.addProvider(new PanelsStairsRecipeProvider(generator));
+            generator.addProvider(new DefaultBlockTagsProvider(generator,
+                helper,
+                Constants.PANELS_STAIRS_PLURAL,
+                WoodenBlockType.PANELS_STAIRS,
+                ILikeWoodBlockTags.PANELS_STAIRS));
+            generator.addProvider(new BlockItemItemTagsProvider(generator,
+                new DummyBlockTagsProvider(generator, helper),
+                helper,
+                Constants.PANELS_STAIRS_PLURAL,
+                WoodenBlockType.PANELS_STAIRS,
+                ILikeWoodItemTags.PANELS_STAIRS));
+            generator.addProvider(new DefaultBlockLootTableProvider(generator,
+                PanelsStairsLoot::new,
+                Constants.PANELS_STAIRS_PLURAL));
+        }
+
+        if (event.includeClient()) {
+            generator.addProvider(new PanelsStairsBlockStateProvider(generator, helper));
+            generator.addProvider(new PanelsStairsBlockItemModelProvider(generator, helper));
+            generator.addProvider(new DefaultBlockLanguageProvider(generator, WoodenBlockType.PANELS_STAIRS));
+        }
+    }
+
+    private static void makePanelsSlabData(final GatherDataEvent event,
+                                           final GatherDataEvent.DataGeneratorConfig config) {
+        final var generator = makeGenerator(config, Constants.PANELS_SLAB_PLURAL);
+        final var helper = event.getExistingFileHelper();
+
+        generator.addProvider(new PackMCMetaProvider(generator));
+
+        if (event.includeServer()) {
             generator.addProvider(new PanelsSlabRecipeProvider(generator));
-            generator.addProvider(new BarrelRecipeProvider(generator));
+            generator.addProvider(new DefaultBlockTagsProvider(generator,
+                helper,
+                Constants.PANELS_SLAB_PLURAL,
+                WoodenBlockType.PANELS_SLAB,
+                ILikeWoodBlockTags.PANELS_SLABS));
+            generator.addProvider(new BlockItemItemTagsProvider(generator,
+                new DummyBlockTagsProvider(generator, helper),
+                helper,
+                Constants.PANELS_SLAB_PLURAL,
+                WoodenBlockType.PANELS_SLAB,
+                ILikeWoodItemTags.PANELS_SLABS));
+            generator.addProvider(new DefaultBlockLootTableProvider(generator,
+                PanelsSlabLoot::new,
+                Constants.PANELS_SLAB_PLURAL));
+        }
+
+        if (event.includeClient()) {
+            generator.addProvider(new PanelsSlabBlockStateProvider(generator, helper));
+            generator.addProvider(new PanelsSlabBlockItemModelProvider(generator, helper));
+            generator.addProvider(new DefaultBlockLanguageProvider(generator, WoodenBlockType.PANELS_SLAB));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onGatherData(final GatherDataEvent event) {
+        final var config = getConfig(event);
+
+        makePanelsData(event, config);
+        makePanelsStairsData(event, config);
+        makePanelsSlabData(event, config);
+
+
+        /*generator.addProvider(new PackMCMetaProvider(generator));*/
+
+        if (event.includeServer()) {
+
+           
+            
+           /* generator.addProvider(new BarrelRecipeProvider(generator));
             generator.addProvider(new BookshelfRecipeProvider(generator));
             generator.addProvider(new ChestRecipeProvider(generator));
             generator.addProvider(new ComposterRecipeProvider(generator));
@@ -73,11 +181,11 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ChairRecipeProvider(generator));
             generator.addProvider(new TableRecipeProvider(generator));
             generator.addProvider(new StoolRecipeProvider(generator));
-            generator.addProvider(new SingleDresserRecipeProvider(generator));
+            generator.addProvider(new SingleDresserRecipeProvider(generator));*/
 
-            generator.addProvider(new ILikeWoodLootTableProvider(generator));
+            /*generator.addProvider(new ILikeWoodLootTableProvider(generator));*/
 
-            generator.addProvider(new BarrelBlockTagsProvider(generator, helper));
+            /*generator.addProvider(new BarrelBlockTagsProvider(generator, helper));
             generator.addProvider(new ChestBlockTagsProvider(generator, helper));
             generator.addProvider(new DefaultBlockTagsProvider(generator,
                 helper,
@@ -88,23 +196,11 @@ public final class GatherDataEventHandler {
                 helper,
                 Constants.BOOKSHELF_PLURAL,
                 WoodenBlockType.BOOKSHELF,
-                ILikeWoodBlockTags.BOOKSHELVES));
-            generator.addProvider(new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.PANELS_PLURAL,
-                WoodenBlockType.PANELS,
-                ILikeWoodBlockTags.PANELS));
-            generator.addProvider(new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.PANELS_STAIRS_PLURAL,
-                WoodenBlockType.PANELS_STAIRS,
-                ILikeWoodBlockTags.PANELS_STAIRS));
-            generator.addProvider(new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.PANELS_SLAB_PLURAL,
-                WoodenBlockType.PANELS_SLAB,
-                ILikeWoodBlockTags.PANELS_SLABS));
-            generator.addProvider(new PostBlockTagsProvider(generator, helper));
+                ILikeWoodBlockTags.BOOKSHELVES));*/
+
+            
+            
+            /*generator.addProvider(new PostBlockTagsProvider(generator, helper));
             generator.addProvider(new WallBlockTagsProvider(generator, helper));
             generator.addProvider(new ClimbableBlockTagsProvider(generator,
                 helper,
@@ -156,11 +252,11 @@ public final class GatherDataEventHandler {
                 helper,
                 Constants.SINGLE_DRESSER_PLURAL,
                 WoodenBlockType.SINGLE_DRESSER,
-                ILikeWoodBlockTags.SINGLE_DRESSERS));
+                ILikeWoodBlockTags.SINGLE_DRESSERS));*/
 
-            final AbstractBlockTagsProvider dummy = new DummyBlockTagsProvider(generator, helper);
+            /* final AbstractBlockTagsProvider dummy = new DummyBlockTagsProvider(generator, helper);*/
 
-            generator.addProvider(new BarrelItemTagsProvider(generator, dummy, helper));
+            /*generator.addProvider(new BarrelItemTagsProvider(generator, dummy, helper));
             generator.addProvider(new ChestItemTagsProvider(generator, dummy, helper));
             generator.addProvider(new BlockItemItemTagsProvider(generator,
                 dummy,
@@ -173,26 +269,11 @@ public final class GatherDataEventHandler {
                 helper,
                 Constants.BOOKSHELF_PLURAL,
                 WoodenBlockType.BOOKSHELF,
-                ILikeWoodItemTags.BOOKSHELVES));
-            generator.addProvider(new BlockItemItemTagsProvider(generator,
-                dummy,
-                helper,
-                Constants.PANELS_PLURAL,
-                WoodenBlockType.PANELS,
-                ILikeWoodItemTags.PANELS));
-            generator.addProvider(new BlockItemItemTagsProvider(generator,
-                dummy,
-                helper,
-                Constants.PANELS_STAIRS_PLURAL,
-                WoodenBlockType.PANELS_STAIRS,
-                ILikeWoodItemTags.PANELS_STAIRS));
-            generator.addProvider(new BlockItemItemTagsProvider(generator,
-                dummy,
-                helper,
-                Constants.PANELS_SLAB_PLURAL,
-                WoodenBlockType.PANELS_SLAB,
-                ILikeWoodItemTags.PANELS_SLABS));
-            generator.addProvider(new BlockItemItemTagsProvider(generator,
+                ILikeWoodItemTags.BOOKSHELVES));*/
+
+            
+           
+            /*generator.addProvider(new BlockItemItemTagsProvider(generator,
                 dummy,
                 helper,
                 Constants.WALL_PLURAL,
@@ -314,11 +395,11 @@ public final class GatherDataEventHandler {
                 helper,
                 Constants.SWORD_PLURAL,
                 WoodenTieredItemType.SWORD,
-                ILikeWoodItemTags.SWORDS));
+                ILikeWoodItemTags.SWORDS));*/
         }
 
         if (event.includeClient()) {
-            generator.addProvider(new ChestTextureProvider(generator, helper));
+            /*generator.addProvider(new ChestTextureProvider(generator, helper));
             generator.addProvider(new BarrelTextureProvider(generator, helper));
             generator.addProvider(new BedTextureProvider(generator, helper));
             generator.addProvider(new BookshelfTextureProvider(generator, helper));
@@ -338,12 +419,11 @@ public final class GatherDataEventHandler {
                 .getAll()
                 .forEach(tieredItemType -> generator.addProvider(new ToolTextureProvider(generator,
                     helper,
-                    tieredItemType)));
+                    tieredItemType)));*/
 
-            generator.addProvider(new PanelsBlockStateProvider(generator, helper));
-            generator.addProvider(new PanelsStairsBlockStateProvider(generator, helper));
-            generator.addProvider(new PanelsSlabBlockStateProvider(generator, helper));
-            generator.addProvider(new BarrelBlockStateProvider(generator, helper));
+            
+            
+            /*generator.addProvider(new BarrelBlockStateProvider(generator, helper));
             generator.addProvider(new BookshelfBlockStateProvider(generator, helper));
             generator.addProvider(new ChestBlockStateProvider(generator, helper));
             generator.addProvider(new ComposterBlockStateProvider(generator, helper));
@@ -364,20 +444,20 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ChairBlockStateProvider(generator, helper));
             generator.addProvider(new TableBlockStateProvider(generator, helper));
             generator.addProvider(new StoolBlockStateProvider(generator, helper));
-            generator.addProvider(new SingleDresserBlockStateProvider(generator, helper));
+            generator.addProvider(new SingleDresserBlockStateProvider(generator, helper));*/
 
-            generator.addProvider(new BarrelBlockItemModelProvider(generator, helper));
+            /*generator.addProvider(new BarrelBlockItemModelProvider(generator, helper));
             generator.addProvider(new BedBlockItemModelProvider(generator, helper));
             generator.addProvider(new BookshelfBlockItemModelProvider(generator, helper));
             generator.addProvider(new ChestBlockItemModelProvider(generator, helper));
             generator.addProvider(new ComposterBlockItemModelProvider(generator, helper));
             generator.addProvider(new CraftingTableBlockItemModelProvider(generator, helper));
             generator.addProvider(new LadderBlockItemModelProvider(generator, helper));
-            generator.addProvider(new LecternBlockItemModelProvider(generator, helper));
-            generator.addProvider(new PanelsBlockItemModelProvider(generator, helper));
-            generator.addProvider(new PanelsSlabBlockItemModelProvider(generator, helper));
-            generator.addProvider(new PanelsStairsBlockItemModelProvider(generator, helper));
-            generator.addProvider(new PostBlockItemModelProvider(generator, helper));
+            generator.addProvider(new LecternBlockItemModelProvider(generator, helper));*/
+
+            
+         
+            /*generator.addProvider(new PostBlockItemModelProvider(generator, helper));
             generator.addProvider(new SawmillBlockItemModelProvider(generator, helper));
             generator.addProvider(new ScaffoldingBlockItemModelProvider(generator, helper));
             generator.addProvider(new SoulTorchBlockItemModelProvider(generator, helper));
@@ -397,9 +477,9 @@ public final class GatherDataEventHandler {
             generator.addProvider(new ChairBlockItemModelProvider(generator, helper));
             generator.addProvider(new TableBlockItemModelProvider(generator, helper));
             generator.addProvider(new StoolBlockItemModelProvider(generator, helper));
-            generator.addProvider(new SingleDresserBlockItemModelProvider(generator, helper));
+            generator.addProvider(new SingleDresserBlockItemModelProvider(generator, helper));*/
 
-            generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));
+            /*generator.addProvider(new ILikeWoodLanguageProvider(generator, "en_us"));*/
         }
     }
 }

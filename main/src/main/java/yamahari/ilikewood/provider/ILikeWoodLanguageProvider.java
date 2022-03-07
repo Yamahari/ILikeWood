@@ -8,22 +8,14 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 import yamahari.ilikewood.util.Constants;
+import yamahari.ilikewood.util.Util;
 
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class ILikeWoodLanguageProvider extends LanguageProvider {
     public ILikeWoodLanguageProvider(final DataGenerator generator, final String locale) {
         super(generator, Constants.MOD_ID, locale);
-    }
-
-    private static String getTranslationName(final String type) {
-        return Arrays
-            .stream(StringUtils.split(type, '_'))
-            .map(StringUtils::capitalize)
-            .collect(Collectors.joining(" "));
     }
 
     @Override
@@ -46,12 +38,12 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
                 WoodenBlockType.STOOL,
                 WoodenBlockType.SINGLE_DRESSER))
             .forEach(block -> this.add(block,
-                getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
+                Util.toTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(WoodenBlockType.getBeds())
             .forEach(block -> this.add(block,
-                getTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
+                Util.toTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
 
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream.of(WoodenBlockType.CRAFTING_TABLE,
@@ -61,7 +53,7 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
                 WoodenBlockType.SAWMILL))
             .forEach(block -> {
                 final String path = Objects.requireNonNull(block.getRegistryName()).getPath();
-                final String name = getTranslationName(path);
+                final String name = Util.toTranslationName(path);
                 this.add(block, name);
                 this.add(StringUtils.joinWith(".", "container", Constants.MOD_ID, path), name);
             });
@@ -73,12 +65,12 @@ public final class ILikeWoodLanguageProvider extends LanguageProvider {
                 WoodenItemType.ITEM_FRAME,
                 WoodenItemType.FISHING_ROD))
             .forEach(item -> this.add(item,
-                getTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
+                Util.toTranslationName(Objects.requireNonNull(item.getRegistryName()).getPath())));
 
         WoodenTieredItemType
             .getAll()
             .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
             .forEach(tieredItem -> this.add(tieredItem,
-                getTranslationName(Objects.requireNonNull(tieredItem.getRegistryName()).getPath())));
+                Util.toTranslationName(Objects.requireNonNull(tieredItem.getRegistryName()).getPath())));
     }
 }
