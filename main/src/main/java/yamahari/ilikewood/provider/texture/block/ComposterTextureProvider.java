@@ -25,16 +25,22 @@ public final class ComposterTextureProvider extends AbstractBlockTextureProvider
         final Function<NativeImage, NativeImage> colorMapTransformer = createColorMapTransformer(woodType);
 
         this
-            .withExistingParent(Util.toPath(path, "bottom", woodType.getName()),
-                modLoc(Util.toPath(path, "bottom", "template")))
+            .withExistingParent(
+                Util.toPath(path, "bottom", woodType.getName()),
+                modLoc(Util.toPath(path, "bottom", "template"))
+            )
             .transform(colorMapTransformer);
         this
-            .withExistingParent(Util.toPath(path, "side", woodType.getName()),
-                modLoc(Util.toPath(path, "side", "template")))
+            .withExistingParent(
+                Util.toPath(path, "side", woodType.getName()),
+                modLoc(Util.toPath(path, "side", "template"))
+            )
             .transform(colorMapTransformer);
         this
-            .withExistingParent(Util.toPath(path, "top", woodType.getName()),
-                modLoc(Util.toPath(path, "top", "template")))
+            .withExistingParent(
+                Util.toPath(path, "top", woodType.getName()),
+                modLoc(Util.toPath(path, "top", "template"))
+            )
             .transform(colorMapTransformer);
     }
 }

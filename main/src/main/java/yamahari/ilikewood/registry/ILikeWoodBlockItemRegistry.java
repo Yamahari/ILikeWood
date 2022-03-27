@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
 import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -45,44 +44,51 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
         this.registerBlockItems(WoodenBlockType.TABLE, this::registerTableBlockItem);
         this.registerBlockItems(WoodenBlockType.STOOL, this::registerStoolBlockItem);
         this.registerBlockItems(WoodenBlockType.SINGLE_DRESSER, this::registerSingleDresserBlockItem);
-
-        WoodenBlockType
-            .getBeds()
-            .forEach(bedBlockType -> this.registerBlockItems(bedBlockType,
-                woodType -> this.registerBedBlockItem(woodType, bedBlockType)));
+        this.registerBlockItems(WoodenBlockType.LOG_PILE, this::registerLogPileBlockItem);
+        WoodenBlockType.getBeds()
+            .forEach(bedBlockType -> this.registerBlockItems(
+                bedBlockType,
+                woodType -> this.registerBedBlockItem(woodType, bedBlockType)
+            ));
     }
 
     @Override
     public Stream<RegistryObject<Item>> getRegistryObjects(final WoodenBlockType blockType) {
-        return ILikeWood.WOOD_TYPE_REGISTRY
-            .getWoodTypes()
+        return ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
             .filter(woodType -> woodType.getBlockTypes().contains(blockType))
             .map(woodType -> this.getRegistryObject(woodType, blockType));
     }
 
-    private void registerBlockItems(final WoodenBlockType blockType,
-                                    final Function<IWoodType, RegistryObject<Item>> function) {
-        if (ILikeWoodObjectTypesConfig.isEnabled(blockType)) {
+    private void registerBlockItems(
+        final WoodenBlockType blockType,
+        final Function<IWoodType, RegistryObject<Item>> function
+    ) {
+        if (blockType.isEnabled()) {
             final Map<IWoodType, RegistryObject<Item>> blockItems = new HashMap<>();
-
-            ILikeWood.WOOD_TYPE_REGISTRY
-                .getWoodTypes()
+            ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
                 .filter(woodType -> woodType.getBlockTypes().contains(blockType))
                 .forEach(woodType -> blockItems.put(woodType, function.apply(woodType)));
-
             this.registryObjects.put(blockType, Collections.unmodifiableMap(blockItems));
         }
     }
 
-    private RegistryObject<Item> registerBlockItem(final IWoodType woodType, final WoodenBlockType blockType,
-                                                   final Item.Properties properties) {
+    private RegistryObject<Item> registerBlockItem(
+        final IWoodType woodType,
+        final WoodenBlockType blockType,
+        final Item.Properties properties
+    ) {
         final RegistryObject<Block> block = ILikeWood.BLOCK_REGISTRY.getRegistryObject(woodType, blockType);
-        return this.registry.register(block.getId().getPath(),
-            () -> new WoodenBlockItem(blockType, block.get(), properties));
+        return this.registry.register(
+            block.getId().getPath(),
+            () -> new WoodenBlockItem(blockType, block.get(), properties)
+        );
     }
 
-    private RegistryObject<Item> registerBlockItem(final IWoodType woodType, final WoodenBlockType blockType,
-                                                   final CreativeModeTab itemGroup) {
+    private RegistryObject<Item> registerBlockItem(
+        final IWoodType woodType,
+        final WoodenBlockType blockType,
+        final CreativeModeTab itemGroup
+    ) {
         return this.registerBlockItem(woodType, blockType, new Item.Properties().tab(itemGroup));
     }
 
@@ -90,8 +96,10 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
         return this.registerBlockItem(woodType, blockType, CreativeModeTab.TAB_BUILDING_BLOCKS);
     }
 
-    private RegistryObject<Item> registerDecorationBlockItem(final IWoodType woodType,
-                                                             final WoodenBlockType blockType) {
+    private RegistryObject<Item> registerDecorationBlockItem(
+        final IWoodType woodType,
+        final WoodenBlockType blockType
+    ) {
         return this.registerBlockItem(woodType, blockType, CreativeModeTab.TAB_DECORATIONS);
     }
 
@@ -132,10 +140,14 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
     }
 
     private RegistryObject<Item> registerScaffoldingBlockItem(final IWoodType woodType) {
-        final RegistryObject<Block> scaffoldingBlock =
-            ILikeWood.BLOCK_REGISTRY.getRegistryObject(woodType, WoodenBlockType.SCAFFOLDING);
-        return this.registry.register(scaffoldingBlock.getId().getPath(),
-            () -> new WoodenScaffoldingItem(scaffoldingBlock.get()));
+        final RegistryObject<Block> scaffoldingBlock = ILikeWood.BLOCK_REGISTRY.getRegistryObject(
+            woodType,
+            WoodenBlockType.SCAFFOLDING
+        );
+        return this.registry.register(
+            scaffoldingBlock.getId().getPath(),
+            () -> new WoodenScaffoldingItem(scaffoldingBlock.get())
+        );
     }
 
     private RegistryObject<Item> registerCraftingTableBlockItem(final IWoodType woodType) {
@@ -172,16 +184,25 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
         return this.registry.register(bed.getId().getPath(), () -> new WoodenBedItem(bedBlockType, bed.get()));
     }
 
-    private RegistryObject<Item> registerTorchBlockItem(final IWoodType woodType, final WoodenBlockType torchBlockType,
-                                                        final WoodenBlockType wallTorchBlockType) {
+    private RegistryObject<Item> registerTorchBlockItem(
+        final IWoodType woodType,
+        final WoodenBlockType torchBlockType,
+        final WoodenBlockType wallTorchBlockType
+    ) {
         final RegistryObject<Block> torch = ILikeWood.BLOCK_REGISTRY.getRegistryObject(woodType, torchBlockType);
-        final RegistryObject<Block> wallTorch =
-            ILikeWood.BLOCK_REGISTRY.getRegistryObject(woodType, wallTorchBlockType);
-        return this.registry.register(torch.getId().getPath(),
-            () -> new WoodenWallOrFloorItem(torchBlockType,
+        final RegistryObject<Block> wallTorch = ILikeWood.BLOCK_REGISTRY.getRegistryObject(
+            woodType,
+            wallTorchBlockType
+        );
+        return this.registry.register(
+            torch.getId().getPath(),
+            () -> new WoodenWallOrFloorItem(
+                torchBlockType,
                 torch.get(),
                 wallTorch.get(),
-                new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+                new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)
+            )
+        );
     }
 
     private RegistryObject<Item> registerTorchBlockItem(final IWoodType woodType) {
@@ -206,5 +227,9 @@ public final class ILikeWoodBlockItemRegistry extends AbstractILikeWoodObjectReg
 
     private RegistryObject<Item> registerSingleDresserBlockItem(final IWoodType woodType) {
         return this.registerDecorationBlockItem(woodType, WoodenBlockType.SINGLE_DRESSER);
+    }
+
+    private RegistryObject<Item> registerLogPileBlockItem(final IWoodType woodType) {
+        return this.registerDecorationBlockItem(woodType, WoodenBlockType.LOG_PILE);
     }
 }

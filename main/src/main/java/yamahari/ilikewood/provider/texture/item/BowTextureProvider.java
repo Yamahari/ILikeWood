@@ -30,8 +30,10 @@ public final class BowTextureProvider extends AbstractItemTextureProvider {
 
         for (int i = 0; i < 3; ++i) {
             this
-                .withExistingParent(Util.toPath(path, "pulling", Integer.toString(i), woodType.getName()),
-                    modLoc(Util.toPath(path, "pulling", Integer.toString(i), "template")))
+                .withExistingParent(
+                    Util.toPath(path, "pulling", Integer.toString(i), woodType.getName()),
+                    modLoc(Util.toPath(path, "pulling", Integer.toString(i), "template"))
+                )
                 .transform(colorMapTransformer);
         }
     }

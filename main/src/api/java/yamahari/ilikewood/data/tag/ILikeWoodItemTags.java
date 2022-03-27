@@ -34,6 +34,7 @@ public final class ILikeWoodItemTags {
     public static final Tags.IOptionalNamedTag<Item> TABLES = createOptional(Constants.TABLE_PLURAL);
     public static final Tags.IOptionalNamedTag<Item> STOOLS = createOptional(Constants.STOOL_PLURAL);
     public static final Tags.IOptionalNamedTag<Item> SINGLE_DRESSER = createOptional(Constants.SINGLE_DRESSER_PLURAL);
+    public static final Tags.IOptionalNamedTag<Item> LOG_PILES = createOptional(Constants.LOG_PILE_PLURAL);
 
     public static final Tags.IOptionalNamedTag<Item> AXES = createOptional(Constants.AXE_PLURAL);
     public static final Tags.IOptionalNamedTag<Item> HOES = createOptional(Constants.HOE_PLURAL);

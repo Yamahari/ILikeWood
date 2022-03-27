@@ -7,11 +7,11 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.provider.tag.block.AbstractBlockTagsProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
-public class BlockItemItemTagsProvider extends AbstractItemTagsProvider {
+public class DefaultBlockItemTagsProvider extends AbstractItemTagsProvider {
     protected final Tag.Named<Item> tag;
     private final WoodenBlockType blockType;
 
-    public BlockItemItemTagsProvider(final DataGenerator generator, final AbstractBlockTagsProvider blockTagsProvider,
+    public DefaultBlockItemTagsProvider(final DataGenerator generator, final AbstractBlockTagsProvider blockTagsProvider,
                                      final ExistingFileHelper existingFileHelper, final String root,
                                      final WoodenBlockType blockType, final Tag.Named<Item> tag) {
         super(generator, blockTagsProvider, existingFileHelper, root);

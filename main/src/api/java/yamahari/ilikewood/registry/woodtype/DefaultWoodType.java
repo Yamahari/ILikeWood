@@ -14,10 +14,7 @@ import java.util.stream.Collectors;
 public final class DefaultWoodType implements IWoodType {
     public static final Map<WoodenBlockType, Properties> DEFAULT_BLOCK_PROPERTIES = createDefaultBlockProperties();
     public static final Map<WoodenItemType, Properties> DEFAULT_ITEM_PROPERTIES = createDefaultItemProperties();
-    // TODO add log pile once added back
-    public static final Set<WoodenBlockType> DEFAULT_BLOCK_TYPES = Collections.unmodifiableSet(WoodenBlockType
-        .getAll()
-        .filter(blockType -> !blockType.equals(WoodenBlockType.LOG_PILE))
+    public static final Set<WoodenBlockType> DEFAULT_BLOCK_TYPES = Collections.unmodifiableSet(WoodenBlockType.getAll()
         .collect(Collectors.toSet()));
     public static final Set<WoodenItemType> DEFAULT_ITEM_TYPES =
         Collections.unmodifiableSet(WoodenItemType.getAll().collect(Collectors.toSet()));

@@ -25,16 +25,24 @@ public final class ChestTextureProvider extends AbstractBlockTextureProvider {
         final Function<NativeImage, NativeImage> colorMapTransformer = createColorMapTransformer(woodType);
 
         this
-            .withExistingParent(Util.toPath(path, "left", woodType.getName()),
-                modLoc(Util.toPath(path, "left", "template")))
+            .withExistingParent(
+                Util.toPath(path, "left", woodType.getName()),
+                modLoc(Util.toPath(path, "left", "template"))
+            )
             .transform(colorMapTransformer);
+
         this
-            .withExistingParent(Util.toPath(path, "right", woodType.getName()),
-                modLoc(Util.toPath(path, "right", "template")))
+            .withExistingParent(
+                Util.toPath(path, "right", woodType.getName()),
+                modLoc(Util.toPath(path, "right", "template"))
+            )
             .transform(colorMapTransformer);
+
         this
-            .withExistingParent(Util.toPath(path, "single", woodType.getName()),
-                modLoc(Util.toPath(path, "single", "template")))
+            .withExistingParent(
+                Util.toPath(path, "single", woodType.getName()),
+                modLoc(Util.toPath(path, "single", "template"))
+            )
             .transform(colorMapTransformer);
     }
 }

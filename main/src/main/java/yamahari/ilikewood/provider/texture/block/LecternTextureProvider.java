@@ -25,21 +25,29 @@ public final class LecternTextureProvider extends AbstractBlockTextureProvider {
         final Function<NativeImage, NativeImage> colorMapTransformer = createColorMapTransformer(woodType);
 
         this
-            .withExistingParent(Util.toPath(path, "base", woodType.getName()),
-                modLoc(Util.toPath(path, "base", "template")))
+            .withExistingParent(
+                Util.toPath(path, "base", woodType.getName()),
+                modLoc(Util.toPath(path, "base", "template"))
+            )
             .transform(colorMapTransformer);
         this
-            .withExistingParent(Util.toPath(path, "front", woodType.getName()),
-                modLoc(Util.toPath(path, "front", "template")))
+            .withExistingParent(
+                Util.toPath(path, "front", woodType.getName()),
+                modLoc(Util.toPath(path, "front", "template"))
+            )
             .transform(colorMapTransformer);
         this
-            .withExistingParent(Util.toPath(path, "sides", woodType.getName()),
-                modLoc(Util.toPath(path, "sides", "template")))
+            .withExistingParent(
+                Util.toPath(path, "sides", woodType.getName()),
+                modLoc(Util.toPath(path, "sides", "template"))
+            )
             .transform(colorMapTransformer);
 
         this
-            .withExistingParent(Util.toPath(path, "top", woodType.getName()),
-                modLoc(Util.toPath(path, "top", "template")))
+            .withExistingParent(
+                Util.toPath(path, "top", woodType.getName()),
+                modLoc(Util.toPath(path, "top", "template"))
+            )
             .transform(colorMapTransformer);
     }
 }

@@ -29,8 +29,10 @@ public final class FishingRodTextureProvider extends AbstractItemTextureProvider
             .transform(colorMapTransformer);
 
         this
-            .withExistingParent(Util.toPath(path, "cast", woodType.getName()),
-                modLoc(Util.toPath(path, "cast", "template")))
+            .withExistingParent(
+                Util.toPath(path, "cast", woodType.getName()),
+                modLoc(Util.toPath(path, "cast", "template"))
+            )
             .transform(colorMapTransformer);
     }
 }

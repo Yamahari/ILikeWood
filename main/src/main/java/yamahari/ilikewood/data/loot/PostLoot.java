@@ -7,16 +7,21 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public final class PanelsLoot extends BlockLoot {
+public final class PostLoot extends BlockLoot {
     @Nonnull
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.PANELS).collect(Collectors.toList());
+        return ILikeWood.BLOCK_REGISTRY.getObjects(Stream.of(
+            WoodenBlockType.POST,
+            WoodenBlockType.STRIPPED_POST
+        )).collect(Collectors.toList());
     }
 
     @Override
     protected void addTables() {
-        ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.PANELS).forEach(this::dropSelf);
+        ILikeWood.BLOCK_REGISTRY.getObjects(Stream.of(WoodenBlockType.POST, WoodenBlockType.STRIPPED_POST))
+            .forEach(this::dropSelf);
     }
 }

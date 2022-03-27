@@ -33,16 +33,18 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     public static final String ITEM_FOLDER = "item";
 
     public final Map<ResourceLocation, TextureBuilder> generatedTextures = new HashMap<>();
+    private final String root;
     private final O objectType;
     private final R objectRegistry;
     private final Function<ResourceLocation, TextureBuilder> factory;
     private final DataGenerator generator;
     private final ExistingFileHelper helper;
     private final String folder;
-    private final String root;
 
-    public AbstractTextureProvider(final DataGenerator generator, final String folder, final ExistingFileHelper helper,
-                                   final String root, final O objectType, final R objectRegistry) {
+    public AbstractTextureProvider(
+        final DataGenerator generator, final String folder, final ExistingFileHelper helper, final String root,
+        final O objectType, final R objectRegistry
+    ) {
         this.generator = generator;
         this.folder = folder;
         this.helper = helper;
@@ -100,9 +102,11 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
 
             for (int y = 0; y < paste.getHeight(); ++y) {
                 for (int x = 0; x < paste.getWidth(); ++x) {
-                    result.setPixelRGBA(paste.getX() + x,
+                    result.setPixelRGBA(
+                        paste.getX() + x,
                         i * 16 + paste.getY() + y,
-                        copy.getPixelRGBA(copy.getWidth() - x - 1, copy.getHeight() - y - 1));
+                        copy.getPixelRGBA(copy.getWidth() - x - 1, copy.getHeight() - y - 1)
+                    );
                 }
             }
 

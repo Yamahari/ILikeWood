@@ -32,6 +32,7 @@ public final class ILikeWoodBlockTags {
     public static final Tags.IOptionalNamedTag<Block> TABLES = createOptional(Constants.TABLE_PLURAL);
     public static final Tags.IOptionalNamedTag<Block> STOOLS = createOptional(Constants.STOOL_PLURAL);
     public static final Tags.IOptionalNamedTag<Block> SINGLE_DRESSERS = createOptional(Constants.SINGLE_DRESSER_PLURAL);
+    public static final Tags.IOptionalNamedTag<Block> LOG_PILES = createOptional(Constants.LOG_PILE_PLURAL);
 
     private ILikeWoodBlockTags() {
     }

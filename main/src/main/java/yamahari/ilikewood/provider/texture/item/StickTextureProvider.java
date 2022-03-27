@@ -32,13 +32,17 @@ public final class StickTextureProvider extends AbstractItemTextureProvider {
 
         WoodenTieredItemType.getAll().map(AbstractWoodenTieredObjectType::getName).forEach(s -> {
             this
-                .withExistingParent(Util.toPath(stickPath, s, woodType.getName()),
-                    modLoc(Util.toPath(stickPath, s, "template")))
+                .withExistingParent(
+                    Util.toPath(stickPath, s, woodType.getName()),
+                    modLoc(Util.toPath(stickPath, s, "template"))
+                )
                 .transform(colorMapTransformer);
 
             this
-                .withExistingParent(Util.toPath(stickPath, s, "netherite", woodType.getName()),
-                    modLoc(Util.toPath(stickPath, s, "netherite", "template")))
+                .withExistingParent(
+                    Util.toPath(stickPath, s, "netherite", woodType.getName()),
+                    modLoc(Util.toPath(stickPath, s, "netherite", "template"))
+                )
                 .transform(colorMapTransformer);
         });
     }

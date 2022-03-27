@@ -8,7 +8,7 @@ import yamahari.ilikewood.provider.tag.block.AbstractBlockTagsProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
 
-public final class ChestItemTagsProvider extends BlockItemItemTagsProvider {
+public final class ChestItemTagsProvider extends DefaultBlockItemTagsProvider {
     public ChestItemTagsProvider(final DataGenerator generator, final AbstractBlockTagsProvider blockTagsProvider,
                                  final ExistingFileHelper existingFileHelper) {
         super(generator,

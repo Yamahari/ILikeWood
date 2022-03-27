@@ -47,7 +47,7 @@ public abstract class AbstractTieredItemRecipeProvider extends RecipeProvider {
     @Nonnull
     @Override
     public final String getName() {
-        return String.format("%s - tiered item recipes - %s", Constants.MOD_ID, tieredItemType.getName());
+        return String.format("%s - tiered item recipes - %s", Constants.MOD_ID, this.tieredItemType.getName());
     }
 
     protected abstract void registerRecipes(@Nonnull Consumer<FinishedRecipe> consumer, IWoodType woodType,

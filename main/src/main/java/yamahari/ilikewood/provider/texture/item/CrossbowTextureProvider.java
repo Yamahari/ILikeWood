@@ -25,25 +25,33 @@ public final class CrossbowTextureProvider extends AbstractItemTextureProvider {
         final Function<NativeImage, NativeImage> colorMapTransformer = createColorMapTransformer(woodType);
 
         this
-            .withExistingParent(Util.toPath(path, "arrow", woodType.getName()),
-                modLoc(Util.toPath(path, "arrow", "template")))
+            .withExistingParent(
+                Util.toPath(path, "arrow", woodType.getName()),
+                modLoc(Util.toPath(path, "arrow", "template"))
+            )
             .transform(colorMapTransformer);
 
         this
-            .withExistingParent(Util.toPath(path, "firework", woodType.getName()),
-                modLoc(Util.toPath(path, "firework", "template")))
+            .withExistingParent(
+                Util.toPath(path, "firework", woodType.getName()),
+                modLoc(Util.toPath(path, "firework", "template"))
+            )
             .transform(colorMapTransformer);
 
         for (int i = 0; i < 3; ++i) {
             this
-                .withExistingParent(Util.toPath(path, "pulling", Integer.toString(i), woodType.getName()),
-                    modLoc(Util.toPath(path, "pulling", Integer.toString(i), "template")))
+                .withExistingParent(
+                    Util.toPath(path, "pulling", Integer.toString(i), woodType.getName()),
+                    modLoc(Util.toPath(path, "pulling", Integer.toString(i), "template"))
+                )
                 .transform(colorMapTransformer);
         }
 
         this
-            .withExistingParent(Util.toPath(path, "standby", woodType.getName()),
-                modLoc(Util.toPath(path, "standby", "template")))
+            .withExistingParent(
+                Util.toPath(path, "standby", woodType.getName()),
+                modLoc(Util.toPath(path, "standby", "template"))
+            )
             .transform(colorMapTransformer);
     }
 }

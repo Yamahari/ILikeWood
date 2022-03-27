@@ -5,7 +5,6 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
 import yamahari.ilikewood.item.*;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -34,37 +33,41 @@ public final class ILikeWoodItemRegistry extends AbstractILikeWoodObjectRegistry
 
     @Override
     public Stream<RegistryObject<Item>> getRegistryObjects(WoodenItemType objectType) {
-        return ILikeWood.WOOD_TYPE_REGISTRY
-            .getWoodTypes()
+        return ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
             .filter(woodType -> woodType.getItemTypes().contains(objectType))
             .map(woodType -> this.getRegistryObject(woodType, objectType));
     }
 
-    private void registerItems(final WoodenItemType itemType,
-                               final Function<IWoodType, RegistryObject<Item>> function) {
-        if (ILikeWoodObjectTypesConfig.isEnabled(itemType)) {
+    private void registerItems(
+        final WoodenItemType itemType,
+        final Function<IWoodType, RegistryObject<Item>> function
+    ) {
+        if (itemType.isEnabled()) {
             final Map<IWoodType, RegistryObject<Item>> items = new HashMap<>();
-
-            ILikeWood.WOOD_TYPE_REGISTRY
-                .getWoodTypes()
+            ILikeWood.WOOD_TYPE_REGISTRY.getWoodTypes()
                 .filter(woodType -> woodType.getItemTypes().contains(itemType))
                 .forEach(woodType -> items.put(woodType, function.apply(woodType)));
-
             this.registryObjects.put(itemType, Collections.unmodifiableMap(items));
         }
     }
 
-    private RegistryObject<Item> register(final IWoodType woodType, final WoodenItemType itemType,
-                                          final Supplier<? extends Item> supplier) {
+    private RegistryObject<Item> register(
+        final IWoodType woodType,
+        final WoodenItemType itemType,
+        final Supplier<? extends Item> supplier
+    ) {
         return this.registry.register(Util.toRegistryName(woodType.getName(), itemType.getName()), supplier);
     }
 
     private RegistryObject<Item> registerStickItem(final IWoodType woodType) {
-        return this.register(woodType,
+        return this.register(
+            woodType,
             WoodenItemType.STICK,
             () -> new WoodenItem(woodType,
                 WoodenItemType.STICK,
-                new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+                new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)
+            )
+        );
     }
 
     private RegistryObject<Item> registerBowItem(final IWoodType woodType) {
@@ -82,5 +85,4 @@ public final class ILikeWoodItemRegistry extends AbstractILikeWoodObjectRegistry
     private RegistryObject<Item> registerFishingPoleItem(final IWoodType woodType) {
         return this.register(woodType, WoodenItemType.FISHING_ROD, () -> new WoodenFishingRodItem(woodType));
     }
-
 }

@@ -17,8 +17,8 @@ public final class LogPileTextureProvider extends AbstractBlockTextureProvider {
         super(generator,
             BLOCK_FOLDER,
             helper,
-            Constants.SAWMILL_PLURAL,
-            WoodenBlockType.SAWMILL); // TODO Replace with LOG_PILE once added back
+            Constants.LOG_PILE_PLURAL,
+            WoodenBlockType.LOG_PILE);
     }
 
     @Override

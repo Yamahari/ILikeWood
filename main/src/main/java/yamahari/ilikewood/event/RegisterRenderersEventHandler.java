@@ -14,11 +14,10 @@ import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
-import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
+import yamahari.ilikewood.config.ILikeWoodConfig;
 import yamahari.ilikewood.entity.WoodenChairEntity;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
-import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.util.Constants;
 
@@ -30,27 +29,34 @@ public final class RegisterRenderersEventHandler {
     @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void onRegisterRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenBlockType.CHEST)) {
-            event.registerBlockEntityRenderer((BlockEntityType<WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get(),
-                WoodenChestTileEntityRenderer::new);
-        }
-        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenBlockType.LECTERN)) {
-            event.registerBlockEntityRenderer((BlockEntityType<WoodenLecternTileEntity>) WoodenTileEntityTypes.WOODEN_LECTERN.get(),
-                LecternRenderer::new);
+        if (ILikeWoodConfig.CHESTS_CONFIG.isEnabled()) {
+            event.registerBlockEntityRenderer(
+                (BlockEntityType<WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get(),
+                WoodenChestTileEntityRenderer::new
+            );
         }
 
-        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenEntityType.ITEM_FRAME)) {
-            ILikeWood.ENTITY_TYPE_REGISTRY
-                .getObjects(WoodenEntityType.ITEM_FRAME)
-                .forEach(type -> event.registerEntityRenderer((EntityType<WoodenItemFrameEntity>) type,
-                    context -> new WoodenItemFrameRenderer(context, Minecraft.getInstance().getItemRenderer())));
+        if (ILikeWoodConfig.LECTERNS_CONFIG.isEnabled()) {
+            event.registerBlockEntityRenderer(
+                (BlockEntityType<WoodenLecternTileEntity>) WoodenTileEntityTypes.WOODEN_LECTERN.get(),
+                LecternRenderer::new
+            );
         }
 
-        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenEntityType.CHAIR)) {
-            ILikeWood.ENTITY_TYPE_REGISTRY
-                .getObjects(WoodenEntityType.CHAIR)
-                .forEach(type -> event.registerEntityRenderer((EntityType<WoodenChairEntity>) type,
-                    WoodenChairEntityRenderer::new));
+        if (ILikeWoodConfig.ITEM_FRAMES_CONFIG.isEnabled()) {
+            ILikeWood.ENTITY_TYPE_REGISTRY.getObjects(WoodenEntityType.ITEM_FRAME)
+                .forEach(type -> event.registerEntityRenderer(
+                    (EntityType<WoodenItemFrameEntity>) type,
+                    context -> new WoodenItemFrameRenderer(context, Minecraft.getInstance().getItemRenderer())
+                ));
+        }
+
+        if (ILikeWoodConfig.CHAIRS_CONFIG.isEnabled() || ILikeWoodConfig.STOOLS_CONFIG.isEnabled()) {
+            ILikeWood.ENTITY_TYPE_REGISTRY.getObjects(WoodenEntityType.CHAIR)
+                .forEach(type -> event.registerEntityRenderer(
+                    (EntityType<WoodenChairEntity>) type,
+                    WoodenChairEntityRenderer::new
+                ));
         }
     }
 }

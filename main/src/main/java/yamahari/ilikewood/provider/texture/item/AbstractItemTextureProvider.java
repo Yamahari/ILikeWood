@@ -10,9 +10,12 @@ import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 
 public abstract class AbstractItemTextureProvider
     extends AbstractTextureProvider<Item, WoodenItemType, ILikeWoodItemRegistry> {
-    public AbstractItemTextureProvider(final DataGenerator generator, final String folder,
-                                       final ExistingFileHelper helper, final String root,
-                                       final WoodenItemType itemType) {
+    public AbstractItemTextureProvider(
+        final DataGenerator generator, final String folder,
+        final ExistingFileHelper helper,
+        final String root,
+        final WoodenItemType itemType
+    ) {
         super(generator, folder, helper, root, itemType, ILikeWood.ITEM_REGISTRY);
     }
 }

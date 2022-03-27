@@ -9,19 +9,19 @@ import yamahari.ilikewood.util.Util;
 
 import java.util.Objects;
 
-public class DefaultBlockLanguageProvider extends LanguageProvider {
-    private final WoodenBlockType blockType;
-
-    public DefaultBlockLanguageProvider(final DataGenerator generator, final WoodenBlockType blockType) {
+public final class BedLanguageProvider extends LanguageProvider {
+    public BedLanguageProvider(final DataGenerator generator) {
         super(generator, Constants.MOD_ID, "en_us");
-        this.blockType = blockType;
+
     }
 
     @Override
     protected void addTranslations() {
         ILikeWood.BLOCK_REGISTRY
-            .getObjects(this.blockType)
-            .forEach(block -> this.add(block,
-                Util.toTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())));
+            .getObjects(WoodenBlockType.getBeds())
+            .forEach(block -> this.add(
+                block,
+                Util.toTranslationName(Objects.requireNonNull(block.getRegistryName()).getPath())
+            ));
     }
 }

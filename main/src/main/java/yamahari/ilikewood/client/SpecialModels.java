@@ -8,7 +8,7 @@ import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
+import yamahari.ilikewood.config.ILikeWoodConfig;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -33,16 +33,20 @@ public final class SpecialModels {
         final Map<IWoodType, ResourceLocation> itemFrameModels = new HashMap<>();
         final Map<IWoodType, ResourceLocation> itemFrameMapModels = new HashMap<>();
 
-        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenItemType.ITEM_FRAME)) {
+        if (ILikeWoodConfig.ITEM_FRAMES_CONFIG.isEnabled()) {
             ILikeWood.WOOD_TYPE_REGISTRY
                 .getWoodTypes()
                 .filter(woodType -> woodType.getItemTypes().contains(WoodenItemType.ITEM_FRAME))
                 .forEach(woodType -> {
                     final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenItemType.ITEM_FRAME.getName());
-                    itemFrameModels.put(woodType,
-                        new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName())));
-                    itemFrameMapModels.put(woodType,
-                        new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getName())));
+                    itemFrameModels.put(
+                        woodType,
+                        new ResourceLocation(Constants.MOD_ID, Util.toPath(path, woodType.getName()))
+                    );
+                    itemFrameMapModels.put(
+                        woodType,
+                        new ResourceLocation(Constants.MOD_ID, Util.toPath(path, "map", woodType.getName()))
+                    );
                 });
         }
 

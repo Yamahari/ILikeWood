@@ -5,9 +5,11 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.objecttype.*;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 public final class WoodTypeValidator {
     private static final Map<IObjectType, Set<ResourceRequirement>> RESOURCE_REQUIREMENTS;
@@ -32,10 +34,14 @@ public final class WoodTypeValidator {
         resourceRequirements.put(WoodenBlockType.COMPOSTER, REQUIRES_NONE);
         resourceRequirements.put(WoodenBlockType.CRAFTING_TABLE, REQUIRES_PLANKS);
         resourceRequirements.put(WoodenBlockType.CHEST, REQUIRES_NONE);
-        resourceRequirements.put(WoodenBlockType.SAWMILL,
-            Sets.immutableEnumSet(ResourceRequirement.PLANKS,
+        resourceRequirements.put(
+            WoodenBlockType.SAWMILL,
+            Sets.immutableEnumSet(
+                ResourceRequirement.PLANKS,
                 ResourceRequirement.LOGS,
-                ResourceRequirement.STRIPPED_LOGS));
+                ResourceRequirement.STRIPPED_LOGS
+            )
+        );
         resourceRequirements.put(WoodenBlockType.LECTERN, REQUIRES_NONE);
         resourceRequirements.put(WoodenBlockType.LADDER, REQUIRES_NONE);
         resourceRequirements.put(WoodenBlockType.SCAFFOLDING, REQUIRES_NONE);
@@ -64,7 +70,6 @@ public final class WoodTypeValidator {
         resourceRequirements.put(WoodenTieredItemType.SHOVEL, REQUIRES_NONE);
         resourceRequirements.put(WoodenTieredItemType.SWORD, REQUIRES_NONE);
 
-        // TODO entity types do not really fit this design
         resourceRequirements.put(WoodenEntityType.ITEM_FRAME, REQUIRES_NONE);
         resourceRequirements.put(WoodenEntityType.CHAIR, REQUIRES_NONE);
 
@@ -74,72 +79,72 @@ public final class WoodTypeValidator {
     private WoodTypeValidator() {
     }
 
-    private static Set<ResourceRequirement> resolveRequirements(final IObjectType objectType) {
-        final var dependencies = ObjectTypeValidator.resolveDependencies(objectType);
-
-        // TODO maybe add filter for enabled dependencies
-        return dependencies
-            .stream()
-            .flatMap(dependency -> Objects
-                .requireNonNull(RESOURCE_REQUIREMENTS.get(dependency),
-                    String.format("Missing resource requirement set for object type \"%s\".", objectType.getName()))
-                .stream())
-            .collect(Collectors.toSet());
-    }
-
-    private static <T extends IObjectType> boolean validateRequirements(final Set<T> objectTypes, final T objectType,
-                                                                        final IWoodType woodType,
-                                                                        final BiFunction<IWoodType, T, Boolean> biFunction) {
+    private static <T extends IObjectType> boolean validateRequirements(
+        final StringBuilder builder,
+        final Set<T> objectTypes, final T objectType,
+        final IWoodType woodType,
+        final BiFunction<IWoodType, T, Boolean> biFunction
+    ) {
         var result = true;
         if (objectTypes.contains(objectType)) {
-            final var requirements = resolveRequirements(objectType);
-            for (final var requirement : requirements) {
+            for (final var requirement : RESOURCE_REQUIREMENTS.get(objectType)) {
                 switch (requirement) {
-                case PLANKS -> {
-                    if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType)) {
-                        ILikeWood.LOGGER.error(String.format(
-                            "Resource requirement \"planks\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
-                            objectType.getName(),
-                            woodType.getName()));
-                        result = false;
+                    case PLANKS -> {
+                        if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType)) {
+                            builder.append(String.format(
+                                "Resource requirement \"planks\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
+                                objectType.getName(),
+                                woodType.getName()
+                            ));
+                            builder.append(System.lineSeparator());
+                            result = false;
+                        }
                     }
-                }
-                case LOGS -> {
-                    if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasLog(woodType)) {
-                        ILikeWood.LOGGER.error(String.format(
-                            "Resource requirement \"logs\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
-                            objectType.getName(),
-                            woodType.getName()));
-                        result = false;
+                    case LOGS -> {
+                        if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasLog(woodType)) {
+                            builder.append(String.format(
+                                "Resource requirement \"logs\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
+                                objectType.getName(),
+                                woodType.getName()
+                            ));
+                            builder.append(System.lineSeparator());
+                            result = false;
+                        }
                     }
-                }
-                case STRIPPED_LOGS -> {
-                    if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasStrippedLog(woodType)) {
-                        ILikeWood.LOGGER.error(String.format(
-                            "Resource requirement \"stripped logs\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
-                            objectType.getName(),
-                            woodType.getName()));
-                        result = false;
+                    case STRIPPED_LOGS -> {
+                        if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasStrippedLog(woodType)) {
+                            builder.append(String.format(
+                                "Resource requirement \"stripped logs\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
+                                objectType.getName(),
+                                woodType.getName()
+                            ));
+                            builder.append(System.lineSeparator());
+                            result = false;
+                        }
                     }
-                }
-                case SLAB -> {
-                    if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasSlab(woodType)) {
-                        ILikeWood.LOGGER.error(String.format(
-                            "Resource requirement \"slabs\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
-                            objectType.getName(),
-                            woodType.getName()));
-                        result = false;
+                    case SLAB -> {
+                        if (!ILikeWood.WOODEN_RESOURCE_REGISTRY.hasSlab(woodType)) {
+                            builder.append(String.format(
+                                "Resource requirement \"slabs\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
+                                objectType.getName(),
+                                woodType.getName()
+                            ));
+                            builder.append(System.lineSeparator());
+                            result = false;
+                        }
                     }
-                }
                 }
             }
-        } else {
+        }
+        else {
             if (!biFunction.apply(woodType, objectType)) {
-                ILikeWood.LOGGER.error(String.format(
+                builder.append(String.format(
                     "Block resource requirement \"%s\" of built-in object type \"%s\" for wood type \"%s\" was not satisfied.",
                     objectType.getName(),
                     objectType.getName(),
-                    woodType.getName()));
+                    woodType.getName()
+                ));
+                builder.append(System.lineSeparator());
                 result = false;
             }
         }
@@ -147,41 +152,51 @@ public final class WoodTypeValidator {
         return result;
     }
 
-    private static boolean validateDependencies(final IObjectType objectType, final IObjectTypeVisitor visitor,
-                                                final IWoodType woodType) {
+    private static boolean validateDependencies(
+        final StringBuilder builder,
+        final IObjectType objectType,
+        final IObjectTypeVisitor visitor,
+        final IWoodType woodType
+    ) {
         // TODO maybe add filter for enabled dependencies
-        return ObjectTypeValidator.resolveDependencies(objectType).stream().reduce(true, (a, dependency) -> {
-            final var x = dependency.acceptVisitor(visitor);
-            if (!x) {
-                ILikeWood.LOGGER.error(String.format(
-                    "Dependency \"%s\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
-                    dependency.getName(),
-                    objectType.getName(),
-                    woodType.getName()));
-            }
-            return a && x;
-        }, Boolean::logicalAnd);
+        return ObjectTypeValidator.getDependencies(objectType)
+            .stream()
+            .map(ds -> ds.stream().reduce(true, (a, dependency) -> {
+                final var x = dependency.acceptVisitor(visitor);
+                if (!x) {
+                    builder.append(String.format(
+                        "Dependency \"%s\" of object type \"%s\" for wood type \"%s\" was not satisfied.",
+                        dependency.getName(),
+                        objectType.getName(),
+                        woodType.getName()
+                    ));
+                    builder.append(System.lineSeparator());
+                }
+                return a && x;
+            }, Boolean::logicalAnd))
+            .reduce(false, Boolean::logicalOr);
     }
 
-    private static <T extends IObjectType> boolean validateExclusivity(final Set<T> objectTypes,
-                                                                       final Set<T> builtinObjectTypes,
-                                                                       final IWoodType woodType) {
+    private static <T extends IObjectType> boolean validateExclusivity(
+        final StringBuilder builder,
+        final Set<T> objectTypes,
+        final Set<T> builtinObjectTypes,
+        final IWoodType woodType
+    ) {
         var result = true;
         final var intersection = Sets.intersection(objectTypes, builtinObjectTypes);
 
         if (!intersection.isEmpty()) {
-            ILikeWood.LOGGER.error(String.format(
+            builder.append(String.format(
                 "Object types set and builtin object types set for wood type \"%s\" set are not disconnected. Duplicates:",
-                woodType.getName()));
-
-            var builder = new StringBuilder();
+                woodType.getName()
+            ));
+            builder.append(System.lineSeparator());
 
             for (final var duplicate : intersection) {
                 builder.append(duplicate.getName());
-                builder.append('\n');
+                builder.append(System.lineSeparator());
             }
-
-            ILikeWood.LOGGER.error(builder.toString());
 
             result = false;
         }
@@ -189,25 +204,34 @@ public final class WoodTypeValidator {
         return result;
     }
 
-    private static <T extends IObjectType> boolean validateProperties(final Set<T> objectTypes,
-                                                                      final IWoodType woodType,
-                                                                      final BiFunction<IWoodType, T, IWoodType.Properties> biFunction) {
+    private static <T extends IObjectType> boolean validateProperties(
+        final StringBuilder builder,
+        final Set<T> objectTypes,
+        final IWoodType woodType,
+        final BiFunction<IWoodType, T, IWoodType.Properties> biFunction
+    ) {
         var result = true;
 
         for (final T objectType : objectTypes) {
             final var properties = biFunction.apply(woodType, objectType);
 
             if (properties == null) {
-                ILikeWood.LOGGER.error(String.format("Missing properties for block type \"%s\" of wood type \"%s\"",
+                builder.append(String.format(
+                    "Missing properties for block type \"%s\" of wood type \"%s\".",
                     objectType.getName(),
-                    woodType.getName()));
+                    woodType.getName()
+                ));
+                builder.append(System.lineSeparator());
                 result = false;
-            } else if (properties.burnTime() < -1) {
-                ILikeWood.LOGGER.error(String.format(
-                    "Invalid burn time \"%d\" for block type \"%s\" of wood type \"%s\"",
+            }
+            else if (properties.burnTime() < -1) {
+                builder.append(String.format(
+                    "Invalid burn time \"%d\" for block type \"%s\" of wood type \"%s\".",
                     properties.burnTime(),
                     objectType.getName(),
-                    woodType.getName()));
+                    woodType.getName()
+                ));
+                builder.append(System.lineSeparator());
                 result = false;
             }
         }
@@ -215,8 +239,7 @@ public final class WoodTypeValidator {
         return result;
     }
 
-    // TODO Fuel Map
-    public static boolean validate(final IWoodType woodType) {
+    public static boolean validate(final StringBuilder builder, final IWoodType woodType) {
         final Set<WoodenBlockType> blockTypes = woodType.getBlockTypes();
         final Set<WoodenBlockType> builtinBlockTypes = woodType.getBuiltinBlockTypes();
         final Set<WoodenItemType> itemTypes = woodType.getItemTypes();
@@ -246,46 +269,52 @@ public final class WoodTypeValidator {
             }
         };
 
-        final var exclusivityValidation = validateExclusivity(blockTypes, builtinBlockTypes, woodType) &&
-                                          validateExclusivity(itemTypes, builtinItemTypes, woodType);
+        final var exclusivityValidation = validateExclusivity(builder, blockTypes, builtinBlockTypes, woodType) &&
+            validateExclusivity(builder, itemTypes, builtinItemTypes, woodType);
 
-        final var propertiesValidation = validateProperties(blockTypes, woodType, IWoodType::getProperties) &&
-                                         validateProperties(itemTypes, woodType, IWoodType::getProperties);
+        final var propertiesValidation = validateProperties(builder, blockTypes, woodType, IWoodType::getProperties) &&
+            validateProperties(builder, itemTypes, woodType, IWoodType::getProperties);
 
         final var blockTypesValidation = WoodenBlockType
             .getAll()
             .filter(blockType -> blockTypes.contains(blockType) || builtinBlockTypes.contains(blockType))
-            .map(blockType -> validateRequirements(blockTypes,
+            .map(blockType -> validateRequirements(
+                builder,
+                blockTypes,
                 blockType,
                 woodType,
-                ILikeWood.WOODEN_RESOURCE_REGISTRY::hasBlockResource) &&
-                              validateDependencies(blockType, visitor, woodType))
+                ILikeWood.WOODEN_RESOURCE_REGISTRY::hasBlockResource
+            ) &&
+                validateDependencies(builder, blockType, visitor, woodType))
             .reduce(true, Boolean::logicalAnd);
 
         final var itemTypesValidation = WoodenItemType
             .getAll()
             .filter(itemType -> itemTypes.contains(itemType) || builtinItemTypes.contains(itemType))
-            .map(itemType -> validateRequirements(itemTypes,
+            .map(itemType -> validateRequirements(
+                builder,
+                itemTypes,
                 itemType,
                 woodType,
-                ILikeWood.WOODEN_RESOURCE_REGISTRY::hasItemResource) &&
-                             validateDependencies(itemType, visitor, woodType))
+                ILikeWood.WOODEN_RESOURCE_REGISTRY::hasItemResource
+            ) &&
+                validateDependencies(builder, itemType, visitor, woodType))
             .reduce(true, Boolean::logicalAnd);
 
         final var tieredItemTypesValidation = WoodenTieredItemType
             .getAll()
             .filter(tieredItemTypes::contains)
-            .map(tieredItemType -> validateDependencies(tieredItemType, visitor, woodType))
+            .map(tieredItemType -> validateDependencies(builder, tieredItemType, visitor, woodType))
             .reduce(true, Boolean::logicalAnd);
 
         final var entityTypesValidation = WoodenEntityType
             .getAll()
             .filter(entityTypes::contains)
-            .map(entityType -> validateDependencies(entityType, visitor, woodType))
+            .map(entityType -> validateDependencies(builder, entityType, visitor, woodType))
             .reduce(true, Boolean::logicalAnd);
 
         return exclusivityValidation && propertiesValidation && blockTypesValidation && itemTypesValidation &&
-               tieredItemTypesValidation && entityTypesValidation;
+            tieredItemTypesValidation && entityTypesValidation;
     }
 
     private enum ResourceRequirement {

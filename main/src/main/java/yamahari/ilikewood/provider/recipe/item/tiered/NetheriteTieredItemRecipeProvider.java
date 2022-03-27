@@ -25,15 +25,16 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
-    public NetheriteTieredItemRecipeProvider(final DataGenerator generator) {
+    private final WoodenTieredItemType tieredItemType;
+
+    public NetheriteTieredItemRecipeProvider(final DataGenerator generator, final WoodenTieredItemType tieredItemType) {
         super(generator);
+        this.tieredItemType = tieredItemType;
     }
 
     @Override
     protected void buildCraftingRecipes(@Nonnull final Consumer<FinishedRecipe> consumer) {
-        WoodenTieredItemType
-            .getAll()
-            .flatMap(ILikeWood.TIERED_ITEM_REGISTRY::getObjects)
+        ILikeWood.TIERED_ITEM_REGISTRY.getObjects(tieredItemType)
             .filter(tieredItem -> ((IWoodenTieredItem) tieredItem)
                 .getWoodenItemTier()
                 .equals(VanillaWoodenItemTiers.DIAMOND))
@@ -44,9 +45,11 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
         final IWoodenTieredItem tieredItem = ((IWoodenTieredItem) item);
         final IWoodType woodType = ((IWooden) item).getWoodType();
         try {
-            final Item output = ILikeWood.TIERED_ITEM_REGISTRY.getObject(VanillaWoodenItemTiers.NETHERITE,
+            final Item output = ILikeWood.TIERED_ITEM_REGISTRY.getObject(
+                VanillaWoodenItemTiers.NETHERITE,
                 woodType,
-                tieredItem.getTieredItemType());
+                tieredItem.getTieredItemType()
+            );
 
             final UpgradeRecipeBuilder builder = UpgradeRecipeBuilder
                 .smithing(Ingredient.of(item), Ingredient.of(Items.NETHERITE_INGOT), output)
@@ -56,17 +59,22 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
                 .builder()
                 .addCondition(new ModLoadedCondition(woodType.getModId()))
                 .addRecipe(c -> builder.save(c, RecipeBuilder.getDefaultRecipeId(output)))
-                .build(consumer,
-                    new ResourceLocation(Constants.MOD_ID,
-                        Util.toRegistryName(Objects.requireNonNull(output.getRegistryName()).getPath(), "smithing")));
-        } catch (final IllegalArgumentException ignored) {
+                .build(
+                    consumer,
+                    new ResourceLocation(
+                        Constants.MOD_ID,
+                        Util.toRegistryName(Objects.requireNonNull(output.getRegistryName()).getPath(), "smithing")
+                    )
+                );
+        }
+        catch (final IllegalArgumentException ignored) {
             ILikeWood.LOGGER.info("No netherite tiered item found for diamond<->netherite smithing recipe!");
         }
     }
 
     @Nonnull
     @Override
-    public final String getName() {
-        return String.format("%s - netherite tiered item recipes", Constants.MOD_ID);
+    public String getName() {
+        return String.format("%s - netherite %s", Constants.MOD_ID, this.tieredItemType.getName());
     }
 }

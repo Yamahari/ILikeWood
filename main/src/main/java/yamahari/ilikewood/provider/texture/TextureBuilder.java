@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.function.Function;
 
-// TODO add animated textures
 public class TextureBuilder extends TextureFile {
     protected final ExistingFileHelper helper;
     private TextureFile parent;

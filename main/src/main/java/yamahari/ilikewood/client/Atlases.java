@@ -8,7 +8,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.config.ILikeWoodObjectTypesConfig;
+import yamahari.ilikewood.config.ILikeWoodConfig;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -29,10 +29,16 @@ public final class Atlases {
     private static Map<ChestType, Material> makeChestMaterials(final IWoodType woodType) {
         final EnumMap<ChestType, Material> materials = new EnumMap<>(ChestType.class);
         for (final ChestType chestType : ChestType.values()) {
-            materials.put(chestType,
-                new Material(net.minecraft.client.renderer.Sheets.CHEST_SHEET,
-                    new ResourceLocation(Constants.MOD_ID,
-                        Util.toPath("entity", "chest", chestType.getSerializedName(), woodType.getName()))));
+            materials.put(
+                chestType,
+                new Material(
+                    net.minecraft.client.renderer.Sheets.CHEST_SHEET,
+                    new ResourceLocation(
+                        Constants.MOD_ID,
+                        Util.toPath("entity", "chest", chestType.getSerializedName(), woodType.getName())
+                    )
+                )
+            );
         }
         return materials;
     }
@@ -45,7 +51,7 @@ public final class Atlases {
     public static void onTextureStitchPre(final TextureStitchEvent.Pre event) {
         final Map<IWoodType, Map<ChestType, Material>> chests = new HashMap<>();
 
-        if (ILikeWoodObjectTypesConfig.isEnabled(WoodenBlockType.CHEST)) {
+        if (ILikeWoodConfig.CHESTS_CONFIG.isEnabled()) {
             ILikeWood.WOOD_TYPE_REGISTRY
                 .getWoodTypes()
                 .filter(woodType -> woodType.getBlockTypes().contains(WoodenBlockType.CHEST))

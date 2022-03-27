@@ -45,6 +45,10 @@ configurations {
         canBeConsumed = true
         canBeResolved = false
     }
+    configPanelsStairs {
+        canBeConsumed = true
+        canBeResolved = false
+    }
 }
 
 sourceSets {
@@ -76,9 +80,7 @@ def objectTypeNames = [
         'lecterns',
         'ladders',
         'scaffoldings',
-        'soul_torches',
         'torches',
-        'log_piles',
         'posts',
         'walls',
         'chairs',
@@ -94,7 +96,8 @@ def objectTypeNames = [
         'hoes',
         'pickaxes',
         'shovels',
-        'swords'
+        'swords',
+        'log_piles'
 ]
 
 for (String objectTypeName in objectTypeNames) {
@@ -155,7 +158,7 @@ for (String objectTypeName in objectTypeNames) {
     }
 
     tasks.named(sourceSet.getTaskName('process', 'resources')).configure {
-        it.from(sourceSets.main.resources) {
+        it.from('../main/src/main/resources') {
             include 'logo.png'
             include 'pack.mcmeta'
         }
@@ -185,4 +188,5 @@ artifacts {
 
     configPanelsOnly panelsJar
     configPanelsChain panelsJar, panels_stairsJar, panels_slabsJar
+    configPanelsStairs panels_stairsJar
 }

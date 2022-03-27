@@ -63,8 +63,9 @@ public final class ILikeWood {
             }
         }
 
-        if (!validate()) {
-            throw new RuntimeException("Validation failed! See log for more details.");
+        final var builder = new StringBuilder();
+        if (!validate(builder)) {
+            throw new RuntimeException("Validation failed! See log for more details." + System.lineSeparator() + builder);
         }
 
         BLOCK_REGISTRY.register(modEventBus);
@@ -132,57 +133,76 @@ public final class ILikeWood {
             .getAllScanData()
             .stream()
             .flatMap(scanData -> scanData.getAnnotations().stream())
-            .filter(annotationData -> Objects.equals(annotationData.annotationType(),
-                Type.getType(ILikeWoodPlugin.class)))
+            .filter(annotationData -> Objects.equals(
+                annotationData.annotationType(),
+                Type.getType(ILikeWoodPlugin.class)
+            ))
             .map(ModFileScanData.AnnotationData::memberName)
             .toList();
 
         for (final String name : names) {
             try {
                 PLUGINS.add(Class.forName(name).asSubclass(IModPlugin.class).newInstance());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | LinkageError e) {
+            }
+            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | LinkageError e) {
                 LOGGER.error("Failed to load: {}", name, e);
             }
         }
     }
 
-    private static boolean validate() {
+    private static boolean validate(final StringBuilder builder) {
+
         final var blockTypeValidation =
-            WoodenBlockType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
+            WoodenBlockType.getAll()
+                .map(objectType -> ObjectTypeValidator.validate(builder, objectType))
+                .reduce(true, Boolean::logicalAnd);
 
         if (!blockTypeValidation) {
-            LOGGER.error("Block type validation failed!");
+            builder.append("Block type validation failed!");
+            builder.append(System.lineSeparator());
         }
 
         final var itemTypeValidation =
-            WoodenItemType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
+            WoodenItemType.getAll()
+                .map(objectType -> ObjectTypeValidator.validate(builder, objectType))
+                .reduce(true, Boolean::logicalAnd);
 
         if (!itemTypeValidation) {
-            LOGGER.error("Item type validation failed!");
+            builder.append("Item type validation failed!");
+            builder.append(System.lineSeparator());
         }
 
         final var tieredItemTypeValidation =
-            WoodenTieredItemType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
+            WoodenTieredItemType.getAll()
+                .map(objectType -> ObjectTypeValidator.validate(builder, objectType))
+                .reduce(true, Boolean::logicalAnd);
 
         if (!tieredItemTypeValidation) {
-            LOGGER.error("Tiered item type validation failed!");
+            builder.append("Tiered item type validation failed!");
+            builder.append(System.lineSeparator());
         }
 
         final var entityTypeValidation =
-            WoodenEntityType.getAll().map(ObjectTypeValidator::validate).reduce(true, Boolean::logicalAnd);
+            WoodenEntityType.getAll()
+                .map(objectType -> ObjectTypeValidator.validate(builder, objectType))
+                .reduce(true, Boolean::logicalAnd);
 
         if (!entityTypeValidation) {
-            LOGGER.error("Entity type validation failed!");
+            builder.append("Entity type validation failed!");
+            builder.append(System.lineSeparator());
         }
 
         final var woodTypeValidation =
-            WOOD_TYPE_REGISTRY.getWoodTypes().map(WoodTypeValidator::validate).reduce(true, Boolean::logicalAnd);
+            WOOD_TYPE_REGISTRY.getWoodTypes()
+                .map(woodType -> WoodTypeValidator.validate(builder, woodType))
+                .reduce(true, Boolean::logicalAnd);
 
         if (!woodTypeValidation) {
-            LOGGER.error("Wood type validation failed!");
+            builder.append("Wood type validation failed!");
+            builder.append(System.lineSeparator());
         }
 
         return blockTypeValidation && itemTypeValidation && tieredItemTypeValidation && entityTypeValidation &&
-               woodTypeValidation;
+            woodTypeValidation;
     }
 }

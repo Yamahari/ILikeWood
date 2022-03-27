@@ -44,7 +44,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class WoodenSawmillBlock extends WoodenBlock {
+public final class WoodenSawmillBlock extends WoodenBlock {
     public static final EnumProperty<WoodenSawmillModel> MODEL = EnumProperty.create("model", WoodenSawmillModel.class);
     public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
 

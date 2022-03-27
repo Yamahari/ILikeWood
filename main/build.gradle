@@ -29,7 +29,7 @@ dependencies {
 sourceSets {
     main {
         resources {
-            srcDirs = ['src/main/resources', 'src/data/resources']
+            srcDirs = ['src/main/resources', 'src/data/resources/data', 'src/data/resources/textures']
         }
     }
 
@@ -76,7 +76,7 @@ minecraft {
             property "${mod_id}.datagen.modid", "${mod_id}"
             args '--mod', "${mod_id}",
                     '--all',
-                    '--output', file("src/data/resources/${mod_id}_resources"),
+                    '--output', file("src/data/resources/dummy"),
                     '--existing', file('src/main/resources/')
             mods {
                 ilikewood {
@@ -107,9 +107,10 @@ dependencies {
 
     implementation sourceSets.api.output
 
-    //runtimeOnly project(path: ':config', configuration: 'configJars')
+    runtimeOnly project(path: ':config', configuration: 'configJars')
     //runtimeOnly project(path: ':config', configuration: 'configPanelsOnly')
-    runtimeOnly project(path: ':config', configuration: 'configPanelsChain')
+    //runtimeOnly project(path: ':config', configuration: 'configPanelsChain')
+    //runtimeOnly project(path: ':config', configuration: 'configPanelsStairs')
 }
 
 
@@ -145,8 +146,7 @@ jar {
     from sourceSets.api.output.resourcesDir
 
     sourceSets.main.resources {
-        exclude "${mod_id}_resources/.cache"
-        exclude '.cache'
+        exclude '**/.cache'
     }
 
     manifest.attributes([

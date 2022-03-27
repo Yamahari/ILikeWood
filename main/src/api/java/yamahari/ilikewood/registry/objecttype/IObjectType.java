@@ -10,4 +10,6 @@ public interface IObjectType {
     int hashCode();
 
     boolean acceptVisitor(IObjectTypeVisitor visitor);
+
+    boolean isEnabled();
 }
