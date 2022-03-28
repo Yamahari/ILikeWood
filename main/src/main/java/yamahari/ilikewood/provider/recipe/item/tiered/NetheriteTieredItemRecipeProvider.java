@@ -2,15 +2,12 @@ package yamahari.ilikewood.provider.recipe.item.tiered;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
@@ -51,21 +48,17 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
                 tieredItem.getTieredItemType()
             );
 
-            final UpgradeRecipeBuilder builder = UpgradeRecipeBuilder
+            UpgradeRecipeBuilder
                 .smithing(Ingredient.of(item), Ingredient.of(Items.NETHERITE_INGOT), output)
-                .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT));
-
-            ConditionalRecipe
-                .builder()
-                .addCondition(new ModLoadedCondition(woodType.getModId()))
-                .addRecipe(c -> builder.save(c, RecipeBuilder.getDefaultRecipeId(output)))
-                .build(
+                .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
+                .save(
                     consumer,
                     new ResourceLocation(
                         Constants.MOD_ID,
                         Util.toRegistryName(Objects.requireNonNull(output.getRegistryName()).getPath(), "smithing")
                     )
                 );
+
         }
         catch (final IllegalArgumentException ignored) {
             ILikeWood.LOGGER.info("No netherite tiered item found for diamond<->netherite smithing recipe!");

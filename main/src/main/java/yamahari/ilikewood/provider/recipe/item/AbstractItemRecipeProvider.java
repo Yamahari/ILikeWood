@@ -3,12 +3,8 @@ package yamahari.ilikewood.provider.recipe.item;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.registry.WoodenRecipeSerializers;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -23,15 +19,6 @@ public abstract class AbstractItemRecipeProvider extends RecipeProvider {
     public AbstractItemRecipeProvider(final DataGenerator generator, final WoodenItemType itemType) {
         super(generator);
         this.itemType = itemType;
-    }
-
-    protected static SingleItemRecipeBuilder sawmillingRecipe(final Ingredient ingredient, final ItemLike result) {
-        return sawmillingRecipe(ingredient, result, 1);
-    }
-
-    protected static SingleItemRecipeBuilder sawmillingRecipe(final Ingredient ingredient, final ItemLike result,
-                                                              int count) {
-        return new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), ingredient, result, count);
     }
 
     @Override

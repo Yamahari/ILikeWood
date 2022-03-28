@@ -33,7 +33,7 @@ public class LogPileRecipeProvider extends AbstractBlockItemRecipeProvider {
             .define('I', post)
             .pattern("II")
             .pattern("II")
-            .group(Constants.LOG_PILE_PLURAL)
+            .group(String.format("%s:%s", Constants.MOD_ID, Constants.LOG_PILE_PLURAL))
             .unlockedBy("has_post", has(post));
 
         builder.save(consumer, Objects.requireNonNull(block.getRegistryName()));
