@@ -2,50 +2,51 @@ package yamahari.ilikewood.data.tag;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.Tags;
 import yamahari.ilikewood.util.Constants;
 
-public final class ILikeWoodItemTags {
-    public static final Tags.IOptionalNamedTag<Item> PANELS = createOptional(Constants.PANELS_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> PANELS_SLABS = createOptional(Constants.PANELS_SLAB_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> PANELS_STAIRS = createOptional(Constants.PANELS_STAIRS_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> BARRELS = createOptional(Constants.BARREL_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> CHESTS = createOptional(Constants.CHEST_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> COMPOSTER = createOptional(Constants.COMPOSTER_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> BOOKSHELVES = createOptional(Constants.BOOKSHELF_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> WALLS = createOptional(Constants.WALL_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> LADDERS = createOptional(Constants.LADDER_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> TORCHES = createOptional(Constants.TORCH_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> STICKS = createOptional(Constants.STICK_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> CRAFTING_TABLES = createOptional(Constants.CRAFTING_TABLE_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> SCAFFOLDINGS = createOptional(Constants.SCAFFOLDING_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> LECTERNS = createOptional(Constants.LECTERN_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> POSTS = createOptional(Constants.POST_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> STRIPPED_POSTS = createOptional(Constants.STRIPPED_POST_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> BOWS = createOptional(Constants.BOW_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> CROSSBOWS = createOptional(Constants.CROSSBOW_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> ITEM_FRAMES = createOptional(Constants.ITEM_FRAME_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> BEDS = createOptional(Constants.BEDS);
-    public static final Tags.IOptionalNamedTag<Item> SAWMILLS = createOptional(Constants.SAWMILL_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> FISHING_RODS = createOptional(Constants.FISHING_ROD_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> SOUL_TORCHES = createOptional(Constants.SOUL_TORCH_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> CHAIRS = createOptional(Constants.CHAIR_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> TABLES = createOptional(Constants.TABLE_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> STOOLS = createOptional(Constants.STOOL_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> SINGLE_DRESSER = createOptional(Constants.SINGLE_DRESSER_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> LOG_PILES = createOptional(Constants.LOG_PILE_PLURAL);
+public final class ILikeWoodItemTags
+{
+    public static final TagKey<Item> PANELS = create(Constants.PANELS_PLURAL);
+    public static final TagKey<Item> PANELS_SLABS = create(Constants.PANELS_SLAB_PLURAL);
+    public static final TagKey<Item> PANELS_STAIRS = create(Constants.PANELS_STAIRS_PLURAL);
+    public static final TagKey<Item> BARRELS = create(Constants.BARREL_PLURAL);
+    public static final TagKey<Item> CHESTS = create(Constants.CHEST_PLURAL);
+    public static final TagKey<Item> COMPOSTER = create(Constants.COMPOSTER_PLURAL);
+    public static final TagKey<Item> BOOKSHELVES = create(Constants.BOOKSHELF_PLURAL);
+    public static final TagKey<Item> WALLS = create(Constants.WALL_PLURAL);
+    public static final TagKey<Item> LADDERS = create(Constants.LADDER_PLURAL);
+    public static final TagKey<Item> TORCHES = create(Constants.TORCH_PLURAL);
+    public static final TagKey<Item> STICKS = create(Constants.STICK_PLURAL);
+    public static final TagKey<Item> CRAFTING_TABLES = create(Constants.CRAFTING_TABLE_PLURAL);
+    public static final TagKey<Item> SCAFFOLDINGS = create(Constants.SCAFFOLDING_PLURAL);
+    public static final TagKey<Item> LECTERNS = create(Constants.LECTERN_PLURAL);
+    public static final TagKey<Item> POSTS = create(Constants.POST_PLURAL);
+    public static final TagKey<Item> STRIPPED_POSTS = create(Constants.STRIPPED_POST_PLURAL);
+    public static final TagKey<Item> BOWS = create(Constants.BOW_PLURAL);
+    public static final TagKey<Item> CROSSBOWS = create(Constants.CROSSBOW_PLURAL);
+    public static final TagKey<Item> ITEM_FRAMES = create(Constants.ITEM_FRAME_PLURAL);
+    public static final TagKey<Item> BEDS = create(Constants.BEDS);
+    public static final TagKey<Item> SAWMILLS = create(Constants.SAWMILL_PLURAL);
+    public static final TagKey<Item> FISHING_RODS = create(Constants.FISHING_ROD_PLURAL);
+    public static final TagKey<Item> SOUL_TORCHES = create(Constants.SOUL_TORCH_PLURAL);
+    public static final TagKey<Item> CHAIRS = create(Constants.CHAIR_PLURAL);
+    public static final TagKey<Item> TABLES = create(Constants.TABLE_PLURAL);
+    public static final TagKey<Item> STOOLS = create(Constants.STOOL_PLURAL);
+    public static final TagKey<Item> SINGLE_DRESSER = create(Constants.SINGLE_DRESSER_PLURAL);
+    public static final TagKey<Item> LOG_PILES = create(Constants.LOG_PILE_PLURAL);
 
-    public static final Tags.IOptionalNamedTag<Item> AXES = createOptional(Constants.AXE_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> HOES = createOptional(Constants.HOE_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> PICKAXES = createOptional(Constants.PICKAXE_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> SHOVELS = createOptional(Constants.SHOVEL_PLURAL);
-    public static final Tags.IOptionalNamedTag<Item> SWORDS = createOptional(Constants.SWORD_PLURAL);
+    public static final TagKey<Item> AXES = create(Constants.AXE_PLURAL);
+    public static final TagKey<Item> HOES = create(Constants.HOE_PLURAL);
+    public static final TagKey<Item> PICKAXES = create(Constants.PICKAXE_PLURAL);
+    public static final TagKey<Item> SHOVELS = create(Constants.SHOVEL_PLURAL);
+    public static final TagKey<Item> SWORDS = create(Constants.SWORD_PLURAL);
 
     private ILikeWoodItemTags() {
     }
 
-    private static Tags.IOptionalNamedTag<Item> createOptional(final String id) {
-        return ItemTags.createOptional(new ResourceLocation(Constants.MOD_ID, id));
+    private static TagKey<Item> create(final String id) {
+        return ItemTags.create(new ResourceLocation(Constants.MOD_ID, id));
     }
 }

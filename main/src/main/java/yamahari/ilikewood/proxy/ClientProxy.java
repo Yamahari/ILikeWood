@@ -5,6 +5,7 @@ import net.minecraft.client.gui.screens.inventory.CraftingScreen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingMenu;
@@ -12,16 +13,20 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.gui.screen.WoodenSawmillScreen;
 import yamahari.ilikewood.config.ILikeWoodConfig;
 import yamahari.ilikewood.container.WoodenSawmillContainer;
+import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
 import yamahari.ilikewood.registry.WoodenContainerTypes;
+import yamahari.ilikewood.registry.WoodenRecipeTypes;
 import yamahari.ilikewood.registry.objecttype.IObjectType;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
+import yamahari.ilikewood.util.Constants;
 
 import java.util.stream.Stream;
 
@@ -154,5 +159,16 @@ public final class ClientProxy implements IProxy {
     @Override
     public void onFMLCommonSetup(final FMLCommonSetupEvent event) {
         ILikeWood.LOGGER.info("ClientProxy: FMLCommonSetupEvent");
+
+        WoodenRecipeTypes.SAWMILLING = Registry.register(
+            Registry.RECIPE_TYPE,
+            new ResourceLocation(Constants.MOD_ID, "sawmilling"),
+            new RecipeType<AbstractWoodenSawmillRecipe>()
+            {
+                public String toString() {
+                    return String.format("%s:%s", Constants.MOD_ID, "sawmilling");
+                }
+            }
+        );
     }
 }

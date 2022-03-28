@@ -45,7 +45,7 @@ public final class WoodenPickAxeItem extends PickaxeItem implements IWooden, IWo
 
     @Override
     public float getDestroySpeed(@Nonnull final ItemStack stack, final BlockState state) {
-        return BlockTags.MINEABLE_WITH_PICKAXE.contains(state.getBlock()) ? this.getWoodenItemTier().getSpeed() : 1.0F;
+        return state.is(BlockTags.MINEABLE_WITH_PICKAXE) ? this.getWoodenItemTier().getSpeed() : 1.0F;
     }
 
     @Override

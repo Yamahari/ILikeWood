@@ -38,7 +38,7 @@ public final class WoodenHoeItem extends HoeItem implements IWooden, IWoodenTier
 
     @Override
     public float getDestroySpeed(@Nonnull final ItemStack stack, @Nonnull final BlockState state) {
-        return BlockTags.MINEABLE_WITH_HOE.contains(state.getBlock()) ? this.getWoodenItemTier().getSpeed() : 1.0F;
+        return state.is(BlockTags.MINEABLE_WITH_HOE) ? this.getWoodenItemTier().getSpeed() : 1.0F;
     }
 
     @Nonnull

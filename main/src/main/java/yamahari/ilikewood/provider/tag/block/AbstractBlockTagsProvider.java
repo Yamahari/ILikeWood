@@ -2,7 +2,7 @@ package yamahari.ilikewood.provider.tag.block;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
@@ -20,10 +20,13 @@ public abstract class AbstractBlockTagsProvider extends BlockTagsProvider {
         this.root = root;
     }
 
-    protected void registerTag(final Tag.Named<Block> tag, final WoodenBlockType blockType) {
-        if (blockType.equals(WoodenBlockType.WHITE_BED)) {
+    protected void registerTag(final TagKey<Block> tag, final WoodenBlockType blockType) {
+        if (blockType.equals(WoodenBlockType.WHITE_BED))
+        {
             this.tag(tag).add(ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.getBeds()).toArray(Block[]::new));
-        } else {
+        }
+        else
+        {
             this.tag(tag).add(ILikeWood.BLOCK_REGISTRY.getObjects(blockType).toArray(Block[]::new));
         }
     }

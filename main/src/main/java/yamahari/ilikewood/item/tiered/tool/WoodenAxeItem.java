@@ -45,7 +45,7 @@ public final class WoodenAxeItem extends AxeItem implements IWooden, IWoodenTier
 
     @Override
     public float getDestroySpeed(@Nonnull final ItemStack stack, final BlockState state) {
-        return BlockTags.MINEABLE_WITH_AXE.contains(state.getBlock()) ? this.getWoodenItemTier().getSpeed() : 1.0F;
+        return state.is(BlockTags.MINEABLE_WITH_AXE) ? this.getWoodenItemTier().getSpeed() : 1.0F;
     }
 
     @Override

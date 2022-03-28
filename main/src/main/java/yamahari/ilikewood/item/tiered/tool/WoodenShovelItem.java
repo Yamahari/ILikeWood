@@ -45,7 +45,7 @@ public final class WoodenShovelItem extends ShovelItem implements IWooden, IWood
 
     @Override
     public float getDestroySpeed(@Nonnull final ItemStack stack, final BlockState state) {
-        return BlockTags.MINEABLE_WITH_SHOVEL.contains(state.getBlock()) ? this.getWoodenItemTier().getSpeed() : 1.0F;
+        return state.is(BlockTags.MINEABLE_WITH_SHOVEL) ? this.getWoodenItemTier().getSpeed() : 1.0F;
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.ScaffoldingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import yamahari.ilikewood.data.tag.ILikeWoodItemTags;
@@ -59,11 +60,15 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final BlockGetter reader,
-                               @Nonnull final BlockPos pos, @Nonnull final CollisionContext context) {
-        if (ILikeWoodItemTags.SCAFFOLDINGS.getValues().stream().anyMatch(context::isHoldingItem)) {
-            return Shapes.block();
+                               @Nonnull final BlockPos pos, @Nonnull final CollisionContext context)
+    {
+        if (context instanceof EntityCollisionContext entityCollisionContext)
+        {
+            if (entityCollisionContext.heldItem.is(ILikeWoodItemTags.SCAFFOLDINGS))
+            {
+                return Shapes.block();
+            }
         }
-
         return state.getValue(BOTTOM) ? UNSTABLE_SHAPE : STABLE_SHAPE;
     }
 
@@ -75,11 +80,7 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
             state.setValue(DISTANCE, distance).setValue(BOTTOM, this.isBottom(world, pos, distance));
         if (blockState.getValue(DISTANCE) == 7) {
             if (state.getValue(DISTANCE) == 7) {
-                world.addFreshEntity(new FallingBlockEntity(world,
-                    (double) pos.getX() + 0.5D,
-                    pos.getY(),
-                    (double) pos.getZ() + 0.5D,
-                    blockState.setValue(WATERLOGGED, Boolean.FALSE)));
+                FallingBlockEntity.fall(world, pos, blockState);
             } else {
                 world.destroyBlock(pos, true);
             }
