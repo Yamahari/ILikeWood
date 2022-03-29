@@ -45,15 +45,15 @@ public final class GatherDataEventHandler
         return ObfuscationReflectionHelper.getPrivateValue(GatherDataEvent.class, event, "config");
     }
 
-    private static DataGenerator makeGenerator(final GatherDataEvent.DataGeneratorConfig config, final String root) {
+    private static DataGenerator makeGenerator(final GatherDataEvent.DataGeneratorConfig config, final String root, boolean shouldExecute) {
         return config.makeGenerator(outputPath -> outputPath.getParent()
             .resolve("data")
             .resolve(String.format("%s_resources", Constants.MOD_ID))
-            .resolve(root), true);
+            .resolve(root), shouldExecute);
     }
 
-    private static void makePanelsData(final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config) {
-        final var generator = makeGenerator(config, Constants.PANELS_PLURAL);
+    private static void makePanelsData(final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute) {
+        final var generator = makeGenerator(config, Constants.PANELS_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -93,10 +93,11 @@ public final class GatherDataEventHandler
 
     private static void makePanelsStairsData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.PANELS_STAIRS_PLURAL);
+        final var generator = makeGenerator(config, Constants.PANELS_STAIRS_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -136,10 +137,11 @@ public final class GatherDataEventHandler
 
     private static void makePanelsSlabData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.PANELS_SLAB_PLURAL);
+        final var generator = makeGenerator(config, Constants.PANELS_SLAB_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -180,10 +182,11 @@ public final class GatherDataEventHandler
     private static void makeBarrelData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.BARREL_PLURAL);
+        final var generator = makeGenerator(config, Constants.BARREL_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new BarrelTextureProvider(textureGenerator, helper));
@@ -217,10 +220,11 @@ public final class GatherDataEventHandler
     private static void makeBookshelfData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.BOOKSHELF_PLURAL);
+        final var generator = makeGenerator(config, Constants.BOOKSHELF_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new BookshelfTextureProvider(textureGenerator, helper));
@@ -263,10 +267,11 @@ public final class GatherDataEventHandler
     private static void makeChestData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.CHEST_PLURAL);
+        final var generator = makeGenerator(config, Constants.CHEST_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ChestTextureProvider(textureGenerator, helper));
@@ -300,10 +305,11 @@ public final class GatherDataEventHandler
     private static void makeComposterData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.COMPOSTER_PLURAL);
+        final var generator = makeGenerator(config, Constants.COMPOSTER_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ComposterTextureProvider(textureGenerator, helper));
@@ -345,10 +351,11 @@ public final class GatherDataEventHandler
 
     private static void makeWallData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.WALL_PLURAL);
+        final var generator = makeGenerator(config, Constants.WALL_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -383,10 +390,11 @@ public final class GatherDataEventHandler
     private static void makeLadderData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.LADDER_PLURAL);
+        final var generator = makeGenerator(config, Constants.LADDER_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new LadderTextureProvider(textureGenerator, helper));
@@ -429,10 +437,11 @@ public final class GatherDataEventHandler
     private static void makeTorchData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.TORCH_PLURAL);
+        final var generator = makeGenerator(config, Constants.TORCH_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         // TODO maybe merge all torch & soul torch providers
@@ -472,10 +481,11 @@ public final class GatherDataEventHandler
 
     private static void makeCraftingTableData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.CRAFTING_TABLE_PLURAL);
+        final var generator = makeGenerator(config, Constants.CRAFTING_TABLE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -516,10 +526,11 @@ public final class GatherDataEventHandler
     private static void makeScaffoldingData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.SCAFFOLDING_PLURAL);
+        final var generator = makeGenerator(config, Constants.SCAFFOLDING_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ScaffoldingTextureProvider(textureGenerator, helper));
@@ -562,10 +573,11 @@ public final class GatherDataEventHandler
     private static void makeLecternData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.LECTERN_PLURAL);
+        final var generator = makeGenerator(config, Constants.LECTERN_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new LecternTextureProvider(textureGenerator, helper));
@@ -608,10 +620,11 @@ public final class GatherDataEventHandler
     private static void makePostData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.POST_PLURAL);
+        final var generator = makeGenerator(config, Constants.POST_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new PostTextureProvider(textureGenerator, helper));
@@ -646,10 +659,11 @@ public final class GatherDataEventHandler
 
     private static void makeSawmillData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.SAWMILL_PLURAL);
+        final var generator = makeGenerator(config, Constants.SAWMILL_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -692,10 +706,11 @@ public final class GatherDataEventHandler
     private static void makeBedData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.BEDS);
+        final var generator = makeGenerator(config, Constants.BEDS, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new BedTextureProvider(textureGenerator, helper));
@@ -737,10 +752,11 @@ public final class GatherDataEventHandler
 
     private static void makeChairData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.CHAIR_PLURAL);
+        final var generator = makeGenerator(config, Constants.CHAIR_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -780,10 +796,11 @@ public final class GatherDataEventHandler
 
     private static void makeStoolData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.STOOL_PLURAL);
+        final var generator = makeGenerator(config, Constants.STOOL_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -823,10 +840,11 @@ public final class GatherDataEventHandler
 
     private static void makeTableData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.TABLE_PLURAL);
+        final var generator = makeGenerator(config, Constants.TABLE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -866,10 +884,11 @@ public final class GatherDataEventHandler
 
     private static void makeSingleDresserData(
         final GatherDataEvent event,
-        final GatherDataEvent.DataGeneratorConfig config
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
-        final var generator = makeGenerator(config, Constants.SINGLE_DRESSER_PLURAL);
+        final var generator = makeGenerator(config, Constants.SINGLE_DRESSER_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         generator.addProvider(new PackMCMetaProvider(generator));
@@ -910,10 +929,11 @@ public final class GatherDataEventHandler
     private static void makeLogPileData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.LOG_PILE_PLURAL);
+        final var generator = makeGenerator(config, Constants.LOG_PILE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new LogPileTextureProvider(textureGenerator, helper));
@@ -956,10 +976,11 @@ public final class GatherDataEventHandler
     private static void makeStickData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.STICK_PLURAL);
+        final var generator = makeGenerator(config, Constants.STICK_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new StickTextureProvider(textureGenerator, helper));
@@ -986,10 +1007,11 @@ public final class GatherDataEventHandler
     private static void makeAxeData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.AXE_PLURAL);
+        final var generator = makeGenerator(config, Constants.AXE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.AXE));
@@ -1020,10 +1042,11 @@ public final class GatherDataEventHandler
     private static void makeHoeData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.HOE_PLURAL);
+        final var generator = makeGenerator(config, Constants.HOE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.HOE));
@@ -1054,10 +1077,11 @@ public final class GatherDataEventHandler
     private static void makePickaxeData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.PICKAXE_PLURAL);
+        final var generator = makeGenerator(config, Constants.PICKAXE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.PICKAXE));
@@ -1088,10 +1112,11 @@ public final class GatherDataEventHandler
     private static void makeShovelData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.SHOVEL_PLURAL);
+        final var generator = makeGenerator(config, Constants.SHOVEL_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.SHOVEL));
@@ -1122,10 +1147,11 @@ public final class GatherDataEventHandler
     private static void makeSwordData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.SWORD_PLURAL);
+        final var generator = makeGenerator(config, Constants.SWORD_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.SWORD));
@@ -1156,10 +1182,11 @@ public final class GatherDataEventHandler
     private static void makeBowData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.BOW_PLURAL);
+        final var generator = makeGenerator(config, Constants.BOW_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new BowTextureProvider(textureGenerator, helper));
@@ -1189,10 +1216,11 @@ public final class GatherDataEventHandler
     private static void makeCrossbowData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.CROSSBOW_PLURAL);
+        final var generator = makeGenerator(config, Constants.CROSSBOW_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new CrossbowTextureProvider(textureGenerator, helper));
@@ -1222,10 +1250,11 @@ public final class GatherDataEventHandler
     private static void makeItemFrameData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.ITEM_FRAME_PLURAL);
+        final var generator = makeGenerator(config, Constants.ITEM_FRAME_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new ItemFrameTextureProvider(textureGenerator, helper));
@@ -1256,10 +1285,11 @@ public final class GatherDataEventHandler
     private static void makeFishingRodData(
         final GatherDataEvent event,
         final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
         final DataGenerator textureGenerator
     )
     {
-        final var generator = makeGenerator(config, Constants.FISHING_ROD_PLURAL);
+        final var generator = makeGenerator(config, Constants.FISHING_ROD_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
         textureGenerator.addProvider(new FishingRodTextureProvider(textureGenerator, helper));
@@ -1289,6 +1319,7 @@ public final class GatherDataEventHandler
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent event) {
         final var config = getConfig(event);
+        final var shouldExecute = config.getMods().contains(Constants.MOD_ID);
 
         final var textureGenerator = new DataGenerator(event.getGenerator()
             .getOutputFolder()
@@ -1298,45 +1329,48 @@ public final class GatherDataEventHandler
                 "%s_resources", Constants.MOD_ID
             )), Collections.emptyList());
 
-        makePanelsData(event, config);
-        makePanelsStairsData(event, config);
-        makePanelsSlabData(event, config);
-        makeBarrelData(event, config, textureGenerator);
-        makeBookshelfData(event, config, textureGenerator);
-        makeChestData(event, config, textureGenerator);
-        makeComposterData(event, config, textureGenerator);
-        makeWallData(event, config);
-        makeLadderData(event, config, textureGenerator);
-        makeTorchData(event, config, textureGenerator);
-        makeCraftingTableData(event, config);
-        makeScaffoldingData(event, config, textureGenerator);
-        makeLecternData(event, config, textureGenerator);
-        makePostData(event, config, textureGenerator);
-        makeSawmillData(event, config);
-        makeBedData(event, config, textureGenerator);
-        makeChairData(event, config);
-        makeStoolData(event, config);
-        makeTableData(event, config);
-        makeSingleDresserData(event, config);
-        makeLogPileData(event, config, textureGenerator);
-        makeStickData(event, config, textureGenerator);
-        makeAxeData(event, config, textureGenerator);
-        makeHoeData(event, config, textureGenerator);
-        makePickaxeData(event, config, textureGenerator);
-        makeShovelData(event, config, textureGenerator);
-        makeSwordData(event, config, textureGenerator);
-        makeBowData(event, config, textureGenerator);
-        makeCrossbowData(event, config, textureGenerator);
-        makeItemFrameData(event, config, textureGenerator);
-        makeFishingRodData(event, config, textureGenerator);
+        makePanelsData(event, config, shouldExecute);
+        makePanelsStairsData(event, config, shouldExecute);
+        makePanelsSlabData(event, config, shouldExecute);
+        makeBarrelData(event, config, shouldExecute, textureGenerator);
+        makeBookshelfData(event, config, shouldExecute, textureGenerator);
+        makeChestData(event, config, shouldExecute, textureGenerator);
+        makeComposterData(event, config, shouldExecute, textureGenerator);
+        makeWallData(event, config, shouldExecute);
+        makeLadderData(event, config, shouldExecute, textureGenerator);
+        makeTorchData(event, config, shouldExecute, textureGenerator);
+        makeCraftingTableData(event, config, shouldExecute);
+        makeScaffoldingData(event, config, shouldExecute, textureGenerator);
+        makeLecternData(event, config, shouldExecute, textureGenerator);
+        makePostData(event, config, shouldExecute, textureGenerator);
+        makeSawmillData(event, config, shouldExecute);
+        makeBedData(event, config, shouldExecute, textureGenerator);
+        makeChairData(event, config, shouldExecute);
+        makeStoolData(event, config, shouldExecute);
+        makeTableData(event, config, shouldExecute);
+        makeSingleDresserData(event, config, shouldExecute);
+        makeLogPileData(event, config, shouldExecute, textureGenerator);
+        makeStickData(event, config, shouldExecute, textureGenerator);
+        makeAxeData(event, config, shouldExecute, textureGenerator);
+        makeHoeData(event, config, shouldExecute, textureGenerator);
+        makePickaxeData(event, config, shouldExecute, textureGenerator);
+        makeShovelData(event, config, shouldExecute, textureGenerator);
+        makeSwordData(event, config, shouldExecute, textureGenerator);
+        makeBowData(event, config, shouldExecute, textureGenerator);
+        makeCrossbowData(event, config, shouldExecute, textureGenerator);
+        makeItemFrameData(event, config, shouldExecute, textureGenerator);
+        makeFishingRodData(event, config, shouldExecute, textureGenerator);
 
-        try
+        if (shouldExecute)
         {
-            textureGenerator.run();
-        }
-        catch (IOException ignored)
-        {
-            throw new RuntimeException("");
+            try
+            {
+                textureGenerator.run();
+            }
+            catch (IOException ignored)
+            {
+                throw new RuntimeException("");
+            }
         }
     }
 }
