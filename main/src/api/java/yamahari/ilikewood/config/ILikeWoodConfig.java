@@ -1,6 +1,7 @@
 package yamahari.ilikewood.config;
 
 import com.google.common.base.Suppliers;
+import net.minecraftforge.data.loading.DatagenModLoader;
 import net.minecraftforge.fml.ModList;
 import yamahari.ilikewood.util.Constants;
 
@@ -76,21 +77,9 @@ public record ILikeWoodConfig(String name, Supplier<Boolean> flag) {
         );
     }
 
-    public static final Supplier<Boolean> IS_DATA_GEN = Suppliers.memoize(ILikeWoodConfig::isDataGen);
-
-    private static boolean isDataGen() {
-        try {
-            final var dataModId = System.getProperty("ilikewood.datagen.modid");
-            return dataModId != null;
-        }
-        catch (NullPointerException | SecurityException | IllegalArgumentException ignored) {
-        }
-        return false;
-    }
-
     private static ILikeWoodConfig make(final String name) {
         return new ILikeWoodConfig(name, Suppliers.memoize(() -> ModList.get()
-            .isLoaded(String.format("%s_%s", Constants.MOD_ID, name)) || IS_DATA_GEN.get()));
+            .isLoaded(String.format("%s_%s", Constants.MOD_ID, name)) || DatagenModLoader.isRunningDataGen()));
     }
 
     public boolean isEnabled() {
