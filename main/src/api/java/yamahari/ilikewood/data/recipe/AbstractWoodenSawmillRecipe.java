@@ -14,7 +14,14 @@ import javax.annotation.Nonnull;
 public abstract class AbstractWoodenSawmillRecipe extends SingleItemRecipe {
     public AbstractWoodenSawmillRecipe(final ResourceLocation id, final String group, final Ingredient ingredient,
                                        final ItemStack result) {
-        super(WoodenRecipeTypes.SAWMILLING, WoodenRecipeSerializers.SAWMILLING.get(), id, group, ingredient, result);
+        super(
+            WoodenRecipeTypes.SAWMILLING.get(),
+            WoodenRecipeSerializers.SAWMILLING.get(),
+            id,
+            group,
+            ingredient,
+            result
+        );
     }
 
     public final boolean matches(final Container inventory, @Nonnull final Level world) {

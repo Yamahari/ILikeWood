@@ -4,12 +4,14 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
-public final class FishingRodItemModelProvider extends AbstractItemModelProvider {
+public final class FishingRodItemModelProvider extends AbstractItemModelProvider
+{
     public FishingRodItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
         super(generator, helper, WoodenItemType.FISHING_ROD);
     }
@@ -18,22 +20,24 @@ public final class FishingRodItemModelProvider extends AbstractItemModelProvider
     protected void registerModel(final Item item) {
         final IWoodType woodType = ((IWooden) item).getWoodType();
 
-        this
-            .getBuilder(item.getRegistryName().getPath())
+        this.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath())
             .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "handheld_rod"))))
             .texture("layer0",
-                modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.FISHING_ROD.getName(), woodType.getName())))
+                modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.FISHING_ROD.getName(), woodType.getName()))
+            )
             .override()
             .predicate(mcLoc("cast"), 1.0F)
             .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(item.getRegistryName().getPath(), "cast")))))
+                Util.toRegistryName(ForgeRegistries.ITEMS.getKey(item).getPath(), "cast")
+            ))))
             .end();
 
-        this
-            .getBuilder(Util.toRegistryName(item.getRegistryName().getPath(), "cast"))
+        this.getBuilder(Util.toRegistryName(ForgeRegistries.ITEMS.getKey(item).getPath(), "cast"))
             .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                item.getRegistryName().getPath()))))
+                ForgeRegistries.ITEMS.getKey(item).getPath()
+            ))))
             .texture("layer0",
-                modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.FISHING_ROD.getName(), "cast", woodType.getName())));
+                modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.FISHING_ROD.getName(), "cast", woodType.getName()))
+            );
     }
 }

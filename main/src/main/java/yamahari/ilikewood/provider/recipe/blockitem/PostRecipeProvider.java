@@ -15,34 +15,31 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public final class PostRecipeProvider extends AbstractBlockItemRecipeProvider {
+public final class PostRecipeProvider extends AbstractBlockItemRecipeProvider
+{
     public PostRecipeProvider(final DataGenerator generator) {
         super(generator, WoodenBlockType.POST);
     }
 
     @Override
     protected void registerRecipes(
-        @Nonnull final Consumer<FinishedRecipe> consumer,
-        final IWoodType woodType,
-        final Block block
+        @Nonnull final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block
     )
     {
         if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasLog(woodType))
         {
             final ItemLike log =
-                Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY
-                    .getLog(woodType)
-                    .getResource()));
+                Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(
+                    woodType).getResource()));
 
-            ShapedRecipeBuilder
-                .shaped(block, 6)
+            ShapedRecipeBuilder.shaped(block, 6)
                 .define('#', Objects.requireNonNull(log))
                 .pattern("#")
                 .pattern("#")
                 .pattern("#")
                 .unlockedBy("has_log", has(log))
                 .group(String.format("%s:%s", Constants.MOD_ID, Constants.POST_PLURAL))
-                .save(consumer, Objects.requireNonNull(block.getRegistryName()));
+                .save(consumer, Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)));
         }
     }
 }

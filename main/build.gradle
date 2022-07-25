@@ -102,8 +102,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly fg.deobf("mezz.jei:jei-${version_mc}:${version_jei}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${version_mc}:${version_jei}")
+    compileOnly fg.deobf("mezz.jei:jei-${version_mc}-common-api:${version_jei}")
+    compileOnly fg.deobf("mezz.jei:jei-${version_mc}-forge-api:${version_jei}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${version_mc}-forge:${version_jei}")
 
     implementation sourceSets.api.output
 

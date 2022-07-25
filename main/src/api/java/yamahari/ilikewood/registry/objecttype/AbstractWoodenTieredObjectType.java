@@ -1,9 +1,9 @@
 package yamahari.ilikewood.registry.objecttype;
 
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import yamahari.ilikewood.config.ILikeWoodConfig;
 
-public abstract class AbstractWoodenTieredObjectType<T extends IForgeRegistryEntry<? super T>> implements IObjectType {
+public abstract class AbstractWoodenTieredObjectType<T> implements IObjectType
+{
     private final String name;
     private final String namePlural;
     private final ILikeWoodConfig config;
@@ -16,10 +16,12 @@ public abstract class AbstractWoodenTieredObjectType<T extends IForgeRegistryEnt
 
     @Override
     public final boolean equals(final Object o) {
-        if (this == o) {
+        if (this == o)
+        {
             return true;
         }
-        if (o == null || this.getClass() != o.getClass()) {
+        if (o == null || this.getClass() != o.getClass())
+        {
             return false;
         }
 

@@ -3,6 +3,7 @@ package yamahari.ilikewood.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,9 +25,9 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
-public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IWooden {
+public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IWooden
+{
     final IWoodType woodType;
 
     public WoodenScaffoldingBlock(final IWoodType woodType) {
@@ -35,21 +36,29 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     public static int getDistance(final BlockGetter reader, final BlockPos pos) {
-        final BlockPos.MutableBlockPos mutable =
-            (new BlockPos.MutableBlockPos(pos.getX(), pos.getY(), pos.getZ())).move(Direction.DOWN);
+        final BlockPos.MutableBlockPos mutable = (new BlockPos.MutableBlockPos(pos.getX(),
+            pos.getY(),
+            pos.getZ()
+        )).move(Direction.DOWN);
         final BlockState state = reader.getBlockState(mutable);
         int distance = 7;
-        if (state.getBlock() instanceof ScaffoldingBlock) {
+        if (state.getBlock() instanceof ScaffoldingBlock)
+        {
             distance = state.getValue(DISTANCE);
-        } else if (state.isFaceSturdy(reader, mutable, Direction.UP)) {
+        }
+        else if (state.isFaceSturdy(reader, mutable, Direction.UP))
+        {
             return 0;
         }
 
-        for (final Direction direction : Direction.Plane.HORIZONTAL) {
+        for (final Direction direction : Direction.Plane.HORIZONTAL)
+        {
             final BlockState translatedState = reader.getBlockState(mutable.set(pos).move(direction));
-            if (translatedState.getBlock() instanceof ScaffoldingBlock) {
+            if (translatedState.getBlock() instanceof ScaffoldingBlock)
+            {
                 distance = Math.min(distance, translatedState.getValue(DISTANCE) + 1);
-                if (distance == 1) {
+                if (distance == 1)
+                {
                     break;
                 }
             }
@@ -59,8 +68,12 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
 
     @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final BlockGetter reader,
-                               @Nonnull final BlockPos pos, @Nonnull final CollisionContext context)
+    public VoxelShape getShape(
+        @Nonnull final BlockState state,
+        @Nonnull final BlockGetter reader,
+        @Nonnull final BlockPos pos,
+        @Nonnull final CollisionContext context
+    )
     {
         if (context instanceof EntityCollisionContext entityCollisionContext)
         {
@@ -73,25 +86,39 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
     }
 
     @Override
-    public void tick(final BlockState state, @Nonnull final ServerLevel world, @Nonnull final BlockPos pos,
-                     @Nonnull final Random rand) {
+    public void tick(
+        final BlockState state,
+        @Nonnull final ServerLevel world,
+        @Nonnull final BlockPos pos,
+        @Nonnull final RandomSource rand
+    )
+    {
         final int distance = getDistance(world, pos);
-        final BlockState blockState =
-            state.setValue(DISTANCE, distance).setValue(BOTTOM, this.isBottom(world, pos, distance));
-        if (blockState.getValue(DISTANCE) == 7) {
-            if (state.getValue(DISTANCE) == 7) {
+        final BlockState blockState = state.setValue(DISTANCE, distance).setValue(BOTTOM,
+            this.isBottom(world, pos, distance)
+        );
+        if (blockState.getValue(DISTANCE) == 7)
+        {
+            if (state.getValue(DISTANCE) == 7)
+            {
                 FallingBlockEntity.fall(world, pos, blockState);
-            } else {
+            }
+            else
+            {
                 world.destroyBlock(pos, true);
             }
-        } else if (state != blockState) {
+        }
+        else if (state != blockState)
+        {
             world.setBlock(pos, blockState, 3);
         }
     }
 
     @Override
-    public boolean canSurvive(@Nonnull final BlockState state, @Nonnull final LevelReader world,
-                              @Nonnull final BlockPos pos) {
+    public boolean canSurvive(
+        @Nonnull final BlockState state, @Nonnull final LevelReader world, @Nonnull final BlockPos pos
+    )
+    {
         return getDistance(world, pos) < 7;
     }
 
@@ -100,15 +127,17 @@ public final class WoodenScaffoldingBlock extends ScaffoldingBlock implements IW
         final BlockPos blockpos = context.getClickedPos();
         final Level world = context.getLevel();
         final int distance = getDistance(world, blockpos);
-        return this
-            .defaultBlockState()
+        return this.defaultBlockState()
             .setValue(WATERLOGGED, world.getFluidState(blockpos).getType() == Fluids.WATER)
-            .setValue(DISTANCE, distance).setValue(BOTTOM, this.isBottom(world, blockpos, distance));
+            .setValue(DISTANCE, distance)
+            .setValue(BOTTOM, this.isBottom(world, blockpos, distance));
     }
 
     @Override
-    public boolean isScaffolding(final BlockState state, final LevelReader world, final BlockPos pos,
-                                 final LivingEntity entity) {
+    public boolean isScaffolding(
+        final BlockState state, final LevelReader world, final BlockPos pos, final LivingEntity entity
+    )
+    {
         return true;
     }
 

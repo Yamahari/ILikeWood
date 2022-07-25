@@ -15,24 +15,23 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public final class TableRecipeProvider extends AbstractBlockItemRecipeProvider {
+public final class TableRecipeProvider extends AbstractBlockItemRecipeProvider
+{
     public TableRecipeProvider(DataGenerator generator) {
         super(generator, WoodenBlockType.TABLE);
     }
 
     @Override
     protected void registerRecipes(
-        @Nonnull final Consumer<FinishedRecipe> consumer, final IWoodType woodType,
-        final Block block
+        @Nonnull final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block
     )
     {
-        final ItemLike log = Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY
-            .getLog(woodType)
-            .getResource()));
+        final ItemLike log =
+            Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType)
+                .getResource()));
         final ItemLike strippedPost = ILikeWood.getBlock(woodType, WoodenBlockType.STRIPPED_POST);
 
-        ShapedRecipeBuilder
-            .shaped(block, 3)
+        ShapedRecipeBuilder.shaped(block, 3)
             .define('#', Objects.requireNonNull(log))
             .define('I', strippedPost)
             .pattern("###")
@@ -40,6 +39,6 @@ public final class TableRecipeProvider extends AbstractBlockItemRecipeProvider {
             .pattern("I I")
             .group(String.format("%s:%s", Constants.MOD_ID, Constants.TABLE_PLURAL))
             .unlockedBy("has_stripped_post", has(strippedPost))
-            .save(consumer, Objects.requireNonNull(block.getRegistryName()));
+            .save(consumer, Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)));
     }
 }

@@ -38,37 +38,29 @@ public final class SawmillingRecipeProvider extends RecipeProvider
     }
 
     private static SingleItemRecipeBuilder sawmillingRecipe(
-        final Ingredient ingredient,
-        final ItemLike result,
-        int count
+        final Ingredient ingredient, final ItemLike result, int count
     )
     {
         return new SingleItemRecipeBuilder(WoodenRecipeSerializers.SAWMILLING.get(), ingredient, result, count);
     }
 
     private static void panelsRecipe(
-        final Consumer<FinishedRecipe> consumer,
-        final IWoodType woodType,
-        final Block block,
-        final int count
+        final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block, final int count
     )
     {
         if (woodType.getBlockTypes().contains(WoodenBlockType.PANELS) || woodType.getBuiltinBlockTypes().contains(
             WoodenBlockType.PANELS))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
-            final var panelsPath = Objects.requireNonNull(panels.getRegistryName()).getPath();
-            final RecipeBuilder builder = sawmillingRecipe(
-                Ingredient.of(block),
+            final var panelsPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(panels)).getPath();
+            final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block),
                 panels,
                 count
             ).unlockedBy(String.format("has_%s", blockPath), has(block));
-            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                Constants.MOD_ID,
+            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                 Constants.PANELS_PLURAL
-            ))).addRecipe(builder::save).build(
-                consumer,
+            ))).addRecipe(builder::save).build(consumer,
                 new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(panelsPath, "from", blockPath, "sawmilling"))
             );
         }
@@ -85,27 +77,23 @@ public final class SawmillingRecipeProvider extends RecipeProvider
         if (woodType.getBlockTypes().contains(WoodenBlockType.PANELS_SLAB) || woodType.getBuiltinBlockTypes().contains(
             WoodenBlockType.PANELS_SLAB))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var panelsSlab = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS_SLAB);
-            final var panelsSlabPath = Objects.requireNonNull(panelsSlab.getRegistryName()).getPath();
-            final RecipeBuilder builder = sawmillingRecipe(
-                Ingredient.of(block),
+            final var panelsSlabPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(panelsSlab)).getPath();
+            final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block),
                 panelsSlab,
                 count
             ).unlockedBy(String.format("has_%s", blockPath), has(block));
             final var conditionalBuilder =
-                ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                    Constants.MOD_ID,
+                ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                     Constants.PANELS_SLAB_PLURAL
                 )));
             if (condition != null)
             {
                 conditionalBuilder.addCondition(condition);
             }
-            conditionalBuilder.addRecipe(builder::save).build(
-                consumer,
-                new ResourceLocation(
-                    Constants.MOD_ID,
+            conditionalBuilder.addRecipe(builder::save).build(consumer,
+                new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(panelsSlabPath, "from", blockPath, "sawmilling")
                 )
             );
@@ -123,27 +111,23 @@ public final class SawmillingRecipeProvider extends RecipeProvider
         if (woodType.getBlockTypes().contains(WoodenBlockType.PANELS_STAIRS) || woodType.getBuiltinBlockTypes()
             .contains(WoodenBlockType.PANELS_STAIRS))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var panelsStairs = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS_STAIRS);
-            final var panelsStairsPath = Objects.requireNonNull(panelsStairs.getRegistryName()).getPath();
-            final RecipeBuilder builder = sawmillingRecipe(
-                Ingredient.of(block),
+            final var panelsStairsPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(panelsStairs)).getPath();
+            final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block),
                 panelsStairs,
                 count
             ).unlockedBy(String.format("has_%s", blockPath), has(block));
             final var conditionalBuilder =
-                ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                    Constants.MOD_ID,
+                ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                     Constants.PANELS_STAIRS_PLURAL
                 )));
             if (condition != null)
             {
                 conditionalBuilder.addCondition(condition);
             }
-            conditionalBuilder.addRecipe(builder::save).build(
-                consumer,
-                new ResourceLocation(
-                    Constants.MOD_ID,
+            conditionalBuilder.addRecipe(builder::save).build(consumer,
+                new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(panelsStairsPath, "from", blockPath, "sawmilling")
                 )
             );
@@ -161,108 +145,88 @@ public final class SawmillingRecipeProvider extends RecipeProvider
         if (woodType.getItemTypes().contains(WoodenItemType.STICK) || woodType.getBuiltinItemTypes().contains(
             WoodenItemType.STICK))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
-            final var stickPath = Objects.requireNonNull(stick.getRegistryName()).getPath();
-            final var builder = sawmillingRecipe(Ingredient.of(block), stick, count).unlockedBy(String.format(
-                "has_%s",
+            final var stickPath = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(stick)).getPath();
+            final var builder = sawmillingRecipe(Ingredient.of(block), stick, count).unlockedBy(String.format("has_%s",
                 blockPath
             ), has(block));
             final var conditionalBuilder =
-                ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                    Constants.MOD_ID,
+                ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                     Constants.STICK_PLURAL
                 )));
             if (condition != null)
             {
                 conditionalBuilder.addCondition(condition);
             }
-            conditionalBuilder.addRecipe(builder::save).build(
-                consumer,
+            conditionalBuilder.addRecipe(builder::save).build(consumer,
                 new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(stickPath, "from", blockPath, "sawmilling"))
             );
         }
     }
 
     private static void wallRecipe(
-        final Consumer<FinishedRecipe> consumer,
-        final IWoodType woodType,
-        final Block block,
-        final int count
+        final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block, final int count
     )
     {
         if (woodType.getBlockTypes().contains(WoodenBlockType.WALL) || woodType.getBuiltinBlockTypes().contains(
             WoodenBlockType.WALL))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var wall = ILikeWood.getBlock(woodType, WoodenBlockType.WALL);
-            final var wallPath = Objects.requireNonNull(wall.getRegistryName()).getPath();
-            final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block), wall, count).unlockedBy(String.format(
-                "has_%s",
+            final var wallPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(wall)).getPath();
+            final RecipeBuilder builder =
+                sawmillingRecipe(Ingredient.of(block), wall, count).unlockedBy(String.format("has_%s",
                 blockPath
             ), has(block));
-            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                Constants.MOD_ID,
+            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                 Constants.WALL_PLURAL
-            ))).addRecipe(builder::save).build(
-                consumer,
+            ))).addRecipe(builder::save).build(consumer,
                 new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(wallPath, "from", blockPath, "sawmilling"))
             );
         }
     }
 
     private static void postRecipe(
-        final Consumer<FinishedRecipe> consumer,
-        final IWoodType woodType,
-        final Block block,
-        final int count
+        final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block, final int count
     )
     {
         if (woodType.getBlockTypes().contains(WoodenBlockType.POST) || woodType.getBuiltinBlockTypes().contains(
             WoodenBlockType.POST))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var post = ILikeWood.getBlock(woodType, WoodenBlockType.POST);
-            final var postPath = Objects.requireNonNull(post.getRegistryName()).getPath();
-            final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block), post, count).unlockedBy(String.format(
-                "has_%s",
+            final var postPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(post)).getPath();
+            final RecipeBuilder builder =
+                sawmillingRecipe(Ingredient.of(block), post, count).unlockedBy(String.format("has_%s",
                 blockPath
             ), has(block));
-            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                Constants.MOD_ID,
+            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                 Constants.POST_PLURAL
-            ))).addRecipe(builder::save).build(
-                consumer,
+            ))).addRecipe(builder::save).build(consumer,
                 new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(postPath, "from", blockPath, "sawmilling"))
             );
         }
     }
 
     private static void strippedPostRecipe(
-        final Consumer<FinishedRecipe> consumer,
-        final IWoodType woodType,
-        final Block block,
-        final int count
+        final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block, final int count
     )
     {
         if (woodType.getBlockTypes().contains(WoodenBlockType.STRIPPED_POST) || woodType.getBuiltinBlockTypes()
             .contains(WoodenBlockType.STRIPPED_POST))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var strippedPost = ILikeWood.getBlock(woodType, WoodenBlockType.STRIPPED_POST);
-            final var strippedPostPath = Objects.requireNonNull(strippedPost.getRegistryName()).getPath();
-            final RecipeBuilder builder = sawmillingRecipe(
-                Ingredient.of(block),
+            final var strippedPostPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(strippedPost)).getPath();
+            final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block),
                 strippedPost,
                 count
             ).unlockedBy(String.format("has_%s", blockPath), has(block));
-            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                Constants.MOD_ID,
+            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                 Constants.POST_PLURAL
-            ))).addRecipe(builder::save).build(
-                consumer,
-                new ResourceLocation(
-                    Constants.MOD_ID,
+            ))).addRecipe(builder::save).build(consumer,
+                new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(strippedPostPath, "from", blockPath, "sawmilling")
                 )
             );
@@ -270,30 +234,23 @@ public final class SawmillingRecipeProvider extends RecipeProvider
     }
 
     private static void logPileRecipe(
-        final Consumer<FinishedRecipe> consumer,
-        final IWoodType woodType,
-        final Block block,
-        final int count
+        final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block, final int count
     )
     {
-        if (woodType.getBlockTypes().contains(WoodenBlockType.LOG_PILE) || woodType.getBuiltinBlockTypes()
-            .contains(WoodenBlockType.LOG_PILE))
+        if (woodType.getBlockTypes().contains(WoodenBlockType.LOG_PILE) || woodType.getBuiltinBlockTypes().contains(
+            WoodenBlockType.LOG_PILE))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var logPile = ILikeWood.getBlock(woodType, WoodenBlockType.LOG_PILE);
-            final var logPilePath = Objects.requireNonNull(logPile.getRegistryName()).getPath();
-            final RecipeBuilder builder = sawmillingRecipe(
-                Ingredient.of(block),
+            final var logPilePath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(logPile)).getPath();
+            final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block),
                 logPile,
                 count
             ).unlockedBy(String.format("has_%s", blockPath), has(block));
-            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(
-                Constants.MOD_ID,
+            ConditionalRecipe.builder().addCondition(new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                 Constants.LOG_PILE_PLURAL
-            ))).addRecipe(builder::save).build(
-                consumer,
-                new ResourceLocation(
-                    Constants.MOD_ID,
+            ))).addRecipe(builder::save).build(consumer,
+                new ResourceLocation(Constants.MOD_ID,
                     Util.toRegistryName(logPilePath, "from", blockPath, "sawmilling")
                 )
             );
@@ -310,31 +267,26 @@ public final class SawmillingRecipeProvider extends RecipeProvider
     {
         if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasPlanks(woodType))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var planks =
                 Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(
                     woodType).getResource()));
-            final var planksPath = Objects.requireNonNull(planks.getRegistryName()).getPath();
-            final var builder = sawmillingRecipe(Ingredient.of(block), planks, count).unlockedBy(String.format(
-                "has_%s",
+            final var planksPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(planks)).getPath();
+            final var builder = sawmillingRecipe(Ingredient.of(block), planks, count).unlockedBy(String.format("has_%s",
                 blockPath
             ), has(block));
             if (condition == null)
             {
-                builder.save(
-                    consumer,
-                    new ResourceLocation(
-                        Constants.MOD_ID,
+                builder.save(consumer,
+                    new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(planksPath, "from", blockPath, "sawmilling")
                     )
                 );
             }
             else
             {
-                ConditionalRecipe.builder().addCondition(condition).addRecipe(builder::save).build(
-                    consumer,
-                    new ResourceLocation(
-                        Constants.MOD_ID,
+                ConditionalRecipe.builder().addCondition(condition).addRecipe(builder::save).build(consumer,
+                    new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(planksPath, "from", blockPath, "sawmilling")
                     )
                 );
@@ -352,31 +304,26 @@ public final class SawmillingRecipeProvider extends RecipeProvider
     {
         if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasSlab(woodType))
         {
-            final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
+            final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
             final var slab =
                 Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getSlab(
                     woodType).getResource()));
-            final var slabPath = Objects.requireNonNull(slab.getRegistryName()).getPath();
-            final var builder = sawmillingRecipe(Ingredient.of(block), slab, count).unlockedBy(String.format(
-                "has_%s",
+            final var slabPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(slab)).getPath();
+            final var builder = sawmillingRecipe(Ingredient.of(block), slab, count).unlockedBy(String.format("has_%s",
                 blockPath
             ), has(block));
             if (condition == null)
             {
-                builder.save(
-                    consumer,
-                    new ResourceLocation(
-                        Constants.MOD_ID,
+                builder.save(consumer,
+                    new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(slabPath, "from", blockPath, "sawmilling")
                     )
                 );
             }
             else
             {
-                ConditionalRecipe.builder().addCondition(condition).addRecipe(builder::save).build(
-                    consumer,
-                    new ResourceLocation(
-                        Constants.MOD_ID,
+                ConditionalRecipe.builder().addCondition(condition).addRecipe(builder::save).build(consumer,
+                    new ResourceLocation(Constants.MOD_ID,
                         Util.toRegistryName(slabPath, "from", blockPath, "sawmilling")
                     )
                 );
@@ -391,24 +338,21 @@ public final class SawmillingRecipeProvider extends RecipeProvider
         @Nullable final ICondition condition
     )
     {
-        final var blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
-        final var stickPath = Objects.requireNonNull(Items.STICK.getRegistryName()).getPath();
-        final RecipeBuilder builder = sawmillingRecipe(
-            Ingredient.of(block),
+        final var blockPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
+        final var stickPath = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(Items.STICK)).getPath();
+        final RecipeBuilder builder = sawmillingRecipe(Ingredient.of(block),
             Items.STICK,
             count
         ).unlockedBy(String.format("has_%s", blockPath), has(block));
         if (condition == null)
         {
-            builder.save(
-                consumer,
+            builder.save(consumer,
                 new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(stickPath, "from", blockPath, "sawmilling"))
             );
         }
         else
         {
-            ConditionalRecipe.builder().addCondition(condition).addRecipe(builder::save).build(
-                consumer,
+            ConditionalRecipe.builder().addCondition(condition).addRecipe(builder::save).build(consumer,
                 new ResourceLocation(Constants.MOD_ID, Util.toRegistryName(stickPath, "from", blockPath, "sawmilling"))
             );
         }
@@ -422,8 +366,7 @@ public final class SawmillingRecipeProvider extends RecipeProvider
                 WoodenBlockType.PANELS))
             {
                 final var panels = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS);
-                final var condition = new ModLoadedCondition(Util.toRegistryName(
-                    Constants.MOD_ID,
+                final var condition = new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                     Constants.PANELS_PLURAL
                 ));
                 panelsSlabRecipe(consumer, woodType, panels, 2, condition);
@@ -437,8 +380,7 @@ public final class SawmillingRecipeProvider extends RecipeProvider
                 .contains(WoodenBlockType.PANELS_SLAB))
             {
                 final var panelsSlab = ILikeWood.getBlock(woodType, WoodenBlockType.PANELS_SLAB);
-                final var condition = new ModLoadedCondition(Util.toRegistryName(
-                    Constants.MOD_ID,
+                final var condition = new ModLoadedCondition(Util.toRegistryName(Constants.MOD_ID,
                     Constants.PANELS_SLAB_PLURAL
                 ));
                 slabRecipe(consumer, woodType, panelsSlab, 1, condition);
@@ -470,7 +412,7 @@ public final class SawmillingRecipeProvider extends RecipeProvider
                 final var log =
                     Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(
                         woodType).getResource()));
-                final var logPath = Objects.requireNonNull(log.getRegistryName()).getPath();
+                final var logPath = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(log)).getPath();
                 panelsRecipe(consumer, woodType, log, 4);
                 panelsSlabRecipe(consumer, woodType, log, 8, null);
                 panelsStairsRecipe(consumer, woodType, log, 4, null);
@@ -487,20 +429,18 @@ public final class SawmillingRecipeProvider extends RecipeProvider
                     final var strippedLog =
                         Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(ILikeWood.WOODEN_RESOURCE_REGISTRY.getStrippedLog(
                             woodType).getResource()));
-                    sawmillingRecipe(Ingredient.of(log), strippedLog)
-                        .unlockedBy(String.format("has_%s", logPath), has(log))
-                        .save(
-                            consumer,
-                            new ResourceLocation(
-                                Constants.MOD_ID,
-                                Util.toRegistryName(
-                                    Objects.requireNonNull(strippedLog.getRegistryName()).getPath(),
-                                    "from",
-                                    logPath,
-                                    "sawmilling"
-                                )
+                    sawmillingRecipe(Ingredient.of(log), strippedLog).unlockedBy(String.format("has_%s", logPath),
+                        has(log)
+                    ).save(consumer,
+                        new ResourceLocation(Constants.MOD_ID,
+                            Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(strippedLog))
+                                    .getPath(),
+                                "from",
+                                logPath,
+                                "sawmilling"
                             )
-                        );
+                        )
+                    );
                 }
             }
             if (ILikeWood.WOODEN_RESOURCE_REGISTRY.hasStrippedLog(woodType))

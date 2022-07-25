@@ -2,6 +2,7 @@ package yamahari.ilikewood.block.torch;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -14,9 +15,9 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
-public final class WoodenTorchBlock extends TorchBlock implements IWooden {
+public final class WoodenTorchBlock extends TorchBlock implements IWooden
+{
     private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 11.0D, 10.0D);
     private final IWoodType woodType;
 
@@ -32,20 +33,29 @@ public final class WoodenTorchBlock extends TorchBlock implements IWooden {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull final BlockState state, @Nonnull final BlockGetter worldIn,
-                               @Nonnull final BlockPos pos, @Nonnull final CollisionContext context) {
+    public VoxelShape getShape(
+        @Nonnull final BlockState state,
+        @Nonnull final BlockGetter worldIn,
+        @Nonnull final BlockPos pos,
+        @Nonnull final CollisionContext context
+    )
+    {
         return SHAPE;
     }
 
     @Override
-    public void animateTick(@Nonnull final BlockState stateIn, final Level worldIn, BlockPos pos,
-                            @Nonnull final Random rand) {
-        worldIn.addParticle(ParticleTypes.SMOKE,
+    public void animateTick(
+        @Nonnull final BlockState stateIn, final Level worldIn, BlockPos pos, @Nonnull final RandomSource rand
+    )
+    {
+        worldIn.addParticle(
+            ParticleTypes.SMOKE,
             (double) pos.getX() + 0.5D,
             (double) pos.getY() + 0.9D,
             (double) pos.getZ() + 0.5D,
             0.0D,
             0.0D,
-            0.0D);
+            0.0D
+        );
     }
 }

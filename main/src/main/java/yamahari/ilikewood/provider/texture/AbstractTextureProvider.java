@@ -3,13 +3,12 @@ package yamahari.ilikewood.provider.texture;
 import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.AbstractILikeWoodObjectRegistry;
 import yamahari.ilikewood.registry.objecttype.AbstractWoodenObjectType;
@@ -23,8 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, O extends AbstractWoodenObjectType, R extends AbstractILikeWoodObjectRegistry<T, O>>
-    implements DataProvider {
+public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectType,
+    R extends AbstractILikeWoodObjectRegistry<T, O>>
+    implements DataProvider
+{
     public static final ExistingFileHelper.ResourceType TEXTURE =
         new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", "textures");
 
@@ -42,9 +43,14 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     private final String folder;
 
     public AbstractTextureProvider(
-        final DataGenerator generator, final String folder, final ExistingFileHelper helper, final String root,
-        final O objectType, final R objectRegistry
-    ) {
+        final DataGenerator generator,
+        final String folder,
+        final ExistingFileHelper helper,
+        final String root,
+        final O objectType,
+        final R objectRegistry
+    )
+    {
         this.generator = generator;
         this.folder = folder;
         this.helper = helper;
@@ -60,7 +66,8 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
         final int[] spruceColors = VanillaWoodTypes.SPRUCE.getColors().colors();
         final int[] colors = woodType.getColors().colors();
 
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 8; ++i)
+        {
             colorMap.put(spruceColors[i], colors[i]);
         }
 
@@ -70,13 +77,17 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     protected Function<NativeImage, NativeImage> createColorMapTransformer(final IWoodType woodType) {
         final Map<Integer, Integer> colorMap = createColorMap(woodType);
 
-        return image -> {
+        return image ->
+        {
             final NativeImage result = new NativeImage(image.getWidth(), image.getHeight(), true);
             result.copyFrom(image);
-            for (int y = 0; y < image.getHeight(); ++y) {
-                for (int x = 0; x < image.getWidth(); ++x) {
+            for (int y = 0; y < image.getHeight(); ++y)
+            {
+                for (int x = 0; x < image.getWidth(); ++x)
+                {
                     final int rgba = image.getPixelRGBA(x, y);
-                    if (colorMap.containsKey(rgba)) {
+                    if (colorMap.containsKey(rgba))
+                    {
                         result.setPixelRGBA(x, y, colorMap.get(rgba));
                     }
                 }
@@ -93,17 +104,19 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
         result.copyFrom(image);
 
         final int di = image.getHeight() / image.getWidth();
-        for (int i = 0; i < di; ++i) {
+        for (int i = 0; i < di; ++i)
+        {
             Rect2i cut = new Rect2i(0, 12, 8, 4);
             NativeImage copy;
             copy = copyRect(image, i, cut);
 
             final Rect2i paste = new Rect2i(8, 0, 8, 4);
 
-            for (int y = 0; y < paste.getHeight(); ++y) {
-                for (int x = 0; x < paste.getWidth(); ++x) {
-                    result.setPixelRGBA(
-                        paste.getX() + x,
+            for (int y = 0; y < paste.getHeight(); ++y)
+            {
+                for (int x = 0; x < paste.getWidth(); ++x)
+                {
+                    result.setPixelRGBA(paste.getX() + x,
                         i * 16 + paste.getY() + y,
                         copy.getPixelRGBA(copy.getWidth() - x - 1, copy.getHeight() - y - 1)
                     );
@@ -113,8 +126,10 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
             cut = new Rect2i(0, 0, 16, 4);
             copy = copyRect(result, i, cut);
 
-            for (int y = 0; y < cut.getHeight(); ++y) {
-                for (int x = 0; x < cut.getWidth(); ++x) {
+            for (int y = 0; y < cut.getHeight(); ++y)
+            {
+                for (int x = 0; x < cut.getWidth(); ++x)
+                {
                     final int color = copy.getPixelRGBA(x, y);
                     result.setPixelRGBA(15 - y, i * 16 + x, color);
                     result.setPixelRGBA(15 - x, i * 16 + 15 - y, color);
@@ -122,14 +137,18 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
                 }
             }
 
-            for (int y = 4; y < 12; ++y) {
-                for (int x = 4; x < 12; ++x) {
+            for (int y = 4; y < 12; ++y)
+            {
+                for (int x = 4; x < 12; ++x)
+                {
                     result.setPixelRGBA(x, i * 16 + y, 0x00000000);
                 }
             }
 
-            for (int y = 0; y < 4; ++y) {
-                for (int x = 0; x < 4; ++x) {
+            for (int y = 0; y < 4; ++y)
+            {
+                for (int x = 0; x < 4; ++x)
+                {
                     result.setPixelRGBA(x, i * 16 + y, 0x00000000);
                     result.setPixelRGBA(12 + x, i * 16 + y, 0x00000000);
                     result.setPixelRGBA(12 + x, i * 16 + 12 + y, 0x00000000);
@@ -144,8 +163,10 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     private NativeImage copyRect(final NativeImage image, final int i, final Rect2i cut) {
         final NativeImage copy = new NativeImage(cut.getWidth(), cut.getHeight(), true);
 
-        for (int y = 0; y < cut.getHeight(); ++y) {
-            for (int x = 0; x < cut.getWidth(); ++x) {
+        for (int y = 0; y < cut.getHeight(); ++y)
+        {
+            for (int x = 0; x < cut.getWidth(); ++x)
+            {
                 copy.setPixelRGBA(x, y, image.getPixelRGBA(cut.getX() + x, i * 16 + cut.getY() + y));
             }
         }
@@ -161,7 +182,8 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     }
 
     private ResourceLocation extendWithFolder(ResourceLocation rl) {
-        if (rl.getPath().contains("/")) {
+        if (rl.getPath().contains("/"))
+        {
             return rl;
         }
         return new ResourceLocation(rl.getNamespace(), this.folder + "/" + rl.getPath());
@@ -176,8 +198,9 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     }
 
     public TextureFile.ExistingTextureFile getExistingFile(ResourceLocation path) {
-        final TextureFile.ExistingTextureFile file =
-            new TextureFile.ExistingTextureFile(extendWithFolder(path), helper);
+        final TextureFile.ExistingTextureFile file = new TextureFile.ExistingTextureFile(extendWithFolder(path),
+            helper
+        );
         file.assertExistence();
         return file;
     }
@@ -191,10 +214,11 @@ public abstract class AbstractTextureProvider<T extends IForgeRegistryEntry<T>, 
     }
 
     @Override
-    public void run(@Nonnull final HashCache cache) throws IOException {
+    public void run(@Nonnull final CachedOutput cache) throws IOException {
         this.objectRegistry.getObjects(this.objectType).forEach(this::createTexture);
 
-        for (final TextureBuilder builder : this.generatedTextures.values()) {
+        for (final TextureBuilder builder : this.generatedTextures.values())
+        {
             builder.build(this.generator.getOutputFolder().resolve(this.root), cache);
         }
     }

@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
@@ -17,11 +18,14 @@ import yamahari.ilikewood.util.Util;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public abstract class AbstractTieredItemModelProvider extends ItemModelProvider {
+public abstract class AbstractTieredItemModelProvider extends ItemModelProvider
+{
     private final WoodenTieredItemType tieredItemType;
 
-    public AbstractTieredItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper,
-                                           final WoodenTieredItemType tieredItemType) {
+    public AbstractTieredItemModelProvider(
+        final DataGenerator generator, final ExistingFileHelper helper, final WoodenTieredItemType tieredItemType
+    )
+    {
         super(generator, Constants.MOD_ID, helper);
         this.tieredItemType = tieredItemType;
     }
@@ -38,15 +42,15 @@ public abstract class AbstractTieredItemModelProvider extends ItemModelProvider 
         final IWoodenItemTier itemTier = ((IWoodenTieredItem) item).getWoodenItemTier();
         final String tier = itemTier.getName();
         final boolean isWood = ((IWoodenTieredItem) item).getWoodenItemTier().isWood();
-        this
-            .withExistingParent(Objects.requireNonNull(item.getRegistryName(), "Registry name was null").getPath(),
-                mcLoc(Util.toPath(ITEM_FOLDER, "handheld")))
-            .texture("layer0",
-                modLoc(Util.toPath(ITEM_FOLDER,
-                    WoodenItemType.STICK.getName(),
-                    path + (itemTier.equals(VanillaWoodenItemTiers.NETHERITE) ? "/netherite" : ""),
-                    woodType)))
-            .texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/wooden" : ""), tier)));
+        this.withExistingParent(
+            Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath(),
+            mcLoc(Util.toPath(ITEM_FOLDER, "handheld"))
+        ).texture("layer0", modLoc(Util.toPath(
+            ITEM_FOLDER,
+            WoodenItemType.STICK.getName(),
+            path + (itemTier.equals(VanillaWoodenItemTiers.NETHERITE) ? "/netherite" : ""),
+            woodType
+        ))).texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/wooden" : ""), tier)));
     }
 
     @Nonnull

@@ -9,7 +9,7 @@ import yamahari.ilikewood.container.WoodenWorkBenchContainer;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodContainerRegistry {
-    public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.CONTAINERS,
+    public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.MENU_TYPES,
         Constants.MOD_ID
     );
 

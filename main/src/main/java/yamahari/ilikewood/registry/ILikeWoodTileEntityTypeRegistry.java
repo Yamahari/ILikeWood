@@ -13,8 +13,7 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodTileEntityTypeRegistry {
-    public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(
-        ForgeRegistries.BLOCK_ENTITIES,
+    public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES,
         Constants.MOD_ID
     );
 

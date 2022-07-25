@@ -6,6 +6,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
@@ -32,15 +33,11 @@ public final class ShovelRecipeProvider extends AbstractTieredItemRecipeProvider
         final Ingredient repair = ((IWoodenTieredItem) tieredItem).getWoodenItemTier().getRepairIngredient();
         final ItemLike stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
 
-        ShapedRecipeBuilder
-            .shaped(tieredItem)
-            .define('I', stick)
-            .define('#', repair)
-            .pattern("#")
-            .pattern("I")
-            .pattern("I")
-            .unlockedBy("has_material", has(repair))
-            .group(String.format("%s:%s", Constants.MOD_ID, Constants.SHOVEL_PLURAL))
-            .save(consumer, Objects.requireNonNull(tieredItem.getRegistryName()));
+        ShapedRecipeBuilder.shaped(tieredItem).define('I', stick).define('#', repair).pattern("#").pattern("I").pattern(
+            "I").unlockedBy("has_material", has(repair)).group(String.format(
+            "%s:%s",
+            Constants.MOD_ID,
+            Constants.SHOVEL_PLURAL
+        )).save(consumer, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(tieredItem)));
     }
 }

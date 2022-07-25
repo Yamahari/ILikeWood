@@ -2,6 +2,7 @@ package yamahari.ilikewood.util;
 
 public final class Constants {
     public static final String MOD_ID = "ilikewood";
+
     public static final String ACACIA = "acacia";
     public static final String BIRCH = "birch";
     public static final String CRIMSON = "crimson";
@@ -16,6 +17,8 @@ public final class Constants {
     public static final String GOLDEN = "golden";
     public static final String WOOD = "wood";
     public static final String NETHERITE = "netherite";
+
+    public static final String SAWMILLING = "sawmilling";
 
     public static final String PANELS = "panels";
     public static final String PANELS_PLURAL = "panels";

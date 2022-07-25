@@ -2,11 +2,11 @@ package yamahari.ilikewood.client.tileentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.block.WoodenChestBlock;
 import yamahari.ilikewood.registry.WoodenTileEntityTypes;
@@ -15,7 +15,8 @@ import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
-public final class WoodenChestTileEntity extends ChestBlockEntity implements IWooden {
+public final class WoodenChestTileEntity extends ChestBlockEntity implements IWooden
+{
     private final IWoodType woodType;
 
     public WoodenChestTileEntity(final BlockPos blockPos, final BlockState blockState) {
@@ -35,9 +36,10 @@ public final class WoodenChestTileEntity extends ChestBlockEntity implements IWo
     @Override
     protected Component getDefaultName() {
         final Block block = this.getBlockState().getBlock();
-        if (block instanceof WoodenChestBlock) {
-            final String path = block.getRegistryName().getPath();
-            return new TranslatableComponent(StringUtils.joinWith(".", "container", Constants.MOD_ID, path));
+        if (block instanceof WoodenChestBlock)
+        {
+            final String path = ForgeRegistries.BLOCKS.getKey(block).getPath();
+            return Component.translatable(StringUtils.joinWith(".", "container", Constants.MOD_ID, path));
         }
         return super.getDefaultName();
     }

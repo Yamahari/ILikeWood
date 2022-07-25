@@ -3,7 +3,6 @@ package yamahari.ilikewood.registry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.registry.objecttype.AbstractWoodenObjectType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -14,8 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public abstract class AbstractILikeWoodObjectRegistry<T extends IForgeRegistryEntry<T>, O extends AbstractWoodenObjectType>
-    implements IWoodenObjectRegistry<T, O> {
+public abstract class AbstractILikeWoodObjectRegistry<T, O extends AbstractWoodenObjectType>
+    implements IWoodenObjectRegistry<T, O>
+{
 
     protected final DeferredRegister<T> registry;
     protected final Map<O, Map<IWoodType, RegistryObject<T>>> registryObjects;
@@ -33,21 +33,26 @@ public abstract class AbstractILikeWoodObjectRegistry<T extends IForgeRegistryEn
     abstract protected void register();
 
     @Override
-    public final RegistryObject<T> getRegistryObject(final IWoodType woodType, final O objectType)
-        throws IllegalArgumentException {
+    public final RegistryObject<T> getRegistryObject(final IWoodType woodType, final O objectType) throws
+        IllegalArgumentException
+    {
         final Map<IWoodType, RegistryObject<T>> objects = this.registryObjects.get(objectType);
-        if (objects != null) {
+        if (objects != null)
+        {
             final RegistryObject<T> registryObject =
                 objectType.variesByWoodType() ? objects.get(woodType) : objects.get(Util.DUMMY_WOOD_TYPE);
-            if (registryObject != null) {
+            if (registryObject != null)
+            {
                 return registryObject;
             }
             throw new IllegalArgumentException(String.format("ObjectType[%s] has no registered blocks of IWoodType[%s]",
                 objectType.getName(),
-                woodType.getName()));
+                woodType.getName()
+            ));
         }
         throw new IllegalArgumentException(String.format("ObjectType[%s] has no registered blocks.",
-            objectType.getName()));
+            objectType.getName()
+        ));
     }
 
     @Override

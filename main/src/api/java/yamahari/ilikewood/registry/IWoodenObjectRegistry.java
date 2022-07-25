@@ -1,14 +1,13 @@
 package yamahari.ilikewood.registry;
 
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;
 import yamahari.ilikewood.registry.objecttype.AbstractWoodenObjectType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.util.stream.Stream;
 
-public interface IWoodenObjectRegistry<T extends IForgeRegistryEntry<? super T>, O extends AbstractWoodenObjectType> {
-
+public interface IWoodenObjectRegistry<T, O extends AbstractWoodenObjectType>
+{
     /**
      * @param woodType
      * @param objectType

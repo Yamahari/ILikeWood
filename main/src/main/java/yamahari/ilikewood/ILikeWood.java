@@ -15,7 +15,15 @@ import org.objectweb.asm.Type;
 import yamahari.ilikewood.proxy.ClientProxy;
 import yamahari.ilikewood.proxy.CommonProxy;
 import yamahari.ilikewood.proxy.IProxy;
-import yamahari.ilikewood.registry.*;
+import yamahari.ilikewood.registry.ILikeWoodBlockItemRegistry;
+import yamahari.ilikewood.registry.ILikeWoodBlockRegistry;
+import yamahari.ilikewood.registry.ILikeWoodContainerRegistry;
+import yamahari.ilikewood.registry.ILikeWoodEntityTypeRegistry;
+import yamahari.ilikewood.registry.ILikeWoodItemRegistry;
+import yamahari.ilikewood.registry.ILikeWoodRecipeSerializerRegistry;
+import yamahari.ilikewood.registry.ILikeWoodRecipeTypeRegister;
+import yamahari.ilikewood.registry.ILikeWoodTieredItemRegistry;
+import yamahari.ilikewood.registry.ILikeWoodTileEntityTypeRegistry;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
@@ -44,6 +52,7 @@ public final class ILikeWood {
     public static final ILikeWoodItemRegistry ITEM_REGISTRY = new ILikeWoodItemRegistry();
     public static final ILikeWoodTieredItemRegistry TIERED_ITEM_REGISTRY = new ILikeWoodTieredItemRegistry();
     public static final ILikeWoodEntityTypeRegistry ENTITY_TYPE_REGISTRY = new ILikeWoodEntityTypeRegistry();
+    public static final ILikeWoodRecipeTypeRegister RECIPE_TYPE_REGISTER = new ILikeWoodRecipeTypeRegister();
     public static final List<IModPlugin> PLUGINS = new ArrayList<>();
     private static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
@@ -75,6 +84,7 @@ public final class ILikeWood {
         ENTITY_TYPE_REGISTRY.register(modEventBus);
         ILikeWoodTileEntityTypeRegistry.REGISTRY.register(modEventBus);
         ILikeWoodContainerRegistry.REGISTRY.register(modEventBus);
+        RECIPE_TYPE_REGISTER.register(modEventBus);
 
         ILikeWoodRecipeSerializerRegistry.REGISTRY.register(modEventBus);
 

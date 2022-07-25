@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
@@ -21,7 +22,8 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
+public final class NetheriteTieredItemRecipeProvider extends RecipeProvider
+{
     private final WoodenTieredItemType tieredItemType;
 
     public NetheriteTieredItemRecipeProvider(final DataGenerator generator, final WoodenTieredItemType tieredItemType) {
@@ -32,8 +34,7 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
     @Override
     protected void buildCraftingRecipes(@Nonnull final Consumer<FinishedRecipe> consumer) {
         ILikeWood.TIERED_ITEM_REGISTRY.getObjects(tieredItemType)
-            .filter(tieredItem -> ((IWoodenTieredItem) tieredItem)
-                .getWoodenItemTier()
+            .filter(tieredItem -> ((IWoodenTieredItem) tieredItem).getWoodenItemTier()
                 .equals(VanillaWoodenItemTiers.DIAMOND))
             .forEach(tieredItem -> this.registerRecipes(consumer, tieredItem));
     }
@@ -41,26 +42,27 @@ public final class NetheriteTieredItemRecipeProvider extends RecipeProvider {
     private void registerRecipes(@Nonnull final Consumer<FinishedRecipe> consumer, final Item item) {
         final IWoodenTieredItem tieredItem = ((IWoodenTieredItem) item);
         final IWoodType woodType = ((IWooden) item).getWoodType();
-        try {
-            final Item output = ILikeWood.TIERED_ITEM_REGISTRY.getObject(
-                VanillaWoodenItemTiers.NETHERITE,
+        try
+        {
+            final Item output = ILikeWood.TIERED_ITEM_REGISTRY.getObject(VanillaWoodenItemTiers.NETHERITE,
                 woodType,
                 tieredItem.getTieredItemType()
             );
 
-            UpgradeRecipeBuilder
-                .smithing(Ingredient.of(item), Ingredient.of(Items.NETHERITE_INGOT), output)
-                .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
-                .save(
-                    consumer,
-                    new ResourceLocation(
-                        Constants.MOD_ID,
-                        Util.toRegistryName(Objects.requireNonNull(output.getRegistryName()).getPath(), "smithing")
+            UpgradeRecipeBuilder.smithing(Ingredient.of(item), Ingredient.of(Items.NETHERITE_INGOT), output).unlocks(
+                "has_netherite_ingot",
+                has(Items.NETHERITE_INGOT)
+            ).save(consumer,
+                new ResourceLocation(Constants.MOD_ID,
+                    Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(output)).getPath(),
+                        "smithing"
                     )
-                );
+                )
+            );
 
         }
-        catch (final IllegalArgumentException ignored) {
+        catch (final IllegalArgumentException ignored)
+        {
             ILikeWood.LOGGER.info("No netherite tiered item found for diamond<->netherite smithing recipe!");
         }
     }

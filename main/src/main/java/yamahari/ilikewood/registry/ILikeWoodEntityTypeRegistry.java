@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 public final class ILikeWoodEntityTypeRegistry
     extends AbstractILikeWoodObjectRegistry<EntityType<?>, WoodenEntityType> {
     public ILikeWoodEntityTypeRegistry() {
-        super(ForgeRegistries.ENTITIES);
+        super(ForgeRegistries.ENTITY_TYPES);
     }
 
     private void registerChairEntityTypes() {
