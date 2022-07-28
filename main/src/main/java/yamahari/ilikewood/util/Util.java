@@ -6,51 +6,73 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.StringUtils;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.IModPlugin;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public final class Util {
+public final class Util
+{
     public static final IWoodType DUMMY_WOOD_TYPE = new DummyWoodType();
 
-    private Util() {
+    private Util()
+    {
     }
 
-    public static String toRegistryName(final String... elements) {
+    public static String toRegistryName(final String... elements)
+    {
         return StringUtils.join(elements, "_");
     }
 
-    public static String toPath(final String... elements) {
+    public static String toPath(final String... elements)
+    {
         return StringUtils.join(elements, "/");
     }
 
-    public static ItemLike getIngredient(final String name, final Class<?> objectHolder) {
-        try {
+    public static ItemLike getIngredient(
+        final String name,
+        final Class<?> objectHolder
+    )
+    {
+        try
+        {
             final Field block = objectHolder.getDeclaredField(name);
             return (ItemLike) block.get(null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        }
+        catch (NoSuchFieldException | IllegalAccessException e)
+        {
             ILikeWood.LOGGER.error(e.getMessage());
         }
         return null;
     }
 
     // https://github.com/XFactHD/RainbowSixSiegeMC/blob/1.16.x/src/main/java/xfacthd/r6mod/common/util/Utils.java#L15-L34
-    public static VoxelShape rotateShape(final Direction from, final Direction to, final VoxelShape shape) {
-        if (from.getAxis() == Direction.Axis.Y || to.getAxis() == Direction.Axis.Y) {
+    public static VoxelShape rotateShape(
+        final Direction from,
+        final Direction to,
+        final VoxelShape shape
+    )
+    {
+        if (from.getAxis() == Direction.Axis.Y || to.getAxis() == Direction.Axis.Y)
+        {
             throw new IllegalArgumentException("Invalid Direction!");
         }
-        if (from == to) {
+        if (from == to)
+        {
             return shape;
         }
 
-        final VoxelShape[] buffer = new VoxelShape[]{shape, Shapes.empty()};
+        final VoxelShape[] buffer = new VoxelShape[]{
+            shape,
+            Shapes.empty()
+        };
 
         final int times = (to.get2DDataValue() - from.get2DDataValue() + 4) % 4;
-        for (int i = 0; i < times; i++) {
-            buffer[0].forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> buffer[1] =
-                Shapes.or(buffer[1], Shapes.box(1 - maxZ, minY, minX, 1 - minZ, maxY, maxX)));
+        for (int i = 0; i < times; i++)
+        {
+            buffer[0].forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> buffer[1] = Shapes.or(buffer[1], Shapes.box(1 - maxZ, minY, minX, 1 - minZ, maxY, maxX)));
             buffer[0] = buffer[1];
             buffer[1] = Shapes.empty();
         }
@@ -58,10 +80,20 @@ public final class Util {
         return buffer[0];
     }
 
-    public static String toTranslationName(final String registryName) {
-        return Arrays
-            .stream(StringUtils.split(registryName, '_'))
-            .map(StringUtils::capitalize)
-            .collect(Collectors.joining(" "));
+    private static String toTranslationNameImpl(final String registryName)
+    {
+        return Arrays.stream(StringUtils.split(registryName, '_')).map(StringUtils::capitalize).collect(Collectors.joining(" "));
+    }
+
+    public static String toTranslationName(final String registryName)
+    {
+        for (final IModPlugin plugin : ILikeWood.PLUGINS)
+        {
+            if (registryName.startsWith(plugin.getModId()))
+            {
+                return toTranslationNameImpl(registryName.substring(plugin.getModId().length() + 1));
+            }
+        }
+        return toTranslationNameImpl(registryName);
     }
 }

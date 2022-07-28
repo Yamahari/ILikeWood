@@ -9,18 +9,17 @@ import yamahari.ilikewood.util.Constants;
 
 public final class ILikeWoodRecipeTypeRegister
 {
-    private final DeferredRegister<RecipeType<?>> registry = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES,
-        Constants.MOD_ID
-    );
+    private final DeferredRegister<RecipeType<?>> registry = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Constants.MOD_ID);
 
-    public void register(final IEventBus eventBus) {
+    public void register(final IEventBus eventBus)
+    {
         this.register();
         this.registry.register(eventBus);
     }
 
-    public void register() {
-        WoodenRecipeTypes.SAWMILLING = this.registry.register(Constants.SAWMILLING,
-            () -> RecipeType.simple(new ResourceLocation(Constants.MOD_ID, Constants.SAWMILLING))
-        );
+    public void register()
+    {
+        WoodenRecipeTypes.SAWMILLING =
+            this.registry.register(Constants.SAWMILLING, () -> RecipeType.simple(new ResourceLocation(Constants.MOD_ID, Constants.SAWMILLING)));
     }
 }

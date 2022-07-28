@@ -8,59 +8,72 @@ import yamahari.ilikewood.registry.woodtype.IWoodType;
 
 import java.util.Set;
 
-public final class DummyWoodType implements IWoodType {
+public final class DummyWoodType
+    implements IWoodType
+{
     @Override
-    public String getModId() {
+    public String getModId()
+    {
         return Constants.MOD_ID;
     }
 
     @Override
-    public String getName() {
+    public String getName()
+    {
         return "dummy";
     }
 
     @Override
-    public Properties getProperties(final WoodenBlockType blockType) {
+    public Properties getProperties(final WoodenBlockType blockType)
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Properties getProperties(final WoodenItemType itemType) {
+    public Properties getProperties(final WoodenItemType itemType)
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Set<WoodenBlockType> getBlockTypes() {
+    public Set<WoodenBlockType> getBlockTypes()
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Set<WoodenItemType> getItemTypes() {
+    public Set<WoodenItemType> getItemTypes()
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Set<WoodenEntityType> getEntityTypes() {
+    public Set<WoodenEntityType> getEntityTypes()
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Set<WoodenTieredItemType> getTieredItemTypes() {
+    public Set<WoodenTieredItemType> getTieredItemTypes()
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Set<WoodenBlockType> getBuiltinBlockTypes() {
+    public Set<WoodenBlockType> getBuiltinBlockTypes()
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Set<WoodenItemType> getBuiltinItemTypes() {
+    public Set<WoodenItemType> getBuiltinItemTypes()
+    {
         throw new RuntimeException("");
     }
 
     @Override
-    public Colors getColors() {
+    public Colors getColors()
+    {
         throw new RuntimeException("");
     }
 }
