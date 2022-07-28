@@ -108,7 +108,7 @@ dependencies {
 
     implementation sourceSets.api.output
 
-    runtimeOnly project(path: ':config', configuration: 'configJars')
+    //runtimeOnly project(path: ':config', configuration: 'configJars')
     //runtimeOnly project(path: ':config', configuration: 'configPanelsOnly')
     //runtimeOnly project(path: ':config', configuration: 'configPanelsChain')
     //runtimeOnly project(path: ':config', configuration: 'configPanelsStairs')

@@ -28,7 +28,12 @@ public record PackMCMetaProvider(DataGenerator generator) implements DataProvide
             final var jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             final var outMCMeta = new JsonObject();
 
-            outMCMeta.add("pack", jsonObject.get("pack"));
+            // TODO fix this shit once pack version is in sync again
+            //outMCMeta.add("pack", jsonObject.get("pack"));
+            final var pack = new JsonObject();
+            pack.addProperty("description", "ilikewood resources");
+            pack.addProperty("pack_format", 10);
+            outMCMeta.add("pack", pack);
             DataProvider.saveStable(cache, outMCMeta, this.generator.getOutputFolder().resolve("pack.mcmeta"));
         }
         catch (IOException | IllegalStateException e)
