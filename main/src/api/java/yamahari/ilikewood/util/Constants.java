@@ -4,8 +4,6 @@ public final class Constants
 {
     public static final String MOD_ID = "ilikewood";
 
-    public static final String VANILLA = "vanilla";
-
     public static final String ACACIA = "acacia";
     public static final String BIRCH = "birch";
     public static final String CRIMSON = "crimson";
