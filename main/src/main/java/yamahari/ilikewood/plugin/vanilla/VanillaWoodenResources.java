@@ -26,12 +26,18 @@ public final class VanillaWoodenResources {
     public static final Map<IWoodType, IWoodenStrippedLogResource> STRIPPED_LOGS;
     public static final Map<IWoodType, IWoodenSlabResource> SLABS;
     private static final Map<IWoodType, BlockBehaviour.Properties> PLANKS_PROPERTIES =
-        new ImmutableMap.Builder<IWoodType, BlockBehaviour.Properties>()
-            .put(VanillaWoodTypes.ACACIA, BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS))
+        new ImmutableMap.Builder<IWoodType, BlockBehaviour.Properties>().put(
+                VanillaWoodTypes.ACACIA,
+                BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)
+            )
             .put(VanillaWoodTypes.BIRCH, BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS))
-            .put(VanillaWoodTypes.CRIMSON, BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS))
+            .put(
+                VanillaWoodTypes.CRIMSON,
+                BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)
+            )
             .put(VanillaWoodTypes.DARK_OAK, BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS))
             .put(VanillaWoodTypes.JUNGLE, BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS))
+            .put(VanillaWoodTypes.MANGROVE, BlockBehaviour.Properties.copy(Blocks.MANGROVE_PLANKS))
             .put(VanillaWoodTypes.OAK, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))
             .put(VanillaWoodTypes.SPRUCE, BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS))
             .put(VanillaWoodTypes.WARPED, BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS))

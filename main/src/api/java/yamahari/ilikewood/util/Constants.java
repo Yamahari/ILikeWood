@@ -8,6 +8,7 @@ public final class Constants {
     public static final String CRIMSON = "crimson";
     public static final String DARK_OAK = "dark_oak";
     public static final String JUNGLE = "jungle";
+    public static final String MANGROVE = "mangrove";
     public static final String OAK = "oak";
     public static final String SPRUCE = "spruce";
     public static final String WARPED = "warped";

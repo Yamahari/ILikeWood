@@ -16,7 +16,8 @@ import yamahari.ilikewood.registry.woodtype.IWoodTypeRegistry;
 import yamahari.ilikewood.util.Constants;
 
 @ILikeWoodPlugin
-public class VanillaPlugin implements IModPlugin {
+public class VanillaPlugin implements IModPlugin
+{
     public static IWoodenObjectRegistry<Block, WoodenBlockType> BLOCK_REGISTRY;
     public static IWoodenObjectRegistry<Item, WoodenItemType> ITEM_REGISTRY;
     public static IWoodenObjectRegistry<Item, WoodenBlockType> BLOCK_ITEM_REGISTRY;
@@ -40,24 +41,13 @@ public class VanillaPlugin implements IModPlugin {
 
     @Override
     public void registerWoodenItemTiers(final IWoodenItemTierRegistry registry) {
-        registry.register(VanillaWoodenItemTiers.ACACIA);
-        registry.register(VanillaWoodenItemTiers.BIRCH);
-        registry.register(VanillaWoodenItemTiers.CRIMSON);
-        registry.register(VanillaWoodenItemTiers.DARK_OAK);
-        registry.register(VanillaWoodenItemTiers.JUNGLE);
-        registry.register(VanillaWoodenItemTiers.OAK);
-        registry.register(VanillaWoodenItemTiers.SPRUCE);
-        registry.register(VanillaWoodenItemTiers.WARPED);
-        registry.register(VanillaWoodenItemTiers.STONE);
-        registry.register(VanillaWoodenItemTiers.IRON);
-        registry.register(VanillaWoodenItemTiers.GOLDEN);
-        registry.register(VanillaWoodenItemTiers.DIAMOND);
-        registry.register(VanillaWoodenItemTiers.NETHERITE);
+        VanillaWoodenItemTiers.get().forEach(registry::register);
     }
 
     @Override
     public void registerWoodenResources(final IWoodenResourceRegistry registry) {
-        VanillaWoodTypes.get().forEach(woodType -> {
+        VanillaWoodTypes.get().forEach(woodType ->
+        {
             registry.registerPlanksResource(woodType, VanillaWoodenResources.PLANKS.get(woodType));
             registry.registerLogResource(woodType, VanillaWoodenResources.LOGS.get(woodType));
             registry.registerStrippedLogResource(woodType, VanillaWoodenResources.STRIPPED_LOGS.get(woodType));

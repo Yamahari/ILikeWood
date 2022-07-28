@@ -56,26 +56,39 @@ public final class VanillaWoodTypes {
         new DefaultWoodType(Constants.MOD_ID, Constants.DARK_OAK, new IWoodType.Colors(DARK_OAK_COLORS));
 
     private static final int[] JUNGLE_COLORS = new int[]{
-        color(96, 63, 40),
-        color(104, 70, 47),
-        color(120, 84, 55),
-        color(151, 106, 68),
-        color(159, 113, 74),
-        color(170, 121, 84),
-        color(184, 135, 100),
-        color(191, 142, 107)};
-    public static final IWoodType JUNGLE =
-        new DefaultWoodType(Constants.MOD_ID, Constants.JUNGLE, new IWoodType.Colors(JUNGLE_COLORS));
+        color(96, 63, 40), color(104, 70, 47), color(120, 84, 55), color(151, 106, 68), color(159, 113, 74), color(
+        170,
+        121,
+        84
+    ), color(184, 135, 100), color(191, 142, 107)
+    };
+    public static final IWoodType JUNGLE = new DefaultWoodType(
+        Constants.MOD_ID,
+        Constants.JUNGLE,
+        new IWoodType.Colors(JUNGLE_COLORS)
+    );
+
+    private static final int[] MANGROVE_COLORS = new int[]{
+        color(93, 28, 30), color(100, 36, 35), color(111, 42, 45), color(117, 49, 54), color(118, 53, 50), color(
+        119,
+        57,
+        52
+    ), color(127, 66, 52), color(139, 77, 58)
+    };
+
+    public static final IWoodType MANGROVE = new DefaultWoodType(
+        Constants.MOD_ID,
+        Constants.MANGROVE,
+        new IWoodType.Colors(MANGROVE_COLORS)
+    );
 
     private static final int[] OAK_COLORS = new int[]{
-        color(95, 73, 37),
-        color(103, 80, 44),
-        color(126, 98, 55),
-        color(150, 116, 65),
-        color(159, 132, 77),
-        color(175, 143, 85),
-        color(184, 148, 95),
-        color(194, 157, 98)};
+        color(95, 73, 37), color(103, 80, 44), color(126, 98, 55), color(150, 116, 65), color(159, 132, 77), color(
+        175,
+        143,
+        85
+    ), color(184, 148, 95), color(194, 157, 98)
+    };
     public static final IWoodType OAK =
         new DefaultWoodType(Constants.MOD_ID, Constants.OAK, new IWoodType.Colors(OAK_COLORS));
 
@@ -111,6 +124,6 @@ public final class VanillaWoodTypes {
     }
 
     public static Stream<IWoodType> get() {
-        return Stream.of(ACACIA, BIRCH, CRIMSON, DARK_OAK, JUNGLE, OAK, SPRUCE, WARPED);
+        return Stream.of(ACACIA, BIRCH, CRIMSON, DARK_OAK, JUNGLE, MANGROVE, OAK, SPRUCE, WARPED);
     }
 }
