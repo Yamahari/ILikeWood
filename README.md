@@ -45,7 +45,7 @@ yourname.yourmod.plugin
 |
 +--- yourname.yourmod.plugin.util
 |   |
-|   +--- yourname.plugin.util.resources
+|   +--- yourname.yourmod.plugin.util.resources
 |       |
 |       +--- yourname.yourmod.plugin.util.resources.WoodenLogResource
 |       +--- yourname.yourmod.plugin.util.resources.WoodenPlanksResource
