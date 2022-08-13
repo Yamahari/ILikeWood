@@ -27,18 +27,21 @@ public final class ILikeWoodBlockTags
     public static final TagKey<Block> BEDS = create(Constants.BEDS);
     public static final TagKey<Block> SAWMILLS = create(Constants.SAWMILL_PLURAL);
     public static final TagKey<Block> SOUL_TORCHES = create(Constants.SOUL_TORCH_PLURAL);
-    public static final TagKey<Block> WALL_SOUL_TORCHES =
-        create(Constants.WALL_SOUL_TORCH_PLURAL);
+    public static final TagKey<Block> WALL_SOUL_TORCHES = create(Constants.WALL_SOUL_TORCH_PLURAL);
     public static final TagKey<Block> CHAIRS = create(Constants.CHAIR_PLURAL);
     public static final TagKey<Block> TABLES = create(Constants.TABLE_PLURAL);
     public static final TagKey<Block> STOOLS = create(Constants.STOOL_PLURAL);
     public static final TagKey<Block> SINGLE_DRESSERS = create(Constants.SINGLE_DRESSER_PLURAL);
     public static final TagKey<Block> LOG_PILES = create(Constants.LOG_PILE_PLURAL);
+    public static final TagKey<Block> CAMPFIRES = create(Constants.CAMPFIRE_PLURAL);
+    public static final TagKey<Block> SOUL_CAMPFIRES = create(Constants.SOUL_CAMPFIRE_PLURAL);
 
-    private ILikeWoodBlockTags() {
+    private ILikeWoodBlockTags()
+    {
     }
 
-    private static TagKey<Block> create(final String id) {
+    private static TagKey<Block> create(final String id)
+    {
         return BlockTags.create(new ResourceLocation(Constants.MOD_ID, id));
     }
 }

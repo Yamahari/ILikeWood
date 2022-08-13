@@ -53,6 +53,8 @@ public final class ILikeWoodBlockItemRegistry
         this.registerBlockItems(WoodenBlockType.STOOL, this::registerStoolBlockItem);
         this.registerBlockItems(WoodenBlockType.SINGLE_DRESSER, this::registerSingleDresserBlockItem);
         this.registerBlockItems(WoodenBlockType.LOG_PILE, this::registerLogPileBlockItem);
+        this.registerBlockItems(WoodenBlockType.CAMPFIRE, this::registerCampfireBlockItem);
+        this.registerBlockItems(WoodenBlockType.SOUL_CAMPFIRE, this::registerSoulCampfireBlockItem);
         WoodenBlockType.getBeds().forEach(bedBlockType -> this.registerBlockItems(bedBlockType, woodType -> this.registerBedBlockItem(woodType, bedBlockType)));
     }
 
@@ -265,5 +267,15 @@ public final class ILikeWoodBlockItemRegistry
     private RegistryObject<Item> registerLogPileBlockItem(final IWoodType woodType)
     {
         return this.registerDecorationBlockItem(woodType, WoodenBlockType.LOG_PILE);
+    }
+
+    private RegistryObject<Item> registerCampfireBlockItem(final IWoodType woodType)
+    {
+        return this.registerDecorationBlockItem(woodType, WoodenBlockType.CAMPFIRE);
+    }
+
+    private RegistryObject<Item> registerSoulCampfireBlockItem(final IWoodType woodType)
+    {
+        return this.registerDecorationBlockItem(woodType, WoodenBlockType.SOUL_CAMPFIRE);
     }
 }

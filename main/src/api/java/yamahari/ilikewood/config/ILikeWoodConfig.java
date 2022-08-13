@@ -46,6 +46,7 @@ public record ILikeWoodConfig(String name, Supplier<Boolean> flag)
     public static final ILikeWoodConfig PICKAXES_CONFIG = make(Constants.PICKAXE_PLURAL);
     public static final ILikeWoodConfig SHOVELS_CONFIG = make(Constants.SHOVEL_PLURAL);
     public static final ILikeWoodConfig SWORDS_CONFIG = make(Constants.SWORD_PLURAL);
+    public static final ILikeWoodConfig CAMPFIRE_CONFIG = make(Constants.CAMPFIRE_PLURAL);
 
     public static final Map<String, ILikeWoodConfig> NAME_TO_CONFIG =
         getAll().collect(Collectors.toUnmodifiableMap(ILikeWoodConfig::name,
@@ -83,18 +84,8 @@ public record ILikeWoodConfig(String name, Supplier<Boolean> flag)
             WALLS_CONFIG,
             CHAIRS_CONFIG,
             TABLES_CONFIG,
-            STOOLS_CONFIG,
-            SINGLE_DRESSERS_CONFIG,
-            STICKS_CONFIG,
-            BOWS_CONFIG,
-            CROSSBOWS_CONFIG,
-            FISHING_RODS_CONFIG,
-            ITEM_FRAMES_CONFIG,
-            AXES_CONFIG,
-            HOES_CONFIG,
-            PICKAXES_CONFIG,
-            SHOVELS_CONFIG,
-            SWORDS_CONFIG
+            STOOLS_CONFIG, SINGLE_DRESSERS_CONFIG, STICKS_CONFIG, BOWS_CONFIG, CROSSBOWS_CONFIG, FISHING_RODS_CONFIG, ITEM_FRAMES_CONFIG, AXES_CONFIG, HOES_CONFIG,
+            PICKAXES_CONFIG, SHOVELS_CONFIG, SWORDS_CONFIG, CAMPFIRE_CONFIG
         );
     }
 

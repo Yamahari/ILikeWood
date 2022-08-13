@@ -10,12 +10,14 @@ import yamahari.ilikewood.data.condition.ConfigCondition;
 import yamahari.ilikewood.util.Constants;
 
 @Mod.EventBusSubscriber(value = {
-    Dist.CLIENT, Dist.DEDICATED_SERVER
+    Dist.CLIENT,
+    Dist.DEDICATED_SERVER
 }, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class RegisterEventHandler
 {
     @SubscribeEvent
-    public static void onRegisterEvent(final RegisterEvent event) {
+    public static void onRegisterEvent(final RegisterEvent event)
+    {
         if (event.getRegistryKey().equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS))
         {
             CraftingHelper.register(ConfigCondition.ConfigConditionSerializer.INSTANCE);

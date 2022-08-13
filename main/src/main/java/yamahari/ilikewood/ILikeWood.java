@@ -3,7 +3,6 @@ package yamahari.ilikewood;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -17,14 +16,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Type;
 import yamahari.ilikewood.config.ILikeWoodConfig;
-import yamahari.ilikewood.proxy.ClientProxy;
-import yamahari.ilikewood.proxy.CommonProxy;
-import yamahari.ilikewood.proxy.IProxy;
 import yamahari.ilikewood.registry.ILikeWoodBlockItemRegistry;
 import yamahari.ilikewood.registry.ILikeWoodBlockRegistry;
 import yamahari.ilikewood.registry.ILikeWoodContainerRegistry;
 import yamahari.ilikewood.registry.ILikeWoodEntityTypeRegistry;
 import yamahari.ilikewood.registry.ILikeWoodItemRegistry;
+import yamahari.ilikewood.registry.ILikeWoodParticleTypeRegistry;
 import yamahari.ilikewood.registry.ILikeWoodRecipeSerializerRegistry;
 import yamahari.ilikewood.registry.ILikeWoodRecipeTypeRegister;
 import yamahari.ilikewood.registry.ILikeWoodTieredItemRegistry;
@@ -60,14 +57,12 @@ public final class ILikeWood
     public static final ILikeWoodEntityTypeRegistry ENTITY_TYPE_REGISTRY = new ILikeWoodEntityTypeRegistry();
     public static final ILikeWoodRecipeTypeRegister RECIPE_TYPE_REGISTER = new ILikeWoodRecipeTypeRegister();
     public static final List<IModPlugin> PLUGINS = new ArrayList<>();
-    private static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
-    public ILikeWood() {
+    public ILikeWood()
+    {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ILikeWoodConfig.COMMON_SPEC);
         ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.COMMON, FMLPaths.CONFIGDIR.get());
-        modEventBus.addListener(PROXY::onFMLCommonSetup);
-        modEventBus.addListener(PROXY::onFMLClientSetup);
 
         getPlugins();
 
@@ -84,9 +79,7 @@ public final class ILikeWood
         final var builder = new StringBuilder();
         if (!validate(builder))
         {
-            throw new RuntimeException("Validation failed! See log for more details."
-                + System.lineSeparator()
-                + builder);
+            throw new RuntimeException("Validation failed! See log for more details." + System.lineSeparator() + builder);
         }
 
         BLOCK_REGISTRY.register(modEventBus);
@@ -97,7 +90,7 @@ public final class ILikeWood
         ILikeWoodTileEntityTypeRegistry.REGISTRY.register(modEventBus);
         ILikeWoodContainerRegistry.REGISTRY.register(modEventBus);
         RECIPE_TYPE_REGISTER.register(modEventBus);
-
+        ILikeWoodParticleTypeRegistry.REGISTRY.register(modEventBus);
         ILikeWoodRecipeSerializerRegistry.REGISTRY.register(modEventBus);
 
         for (final IModPlugin plugin : PLUGINS)
@@ -110,57 +103,66 @@ public final class ILikeWood
         }
     }
 
-    public static Block getBlock(final IWoodType woodType, final WoodenBlockType blockType) {
+    public static Block getBlock(
+        final IWoodType woodType,
+        final WoodenBlockType blockType
+    )
+    {
         if (woodType.getBlockTypes().contains(blockType))
         {
             return BLOCK_REGISTRY.getObject(woodType, blockType);
         }
         if (woodType.getBuiltinBlockTypes().contains(blockType))
         {
-            return ForgeRegistries.BLOCKS.getValue(WOODEN_RESOURCE_REGISTRY.getBlockResource(woodType, blockType)
-                .getResource());
+            return ForgeRegistries.BLOCKS.getValue(WOODEN_RESOURCE_REGISTRY.getBlockResource(woodType, blockType).getResource());
         }
         throw new IllegalArgumentException("");
     }
 
-    public static Stream<Block> getBlocks(final WoodenBlockType blockType) {
+    public static Stream<Block> getBlocks(final WoodenBlockType blockType)
+    {
         return WOOD_TYPE_REGISTRY.getWoodTypes().map(woodType -> getBlock(woodType, blockType));
     }
 
-    public static Stream<Block> getBlocks(Stream<WoodenBlockType> blockTypes) {
+    public static Stream<Block> getBlocks(Stream<WoodenBlockType> blockTypes)
+    {
         return blockTypes.flatMap(ILikeWood::getBlocks);
     }
 
-    public static Item getItem(final IWoodType woodType, final WoodenItemType itemType) {
+    public static Item getItem(
+        final IWoodType woodType,
+        final WoodenItemType itemType
+    )
+    {
         if (woodType.getItemTypes().contains(itemType))
         {
             return ITEM_REGISTRY.getObject(woodType, itemType);
         }
         if (woodType.getBuiltinItemTypes().contains(itemType))
         {
-            return ForgeRegistries.ITEMS.getValue(WOODEN_RESOURCE_REGISTRY.getItemResource(woodType, itemType)
-                .getResource());
+            return ForgeRegistries.ITEMS.getValue(WOODEN_RESOURCE_REGISTRY.getItemResource(woodType, itemType).getResource());
         }
         throw new IllegalArgumentException("");
     }
 
-    public static Stream<Item> getItems(final WoodenItemType itemType) {
+    public static Stream<Item> getItems(final WoodenItemType itemType)
+    {
         return WOOD_TYPE_REGISTRY.getWoodTypes().map(woodType -> getItem(woodType, itemType));
     }
 
-    public static Stream<Item> getItems(Stream<WoodenItemType> itemTypes) {
+    public static Stream<Item> getItems(Stream<WoodenItemType> itemTypes)
+    {
         return itemTypes.flatMap(ILikeWood::getItems);
     }
 
-    private static void getPlugins() {
-        final List<String> names = ModList.get()
+    private static void getPlugins()
+    {
+        final List<String> names = ModList
+            .get()
             .getAllScanData()
             .stream()
-            .flatMap(scanData -> scanData.getAnnotations()
-                .stream())
-            .filter(annotationData -> Objects.equals(annotationData.annotationType(),
-                Type.getType(ILikeWoodPlugin.class)
-            ))
+            .flatMap(scanData -> scanData.getAnnotations().stream())
+            .filter(annotationData -> Objects.equals(annotationData.annotationType(), Type.getType(ILikeWoodPlugin.class)))
             .map(ModFileScanData.AnnotationData::memberName)
             .toList();
 
@@ -177,11 +179,10 @@ public final class ILikeWood
         }
     }
 
-    private static boolean validate(final StringBuilder builder) {
+    private static boolean validate(final StringBuilder builder)
+    {
 
-        final var blockTypeValidation = WoodenBlockType.getAll().map(objectType -> ObjectTypeValidator.validate(builder,
-            objectType
-        )).reduce(true, Boolean::logicalAnd);
+        final var blockTypeValidation = WoodenBlockType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
         if (!blockTypeValidation)
         {
@@ -189,9 +190,7 @@ public final class ILikeWood
             builder.append(System.lineSeparator());
         }
 
-        final var itemTypeValidation = WoodenItemType.getAll().map(objectType -> ObjectTypeValidator.validate(builder,
-            objectType
-        )).reduce(true, Boolean::logicalAnd);
+        final var itemTypeValidation = WoodenItemType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
         if (!itemTypeValidation)
         {
@@ -200,9 +199,7 @@ public final class ILikeWood
         }
 
         final var tieredItemTypeValidation =
-            WoodenTieredItemType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true,
-                Boolean::logicalAnd
-            );
+            WoodenTieredItemType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
         if (!tieredItemTypeValidation)
         {
@@ -210,10 +207,7 @@ public final class ILikeWood
             builder.append(System.lineSeparator());
         }
 
-        final var entityTypeValidation =
-            WoodenEntityType.getAll().map(objectType -> ObjectTypeValidator.validate(builder,
-            objectType
-        )).reduce(true, Boolean::logicalAnd);
+        final var entityTypeValidation = WoodenEntityType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
         if (!entityTypeValidation)
         {
@@ -221,10 +215,7 @@ public final class ILikeWood
             builder.append(System.lineSeparator());
         }
 
-        final var woodTypeValidation =
-            WOOD_TYPE_REGISTRY.getWoodTypes().map(woodType -> WoodTypeValidator.validate(builder,
-            woodType
-        )).reduce(true, Boolean::logicalAnd);
+        final var woodTypeValidation = WOOD_TYPE_REGISTRY.getWoodTypes().map(woodType -> WoodTypeValidator.validate(builder, woodType)).reduce(true, Boolean::logicalAnd);
 
         if (!woodTypeValidation)
         {
@@ -232,10 +223,6 @@ public final class ILikeWood
             builder.append(System.lineSeparator());
         }
 
-        return blockTypeValidation
-            && itemTypeValidation
-            && tieredItemTypeValidation
-            && entityTypeValidation
-            && woodTypeValidation;
+        return blockTypeValidation && itemTypeValidation && tieredItemTypeValidation && entityTypeValidation && woodTypeValidation;
     }
 }

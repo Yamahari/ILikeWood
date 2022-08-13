@@ -103,6 +103,10 @@ public final class Constants
     public static final String STOOL_PLURAL = "stools";
     public static final String SINGLE_DRESSER = "single_dresser";
     public static final String SINGLE_DRESSER_PLURAL = "single_dressers";
+    public static final String CAMPFIRE = "campfire";
+    public static final String CAMPFIRE_PLURAL = "campfires";
+    public static final String SOUL_CAMPFIRE = "soul_campfire";
+    public static final String SOUL_CAMPFIRE_PLURAL = "soul_campfires";
 
     public static final String STICK = "stick";
     public static final String STICK_PLURAL = "sticks";

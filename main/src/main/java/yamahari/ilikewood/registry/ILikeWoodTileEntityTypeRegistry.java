@@ -6,11 +6,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.tileentity.WoodenBarrelTileEntity;
+import yamahari.ilikewood.client.tileentity.WoodenCampfireBlockEntity;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
 import yamahari.ilikewood.config.ILikeWoodConfig;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
+
+import java.util.stream.Stream;
 
 public final class ILikeWoodTileEntityTypeRegistry
 {
@@ -40,6 +43,14 @@ public final class ILikeWoodTileEntityTypeRegistry
                 "wooden_lectern", () -> BlockEntityType.Builder
                     .of(WoodenLecternTileEntity::new, ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.LECTERN).toArray(Block[]::new))
                     .build(null));
+        }
+
+        if (ILikeWoodConfig.CAMPFIRE_CONFIG.isEnabled())
+        {
+            WoodenTileEntityTypes.WOODEN_CAMPFIRE = REGISTRY.register("wooden_campfire", () -> BlockEntityType.Builder.of(
+                WoodenCampfireBlockEntity::new,
+                ILikeWood.BLOCK_REGISTRY.getObjects(Stream.of(WoodenBlockType.CAMPFIRE, WoodenBlockType.SOUL_CAMPFIRE)).toArray(Block[]::new)
+            ).build(null));
         }
     }
 

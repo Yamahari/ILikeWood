@@ -19,42 +19,46 @@ import yamahari.ilikewood.util.Constants;
 import javax.annotation.Nonnull;
 
 @JeiPlugin
-public final class ILikeWoodPlugin implements IModPlugin
+public final class ILikeWoodPlugin
+    implements IModPlugin
 {
     private static final ResourceLocation PLUGIN_UID = new ResourceLocation(Constants.MOD_ID, "plugin");
 
     @Nonnull
     @Override
-    public ResourceLocation getPluginUid() {
+    public ResourceLocation getPluginUid()
+    {
         return PLUGIN_UID;
     }
 
     @Override
-    public void registerRecipeTransferHandlers(@Nonnull final IRecipeTransferRegistration registration) {
+    public void registerRecipeTransferHandlers(@Nonnull final IRecipeTransferRegistration registration)
+    {
         if (ILikeWoodConfig.CRAFTING_TABLES_CONFIG.isEnabled())
         {
-            registration.addRecipeTransferHandler(WoodenWorkBenchContainer.class,
-                MenuType.CRAFTING,
-                RecipeTypes.CRAFTING,
-                1,
-                9,
-                10,
-                36
-            );
+            registration.addRecipeTransferHandler(WoodenWorkBenchContainer.class, MenuType.CRAFTING, RecipeTypes.CRAFTING, 1, 9, 10, 36);
         }
     }
 
     @Override
-    public void registerRecipeCatalysts(@Nonnull final IRecipeCatalystRegistration registration) {
+    public void registerRecipeCatalysts(@Nonnull final IRecipeCatalystRegistration registration)
+    {
         if (ILikeWoodConfig.CRAFTING_TABLES_CONFIG.isEnabled())
         {
-            registration.addRecipeCatalyst(new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK,
-                WoodenBlockType.CRAFTING_TABLE
-            )), RecipeTypes.CRAFTING);
+            registration.addRecipeCatalyst(new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK, WoodenBlockType.CRAFTING_TABLE)), RecipeTypes.CRAFTING);
+        }
+
+        if (ILikeWoodConfig.CAMPFIRE_CONFIG.isEnabled())
+        {
+            registration.addRecipeCatalyst(
+                new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK, WoodenBlockType.CAMPFIRE)), RecipeTypes.CAMPFIRE_COOKING);
+            registration.addRecipeCatalyst(
+                new ItemStack(ILikeWood.BLOCK_REGISTRY.getObject(VanillaWoodTypes.OAK, WoodenBlockType.SOUL_CAMPFIRE)), RecipeTypes.CAMPFIRE_COOKING);
         }
     }
 
     @Override
-    public void registerGuiHandlers(@Nonnull final IGuiHandlerRegistration registration) {
+    public void registerGuiHandlers(@Nonnull final IGuiHandlerRegistration registration)
+    {
     }
 }

@@ -8,6 +8,7 @@ public final class WoodenTileEntityTypes {
     public static RegistryObject<BlockEntityType<?>> WOODEN_BARREL;
     public static RegistryObject<BlockEntityType<?>> WOODEN_CHEST;
     public static RegistryObject<BlockEntityType<?>> WOODEN_LECTERN;
+    public static RegistryObject<BlockEntityType<?>> WOODEN_CAMPFIRE;
 
     private WoodenTileEntityTypes() {
     }

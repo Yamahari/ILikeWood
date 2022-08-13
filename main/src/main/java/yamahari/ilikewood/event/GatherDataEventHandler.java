@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import yamahari.ilikewood.data.loot.BedLoot;
 import yamahari.ilikewood.data.loot.BookshelfLoot;
+import yamahari.ilikewood.data.loot.CampfireLoot;
 import yamahari.ilikewood.data.loot.ComposterLoot;
 import yamahari.ilikewood.data.loot.DropSelfLoot;
 import yamahari.ilikewood.data.loot.NameableBlockEntityLoot;
@@ -22,6 +23,7 @@ import yamahari.ilikewood.provider.PackMCMetaProvider;
 import yamahari.ilikewood.provider.blockstate.BarrelBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.BedBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.BookshelfBlockStateProvider;
+import yamahari.ilikewood.provider.blockstate.CampfireBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.ChairBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.ChestBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.ComposterBlockStateProvider;
@@ -37,6 +39,7 @@ import yamahari.ilikewood.provider.blockstate.PostBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.SawmillBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.ScaffoldingBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.SingleDresserBlockStateProvider;
+import yamahari.ilikewood.provider.blockstate.SoulCampfireBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.SoulTorchBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.StoolBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.StrippedPostBlockStateProvider;
@@ -53,6 +56,7 @@ import yamahari.ilikewood.provider.itemmodel.StickItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.BarrelBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.BedBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.BookshelfBlockItemModelProvider;
+import yamahari.ilikewood.provider.itemmodel.blockitem.CampfireBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.ChairBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.ChestBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.ComposterBlockItemModelProvider;
@@ -67,6 +71,7 @@ import yamahari.ilikewood.provider.itemmodel.blockitem.PostBlockItemModelProvide
 import yamahari.ilikewood.provider.itemmodel.blockitem.SawmillBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.ScaffoldingBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.SingleDresserBlockItemModelProvider;
+import yamahari.ilikewood.provider.itemmodel.blockitem.SoulCampfireBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.SoulTorchBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.StoolBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.StrippedPostBlockItemModelProvider;
@@ -79,14 +84,18 @@ import yamahari.ilikewood.provider.itemmodel.tiered.PickaxeTieredItemModelProvid
 import yamahari.ilikewood.provider.itemmodel.tiered.ShovelTieredItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.tiered.SwordTieredItemModelProvider;
 import yamahari.ilikewood.provider.lang.BedLanguageProvider;
+import yamahari.ilikewood.provider.lang.CampfireLanguageProvider;
 import yamahari.ilikewood.provider.lang.ContainerBlockLanguageProvider;
 import yamahari.ilikewood.provider.lang.DefaultLanguageProvider;
 import yamahari.ilikewood.provider.lang.PostLanguageProvider;
 import yamahari.ilikewood.provider.lang.TorchLanguageProvider;
 import yamahari.ilikewood.provider.loot.DefaultBlockLootTableProvider;
+import yamahari.ilikewood.provider.particle.ColoredCampfireSmokeParticleProvider;
+import yamahari.ilikewood.provider.particle.ColoredLavaParticleProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.BarrelRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.BedRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.BookshelfRecipeProvider;
+import yamahari.ilikewood.provider.recipe.blockitem.CampfireRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.ChairRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.ChestRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.ComposterRecipeProvider;
@@ -101,6 +110,7 @@ import yamahari.ilikewood.provider.recipe.blockitem.PostRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.SawmillRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.ScaffoldingRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.SingleDresserRecipeProvider;
+import yamahari.ilikewood.provider.recipe.blockitem.SoulCampfireRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.SoulTorchRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.StoolRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.TableRecipeProvider;
@@ -119,6 +129,7 @@ import yamahari.ilikewood.provider.recipe.item.tiered.ShovelRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.tiered.SwordRecipeProvider;
 import yamahari.ilikewood.provider.recipe.sawmilling.SawmillingRecipeProvider;
 import yamahari.ilikewood.provider.tag.block.BarrelBlockTagsProvider;
+import yamahari.ilikewood.provider.tag.block.CampfireBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.block.ChestBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.block.ClimbableBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.block.DefaultBlockTagsProvider;
@@ -127,6 +138,7 @@ import yamahari.ilikewood.provider.tag.block.PostBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.block.TorchBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.block.WallBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.item.BarrelItemTagsProvider;
+import yamahari.ilikewood.provider.tag.item.CampfireItemTagsProvider;
 import yamahari.ilikewood.provider.tag.item.ChestItemTagsProvider;
 import yamahari.ilikewood.provider.tag.item.DefaultBlockItemTagsProvider;
 import yamahari.ilikewood.provider.tag.item.DefaultItemTagsProvider;
@@ -137,7 +149,9 @@ import yamahari.ilikewood.provider.tag.item.TorchItemTagsProvider;
 import yamahari.ilikewood.provider.texture.block.BarrelTextureProvider;
 import yamahari.ilikewood.provider.texture.block.BedTextureProvider;
 import yamahari.ilikewood.provider.texture.block.BookshelfTextureProvider;
+import yamahari.ilikewood.provider.texture.block.CampfireFireTextureProvider;
 import yamahari.ilikewood.provider.texture.block.ChestTextureProvider;
+import yamahari.ilikewood.provider.texture.block.ColoredCampfireSmokeParticleTextureProvider;
 import yamahari.ilikewood.provider.texture.block.ComposterTextureProvider;
 import yamahari.ilikewood.provider.texture.block.LadderTextureProvider;
 import yamahari.ilikewood.provider.texture.block.LecternTextureProvider;
@@ -160,29 +174,34 @@ import java.io.IOException;
 import java.util.Collections;
 
 @Mod.EventBusSubscriber(value = {
-    Dist.CLIENT, Dist.DEDICATED_SERVER
+    Dist.CLIENT,
+    Dist.DEDICATED_SERVER
 }, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GatherDataEventHandler
 {
-    private GatherDataEventHandler() {
+    private GatherDataEventHandler()
+    {
     }
 
-    private static GatherDataEvent.DataGeneratorConfig getConfig(final GatherDataEvent event) {
+    private static GatherDataEvent.DataGeneratorConfig getConfig(final GatherDataEvent event)
+    {
         return ObfuscationReflectionHelper.getPrivateValue(GatherDataEvent.class, event, "config");
     }
 
     private static DataGenerator makeGenerator(
-        final GatherDataEvent.DataGeneratorConfig config, final String root, boolean shouldExecute
+        final GatherDataEvent.DataGeneratorConfig config,
+        final String root,
+        boolean shouldExecute
     )
     {
-        return config.makeGenerator(outputPath -> outputPath.getParent()
-            .resolve("data")
-            .resolve(String.format("%s_resources", Constants.MOD_ID))
-            .resolve(root), shouldExecute);
+        return config.makeGenerator(
+            outputPath -> outputPath.getParent().resolve("data").resolve(String.format("%s_resources", Constants.MOD_ID)).resolve(root), shouldExecute);
     }
 
     private static void makePanelsData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.PANELS_PLURAL, shouldExecute);
@@ -192,25 +211,15 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new PanelsRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.PANELS_PLURAL,
-                WoodenBlockType.PANELS,
-                ILikeWoodBlockTags.PANELS
+            new DefaultBlockTagsProvider(generator, helper, Constants.PANELS_PLURAL, WoodenBlockType.PANELS, ILikeWoodBlockTags.PANELS)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.PANELS_PLURAL, WoodenBlockType.PANELS,
+                ILikeWoodItemTags.PANELS
             )
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.PANELS_PLURAL,
-            WoodenBlockType.PANELS,
-            ILikeWoodItemTags.PANELS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.PANELS),
-                Constants.PANELS_PLURAL
-            )
+            new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.PANELS), Constants.PANELS_PLURAL)
         );
 
         generator.addProvider(event.includeClient(), new PanelsBlockStateProvider(generator, helper));
@@ -220,7 +229,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makePanelsStairsData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.PANELS_STAIRS_PLURAL, shouldExecute);
@@ -230,37 +241,29 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new PanelsStairsRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultBlockTagsProvider(generator,
-            helper,
-            Constants.PANELS_STAIRS_PLURAL,
-            WoodenBlockType.PANELS_STAIRS,
-            ILikeWoodBlockTags.PANELS_STAIRS
-        ));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.PANELS_STAIRS_PLURAL,
-            WoodenBlockType.PANELS_STAIRS,
-            ILikeWoodItemTags.PANELS_STAIRS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.PANELS_STAIRS),
-                Constants.PANELS_STAIRS_PLURAL
+            new DefaultBlockTagsProvider(generator, helper, Constants.PANELS_STAIRS_PLURAL, WoodenBlockType.PANELS_STAIRS, ILikeWoodBlockTags.PANELS_STAIRS)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.PANELS_STAIRS_PLURAL,
+                WoodenBlockType.PANELS_STAIRS, ILikeWoodItemTags.PANELS_STAIRS
             )
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.PANELS_STAIRS), Constants.PANELS_STAIRS_PLURAL)
         );
 
 
         generator.addProvider(event.includeClient(), new PanelsStairsBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new PanelsStairsBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenBlockType.PANELS_STAIRS)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenBlockType.PANELS_STAIRS));
 
     }
 
     private static void makePanelsSlabData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.PANELS_SLAB_PLURAL, shouldExecute);
@@ -270,29 +273,20 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new PanelsSlabRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultBlockTagsProvider(generator,
-            helper,
-            Constants.PANELS_SLAB_PLURAL,
-            WoodenBlockType.PANELS_SLAB,
-            ILikeWoodBlockTags.PANELS_SLABS
-        ));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.PANELS_SLAB_PLURAL,
-            WoodenBlockType.PANELS_SLAB,
-            ILikeWoodItemTags.PANELS_SLABS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator, PanelsSlabLoot::new, Constants.PANELS_SLAB_PLURAL)
+            new DefaultBlockTagsProvider(generator, helper, Constants.PANELS_SLAB_PLURAL, WoodenBlockType.PANELS_SLAB, ILikeWoodBlockTags.PANELS_SLABS)
         );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.PANELS_SLAB_PLURAL, WoodenBlockType.PANELS_SLAB,
+                ILikeWoodItemTags.PANELS_SLABS
+            )
+        );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, PanelsSlabLoot::new, Constants.PANELS_SLAB_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new PanelsSlabBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new PanelsSlabBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenBlockType.PANELS_SLAB)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenBlockType.PANELS_SLAB));
 
     }
 
@@ -313,22 +307,15 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new BarrelRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new BarrelBlockTagsProvider(generator, helper));
+        generator.addProvider(event.includeServer(), new BarrelItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper));
         generator.addProvider(event.includeServer(),
-            new BarrelItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper)
-        );
-        generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new NameableBlockEntityLoot(WoodenBlockType.BARREL),
-                Constants.BARREL_PLURAL
-            )
+            new DefaultBlockLootTableProvider(generator, () -> new NameableBlockEntityLoot(WoodenBlockType.BARREL), Constants.BARREL_PLURAL)
         );
 
 
         generator.addProvider(event.includeClient(), new BarrelBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new BarrelBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new ContainerBlockLanguageProvider(generator, WoodenBlockType.BARREL)
-        );
+        generator.addProvider(event.includeClient(), new ContainerBlockLanguageProvider(generator, WoodenBlockType.BARREL));
 
     }
 
@@ -348,22 +335,15 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new BookshelfRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultBlockTagsProvider(generator,
-            helper,
-            Constants.BOOKSHELF_PLURAL,
-            WoodenBlockType.BOOKSHELF,
-            ILikeWoodBlockTags.BOOKSHELVES
-        ));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.BOOKSHELF_PLURAL,
-            WoodenBlockType.BOOKSHELF,
-            ILikeWoodItemTags.BOOKSHELVES
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator, BookshelfLoot::new, Constants.BOOKSHELF_PLURAL)
+            new DefaultBlockTagsProvider(generator, helper, Constants.BOOKSHELF_PLURAL, WoodenBlockType.BOOKSHELF, ILikeWoodBlockTags.BOOKSHELVES)
         );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.BOOKSHELF_PLURAL, WoodenBlockType.BOOKSHELF,
+                ILikeWoodItemTags.BOOKSHELVES
+            )
+        );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, BookshelfLoot::new, Constants.BOOKSHELF_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new BookshelfBlockStateProvider(generator, helper));
@@ -389,22 +369,15 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new ChestRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new ChestBlockTagsProvider(generator, helper));
+        generator.addProvider(event.includeServer(), new ChestItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper));
         generator.addProvider(event.includeServer(),
-            new ChestItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper)
-        );
-        generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new NameableBlockEntityLoot(WoodenBlockType.CHEST),
-                Constants.CHEST_PLURAL
-            )
+            new DefaultBlockLootTableProvider(generator, () -> new NameableBlockEntityLoot(WoodenBlockType.CHEST), Constants.CHEST_PLURAL)
         );
 
 
         generator.addProvider(event.includeClient(), new ChestBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new ChestBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new ContainerBlockLanguageProvider(generator, WoodenBlockType.CHEST)
-        );
+        generator.addProvider(event.includeClient(), new ContainerBlockLanguageProvider(generator, WoodenBlockType.CHEST));
 
     }
 
@@ -424,22 +397,14 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new ComposterRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultBlockTagsProvider(generator,
-            helper,
-            Constants.COMPOSTER_PLURAL,
-            WoodenBlockType.COMPOSTER,
-            ILikeWoodBlockTags.COMPOSTER
-        ));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.COMPOSTER_PLURAL,
-            WoodenBlockType.COMPOSTER,
-            ILikeWoodItemTags.COMPOSTER
-        ));
+        generator.addProvider(
+            event.includeServer(), new DefaultBlockTagsProvider(generator, helper, Constants.COMPOSTER_PLURAL, WoodenBlockType.COMPOSTER, ILikeWoodBlockTags.COMPOSTER));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator, ComposterLoot::new, Constants.COMPOSTER_PLURAL)
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.COMPOSTER_PLURAL, WoodenBlockType.COMPOSTER,
+                ILikeWoodItemTags.COMPOSTER
+            )
         );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, ComposterLoot::new, Constants.COMPOSTER_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new ComposterBlockStateProvider(generator, helper));
@@ -449,7 +414,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makeWallData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.WALL_PLURAL, shouldExecute);
@@ -460,19 +427,12 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new WallRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new WallBlockTagsProvider(generator, helper));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.WALL_PLURAL,
-            WoodenBlockType.WALL,
-            ILikeWoodItemTags.WALLS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.WALL),
-                Constants.WALL_PLURAL
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.WALL_PLURAL, WoodenBlockType.WALL,
+                ILikeWoodItemTags.WALLS
             )
         );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.WALL), Constants.WALL_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new WallBlockStateProvider(generator, helper));
@@ -498,25 +458,15 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new LadderRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new ClimbableBlockTagsProvider(generator,
-                helper,
-                Constants.LADDER_PLURAL,
-                WoodenBlockType.LADDER,
-                ILikeWoodBlockTags.LADDERS
+            new ClimbableBlockTagsProvider(generator, helper, Constants.LADDER_PLURAL, WoodenBlockType.LADDER, ILikeWoodBlockTags.LADDERS)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.LADDER_PLURAL, WoodenBlockType.LADDER,
+                ILikeWoodItemTags.LADDERS
             )
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.LADDER_PLURAL,
-            WoodenBlockType.LADDER,
-            ILikeWoodItemTags.LADDERS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.LADDER),
-                Constants.LADDER_PLURAL
-            )
+            new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.LADDER), Constants.LADDER_PLURAL)
         );
 
 
@@ -546,12 +496,8 @@ public final class GatherDataEventHandler
         generator.addProvider(event.includeServer(), new TorchRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new SoulTorchRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new TorchBlockTagsProvider(generator, helper));
-        generator.addProvider(event.includeServer(),
-            new TorchItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper)
-        );
-        generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator, TorchLoot::new, Constants.TORCH_PLURAL)
-        );
+        generator.addProvider(event.includeServer(), new TorchItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper));
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, TorchLoot::new, Constants.TORCH_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new TorchBlockStateProvider(generator, helper));
@@ -565,7 +511,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makeCraftingTableData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.CRAFTING_TABLE_PLURAL, shouldExecute);
@@ -575,32 +523,22 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new CraftingTableRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultBlockTagsProvider(generator,
-            helper,
-            Constants.CRAFTING_TABLE_PLURAL,
-            WoodenBlockType.CRAFTING_TABLE,
-            ILikeWoodBlockTags.CRAFTING_TABLES
-        ));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.CRAFTING_TABLE_PLURAL,
-            WoodenBlockType.CRAFTING_TABLE,
-            ILikeWoodItemTags.CRAFTING_TABLES
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.CRAFTING_TABLE),
-                Constants.CRAFTING_TABLE_PLURAL
+            new DefaultBlockTagsProvider(generator, helper, Constants.CRAFTING_TABLE_PLURAL, WoodenBlockType.CRAFTING_TABLE, ILikeWoodBlockTags.CRAFTING_TABLES)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.CRAFTING_TABLE_PLURAL,
+                WoodenBlockType.CRAFTING_TABLE, ILikeWoodItemTags.CRAFTING_TABLES
             )
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.CRAFTING_TABLE), Constants.CRAFTING_TABLE_PLURAL)
         );
 
 
         generator.addProvider(event.includeClient(), new CraftingTableBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new CraftingTableBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new ContainerBlockLanguageProvider(generator, WoodenBlockType.CRAFTING_TABLE)
-        );
+        generator.addProvider(event.includeClient(), new ContainerBlockLanguageProvider(generator, WoodenBlockType.CRAFTING_TABLE));
 
     }
 
@@ -620,32 +558,22 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new ScaffoldingRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new ClimbableBlockTagsProvider(generator,
-            helper,
-            Constants.SCAFFOLDING_PLURAL,
-            WoodenBlockType.SCAFFOLDING,
-            ILikeWoodBlockTags.SCAFFOLDINGS
-        ));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.SCAFFOLDING_PLURAL,
-            WoodenBlockType.SCAFFOLDING,
-            ILikeWoodItemTags.SCAFFOLDINGS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.SCAFFOLDING),
-                Constants.SCAFFOLDING_PLURAL
+            new ClimbableBlockTagsProvider(generator, helper, Constants.SCAFFOLDING_PLURAL, WoodenBlockType.SCAFFOLDING, ILikeWoodBlockTags.SCAFFOLDINGS)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.SCAFFOLDING_PLURAL, WoodenBlockType.SCAFFOLDING,
+                ILikeWoodItemTags.SCAFFOLDINGS
             )
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.SCAFFOLDING), Constants.SCAFFOLDING_PLURAL)
         );
 
 
         generator.addProvider(event.includeClient(), new ScaffoldingBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new ScaffoldingBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenBlockType.SCAFFOLDING)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenBlockType.SCAFFOLDING));
 
     }
 
@@ -666,33 +594,21 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new LecternRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.LECTERN_PLURAL,
-                WoodenBlockType.LECTERN,
-                ILikeWoodBlockTags.LECTERNS
+            new DefaultBlockTagsProvider(generator, helper, Constants.LECTERN_PLURAL, WoodenBlockType.LECTERN, ILikeWoodBlockTags.LECTERNS)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.LECTERN_PLURAL, WoodenBlockType.LECTERN,
+                ILikeWoodItemTags.LECTERNS
             )
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.LECTERN_PLURAL,
-            WoodenBlockType.LECTERN,
-            ILikeWoodItemTags.LECTERNS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new NameableBlockEntityLoot(WoodenBlockType.LECTERN),
-                Constants.LECTERN_PLURAL
-            )
+            new DefaultBlockLootTableProvider(generator, () -> new NameableBlockEntityLoot(WoodenBlockType.LECTERN), Constants.LECTERN_PLURAL)
         );
 
 
         generator.addProvider(event.includeClient(), new LecternBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new LecternBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new ContainerBlockLanguageProvider(generator, WoodenBlockType.LECTERN)
-        );
+        generator.addProvider(event.includeClient(), new ContainerBlockLanguageProvider(generator, WoodenBlockType.LECTERN));
 
     }
 
@@ -713,12 +629,8 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new PostRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new PostBlockTagsProvider(generator, helper));
-        generator.addProvider(event.includeServer(),
-            new PostItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper)
-        );
-        generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator, PostLoot::new, Constants.POST_PLURAL)
-        );
+        generator.addProvider(event.includeServer(), new PostItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper));
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, PostLoot::new, Constants.POST_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new PostBlockStateProvider(generator, helper));
@@ -730,7 +642,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makeSawmillData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.SAWMILL_PLURAL, shouldExecute);
@@ -742,31 +656,20 @@ public final class GatherDataEventHandler
         generator.addProvider(event.includeServer(), new SawmillingRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new SawmillRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.SAWMILL_PLURAL,
-                WoodenBlockType.SAWMILL,
-                ILikeWoodBlockTags.SAWMILLS
-            )
+            new DefaultBlockTagsProvider(generator, helper, Constants.SAWMILL_PLURAL, WoodenBlockType.SAWMILL, ILikeWoodBlockTags.SAWMILLS)
         );
 
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.SAWMILL_PLURAL,
-            WoodenBlockType.SAWMILL,
-            ILikeWoodItemTags.SAWMILLS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator, SawmillLoot::new, Constants.SAWMILL_PLURAL)
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.SAWMILL_PLURAL, WoodenBlockType.SAWMILL,
+                ILikeWoodItemTags.SAWMILLS
+            )
         );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, SawmillLoot::new, Constants.SAWMILL_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new SawmillBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new SawmillBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new ContainerBlockLanguageProvider(generator, WoodenBlockType.SAWMILL)
-        );
+        generator.addProvider(event.includeClient(), new ContainerBlockLanguageProvider(generator, WoodenBlockType.SAWMILL));
 
     }
 
@@ -786,24 +689,13 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new BedRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new DefaultBlockTagsProvider(generator, helper, Constants.BEDS, WoodenBlockType.WHITE_BED, ILikeWoodBlockTags.BEDS));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.BEDS,
-                WoodenBlockType.WHITE_BED,
-                ILikeWoodBlockTags.BEDS
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.BEDS, WoodenBlockType.WHITE_BED,
+                ILikeWoodItemTags.BEDS
             )
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.BEDS,
-            WoodenBlockType.WHITE_BED,
-            ILikeWoodItemTags.BEDS
-        ));
-        generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator, BedLoot::new, Constants.BEDS)
-        );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, BedLoot::new, Constants.BEDS));
 
 
         generator.addProvider(event.includeClient(), new BedBlockStateProvider(generator, helper));
@@ -813,7 +705,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makeChairData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.CHAIR_PLURAL, shouldExecute);
@@ -824,26 +718,14 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new ChairRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.CHAIR_PLURAL,
-                WoodenBlockType.CHAIR,
-                ILikeWoodBlockTags.CHAIRS
-            )
+            new DefaultBlockTagsProvider(generator, helper, Constants.CHAIR_PLURAL, WoodenBlockType.CHAIR, ILikeWoodBlockTags.CHAIRS)
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.CHAIR_PLURAL,
-            WoodenBlockType.CHAIR,
-            ILikeWoodItemTags.CHAIRS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.CHAIR),
-                Constants.CHAIR_PLURAL
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.CHAIR_PLURAL, WoodenBlockType.CHAIR,
+                ILikeWoodItemTags.CHAIRS
             )
         );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.CHAIR), Constants.CHAIR_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new ChairBlockStateProvider(generator, helper));
@@ -853,7 +735,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makeStoolData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.STOOL_PLURAL, shouldExecute);
@@ -864,26 +748,14 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new StoolRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.STOOL_PLURAL,
-                WoodenBlockType.STOOL,
-                ILikeWoodBlockTags.STOOLS
-            )
+            new DefaultBlockTagsProvider(generator, helper, Constants.STOOL_PLURAL, WoodenBlockType.STOOL, ILikeWoodBlockTags.STOOLS)
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.STOOL_PLURAL,
-            WoodenBlockType.STOOL,
-            ILikeWoodItemTags.STOOLS
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.STOOL),
-                Constants.STOOL_PLURAL
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.STOOL_PLURAL, WoodenBlockType.STOOL,
+                ILikeWoodItemTags.STOOLS
             )
         );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.STOOL), Constants.STOOL_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new StoolBlockStateProvider(generator, helper));
@@ -893,7 +765,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makeTableData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.TABLE_PLURAL, shouldExecute);
@@ -904,26 +778,14 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new TableRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.TABLE_PLURAL,
-                WoodenBlockType.TABLE,
-                ILikeWoodBlockTags.TABLES
-            )
+            new DefaultBlockTagsProvider(generator, helper, Constants.TABLE_PLURAL, WoodenBlockType.TABLE, ILikeWoodBlockTags.TABLES)
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.TABLE_PLURAL,
-            WoodenBlockType.TABLE,
-            ILikeWoodItemTags.TABLES
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.TABLE),
-                Constants.TABLE_PLURAL
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.TABLE_PLURAL, WoodenBlockType.TABLE,
+                ILikeWoodItemTags.TABLES
             )
         );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.TABLE), Constants.TABLE_PLURAL));
 
 
         generator.addProvider(event.includeClient(), new TableBlockStateProvider(generator, helper));
@@ -933,7 +795,9 @@ public final class GatherDataEventHandler
     }
 
     private static void makeSingleDresserData(
-        final GatherDataEvent event, final GatherDataEvent.DataGeneratorConfig config, final boolean shouldExecute
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute
     )
     {
         final var generator = makeGenerator(config, Constants.SINGLE_DRESSER_PLURAL, shouldExecute);
@@ -943,32 +807,22 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new SingleDresserRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultBlockTagsProvider(generator,
-            helper,
-            Constants.SINGLE_DRESSER_PLURAL,
-            WoodenBlockType.SINGLE_DRESSER,
-            ILikeWoodBlockTags.SINGLE_DRESSERS
-        ));
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.SINGLE_DRESSER_PLURAL,
-            WoodenBlockType.SINGLE_DRESSER,
-            ILikeWoodItemTags.SINGLE_DRESSER
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.SINGLE_DRESSER),
-                Constants.SINGLE_DRESSER_PLURAL
+            new DefaultBlockTagsProvider(generator, helper, Constants.SINGLE_DRESSER_PLURAL, WoodenBlockType.SINGLE_DRESSER, ILikeWoodBlockTags.SINGLE_DRESSERS)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.SINGLE_DRESSER_PLURAL,
+                WoodenBlockType.SINGLE_DRESSER, ILikeWoodItemTags.SINGLE_DRESSER
             )
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.SINGLE_DRESSER), Constants.SINGLE_DRESSER_PLURAL)
         );
 
 
         generator.addProvider(event.includeClient(), new SingleDresserBlockStateProvider(generator, helper));
         generator.addProvider(event.includeClient(), new SingleDresserBlockItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenBlockType.SINGLE_DRESSER)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenBlockType.SINGLE_DRESSER));
 
     }
 
@@ -989,25 +843,15 @@ public final class GatherDataEventHandler
 
         generator.addProvider(event.includeServer(), new LogPileRecipeProvider(generator));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockTagsProvider(generator,
-                helper,
-                Constants.LOG_PILE_PLURAL,
-                WoodenBlockType.LOG_PILE,
-                ILikeWoodBlockTags.LOG_PILES
+            new DefaultBlockTagsProvider(generator, helper, Constants.LOG_PILE_PLURAL, WoodenBlockType.LOG_PILE, ILikeWoodBlockTags.LOG_PILES)
+        );
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.LOG_PILE_PLURAL, WoodenBlockType.LOG_PILE,
+                ILikeWoodItemTags.LOG_PILES
             )
         );
-        generator.addProvider(event.includeServer(), new DefaultBlockItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.LOG_PILE_PLURAL,
-            WoodenBlockType.LOG_PILE,
-            ILikeWoodItemTags.LOG_PILES
-        ));
         generator.addProvider(event.includeServer(),
-            new DefaultBlockLootTableProvider(generator,
-                () -> new DropSelfLoot(WoodenBlockType.LOG_PILE),
-                Constants.LOG_PILE_PLURAL
-            )
+            new DefaultBlockLootTableProvider(generator, () -> new DropSelfLoot(WoodenBlockType.LOG_PILE), Constants.LOG_PILE_PLURAL)
         );
 
 
@@ -1033,9 +877,7 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new StickRecipeProvider(generator));
-        generator.addProvider(event.includeServer(),
-            new StickItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper)
-        );
+        generator.addProvider(event.includeServer(), new StickItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper));
 
 
         generator.addProvider(event.includeClient(), new StickItemModelProvider(generator, helper));
@@ -1059,16 +901,12 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new AxeRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.AXE));
         generator.addProvider(event.includeServer(),
-            new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.AXE)
+            new TieredItemItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.AXE_PLURAL, WoodenTieredItemType.AXE,
+                ILikeWoodItemTags.AXES
+            )
         );
-        generator.addProvider(event.includeServer(), new TieredItemItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.AXE_PLURAL,
-            WoodenTieredItemType.AXE,
-            ILikeWoodItemTags.AXES
-        ));
 
 
         generator.addProvider(event.includeClient(), new AxeTieredItemModelProvider(generator, helper));
@@ -1092,16 +930,12 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new HoeRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.HOE));
         generator.addProvider(event.includeServer(),
-            new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.HOE)
+            new TieredItemItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.HOE_PLURAL, WoodenTieredItemType.HOE,
+                ILikeWoodItemTags.HOES
+            )
         );
-        generator.addProvider(event.includeServer(), new TieredItemItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.HOE_PLURAL,
-            WoodenTieredItemType.HOE,
-            ILikeWoodItemTags.HOES
-        ));
 
 
         generator.addProvider(event.includeClient(), new HoeTieredItemModelProvider(generator, helper));
@@ -1119,30 +953,22 @@ public final class GatherDataEventHandler
         final var generator = makeGenerator(config, Constants.PICKAXE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
-        textureGenerator.addProvider(true,
-            new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.PICKAXE)
-        );
+        textureGenerator.addProvider(true, new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.PICKAXE));
 
         generator.addProvider(true, new PackMCMetaProvider(generator));
 
 
         generator.addProvider(event.includeServer(), new PickaxeRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.PICKAXE));
         generator.addProvider(event.includeServer(),
-            new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.PICKAXE)
+            new TieredItemItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.PICKAXE_PLURAL, WoodenTieredItemType.PICKAXE,
+                ILikeWoodItemTags.PICKAXES
+            )
         );
-        generator.addProvider(event.includeServer(), new TieredItemItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.PICKAXE_PLURAL,
-            WoodenTieredItemType.PICKAXE,
-            ILikeWoodItemTags.PICKAXES
-        ));
 
 
         generator.addProvider(event.includeClient(), new PickaxeTieredItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenTieredItemType.PICKAXE)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenTieredItemType.PICKAXE));
 
     }
 
@@ -1156,30 +982,22 @@ public final class GatherDataEventHandler
         final var generator = makeGenerator(config, Constants.SHOVEL_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
-        textureGenerator.addProvider(true,
-            new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.SHOVEL)
-        );
+        textureGenerator.addProvider(true, new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.SHOVEL));
 
         generator.addProvider(true, new PackMCMetaProvider(generator));
 
 
         generator.addProvider(event.includeServer(), new ShovelRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.SHOVEL));
         generator.addProvider(event.includeServer(),
-            new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.SHOVEL)
+            new TieredItemItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.SHOVEL_PLURAL, WoodenTieredItemType.SHOVEL,
+                ILikeWoodItemTags.SHOVELS
+            )
         );
-        generator.addProvider(event.includeServer(), new TieredItemItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.SHOVEL_PLURAL,
-            WoodenTieredItemType.SHOVEL,
-            ILikeWoodItemTags.SHOVELS
-        ));
 
 
         generator.addProvider(event.includeClient(), new ShovelTieredItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenTieredItemType.SHOVEL)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenTieredItemType.SHOVEL));
 
     }
 
@@ -1193,30 +1011,22 @@ public final class GatherDataEventHandler
         final var generator = makeGenerator(config, Constants.SWORD_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
-        textureGenerator.addProvider(true,
-            new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.SWORD)
-        );
+        textureGenerator.addProvider(true, new ToolTextureProvider(textureGenerator, helper, WoodenTieredItemType.SWORD));
 
         generator.addProvider(true, new PackMCMetaProvider(generator));
 
 
         generator.addProvider(event.includeServer(), new SwordRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.SWORD));
         generator.addProvider(event.includeServer(),
-            new NetheriteTieredItemRecipeProvider(generator, WoodenTieredItemType.SWORD)
+            new TieredItemItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.SWORD_PLURAL, WoodenTieredItemType.SWORD,
+                ILikeWoodItemTags.SWORDS
+            )
         );
-        generator.addProvider(event.includeServer(), new TieredItemItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.SWORD_PLURAL,
-            WoodenTieredItemType.SWORD,
-            ILikeWoodItemTags.SWORDS
-        ));
 
 
         generator.addProvider(event.includeClient(), new SwordTieredItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenTieredItemType.SWORD)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenTieredItemType.SWORD));
 
     }
 
@@ -1236,13 +1046,11 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new BowRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.BOW_PLURAL,
-            WoodenItemType.BOW,
-            ILikeWoodItemTags.BOWS
-        ));
+        generator.addProvider(event.includeServer(),
+            new DefaultItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.BOW_PLURAL, WoodenItemType.BOW,
+                ILikeWoodItemTags.BOWS
+            )
+        );
 
 
         generator.addProvider(event.includeClient(), new BowItemModelProvider(generator, helper));
@@ -1266,13 +1074,11 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new CrossbowRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.CROSSBOW_PLURAL,
-            WoodenItemType.CROSSBOW,
-            ILikeWoodItemTags.CROSSBOWS
-        ));
+        generator.addProvider(event.includeServer(),
+            new DefaultItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.CROSSBOW_PLURAL, WoodenItemType.CROSSBOW,
+                ILikeWoodItemTags.CROSSBOWS
+            )
+        );
 
 
         generator.addProvider(event.includeClient(), new CrossbowItemModelProvider(generator, helper));
@@ -1296,13 +1102,11 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new ItemFrameRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.ITEM_FRAME_PLURAL,
-            WoodenItemType.ITEM_FRAME,
-            ILikeWoodItemTags.ITEM_FRAMES
-        ));
+        generator.addProvider(event.includeServer(),
+            new DefaultItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.ITEM_FRAME_PLURAL, WoodenItemType.ITEM_FRAME,
+                ILikeWoodItemTags.ITEM_FRAMES
+            )
+        );
 
 
         generator.addProvider(event.includeClient(), new ItemFrameItemModelProvider(generator, helper));
@@ -1327,36 +1131,60 @@ public final class GatherDataEventHandler
 
 
         generator.addProvider(event.includeServer(), new FishingRodRecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new DefaultItemTagsProvider(generator,
-            new DummyBlockTagsProvider(generator, helper),
-            helper,
-            Constants.FISHING_ROD_PLURAL,
-            WoodenItemType.FISHING_ROD,
-            ILikeWoodItemTags.FISHING_RODS
-        ));
+        generator.addProvider(event.includeServer(),
+            new DefaultItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.FISHING_ROD_PLURAL, WoodenItemType.FISHING_ROD,
+                ILikeWoodItemTags.FISHING_RODS
+            )
+        );
 
 
         generator.addProvider(event.includeClient(), new FishingRodItemModelProvider(generator, helper));
-        generator.addProvider(event.includeClient(),
-            new DefaultLanguageProvider(generator, WoodenItemType.FISHING_ROD)
-        );
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenItemType.FISHING_ROD));
+    }
 
+    private static void makeCampfireData(
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
+        final DataGenerator textureGenerator
+    )
+    {
+        final var generator = makeGenerator(config, Constants.CAMPFIRE_PLURAL, shouldExecute);
+        final var helper = event.getExistingFileHelper();
+
+        textureGenerator.addProvider(true, new CampfireFireTextureProvider(textureGenerator, helper));
+        textureGenerator.addProvider(true, new ColoredCampfireSmokeParticleTextureProvider(textureGenerator, helper));
+
+        generator.addProvider(true, new PackMCMetaProvider(generator));
+
+
+        generator.addProvider(event.includeServer(), new CampfireRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new SoulCampfireRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new CampfireBlockTagsProvider(generator, helper));
+        generator.addProvider(event.includeServer(), new CampfireItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper));
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, CampfireLoot::new, Constants.CAMPFIRE_PLURAL));
+
+
+        generator.addProvider(event.includeClient(), new CampfireBlockStateProvider(generator, helper));
+        generator.addProvider(event.includeClient(), new SoulCampfireBlockStateProvider(generator, helper));
+        generator.addProvider(event.includeClient(), new CampfireBlockItemModelProvider(generator, helper));
+        generator.addProvider(event.includeClient(), new SoulCampfireBlockItemModelProvider(generator, helper));
+        generator.addProvider(event.includeClient(), new CampfireLanguageProvider(generator));
+
+        generator.addProvider(event.includeClient(), new ColoredCampfireSmokeParticleProvider(generator));
+        generator.addProvider(event.includeClient(), new ColoredLavaParticleProvider(generator));
     }
 
     @SubscribeEvent
-    public static void onGatherData(final GatherDataEvent event) {
+    public static void onGatherData(final GatherDataEvent event)
+    {
         final var config = getConfig(event);
         final var shouldExecute = config.getMods().contains(Constants.MOD_ID);
 
-        final var textureGenerator = new DataGenerator(event.getGenerator()
-            .getOutputFolder()
-            .getParent()
-            .resolve("textures")
-            .resolve(String.format("%s_resources", Constants.MOD_ID)),
-            Collections.emptyList(),
-            DetectedVersion.tryDetectVersion(),
-            shouldExecute
-        );
+        final var textureGenerator =
+            new DataGenerator(event.getGenerator().getOutputFolder().getParent().resolve("textures").resolve(String.format("%s_resources", Constants.MOD_ID)),
+                Collections.emptyList(), DetectedVersion.tryDetectVersion(), shouldExecute
+            );
 
         makePanelsData(event, config, shouldExecute);
         makePanelsStairsData(event, config, shouldExecute);
@@ -1389,6 +1217,7 @@ public final class GatherDataEventHandler
         makeCrossbowData(event, config, shouldExecute, textureGenerator);
         makeItemFrameData(event, config, shouldExecute, textureGenerator);
         makeFishingRodData(event, config, shouldExecute, textureGenerator);
+        makeCampfireData(event, config, shouldExecute, textureGenerator);
 
         if (shouldExecute)
         {

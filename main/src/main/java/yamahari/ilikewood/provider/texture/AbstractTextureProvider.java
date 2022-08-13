@@ -22,12 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectType,
-    R extends AbstractILikeWoodObjectRegistry<T, O>>
+public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectType, R extends AbstractILikeWoodObjectRegistry<T, O>>
     implements DataProvider
 {
-    public static final ExistingFileHelper.ResourceType TEXTURE =
-        new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", "textures");
+    public static final ExistingFileHelper.ResourceType TEXTURE = new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", "textures");
 
     public static final String BLOCK_FOLDER = "block";
     public static final String ENTITY_FOLDER = "entity";
@@ -41,6 +39,27 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
     private final DataGenerator generator;
     private final ExistingFileHelper helper;
     private final String folder;
+    private final boolean runOnce;
+
+    public AbstractTextureProvider(
+        final DataGenerator generator,
+        final String folder,
+        final ExistingFileHelper helper,
+        final String root,
+        final O objectType,
+        final R objectRegistry,
+        final boolean runOnce
+    )
+    {
+        this.generator = generator;
+        this.folder = folder;
+        this.helper = helper;
+        this.root = root;
+        this.objectType = objectType;
+        this.factory = location -> new TextureBuilder(location, helper);
+        this.objectRegistry = objectRegistry;
+        this.runOnce = runOnce;
+    }
 
     public AbstractTextureProvider(
         final DataGenerator generator,
@@ -51,16 +70,12 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         final R objectRegistry
     )
     {
-        this.generator = generator;
-        this.folder = folder;
-        this.helper = helper;
-        this.root = root;
-        this.objectType = objectType;
-        this.factory = location -> new TextureBuilder(location, helper);
-        this.objectRegistry = objectRegistry;
+        this(generator, folder, helper, root, objectType, objectRegistry, false);
     }
 
-    private Map<Integer, Integer> createColorMap(final IWoodType woodType) {
+
+    private Map<Integer, Integer> createColorMap(final IWoodType woodType)
+    {
         final Map<Integer, Integer> colorMap = new HashMap<>();
 
         final int[] spruceColors = VanillaWoodTypes.SPRUCE.getColors().colors();
@@ -74,9 +89,8 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         return Collections.unmodifiableMap(colorMap);
     }
 
-    protected Function<NativeImage, NativeImage> createColorMapTransformer(final IWoodType woodType) {
-        final Map<Integer, Integer> colorMap = createColorMap(woodType);
-
+    protected Function<NativeImage, NativeImage> createColorMapTransformer(final Map<Integer, Integer> colorMap)
+    {
         return image ->
         {
             final NativeImage result = new NativeImage(image.getWidth(), image.getHeight(), true);
@@ -96,7 +110,34 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         };
     }
 
-    protected NativeImage postTransformer(final NativeImage image) {
+    protected Function<NativeImage, NativeImage> createColorMapTransformer2(final Map<Integer, Integer> colorMap)
+    {
+        return image ->
+        {
+            final NativeImage result = new NativeImage(image.getWidth(), image.getHeight(), true);
+            result.copyFrom(image);
+            for (int y = 0; y < image.getHeight(); ++y)
+            {
+                for (int x = 0; x < image.getWidth(); ++x)
+                {
+                    final int rgba = image.getPixelRGBA(x, y);
+                    if (colorMap.containsKey(rgba))
+                    {
+                        result.setPixelRGBA(x, y, colorMap.get(rgba));
+                    }
+                }
+            }
+            return result;
+        };
+    }
+
+    protected Function<NativeImage, NativeImage> createColorMapTransformer(final IWoodType woodType)
+    {
+        return createColorMapTransformer(createColorMap(woodType));
+    }
+
+    protected NativeImage postTransformer(final NativeImage image)
+    {
         Preconditions.checkArgument(image.getWidth() == 16);
         Preconditions.checkArgument(image.getHeight() % image.getWidth() == 0);
 
@@ -116,10 +157,7 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
             {
                 for (int x = 0; x < paste.getWidth(); ++x)
                 {
-                    result.setPixelRGBA(paste.getX() + x,
-                        i * 16 + paste.getY() + y,
-                        copy.getPixelRGBA(copy.getWidth() - x - 1, copy.getHeight() - y - 1)
-                    );
+                    result.setPixelRGBA(paste.getX() + x, i * 16 + paste.getY() + y, copy.getPixelRGBA(copy.getWidth() - x - 1, copy.getHeight() - y - 1));
                 }
             }
 
@@ -160,7 +198,12 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         return result;
     }
 
-    private NativeImage copyRect(final NativeImage image, final int i, final Rect2i cut) {
+    private NativeImage copyRect(
+        final NativeImage image,
+        final int i,
+        final Rect2i cut
+    )
+    {
         final NativeImage copy = new NativeImage(cut.getWidth(), cut.getHeight(), true);
 
         for (int y = 0; y < cut.getHeight(); ++y)
@@ -174,14 +217,16 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         return copy;
     }
 
-    public TextureBuilder getBuilder(String path) {
+    public TextureBuilder getBuilder(String path)
+    {
         Preconditions.checkNotNull(path, "Path must not be null");
         ResourceLocation outputLoc = extendWithFolder(path.contains(":") ? mcLoc(path) : modLoc(path));
         this.helper.trackGenerated(outputLoc, TEXTURE);
         return this.generatedTextures.computeIfAbsent(outputLoc, this.factory);
     }
 
-    private ResourceLocation extendWithFolder(ResourceLocation rl) {
+    private ResourceLocation extendWithFolder(ResourceLocation rl)
+    {
         if (rl.getPath().contains("/"))
         {
             return rl;
@@ -189,33 +234,53 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         return new ResourceLocation(rl.getNamespace(), this.folder + "/" + rl.getPath());
     }
 
-    public TextureBuilder withExistingParent(final String name, final String parent) {
+    public TextureBuilder withExistingParent(
+        final String name,
+        final String parent
+    )
+    {
         return withExistingParent(name, mcLoc(parent));
     }
 
-    public TextureBuilder withExistingParent(final String name, final ResourceLocation parent) {
+    public TextureBuilder withExistingParent(
+        final String name,
+        final ResourceLocation parent
+    )
+    {
         return this.getBuilder(name).parent(getExistingFile(parent));
     }
 
-    public TextureFile.ExistingTextureFile getExistingFile(ResourceLocation path) {
-        final TextureFile.ExistingTextureFile file = new TextureFile.ExistingTextureFile(extendWithFolder(path),
-            helper
-        );
+    public TextureFile.ExistingTextureFile getExistingFile(ResourceLocation path)
+    {
+        final TextureFile.ExistingTextureFile file = new TextureFile.ExistingTextureFile(extendWithFolder(path), helper);
         file.assertExistence();
         return file;
     }
 
-    public ResourceLocation modLoc(final String name) {
+    public ResourceLocation modLoc(final String name)
+    {
         return new ResourceLocation(Constants.MOD_ID, name);
     }
 
-    public ResourceLocation mcLoc(final String name) {
+    public ResourceLocation mcLoc(final String name)
+    {
         return new ResourceLocation(name);
     }
 
     @Override
-    public void run(@Nonnull final CachedOutput cache) throws IOException {
-        this.objectRegistry.getObjects(this.objectType).forEach(this::createTexture);
+    public void run(@Nonnull final CachedOutput cache)
+        throws
+        IOException
+    {
+        // TODO hacky workaround for bad design
+        if (this.runOnce)
+        {
+            this.createTexture(null);
+        }
+        else
+        {
+            this.objectRegistry.getObjects(this.objectType).forEach(this::createTexture);
+        }
 
         for (final TextureBuilder builder : this.generatedTextures.values())
         {
@@ -225,7 +290,8 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
 
     @Nonnull
     @Override
-    public String getName() {
+    public String getName()
+    {
         return String.format("%s - textures - %s", Constants.MOD_ID, this.objectType.getName());
     }
 
