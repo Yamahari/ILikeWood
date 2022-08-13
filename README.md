@@ -1,4 +1,4 @@
-# ILikeWood-1.18.1
+# ILikeWood-1.19
 
 This mod adds wood variants for blocks that should have one but don't.
 
@@ -45,12 +45,12 @@ yourname.yourmod.plugin
 |
 +--- yourname.yourmod.plugin.util
 |   |
-|   +--- yourname.plugin.util.resources
+|   +--- yourname.yourmod.plugin.util.resources
 |       |
-|       +--- yourname.plugin.util.resources.WoodenLogResource
-|       +--- yourname.plugin.util.resources.WoodenPlanksResource
-|       +--- yourname.plugin.util.resources.WoodenSlabResource
-|       +--- yourname.plugin.util.resources.WoodenStrippedLogResource
+|       +--- yourname.yourmod.plugin.util.resources.WoodenLogResource
+|       +--- yourname.yourmod.plugin.util.resources.WoodenPlanksResource
+|       +--- yourname.yourmod.plugin.util.resources.WoodenSlabResource
+|       +--- yourname.yourmod.plugin.util.resources.WoodenStrippedLogResource
 |
 +--- yourname.yourmod.plugin.MyModPlugin
 +--- yourname.yourmod.plugin.MyModWoodenItemTiers
