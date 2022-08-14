@@ -3,7 +3,6 @@ package yamahari.ilikewood.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -18,15 +17,18 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nullable;
 
-public final class WoodenScaffoldingItem extends WoodenBlockItem
+public final class WoodenScaffoldingItem
+    extends WoodenBlockItem
 {
-    public WoodenScaffoldingItem(final Block block) {
+    public WoodenScaffoldingItem(final Block block)
+    {
         super(WoodenBlockType.SCAFFOLDING, block, new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS));
     }
 
     @Nullable
     @Override
-    public BlockPlaceContext updatePlacementContext(final BlockPlaceContext context) {
+    public BlockPlaceContext updatePlacementContext(final BlockPlaceContext context)
+    {
         final BlockPos pos = context.getClickedPos();
         final Level world = context.getLevel();
         BlockState state = world.getBlockState(pos);
@@ -47,8 +49,7 @@ public final class WoodenScaffoldingItem extends WoodenBlockItem
             }
 
             int distance = 0;
-            BlockPos.MutableBlockPos mutable = (new BlockPos.MutableBlockPos(pos.getX(), pos.getY(), pos.getZ())).move(
-                direction);
+            BlockPos.MutableBlockPos mutable = (new BlockPos.MutableBlockPos(pos.getX(), pos.getY(), pos.getZ())).move(direction);
 
             while (distance < 7)
             {
@@ -58,8 +59,7 @@ public final class WoodenScaffoldingItem extends WoodenBlockItem
                     final int height = world.getHeight();
                     if (player instanceof ServerPlayer && mutable.getY() >= height)
                     {
-                        ((ServerPlayer) player).sendSystemMessage(Component.translatable("build.tooHigh", height - 1)
-                            .withStyle(ChatFormatting.RED), ChatType.GAME_INFO);
+                        ((ServerPlayer) player).sendSystemMessage(Component.translatable("build.tooHigh", height - 1).withStyle(ChatFormatting.RED), true);
                     }
                     break;
                 }
@@ -83,7 +83,8 @@ public final class WoodenScaffoldingItem extends WoodenBlockItem
     }
 
     @Override
-    protected boolean mustSurvive() {
+    protected boolean mustSurvive()
+    {
         return false;
     }
 }
