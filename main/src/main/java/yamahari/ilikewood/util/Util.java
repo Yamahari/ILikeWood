@@ -11,6 +11,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.IModPlugin;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +25,23 @@ public final class Util
 
     private Util()
     {
+    }
+
+    @Nullable
+    public static String getDataGenModId()
+    {
+        String dataGenModId = null;
+        try
+        {
+            dataGenModId = System.getProperty("ilikewood.datagen.modid");
+
+        }
+        catch (NullPointerException | SecurityException | IllegalArgumentException e)
+        {
+            ILikeWood.LOGGER.error(e.getMessage());
+        }
+
+        return dataGenModId;
     }
 
     public static String toRegistryName(final String... elements)

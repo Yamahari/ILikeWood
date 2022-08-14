@@ -90,8 +90,6 @@ import yamahari.ilikewood.provider.lang.DefaultLanguageProvider;
 import yamahari.ilikewood.provider.lang.PostLanguageProvider;
 import yamahari.ilikewood.provider.lang.TorchLanguageProvider;
 import yamahari.ilikewood.provider.loot.DefaultBlockLootTableProvider;
-import yamahari.ilikewood.provider.particle.ColoredCampfireSmokeParticleProvider;
-import yamahari.ilikewood.provider.particle.ColoredLavaParticleProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.BarrelRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.BedRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.BookshelfRecipeProvider;
@@ -149,9 +147,7 @@ import yamahari.ilikewood.provider.tag.item.TorchItemTagsProvider;
 import yamahari.ilikewood.provider.texture.block.BarrelTextureProvider;
 import yamahari.ilikewood.provider.texture.block.BedTextureProvider;
 import yamahari.ilikewood.provider.texture.block.BookshelfTextureProvider;
-import yamahari.ilikewood.provider.texture.block.CampfireFireTextureProvider;
 import yamahari.ilikewood.provider.texture.block.ChestTextureProvider;
-import yamahari.ilikewood.provider.texture.block.ColoredCampfireSmokeParticleTextureProvider;
 import yamahari.ilikewood.provider.texture.block.ComposterTextureProvider;
 import yamahari.ilikewood.provider.texture.block.LadderTextureProvider;
 import yamahari.ilikewood.provider.texture.block.LecternTextureProvider;
@@ -1152,8 +1148,10 @@ public final class GatherDataEventHandler
         final var generator = makeGenerator(config, Constants.CAMPFIRE_PLURAL, shouldExecute);
         final var helper = event.getExistingFileHelper();
 
-        textureGenerator.addProvider(true, new CampfireFireTextureProvider(textureGenerator, helper));
-        textureGenerator.addProvider(true, new ColoredCampfireSmokeParticleTextureProvider(textureGenerator, helper));
+
+        // TODO add these back when you found a way to make it work with plugin datagen
+        // textureGenerator.addProvider(event.includeClient(), new CampfireFireTextureProvider(textureGenerator, helper));
+        // textureGenerator.addProvider(event.includeClient(), new ColoredCampfireSmokeParticleTextureProvider(textureGenerator, helper));
 
         generator.addProvider(true, new PackMCMetaProvider(generator));
 
@@ -1171,8 +1169,9 @@ public final class GatherDataEventHandler
         generator.addProvider(event.includeClient(), new SoulCampfireBlockItemModelProvider(generator, helper));
         generator.addProvider(event.includeClient(), new CampfireLanguageProvider(generator));
 
-        generator.addProvider(event.includeClient(), new ColoredCampfireSmokeParticleProvider(generator));
-        generator.addProvider(event.includeClient(), new ColoredLavaParticleProvider(generator));
+
+        // generator.addProvider(event.includeClient(), new ColoredCampfireSmokeParticleProvider(generator));
+        // generator.addProvider(event.includeClient(), new ColoredLavaParticleProvider(generator));
     }
 
     @SubscribeEvent
