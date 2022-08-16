@@ -10,7 +10,6 @@ import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
-import yamahari.ilikewood.registry.woodenitemtier.IWoodenItemTier;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
@@ -18,12 +17,15 @@ import yamahari.ilikewood.util.Util;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public abstract class AbstractTieredItemModelProvider extends ItemModelProvider
+public abstract class AbstractTieredItemModelProvider
+    extends ItemModelProvider
 {
     private final WoodenTieredItemType tieredItemType;
 
     public AbstractTieredItemModelProvider(
-        final DataGenerator generator, final ExistingFileHelper helper, final WoodenTieredItemType tieredItemType
+        final DataGenerator generator,
+        final ExistingFileHelper helper,
+        final WoodenTieredItemType tieredItemType
     )
     {
         super(generator, Constants.MOD_ID, helper);
@@ -31,31 +33,37 @@ public abstract class AbstractTieredItemModelProvider extends ItemModelProvider
     }
 
     @Override
-    protected void registerModels() {
+    protected void registerModels()
+    {
         ILikeWood.TIERED_ITEM_REGISTRY.getObjects(this.tieredItemType).forEach(this::registerModel);
     }
 
     protected abstract void registerModel(Item item);
 
-    protected void tieredItem(final Item item, final String path) {
-        final String woodType = ((IWooden) item).getWoodType().getName();
-        final IWoodenItemTier itemTier = ((IWoodenTieredItem) item).getWoodenItemTier();
-        final String tier = itemTier.getName();
-        final boolean isWood = ((IWoodenTieredItem) item).getWoodenItemTier().isWood();
-        this.withExistingParent(
-            Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath(),
-            mcLoc(Util.toPath(ITEM_FOLDER, "handheld"))
-        ).texture("layer0", modLoc(Util.toPath(
-            ITEM_FOLDER,
-            WoodenItemType.STICK.getName(),
-            path + (itemTier.equals(VanillaWoodenItemTiers.NETHERITE) ? "/netherite" : ""),
-            woodType
-        ))).texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/wooden" : ""), tier)));
+    protected void tieredItem(
+        final Item item,
+        final String path
+    )
+    {
+        final var woodType = ((IWooden) item).getWoodType();
+        final var itemTier = ((IWoodenTieredItem) item).getWoodenItemTier();
+        final var tier = itemTier.getName();
+        final var isWood = ((IWoodenTieredItem) item).getWoodenItemTier().isWood();
+        this
+            .withExistingParent(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath(),
+                mcLoc(Util.toPath(ITEM_FOLDER, "handheld"))
+            )
+            .texture(
+                "layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.STICK.getName(), woodType.getModId(),
+                    path + (itemTier.equals(VanillaWoodenItemTiers.NETHERITE) ? "/netherite" : ""), woodType.getName()
+                )))
+            .texture("layer1", modLoc(Util.toPath(ITEM_FOLDER, path + (isWood ? "/" + woodType.getModId() + "/wooden" : ""), tier)));
     }
 
     @Nonnull
     @Override
-    public String getName() {
+    public String getName()
+    {
         return String.format("%s - tiered item models - %s", Constants.MOD_ID, this.tieredItemType.getName());
     }
 }

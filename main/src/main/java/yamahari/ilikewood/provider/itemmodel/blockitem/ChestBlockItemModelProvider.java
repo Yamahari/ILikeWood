@@ -14,22 +14,25 @@ import yamahari.ilikewood.util.Util;
 
 import java.util.Objects;
 
-public final class ChestBlockItemModelProvider extends AbstractBlockItemModelProvider
+public final class ChestBlockItemModelProvider
+    extends AbstractBlockItemModelProvider
 {
-    public ChestBlockItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
+    public ChestBlockItemModelProvider(
+        final DataGenerator generator,
+        final ExistingFileHelper helper
+    )
+    {
         super(generator, helper, WoodenBlockType.CHEST);
     }
 
     @Override
-    protected void registerModel(final Block block) {
+    protected void registerModel(final Block block)
+    {
         final IWoodType woodType = ((IWooden) block).getWoodType();
-        this.getBuilder(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block), "Registry name was null")
-                .getPath())
+        this
+            .getBuilder(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block), "Registry name was null").getPath())
             .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath("builtin", "entity"))))
-            .texture(
-                "particle",
-                ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture()
-            )
+            .texture("particle", ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture())
             .transforms()
             .transform(ItemTransforms.TransformType.GUI)
             .rotation(30, 45, 0)

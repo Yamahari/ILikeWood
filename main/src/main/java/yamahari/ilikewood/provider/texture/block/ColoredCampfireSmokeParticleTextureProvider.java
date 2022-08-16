@@ -9,8 +9,6 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 
-import java.util.Map;
-
 // TODO hacky workaround for bad design
 public class ColoredCampfireSmokeParticleTextureProvider
     extends AbstractBlockTextureProvider
@@ -57,14 +55,14 @@ public class ColoredCampfireSmokeParticleTextureProvider
             16774598
         };
 
-        for (final DyeColor dyeColor : DyeColor.values())
+        for (final var dyeColor : DyeColor.values())
         {
 
-            final Map<Integer, Integer> smokeColorMap = Util.createShadeColorMap(dyeColor, smokeColors);
-            final Map<Integer, Integer> lavaColorMap = Util.createShadeColorMap(dyeColor, lavaColors);
+            final var smokeColorMap = Util.createShadeColorMap(dyeColor, smokeColors);
+            final var lavaColorMap = Util.createShadeColorMap(dyeColor, lavaColors);
 
 
-            for (int i = 0; i < 12; ++i)
+            for (var i = 0; i < 12; ++i)
             {
                 this.withExistingParent(
                     Util.toPath("particle", WoodenBlockType.CAMPFIRE.getName(), "big_smoke", dyeColor.getName(), Integer.toString(i)),

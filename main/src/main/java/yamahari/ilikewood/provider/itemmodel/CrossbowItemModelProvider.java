@@ -13,18 +13,26 @@ import yamahari.ilikewood.util.Util;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-public final class CrossbowItemModelProvider extends AbstractItemModelProvider
+public final class CrossbowItemModelProvider
+    extends AbstractItemModelProvider
 {
-    public CrossbowItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
+    public CrossbowItemModelProvider(
+        final DataGenerator generator,
+        final ExistingFileHelper helper
+    )
+    {
         super(generator, helper, WoodenItemType.CROSSBOW);
     }
 
     @Override
-    protected void registerModel(final Item item) {
-        final String woodType = ((IWooden) item).getWoodType().getName();
-        this.getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath())
+    protected void registerModel(final Item item)
+    {
+        final var woodType = ((IWooden) item).getWoodType();
+        final var name = ((IWooden) item).getWoodType().getName();
+        this
+            .getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath())
             .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
-            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.CROSSBOW.getName(), "standby", woodType)))
+            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.CROSSBOW.getName(), woodType.getModId(), "standby", name)))
             .transforms()
             .transform(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
             .rotation(-90.0F, 0.0F, -60.F)
@@ -49,67 +57,51 @@ public final class CrossbowItemModelProvider extends AbstractItemModelProvider
             .end()
             .override()
             .predicate(mcLoc("pulling"), 1.0F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.CROSSBOW.getName(), "pulling", "0")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", "0")))))
             .end()
             .override()
             .predicate(mcLoc("pulling"), 1.0F)
             .predicate(mcLoc("pull"), 0.58F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.CROSSBOW.getName(), "pulling", "1")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", "1")))))
             .end()
             .override()
             .predicate(mcLoc("pulling"), 1.0F)
             .predicate(mcLoc("pull"), 1.0F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.CROSSBOW.getName(), "pulling", "2")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", "2")))))
             .end()
             .override()
             .predicate(mcLoc("charged"), 1.0F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.CROSSBOW.getName(), "arrow")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "arrow")))))
             .end()
             .override()
             .predicate(mcLoc("charged"), 1.0F)
             .predicate(mcLoc("firework"), 1.0F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.CROSSBOW.getName(), "firework")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "firework")))))
             .end();
 
-        IntStream.range(0, 3).forEach(i -> this.getBuilder(Util.toRegistryName(woodType,
-                WoodenItemType.CROSSBOW.getName(),
-                "pulling",
-                Integer.toString(i)
-            ))
-            .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()
-            ))))
-            .texture("layer0",
-                modLoc(Util.toPath(ITEM_FOLDER,
-                    WoodenItemType.CROSSBOW.getName(),
-                    "pulling",
-                    Integer.toString(i),
-                    woodType
-                ))
-            ));
+        IntStream
+            .range(0, 3)
+            .forEach(i -> this
+                .getBuilder(Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", Integer.toString(i)))
+                .parent(new ModelFile.UncheckedModelFile(
+                    modLoc(Util.toPath(ITEM_FOLDER, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()))))
+                .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.CROSSBOW.getName(), woodType.getModId(), "pulling", Integer.toString(i), name))));
 
-        this.getBuilder(Util.toRegistryName(woodType, WoodenItemType.CROSSBOW.getName(), "arrow"))
-            .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()
-            ))))
-            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.CROSSBOW.getName(), "arrow", woodType)));
+        this
+            .getBuilder(Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "arrow"))
+            .parent(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()))))
+            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.CROSSBOW.getName(), woodType.getModId(), "arrow", name)));
 
-        this.getBuilder(Util.toRegistryName(woodType, WoodenItemType.CROSSBOW.getName(), "firework"))
-            .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()
-            ))))
-            .texture("layer0",
-                modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.CROSSBOW.getName(), "firework", woodType))
-            );
+        this
+            .getBuilder(Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "firework"))
+            .parent(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()))))
+            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.CROSSBOW.getName(), woodType.getModId(), "firework", name)));
     }
 }

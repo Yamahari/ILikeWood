@@ -5,13 +5,20 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 
-public final class ShovelTieredItemModelProvider extends AbstractTieredItemModelProvider {
-    public ShovelTieredItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
+public final class ShovelTieredItemModelProvider
+    extends AbstractTieredItemModelProvider
+{
+    public ShovelTieredItemModelProvider(
+        final DataGenerator generator,
+        final ExistingFileHelper helper
+    )
+    {
         super(generator, helper, WoodenTieredItemType.SHOVEL);
     }
 
     @Override
-    protected void registerModel(final Item item) {
+    protected void registerModel(final Item item)
+    {
         this.tieredItem(item, WoodenTieredItemType.SHOVEL.getName());
     }
 }

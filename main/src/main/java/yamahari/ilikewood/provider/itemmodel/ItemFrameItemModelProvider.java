@@ -6,9 +6,10 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
-import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
+
+import java.util.Objects;
 
 public final class ItemFrameItemModelProvider
     extends AbstractItemModelProvider
@@ -24,11 +25,11 @@ public final class ItemFrameItemModelProvider
     @Override
     protected void registerModel(final Item item)
     {
-        final IWoodType woodType = ((IWooden) item).getWoodType();
+        final var woodType = ((IWooden) item).getWoodType();
 
         this
-            .getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath())
+            .getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath())
             .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
-            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.ITEM_FRAME.getName(), woodType.getName())));
+            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.ITEM_FRAME.getName(), woodType.getModId(), woodType.getName())));
     }
 }

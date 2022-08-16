@@ -20,38 +20,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public final class Atlases {
+public final class Atlases
+{
     private static Map<IWoodType, Map<ChestType, Material>> CHESTS;
 
-    private Atlases() {
+    private Atlases()
+    {
     }
 
-    private static Map<ChestType, Material> makeChestMaterials(final IWoodType woodType) {
+    private static Map<ChestType, Material> makeChestMaterials(final IWoodType woodType)
+    {
         final EnumMap<ChestType, Material> materials = new EnumMap<>(ChestType.class);
-        for (final ChestType chestType : ChestType.values()) {
-            materials.put(
-                chestType,
-                new Material(
-                    net.minecraft.client.renderer.Sheets.CHEST_SHEET,
-                    new ResourceLocation(
-                        Constants.MOD_ID,
-                        Util.toPath("entity", "chest", chestType.getSerializedName(), woodType.getName())
-                    )
-                )
-            );
+        for (final var chestType : ChestType.values())
+        {
+            materials.put(chestType, new Material(
+                net.minecraft.client.renderer.Sheets.CHEST_SHEET,
+                new ResourceLocation(Constants.MOD_ID, Util.toPath("entity", "chest", woodType.getModId(), chestType.getSerializedName(), woodType.getName()))
+            ));
         }
         return materials;
     }
 
-    public static Map<ChestType, Material> getChestMaterials(final IWoodType woodType) {
+    public static Map<ChestType, Material> getChestMaterials(final IWoodType woodType)
+    {
         return CHESTS.get(woodType);
     }
 
     @SubscribeEvent
-    public static void onTextureStitchPre(final TextureStitchEvent.Pre event) {
+    public static void onTextureStitchPre(final TextureStitchEvent.Pre event)
+    {
         final Map<IWoodType, Map<ChestType, Material>> chests = new HashMap<>();
 
-        if (ILikeWoodConfig.CHESTS_CONFIG.isEnabled()) {
+        if (ILikeWoodConfig.CHESTS_CONFIG.isEnabled())
+        {
             ILikeWood.WOOD_TYPE_REGISTRY
                 .getWoodTypes()
                 .filter(woodType -> woodType.getBlockTypes().contains(WoodenBlockType.CHEST))

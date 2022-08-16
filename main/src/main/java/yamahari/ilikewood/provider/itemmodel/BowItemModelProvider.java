@@ -13,18 +13,26 @@ import yamahari.ilikewood.util.Util;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-public final class BowItemModelProvider extends AbstractItemModelProvider
+public final class BowItemModelProvider
+    extends AbstractItemModelProvider
 {
-    public BowItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
+    public BowItemModelProvider(
+        final DataGenerator generator,
+        final ExistingFileHelper helper
+    )
+    {
         super(generator, helper, WoodenItemType.BOW);
     }
 
     @Override
-    protected void registerModel(final Item item) {
-        final String woodType = ((IWooden) item).getWoodType().getName();
-        this.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath())
+    protected void registerModel(final Item item)
+    {
+        final var woodType = ((IWooden) item).getWoodType();
+        final var name = woodType.getName();
+        this
+            .getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath())
             .parent(new ModelFile.UncheckedModelFile(mcLoc(Util.toPath(ITEM_FOLDER, "generated"))))
-            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.BOW.getName(), woodType)))
+            .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.BOW.getName(), woodType.getModId(), name)))
             .transforms()
             .transform(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
             .rotation(-80.0F, 260.0F, -40.F)
@@ -49,35 +57,28 @@ public final class BowItemModelProvider extends AbstractItemModelProvider
             .end()
             .override()
             .predicate(mcLoc("pulling"), 1.0F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.BOW.getName(), "pulling", "0")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", "0")))))
             .end()
             .override()
             .predicate(mcLoc("pulling"), 1.0F)
             .predicate(mcLoc("pull"), 0.65F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.BOW.getName(), "pulling", "1")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", "1")))))
             .end()
             .override()
             .predicate(mcLoc("pulling"), 1.0F)
             .predicate(mcLoc("pull"), 0.9F)
-            .model(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Util.toRegistryName(woodType, WoodenItemType.BOW.getName(), "pulling", "2")
-            ))))
+            .model(new ModelFile.UncheckedModelFile(
+                modLoc(Util.toPath(ITEM_FOLDER, Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", "2")))))
             .end();
 
-        IntStream.range(0, 3).forEach(i -> this.getBuilder(Util.toRegistryName(woodType,
-                WoodenItemType.BOW.getName(),
-                "pulling",
-                Integer.toString(i)
-            ))
-            .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(ITEM_FOLDER,
-                Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()
-            ))))
-            .texture("layer0",
-                modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.BOW.getName(), "pulling", Integer.toString(i), woodType))
-            ));
+        IntStream
+            .range(0, 3)
+            .forEach(i -> this
+                .getBuilder(Util.toRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), "pulling", Integer.toString(i)))
+                .parent(new ModelFile.UncheckedModelFile(
+                    modLoc(Util.toPath(ITEM_FOLDER, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item), "Registry name was null").getPath()))))
+                .texture("layer0", modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.BOW.getName(), woodType.getModId(), "pulling", Integer.toString(i), name))));
     }
 }

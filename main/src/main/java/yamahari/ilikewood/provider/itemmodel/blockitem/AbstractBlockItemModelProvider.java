@@ -15,12 +15,15 @@ import yamahari.ilikewood.util.Util;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public abstract class AbstractBlockItemModelProvider extends ItemModelProvider
+public abstract class AbstractBlockItemModelProvider
+    extends ItemModelProvider
 {
     private final WoodenBlockType blockType;
 
     public AbstractBlockItemModelProvider(
-        final DataGenerator generator, final ExistingFileHelper helper, final WoodenBlockType blockType
+        final DataGenerator generator,
+        final ExistingFileHelper helper,
+        final WoodenBlockType blockType
     )
     {
         super(generator, Constants.MOD_ID, helper);
@@ -28,8 +31,9 @@ public abstract class AbstractBlockItemModelProvider extends ItemModelProvider
     }
 
     @Override
-    protected void registerModels() {
-        if (blockType == WoodenBlockType.WHITE_BED)
+    protected void registerModels()
+    {
+        if (this.blockType == WoodenBlockType.WHITE_BED)
         {
             ILikeWood.BLOCK_REGISTRY.getObjects(WoodenBlockType.getBeds()).forEach(this::registerModel);
         }
@@ -41,15 +45,21 @@ public abstract class AbstractBlockItemModelProvider extends ItemModelProvider
 
     protected abstract void registerModel(Block block);
 
-    protected void blockItem(final Block block, final String path) {
-        final String woodType = ((IWooden) block).getWoodType().getName();
-        this.getBuilder(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block), "Registry name was null.")
-            .getPath()).parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, woodType))));
+    protected void blockItem(
+        final Block block,
+        final String path
+    )
+    {
+        final var woodType = ((IWooden) block).getWoodType().getName();
+        this
+            .getBuilder(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block), "Registry name was null.").getPath())
+            .parent(new ModelFile.UncheckedModelFile(modLoc(Util.toPath(BLOCK_FOLDER, path, woodType))));
     }
 
     @Nonnull
     @Override
-    public String getName() {
+    public String getName()
+    {
         return String.format("%s - block item models - %s", Constants.MOD_ID, this.blockType.getName());
     }
 }

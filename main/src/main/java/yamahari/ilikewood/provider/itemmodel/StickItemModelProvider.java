@@ -8,19 +8,26 @@ import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
-public final class StickItemModelProvider extends AbstractItemModelProvider
+import java.util.Objects;
+
+public final class StickItemModelProvider
+    extends AbstractItemModelProvider
 {
-    public StickItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper) {
+    public StickItemModelProvider(
+        final DataGenerator generator,
+        final ExistingFileHelper helper
+    )
+    {
         super(generator, helper, WoodenItemType.STICK);
     }
 
     @Override
-    protected void registerModel(final Item item) {
-        this.singleTexture(
-            ForgeRegistries.ITEMS.getKey(item).getPath(),
-            mcLoc(Util.toPath(ITEM_FOLDER, "handheld")),
-            "layer0",
-            modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.STICK.getName(), ((IWooden) item).getWoodType().getName()))
+    protected void registerModel(final Item item)
+    {
+        final var woodType = ((IWooden) item).getWoodType();
+
+        this.singleTexture(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath(), mcLoc(Util.toPath(ITEM_FOLDER, "handheld")), "layer0",
+            modLoc(Util.toPath(ITEM_FOLDER, WoodenItemType.STICK.getName(), woodType.getModId(), woodType.getName()))
         );
     }
 }

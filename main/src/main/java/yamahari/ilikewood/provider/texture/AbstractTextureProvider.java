@@ -78,10 +78,10 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
     {
         final Map<Integer, Integer> colorMap = new HashMap<>();
 
-        final int[] spruceColors = VanillaWoodTypes.SPRUCE.getColors().colors();
-        final int[] colors = woodType.getColors().colors();
+        final var spruceColors = VanillaWoodTypes.SPRUCE.getColors().colors();
+        final var colors = woodType.getColors().colors();
 
-        for (int i = 0; i < 8; ++i)
+        for (var i = 0; i < 8; ++i)
         {
             colorMap.put(spruceColors[i], colors[i]);
         }
@@ -93,34 +93,13 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
     {
         return image ->
         {
-            final NativeImage result = new NativeImage(image.getWidth(), image.getHeight(), true);
+            final var result = new NativeImage(image.getWidth(), image.getHeight(), true);
             result.copyFrom(image);
-            for (int y = 0; y < image.getHeight(); ++y)
+            for (var y = 0; y < image.getHeight(); ++y)
             {
-                for (int x = 0; x < image.getWidth(); ++x)
+                for (var x = 0; x < image.getWidth(); ++x)
                 {
-                    final int rgba = image.getPixelRGBA(x, y);
-                    if (colorMap.containsKey(rgba))
-                    {
-                        result.setPixelRGBA(x, y, colorMap.get(rgba));
-                    }
-                }
-            }
-            return result;
-        };
-    }
-
-    protected Function<NativeImage, NativeImage> createColorMapTransformer2(final Map<Integer, Integer> colorMap)
-    {
-        return image ->
-        {
-            final NativeImage result = new NativeImage(image.getWidth(), image.getHeight(), true);
-            result.copyFrom(image);
-            for (int y = 0; y < image.getHeight(); ++y)
-            {
-                for (int x = 0; x < image.getWidth(); ++x)
-                {
-                    final int rgba = image.getPixelRGBA(x, y);
+                    final var rgba = image.getPixelRGBA(x, y);
                     if (colorMap.containsKey(rgba))
                     {
                         result.setPixelRGBA(x, y, colorMap.get(rgba));
@@ -141,21 +120,21 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         Preconditions.checkArgument(image.getWidth() == 16);
         Preconditions.checkArgument(image.getHeight() % image.getWidth() == 0);
 
-        final NativeImage result = new NativeImage(image.getWidth(), image.getHeight(), true);
+        final var result = new NativeImage(image.getWidth(), image.getHeight(), true);
         result.copyFrom(image);
 
-        final int di = image.getHeight() / image.getWidth();
-        for (int i = 0; i < di; ++i)
+        final var di = image.getHeight() / image.getWidth();
+        for (var i = 0; i < di; ++i)
         {
-            Rect2i cut = new Rect2i(0, 12, 8, 4);
+            var cut = new Rect2i(0, 12, 8, 4);
             NativeImage copy;
             copy = copyRect(image, i, cut);
 
-            final Rect2i paste = new Rect2i(8, 0, 8, 4);
+            final var paste = new Rect2i(8, 0, 8, 4);
 
-            for (int y = 0; y < paste.getHeight(); ++y)
+            for (var y = 0; y < paste.getHeight(); ++y)
             {
-                for (int x = 0; x < paste.getWidth(); ++x)
+                for (var x = 0; x < paste.getWidth(); ++x)
                 {
                     result.setPixelRGBA(paste.getX() + x, i * 16 + paste.getY() + y, copy.getPixelRGBA(copy.getWidth() - x - 1, copy.getHeight() - y - 1));
                 }
@@ -164,9 +143,9 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
             cut = new Rect2i(0, 0, 16, 4);
             copy = copyRect(result, i, cut);
 
-            for (int y = 0; y < cut.getHeight(); ++y)
+            for (var y = 0; y < cut.getHeight(); ++y)
             {
-                for (int x = 0; x < cut.getWidth(); ++x)
+                for (var x = 0; x < cut.getWidth(); ++x)
                 {
                     final int color = copy.getPixelRGBA(x, y);
                     result.setPixelRGBA(15 - y, i * 16 + x, color);
@@ -175,17 +154,17 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
                 }
             }
 
-            for (int y = 4; y < 12; ++y)
+            for (var y = 4; y < 12; ++y)
             {
-                for (int x = 4; x < 12; ++x)
+                for (var x = 4; x < 12; ++x)
                 {
                     result.setPixelRGBA(x, i * 16 + y, 0x00000000);
                 }
             }
 
-            for (int y = 0; y < 4; ++y)
+            for (var y = 0; y < 4; ++y)
             {
-                for (int x = 0; x < 4; ++x)
+                for (var x = 0; x < 4; ++x)
                 {
                     result.setPixelRGBA(x, i * 16 + y, 0x00000000);
                     result.setPixelRGBA(12 + x, i * 16 + y, 0x00000000);
@@ -204,11 +183,11 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
         final Rect2i cut
     )
     {
-        final NativeImage copy = new NativeImage(cut.getWidth(), cut.getHeight(), true);
+        final var copy = new NativeImage(cut.getWidth(), cut.getHeight(), true);
 
-        for (int y = 0; y < cut.getHeight(); ++y)
+        for (var y = 0; y < cut.getHeight(); ++y)
         {
-            for (int x = 0; x < cut.getWidth(); ++x)
+            for (var x = 0; x < cut.getWidth(); ++x)
             {
                 copy.setPixelRGBA(x, y, image.getPixelRGBA(cut.getX() + x, i * 16 + cut.getY() + y));
             }
@@ -220,7 +199,7 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
     public TextureBuilder getBuilder(String path)
     {
         Preconditions.checkNotNull(path, "Path must not be null");
-        ResourceLocation outputLoc = extendWithFolder(path.contains(":") ? mcLoc(path) : modLoc(path));
+        final var outputLoc = extendWithFolder(path.contains(":") ? mcLoc(path) : modLoc(path));
         this.helper.trackGenerated(outputLoc, TEXTURE);
         return this.generatedTextures.computeIfAbsent(outputLoc, this.factory);
     }
@@ -252,7 +231,7 @@ public abstract class AbstractTextureProvider<T, O extends AbstractWoodenObjectT
 
     public TextureFile.ExistingTextureFile getExistingFile(ResourceLocation path)
     {
-        final TextureFile.ExistingTextureFile file = new TextureFile.ExistingTextureFile(extendWithFolder(path), helper);
+        final var file = new TextureFile.ExistingTextureFile(extendWithFolder(path), helper);
         file.assertExistence();
         return file;
     }

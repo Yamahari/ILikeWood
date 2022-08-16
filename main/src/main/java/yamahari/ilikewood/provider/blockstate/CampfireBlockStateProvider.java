@@ -1,7 +1,6 @@
 package yamahari.ilikewood.provider.blockstate;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CampfireBlock;
@@ -12,8 +11,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenCampfireBlock;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
-import yamahari.ilikewood.registry.resource.resources.IWoodenLogResource;
-import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
@@ -33,22 +30,20 @@ public class CampfireBlockStateProvider
     @Override
     public void registerStateAndModel(final Block block)
     {
-        final IWoodType woodType = ((IWooden) block).getWoodType();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenBlockType.CAMPFIRE.getName());
+        final var woodType = ((IWooden) block).getWoodType();
+        final var path = Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenBlockType.CAMPFIRE.getName());
 
-        final IWoodenLogResource log = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType);
+        final var log = ILikeWood.WOODEN_RESOURCE_REGISTRY.getLog(woodType);
 
-        final ResourceLocation logPileEnd = modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenBlockType.LOG_PILE.getName(), woodType.getName()));
+        final var logPileEnd = modLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, WoodenBlockType.LOG_PILE.getName(), woodType.getModId(), woodType.getName()));
 
         final var off = this
             .models()
-            .withExistingParent(Util.toPath(path, "off", woodType.getName()), modLoc(Util.toPath(path, "off", "template")))
+            .withExistingParent(Util.toPath(path, woodType.getModId(), "off", woodType.getName()), modLoc(Util.toPath(path, "off", "template")))
             .texture("log_pile_end", logPileEnd)
             .texture("log_side", log.getSideTexture());
 
-        final var on = this
-            .models()
-            .withExistingParent(Util.toPath(path, woodType.getName()), modLoc(Util.toPath(path, "template")))
+        final var on = this.models().withExistingParent(Util.toPath(path, woodType.getModId(), woodType.getName()), modLoc(Util.toPath(path, "template")))
             .texture("fire", mcLoc(Util.toPath(ModelProvider.BLOCK_FOLDER, "campfire_fire")))
             .texture("log_pile_end", logPileEnd)
             .texture("log_side", log.getSideTexture())
@@ -58,9 +53,8 @@ public class CampfireBlockStateProvider
 
         for (final DyeColor color : DyeColor.values())
         {
-            colored.put(color, this
-                .models()
-                .withExistingParent(Util.toPath(path, color.getName(), woodType.getName()), modLoc(Util.toPath(path, "template")))
+            colored.put(color,
+                this.models().withExistingParent(Util.toPath(path, woodType.getModId(), color.getName(), woodType.getName()), modLoc(Util.toPath(path, "template")))
                 .texture("fire", modLoc(Util.toPath(path, "fire", color.getName())))
                 .texture("log_pile_end", logPileEnd)
                 .texture("log_side", log.getSideTexture())

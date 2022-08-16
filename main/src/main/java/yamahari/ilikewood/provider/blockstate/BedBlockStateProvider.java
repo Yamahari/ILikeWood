@@ -1,61 +1,63 @@
 package yamahari.ilikewood.provider.blockstate;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.block.WoodenBedBlock;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
-import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
-public final class BedBlockStateProvider extends AbstractBlockStateProvider {
-    public BedBlockStateProvider(final DataGenerator generator, final ExistingFileHelper helper) {
+public final class BedBlockStateProvider
+    extends AbstractBlockStateProvider
+{
+    public BedBlockStateProvider(
+        final DataGenerator generator,
+        final ExistingFileHelper helper
+    )
+    {
         super(generator, helper, WoodenBlockType.WHITE_BED);
     }
 
     @Override
-    public void registerStateAndModel(final Block block) {
-        final IWoodType woodType = ((IWooden) block).getWoodType();
-        final DyeColor color = ((WoodenBedBlock) block).getDyeColor();
-        final String path = Util.toPath(ModelProvider.BLOCK_FOLDER, "bed");
-        final ResourceLocation planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
-        final ResourceLocation frame = modLoc(Util.toPath(path, "frame", woodType.getName()));
-        final ResourceLocation headTop = modLoc(Util.toPath(path, "sheets", "head", "top", color.toString()));
-        final ResourceLocation headSides = modLoc(Util.toPath(path, "sheets", "head", "sides", color.toString()));
-        final ResourceLocation footTop = modLoc(Util.toPath(path, "sheets", "foot", "top", color.toString()));
-        final ResourceLocation footSides = modLoc(Util.toPath(path, "sheets", "foot", "sides", color.toString()));
+    public void registerStateAndModel(final Block block)
+    {
+        final var woodType = ((IWooden) block).getWoodType();
+        final var color = ((WoodenBedBlock) block).getDyeColor();
+        final var path = Util.toPath(ModelProvider.BLOCK_FOLDER, "bed");
+        final var planks = ILikeWood.WOODEN_RESOURCE_REGISTRY.getPlanks(woodType).getTexture();
+        final var frame = modLoc(Util.toPath(path, woodType.getModId(), "frame", woodType.getName()));
+        final var headTop = modLoc(Util.toPath(path, "sheets", "head", "top", color.toString()));
+        final var headSides = modLoc(Util.toPath(path, "sheets", "head", "sides", color.toString()));
+        final var footTop = modLoc(Util.toPath(path, "sheets", "foot", "top", color.toString()));
+        final var footSides = modLoc(Util.toPath(path, "sheets", "foot", "sides", color.toString()));
 
-        final ModelFile head = this
+        final var head = this
             .models()
-            .withExistingParent(Util.toPath(path, "head", color.toString(), woodType.getName()),
-                modLoc(Util.toPath(path, "head", "template")))
+            .withExistingParent(Util.toPath(path, woodType.getModId(), "head", color.toString(), woodType.getName()), modLoc(Util.toPath(path, "head", "template")))
             .texture("planks", planks)
             .texture("frame", frame)
             .texture("top", headTop)
             .texture("sides", headSides);
 
-        final ModelFile foot = this
+        final var foot = this
             .models()
-            .withExistingParent(Util.toPath(path, "foot", color.toString(), woodType.getName()),
-                modLoc(Util.toPath(path, "foot", "template")))
+            .withExistingParent(Util.toPath(path, woodType.getModId(), "foot", color.toString(), woodType.getName()), modLoc(Util.toPath(path, "foot", "template")))
             .texture("planks", planks)
             .texture("frame", frame)
             .texture("top", footTop)
             .texture("sides", footSides);
 
-        final ModelFile inventory = this
+        this
             .models()
-            .withExistingParent(Util.toPath(path, "inventory", color.toString(), woodType.getName()),
-                modLoc(Util.toPath(path, "inventory", "template")))
+            .withExistingParent(Util.toPath(path, woodType.getModId(), "inventory", color.toString(), woodType.getName()),
+                modLoc(Util.toPath(path, "inventory", "template"))
+            )
             .texture("planks", planks)
             .texture("frame", frame)
             .texture("head_top", headTop)

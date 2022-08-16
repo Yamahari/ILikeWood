@@ -8,8 +8,6 @@ import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.Util;
 
-import java.util.Map;
-
 public class CampfireFireTextureProvider
     extends AbstractBlockTextureProvider
 {
@@ -36,15 +34,15 @@ public class CampfireFireTextureProvider
         };
 
 
-        for (final DyeColor dyeColor : DyeColor.values())
+        for (final var dyeColor : DyeColor.values())
         {
-            final Map<Integer, Integer> fireColorMap = Util.createShadeColorMap(dyeColor, fireColors);
+            final var fireColorMap = Util.createShadeColorMap(dyeColor, fireColors);
 
             this
                 .withExistingParent(Util.toPath(BLOCK_FOLDER, WoodenBlockType.CAMPFIRE.getName(), "fire", dyeColor.getName()),
                     mcLoc(Util.toPath(BLOCK_FOLDER, "campfire_fire"))
                 )
-                .transform(createColorMapTransformer2(fireColorMap))
+                .transform(createColorMapTransformer(fireColorMap))
                 .animate(false, 2);
 
             this.withExistingParent(

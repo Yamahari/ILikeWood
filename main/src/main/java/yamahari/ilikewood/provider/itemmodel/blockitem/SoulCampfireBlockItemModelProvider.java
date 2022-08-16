@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
+import yamahari.ilikewood.util.IWooden;
 import yamahari.ilikewood.util.Util;
 
 public class SoulCampfireBlockItemModelProvider
@@ -20,6 +21,6 @@ public class SoulCampfireBlockItemModelProvider
     @Override
     protected void registerModel(final Block block)
     {
-        this.blockItem(block, Util.toPath(WoodenBlockType.CAMPFIRE.getName(), "soul"));
+        this.blockItem(block, Util.toPath(WoodenBlockType.CAMPFIRE.getName(), "soul", ((IWooden) block).getWoodType().getModId()));
     }
 }

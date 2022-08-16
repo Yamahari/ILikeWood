@@ -10,17 +10,24 @@ import yamahari.ilikewood.util.Constants;
 
 import javax.annotation.Nonnull;
 
-public abstract class AbstractItemModelProvider extends ItemModelProvider {
+public abstract class AbstractItemModelProvider
+    extends ItemModelProvider
+{
     private final WoodenItemType itemType;
 
-    public AbstractItemModelProvider(final DataGenerator generator, final ExistingFileHelper helper,
-                                     final WoodenItemType itemType) {
+    public AbstractItemModelProvider(
+        final DataGenerator generator,
+        final ExistingFileHelper helper,
+        final WoodenItemType itemType
+    )
+    {
         super(generator, Constants.MOD_ID, helper);
         this.itemType = itemType;
     }
 
     @Override
-    protected void registerModels() {
+    protected void registerModels()
+    {
         ILikeWood.ITEM_REGISTRY.getObjects(this.itemType).forEach(this::registerModel);
     }
 
@@ -28,7 +35,8 @@ public abstract class AbstractItemModelProvider extends ItemModelProvider {
 
     @Nonnull
     @Override
-    public String getName() {
+    public String getName()
+    {
         return String.format("%s - item models - %s", Constants.MOD_ID, this.itemType.getName());
     }
 }
