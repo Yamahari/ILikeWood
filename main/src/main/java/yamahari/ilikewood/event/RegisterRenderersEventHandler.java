@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.blockentity.LecternRenderer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.renderer.entity.WoodenChairEntityRenderer;
 import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
+import yamahari.ilikewood.client.renderer.entity.WoodenPaintingRenderer;
 import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
 import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
 import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
@@ -63,6 +65,13 @@ public final class RegisterRenderersEventHandler
         if (ILikeWoodConfig.CAMPFIRE_CONFIG.isEnabled())
         {
             event.registerBlockEntityRenderer((BlockEntityType<? extends CampfireBlockEntity>) WoodenTileEntityTypes.WOODEN_CAMPFIRE.get(), CampfireRenderer::new);
+        }
+
+        if (ILikeWoodConfig.PAINTING_CONFIG.isEnabled())
+        {
+            ILikeWood.ENTITY_TYPE_REGISTRY
+                .getObjects(WoodenEntityType.PAINTING)
+                .forEach(type -> event.registerEntityRenderer((EntityType<? extends Painting>) type, WoodenPaintingRenderer::new));
         }
     }
 }

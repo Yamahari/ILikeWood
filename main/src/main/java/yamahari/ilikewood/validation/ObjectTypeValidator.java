@@ -62,6 +62,7 @@ public final class ObjectTypeValidator
         dependencies.put(WoodenItemType.CROSSBOW, DEPENDS_ON_STICKS);
         dependencies.put(WoodenItemType.FISHING_ROD, DEPENDS_ON_STICKS);
         dependencies.put(WoodenItemType.ITEM_FRAME, Collections.singletonList(Sets.newHashSet(WoodenItemType.STICK, WoodenEntityType.ITEM_FRAME)));
+        dependencies.put(WoodenItemType.PAINTING, Collections.singletonList(Sets.newHashSet(WoodenItemType.STICK, WoodenEntityType.PAINTING)));
 
         dependencies.put(WoodenTieredItemType.AXE, DEPENDS_ON_STICKS_AND_PANELS);
         dependencies.put(WoodenTieredItemType.HOE, DEPENDS_ON_STICKS_AND_PANELS);
@@ -72,6 +73,7 @@ public final class ObjectTypeValidator
 
         dependencies.put(WoodenEntityType.CHAIR, List.of(Sets.newHashSet(WoodenBlockType.CHAIR), Sets.newHashSet(WoodenBlockType.STOOL)));
         dependencies.put(WoodenEntityType.ITEM_FRAME, Collections.singletonList(Sets.newHashSet(WoodenItemType.ITEM_FRAME)));
+        dependencies.put(WoodenEntityType.PAINTING, Collections.singletonList(Sets.newHashSet(WoodenItemType.PAINTING)));
 
         DEPENDENCIES = Collections.unmodifiableMap(dependencies);
     }

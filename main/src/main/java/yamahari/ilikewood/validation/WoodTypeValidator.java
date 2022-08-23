@@ -63,6 +63,7 @@ public final class WoodTypeValidator
         resourceRequirements.put(WoodenItemType.CROSSBOW, REQUIRES_NONE);
         resourceRequirements.put(WoodenItemType.FISHING_ROD, REQUIRES_NONE);
         resourceRequirements.put(WoodenItemType.ITEM_FRAME, REQUIRES_PLANKS);
+        resourceRequirements.put(WoodenItemType.PAINTING, REQUIRES_PLANKS);
 
         resourceRequirements.put(WoodenTieredItemType.AXE, REQUIRES_NONE);
         resourceRequirements.put(WoodenTieredItemType.HOE, REQUIRES_NONE);
@@ -72,6 +73,7 @@ public final class WoodTypeValidator
 
         resourceRequirements.put(WoodenEntityType.ITEM_FRAME, REQUIRES_NONE);
         resourceRequirements.put(WoodenEntityType.CHAIR, REQUIRES_NONE);
+        resourceRequirements.put(WoodenEntityType.PAINTING, REQUIRES_NONE);
 
         RESOURCE_REQUIREMENTS = Collections.unmodifiableMap(resourceRequirements);
     }

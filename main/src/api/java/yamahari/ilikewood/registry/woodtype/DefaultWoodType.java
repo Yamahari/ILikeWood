@@ -77,6 +77,7 @@ public final class DefaultWoodType implements IWoodType {
         properties.put(WoodenItemType.CROSSBOW, new Properties(300));
         properties.put(WoodenItemType.FISHING_ROD, new Properties(300));
         properties.put(WoodenItemType.ITEM_FRAME, new Properties(-1));
+        properties.put(WoodenItemType.PAINTING, new Properties(-1));
 
         return properties;
     }

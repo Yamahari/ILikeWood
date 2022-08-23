@@ -21,6 +21,7 @@ import yamahari.ilikewood.registry.ILikeWoodBlockRegistry;
 import yamahari.ilikewood.registry.ILikeWoodContainerRegistry;
 import yamahari.ilikewood.registry.ILikeWoodEntityTypeRegistry;
 import yamahari.ilikewood.registry.ILikeWoodItemRegistry;
+import yamahari.ilikewood.registry.ILikeWoodPaintingRegistry;
 import yamahari.ilikewood.registry.ILikeWoodParticleTypeRegistry;
 import yamahari.ilikewood.registry.ILikeWoodRecipeSerializerRegistry;
 import yamahari.ilikewood.registry.ILikeWoodRecipeTypeRegister;
@@ -92,6 +93,7 @@ public final class ILikeWood
         RECIPE_TYPE_REGISTER.register(modEventBus);
         ILikeWoodParticleTypeRegistry.REGISTRY.register(modEventBus);
         ILikeWoodRecipeSerializerRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodPaintingRegistry.REGISTRY.register(modEventBus);
 
         for (final IModPlugin plugin : PLUGINS)
         {

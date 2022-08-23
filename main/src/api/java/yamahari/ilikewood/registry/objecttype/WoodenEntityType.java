@@ -13,6 +13,7 @@ public final class WoodenEntityType
     public static final WoodenEntityType CHAIR = new WoodenEntityType(Constants.CHAIR, Constants.CHAIR_PLURAL, false,
         () -> ILikeWoodConfig.CHAIRS_CONFIG.isEnabled() || ILikeWoodConfig.STOOLS_CONFIG.isEnabled()
     );
+    public static final WoodenEntityType PAINTING = new WoodenEntityType(Constants.PAINTING, Constants.PAINTING_PLURAL, false, ILikeWoodConfig.PAINTING_CONFIG.flag());
 
     public WoodenEntityType(
         final String name,
@@ -35,7 +36,7 @@ public final class WoodenEntityType
 
     public static Stream<WoodenEntityType> getAll()
     {
-        return Stream.of(ITEM_FRAME, CHAIR);
+        return Stream.of(ITEM_FRAME, CHAIR, PAINTING);
     }
 
     @Override

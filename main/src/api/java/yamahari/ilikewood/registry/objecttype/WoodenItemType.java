@@ -13,6 +13,7 @@ public final class WoodenItemType
     public static final WoodenItemType CROSSBOW = new WoodenItemType(Constants.CROSSBOW, Constants.CROSSBOW_PLURAL, ILikeWoodConfig.CROSSBOWS_CONFIG);
     public static final WoodenItemType FISHING_ROD = new WoodenItemType(Constants.FISHING_ROD, Constants.FISHING_ROD_PLURAL, ILikeWoodConfig.FISHING_RODS_CONFIG);
     public static final WoodenItemType ITEM_FRAME = new WoodenItemType(Constants.ITEM_FRAME, Constants.ITEM_FRAME_PLURAL, ILikeWoodConfig.ITEM_FRAMES_CONFIG);
+    public static final WoodenItemType PAINTING = new WoodenItemType(Constants.PAINTING, Constants.PAINTING_PLURAL, ILikeWoodConfig.PAINTING_CONFIG);
 
     private WoodenItemType(
         final String name,
@@ -25,7 +26,7 @@ public final class WoodenItemType
 
     public static Stream<WoodenItemType> getAll()
     {
-        return Stream.of(STICK, BOW, CROSSBOW, FISHING_ROD, ITEM_FRAME);
+        return Stream.of(STICK, BOW, CROSSBOW, FISHING_ROD, ITEM_FRAME, PAINTING);
     }
 
     @Override

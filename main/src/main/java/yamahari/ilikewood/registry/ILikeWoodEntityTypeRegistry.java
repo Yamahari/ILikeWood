@@ -8,6 +8,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.config.ILikeWoodConfig;
 import yamahari.ilikewood.entity.WoodenChairEntity;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
+import yamahari.ilikewood.entity.WoodenPaintingEntity;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
@@ -42,6 +43,11 @@ public final class ILikeWoodEntityTypeRegistry
         this.registryObjects.put(WoodenEntityType.ITEM_FRAME, Collections.unmodifiableMap(entityTypes));
     }
 
+    private void registerPaintingEntityTypes()
+    {
+        this.registryObjects.put(WoodenEntityType.PAINTING, Collections.singletonMap(Util.DUMMY_WOOD_TYPE, registerPaintingEntityType()));
+    }
+
     private RegistryObject<EntityType<?>> registerItemFrameEntityType(final IWoodType woodType)
     {
         final String name;
@@ -57,15 +63,24 @@ public final class ILikeWoodEntityTypeRegistry
         return this.registry.register(name, () -> EntityType.Builder
             .<WoodenItemFrameEntity>of((entityType, world) -> new WoodenItemFrameEntity(woodType, entityType, world), MobCategory.MISC)
             .sized(0.5F, 0.5F)
-            .clientTrackingRange(10)
-            .updateInterval(Integer.MAX_VALUE)
-            .build(name));
+            .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE).build(name));
     }
 
     private RegistryObject<EntityType<?>> registerChairEntityType()
     {
         final String name = WoodenEntityType.CHAIR.getName();
         return this.registry.register(name, () -> EntityType.Builder.of(WoodenChairEntity::new, MobCategory.MISC).sized(0.0F, 0.0F).build(name));
+    }
+
+    private RegistryObject<EntityType<?>> registerPaintingEntityType()
+    {
+        final String name = WoodenEntityType.PAINTING.getName();
+        return this.registry.register(name, () -> EntityType.Builder
+            .of(WoodenPaintingEntity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(10)
+            .updateInterval(Integer.MAX_VALUE)
+            .build(name));
     }
 
     @Override
@@ -75,9 +90,15 @@ public final class ILikeWoodEntityTypeRegistry
         {
             registerItemFrameEntityTypes();
         }
+
         if (ILikeWoodConfig.CHAIRS_CONFIG.isEnabled() || ILikeWoodConfig.STOOLS_CONFIG.isEnabled())
         {
             registerChairEntityTypes();
+        }
+
+        if (ILikeWoodConfig.PAINTING_CONFIG.isEnabled())
+        {
+            registerPaintingEntityTypes();
         }
     }
 

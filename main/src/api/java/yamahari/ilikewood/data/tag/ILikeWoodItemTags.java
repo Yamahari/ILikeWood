@@ -38,6 +38,7 @@ public final class ILikeWoodItemTags
     public static final TagKey<Item> LOG_PILES = create(Constants.LOG_PILE_PLURAL);
     public static final TagKey<Item> CAMPFIRES = create(Constants.CAMPFIRE_PLURAL);
     public static final TagKey<Item> SOUL_CAMPFIRES = create(Constants.SOUL_CAMPFIRE_PLURAL);
+    public static final TagKey<Item> PAINTINGS = create(Constants.PAINTING_PLURAL);
 
     public static final TagKey<Item> AXES = create(Constants.AXE_PLURAL);
     public static final TagKey<Item> HOES = create(Constants.HOE_PLURAL);

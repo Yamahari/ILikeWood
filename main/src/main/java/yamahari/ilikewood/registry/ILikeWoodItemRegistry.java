@@ -10,6 +10,7 @@ import yamahari.ilikewood.item.WoodenCrossbowItem;
 import yamahari.ilikewood.item.WoodenFishingRodItem;
 import yamahari.ilikewood.item.WoodenItem;
 import yamahari.ilikewood.item.WoodenItemFrameItem;
+import yamahari.ilikewood.item.WoodenPaintingItem;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -38,6 +39,7 @@ public final class ILikeWoodItemRegistry
         registerItems(WoodenItemType.CROSSBOW, this::registerCrossbowItem);
         registerItems(WoodenItemType.ITEM_FRAME, this::registerItemFrameItem);
         registerItems(WoodenItemType.FISHING_ROD, this::registerFishingPoleItem);
+        registerItems(WoodenItemType.PAINTING, this::registerPaintingItem);
     }
 
     @Override
@@ -109,5 +111,10 @@ public final class ILikeWoodItemRegistry
     private RegistryObject<Item> registerFishingPoleItem(final IWoodType woodType)
     {
         return this.register(woodType, WoodenItemType.FISHING_ROD, () -> new WoodenFishingRodItem(woodType));
+    }
+
+    private RegistryObject<Item> registerPaintingItem(final IWoodType woodType)
+    {
+        return this.register(woodType, WoodenItemType.PAINTING, () -> new WoodenPaintingItem(woodType));
     }
 }

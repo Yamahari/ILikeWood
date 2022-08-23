@@ -118,6 +118,8 @@ public final class Constants
     public static final String FISHING_ROD_PLURAL = "fishing_rods";
     public static final String ITEM_FRAME = "item_frame";
     public static final String ITEM_FRAME_PLURAL = "item_frames";
+    public static final String PAINTING = "painting";
+    public static final String PAINTING_PLURAL = "paintings";
 
     public static final String AXE = "axe";
     public static final String AXE_PLURAL = "axes";

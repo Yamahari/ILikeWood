@@ -1,6 +1,7 @@
 package yamahari.ilikewood.event;
 
 import net.minecraft.DetectedVersion;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -52,6 +53,7 @@ import yamahari.ilikewood.provider.itemmodel.BowItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.CrossbowItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.FishingRodItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.ItemFrameItemModelProvider;
+import yamahari.ilikewood.provider.itemmodel.PaintingItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.StickItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.BarrelBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.BedBlockItemModelProvider;
@@ -118,6 +120,7 @@ import yamahari.ilikewood.provider.recipe.item.BowRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.CrossbowRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.FishingRodRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.ItemFrameRecipeProvider;
+import yamahari.ilikewood.provider.recipe.item.PaintingRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.StickRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.tiered.AxeRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.tiered.HoeRecipeProvider;
@@ -126,6 +129,7 @@ import yamahari.ilikewood.provider.recipe.item.tiered.PickaxeRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.tiered.ShovelRecipeProvider;
 import yamahari.ilikewood.provider.recipe.item.tiered.SwordRecipeProvider;
 import yamahari.ilikewood.provider.recipe.sawmilling.SawmillingRecipeProvider;
+import yamahari.ilikewood.provider.tag.PaintingTagProvider;
 import yamahari.ilikewood.provider.tag.block.BarrelBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.block.CampfireBlockTagsProvider;
 import yamahari.ilikewood.provider.tag.block.ChestBlockTagsProvider;
@@ -159,6 +163,7 @@ import yamahari.ilikewood.provider.texture.item.BowTextureProvider;
 import yamahari.ilikewood.provider.texture.item.CrossbowTextureProvider;
 import yamahari.ilikewood.provider.texture.item.FishingRodTextureProvider;
 import yamahari.ilikewood.provider.texture.item.ItemFrameTextureProvider;
+import yamahari.ilikewood.provider.texture.item.PaintingTextureProvider;
 import yamahari.ilikewood.provider.texture.item.StickTextureProvider;
 import yamahari.ilikewood.provider.texture.item.tiered.ToolTextureProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
@@ -1174,6 +1179,32 @@ public final class GatherDataEventHandler
         // generator.addProvider(event.includeClient(), new ColoredLavaParticleProvider(generator));
     }
 
+    private static void makePaintingData(
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
+        final DataGenerator textureGenerator
+    )
+    {
+        final var generator = makeGenerator(config, Constants.PAINTING_PLURAL, shouldExecute);
+        final var helper = event.getExistingFileHelper();
+
+        textureGenerator.addProvider(true, new PaintingTextureProvider(textureGenerator, helper));
+
+        generator.addProvider(true, new PackMCMetaProvider(generator));
+
+        generator.addProvider(event.includeServer(), new PaintingRecipeProvider(generator));
+        generator.addProvider(event.includeServer(),
+            new DefaultItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.PAINTING_PLURAL, WoodenItemType.PAINTING,
+                ILikeWoodItemTags.PAINTINGS
+            )
+        );
+        generator.addProvider(event.includeServer(), new PaintingTagProvider(generator, Registry.PAINTING_VARIANT, Constants.MOD_ID, helper));
+
+        generator.addProvider(event.includeClient(), new PaintingItemModelProvider(generator, helper));
+        generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenItemType.PAINTING));
+    }
+
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent event)
     {
@@ -1217,6 +1248,7 @@ public final class GatherDataEventHandler
         makeItemFrameData(event, config, shouldExecute, textureGenerator);
         makeFishingRodData(event, config, shouldExecute, textureGenerator);
         makeCampfireData(event, config, shouldExecute, textureGenerator);
+        makePaintingData(event, config, shouldExecute, textureGenerator);
 
         if (shouldExecute)
         {

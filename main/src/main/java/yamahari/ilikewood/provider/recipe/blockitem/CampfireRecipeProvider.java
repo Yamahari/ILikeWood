@@ -10,6 +10,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -42,6 +43,7 @@ public class CampfireRecipeProvider
             .pattern(" L ")
             .unlockedBy("has_stick", has(stick))
             .unlockedBy("has_coal", has(ItemTags.COALS))
+            .group(String.format("%s:%s", Constants.MOD_ID, Constants.CAMPFIRE_PLURAL))
             .save(consumer);
     }
 }

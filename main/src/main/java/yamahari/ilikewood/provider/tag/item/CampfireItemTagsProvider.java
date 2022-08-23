@@ -7,7 +7,7 @@ import yamahari.ilikewood.provider.tag.block.AbstractBlockTagsProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
 
-public class CampfireItemTagsProvider
+public final class CampfireItemTagsProvider
     extends AbstractItemTagsProvider
 {
     public CampfireItemTagsProvider(

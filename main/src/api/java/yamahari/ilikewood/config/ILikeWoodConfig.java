@@ -13,7 +13,10 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public record ILikeWoodConfig(String name, Supplier<Boolean> flag)
+public record ILikeWoodConfig(
+    String name,
+    Supplier<Boolean> flag
+)
 {
     public static final ILikeWoodConfig PANELS_CONFIG = make(Constants.PANELS_PLURAL);
     public static final ILikeWoodConfig PANELS_STAIRS_CONFIG = make(Constants.PANELS_STAIRS_PLURAL);
@@ -47,11 +50,9 @@ public record ILikeWoodConfig(String name, Supplier<Boolean> flag)
     public static final ILikeWoodConfig SHOVELS_CONFIG = make(Constants.SHOVEL_PLURAL);
     public static final ILikeWoodConfig SWORDS_CONFIG = make(Constants.SWORD_PLURAL);
     public static final ILikeWoodConfig CAMPFIRE_CONFIG = make(Constants.CAMPFIRE_PLURAL);
+    public static final ILikeWoodConfig PAINTING_CONFIG = make(Constants.PAINTING_PLURAL);
 
-    public static final Map<String, ILikeWoodConfig> NAME_TO_CONFIG =
-        getAll().collect(Collectors.toUnmodifiableMap(ILikeWoodConfig::name,
-        Function.identity()
-    ));
+    public static final Map<String, ILikeWoodConfig> NAME_TO_CONFIG = getAll().collect(Collectors.toUnmodifiableMap(ILikeWoodConfig::name, Function.identity()));
 
     public static final ForgeConfigSpec COMMON_SPEC;
     private static final CommonConfig COMMON_CONFIG;
@@ -64,59 +65,41 @@ public record ILikeWoodConfig(String name, Supplier<Boolean> flag)
         COMMON_CONFIG = common.getLeft();
     }
 
-    public static Stream<ILikeWoodConfig> getAll() {
-        return Stream.of(PANELS_CONFIG,
-            PANELS_STAIRS_CONFIG,
-            PANELS_SLABS_CONFIG,
-            BARRELS_CONFIG,
-            BEDS_CONFIG,
-            BOOKSHELVES_CONFIG,
-            COMPOSTERS_CONFIG,
-            CRAFTING_TABLES_CONFIG,
-            CHESTS_CONFIG,
-            SAWMILLS_CONFIG,
-            LECTERNS_CONFIG,
-            LADDERS_CONFIG,
-            SCAFFOLDINGS_CONFIG,
-            TORCHES_CONFIG,
-            LOG_PILE_CONFIG,
-            POSTS_CONFIG,
-            WALLS_CONFIG,
-            CHAIRS_CONFIG,
-            TABLES_CONFIG,
-            STOOLS_CONFIG, SINGLE_DRESSERS_CONFIG, STICKS_CONFIG, BOWS_CONFIG, CROSSBOWS_CONFIG, FISHING_RODS_CONFIG, ITEM_FRAMES_CONFIG, AXES_CONFIG, HOES_CONFIG,
-            PICKAXES_CONFIG, SHOVELS_CONFIG, SWORDS_CONFIG, CAMPFIRE_CONFIG
+    public static Stream<ILikeWoodConfig> getAll()
+    {
+        return Stream.of(PANELS_CONFIG, PANELS_STAIRS_CONFIG, PANELS_SLABS_CONFIG, BARRELS_CONFIG, BEDS_CONFIG, BOOKSHELVES_CONFIG, COMPOSTERS_CONFIG,
+            CRAFTING_TABLES_CONFIG, CHESTS_CONFIG, SAWMILLS_CONFIG, LECTERNS_CONFIG, LADDERS_CONFIG, SCAFFOLDINGS_CONFIG, TORCHES_CONFIG, LOG_PILE_CONFIG, POSTS_CONFIG,
+            WALLS_CONFIG, CHAIRS_CONFIG, TABLES_CONFIG, STOOLS_CONFIG, SINGLE_DRESSERS_CONFIG, STICKS_CONFIG, BOWS_CONFIG, CROSSBOWS_CONFIG, FISHING_RODS_CONFIG,
+            ITEM_FRAMES_CONFIG, AXES_CONFIG, HOES_CONFIG, PICKAXES_CONFIG, SHOVELS_CONFIG, SWORDS_CONFIG, CAMPFIRE_CONFIG, PAINTING_CONFIG
         );
     }
 
-    private static ILikeWoodConfig make(final String name) {
-        return new ILikeWoodConfig(name,
-            Suppliers.memoize(() -> COMMON_CONFIG.isEnabled(name) || DatagenModLoader.isRunningDataGen())
-        );
+    private static ILikeWoodConfig make(final String name)
+    {
+        return new ILikeWoodConfig(name, Suppliers.memoize(() -> COMMON_CONFIG.isEnabled(name) || DatagenModLoader.isRunningDataGen()));
+    }
+
+    public boolean isEnabled()
+    {
+        return flag.get();
     }
 
     public static class CommonConfig
     {
         private final Map<String, ForgeConfigSpec.BooleanValue> values = new HashMap<>();
 
-        public CommonConfig(final ForgeConfigSpec.Builder builder) {
-            ILikeWoodConfig.getAll().forEach(config -> values.put(config.name(),
-                builder.define(String.format("ilikewood.enable.%s", config.name()), true)
-            ));
+        public CommonConfig(final ForgeConfigSpec.Builder builder)
+        {
+            ILikeWoodConfig.getAll().forEach(config -> values.put(config.name(), builder.define(String.format("ilikewood.enable.%s", config.name()), true)));
         }
 
-        public boolean isEnabled(final String name) {
+        public boolean isEnabled(final String name)
+        {
             if (!values.containsKey(name))
             {
-                throw new IllegalArgumentException(String.format("Missing option for \"%s\" in common config file.",
-                    name
-                ));
+                throw new IllegalArgumentException(String.format("Missing option for \"%s\" in common config file.", name));
             }
             return values.get(name).get();
         }
-    }
-
-    public boolean isEnabled() {
-        return flag.get();
     }
 }
