@@ -79,39 +79,32 @@ public class WoodenCampfireBlock
         final var state = level.getBlockState(pos);
         final var random = level.getRandom();
         final var block = state.getBlock();
-        final boolean isSoul;
+
         if (block instanceof WoodenCampfireBlock campfireBlock)
         {
-            isSoul = campfireBlock.isSoul;
-        }
-        else
-        {
-            // this should never happen, just in case
-            isSoul = false;
-        }
-
-        final SimpleParticleType particleType;
-        if (isSoul || !state.getValue(COLORED))
-        {
-            particleType = isSignalFire ? ParticleTypes.CAMPFIRE_SIGNAL_SMOKE : ParticleTypes.CAMPFIRE_COSY_SMOKE;
-        }
-        else
-        {
-            particleType = isSignalFire ? WoodenParticleTypes.COLORED_CAMPFIRE_SIGNAL_SMOKE.get(state.getValue(COLOR)).get()
-                : WoodenParticleTypes.COLORED_CAMPFIRE_COSY_SMOKE.get(state.getValue(COLOR)).get();
-        }
+            final SimpleParticleType particleType;
+            if (campfireBlock.isSoul || !state.getValue(COLORED))
+            {
+                particleType = isSignalFire ? ParticleTypes.CAMPFIRE_SIGNAL_SMOKE : ParticleTypes.CAMPFIRE_COSY_SMOKE;
+            }
+            else
+            {
+                particleType = isSignalFire ? WoodenParticleTypes.COLORED_CAMPFIRE_SIGNAL_SMOKE.get(state.getValue(COLOR)).get()
+                    : WoodenParticleTypes.COLORED_CAMPFIRE_COSY_SMOKE.get(state.getValue(COLOR)).get();
+            }
 
 
-        level.addAlwaysVisibleParticle(particleType, true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1),
-            (double) pos.getY() + random.nextDouble() + random.nextDouble(),
-            (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D
-        );
-
-        if (isCooking)
-        {
-            level.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D + random.nextDouble() / 4.0D * (double) (random.nextBoolean() ? 1 : -1),
-                (double) pos.getY() + 0.4D, (double) pos.getZ() + 0.5D + random.nextDouble() / 4.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D
+            level.addAlwaysVisibleParticle(particleType, true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1),
+                (double) pos.getY() + random.nextDouble() + random.nextDouble(),
+                (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D
             );
+
+            if (isCooking)
+            {
+                level.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D + random.nextDouble() / 4.0D * (double) (random.nextBoolean() ? 1 : -1),
+                    (double) pos.getY() + 0.4D, (double) pos.getZ() + 0.5D + random.nextDouble() / 4.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D
+                );
+            }
         }
     }
 
