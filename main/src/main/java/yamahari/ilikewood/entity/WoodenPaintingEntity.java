@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -21,6 +22,7 @@ import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.WoodenPaintingItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 import yamahari.ilikewood.util.IWooden;
 
 import javax.annotation.Nonnull;
@@ -162,6 +164,22 @@ public final class WoodenPaintingEntity
         {
             this.woodType = ILikeWood.WOOD_TYPE_REGISTRY.get(new ResourceLocation(this.entityData.get(DATA_WOOD_TYPE_RESOURCE_LOCATION)));
         }
+    }
+
+    @Override
+    public void addAdditionalSaveData(@Nonnull final CompoundTag compoundTag)
+    {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putString("wood_type", this.entityData.get(DATA_WOOD_TYPE_RESOURCE_LOCATION));
+    }
+
+    @Override
+    public void readAdditionalSaveData(@Nonnull final CompoundTag compoundTag)
+    {
+        super.readAdditionalSaveData(compoundTag);
+        final var woodType = compoundTag.getString("wood_type");
+        this.entityData.set(
+            DATA_WOOD_TYPE_RESOURCE_LOCATION, woodType.isEmpty() ? new ResourceLocation(Constants.MOD_ID, VanillaWoodTypes.OAK.getName()).toString() : woodType);
     }
 
     @Override
