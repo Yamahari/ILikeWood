@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CraftingTableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.StringUtils;
-import yamahari.ilikewood.container.WoodenWorkBenchContainer;
+import yamahari.ilikewood.menu.WoodenWorkBenchMenu;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -40,10 +40,8 @@ public final class WoodenCraftingTableBlock extends CraftingTableBlock implement
         @Nonnull final BlockState blockState, @Nonnull final Level world, @Nonnull final BlockPos pos
     )
     {
-        return new SimpleMenuProvider((windowId, inventory, player) -> new WoodenWorkBenchContainer(windowId,
-            inventory,
-            ContainerLevelAccess.create(world, pos)
-        ), this.defaultName);
+        return new SimpleMenuProvider(
+            (windowId, inventory, player) -> new WoodenWorkBenchMenu(windowId, inventory, ContainerLevelAccess.create(world, pos)), this.defaultName);
     }
 
     @Override

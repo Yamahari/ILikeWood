@@ -11,7 +11,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.config.ILikeWoodConfig;
-import yamahari.ilikewood.container.WoodenWorkBenchContainer;
+import yamahari.ilikewood.menu.WoodenWorkBenchMenu;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.util.Constants;
@@ -36,7 +36,7 @@ public final class ILikeWoodPlugin
     {
         if (ILikeWoodConfig.CRAFTING_TABLES_CONFIG.isEnabled())
         {
-            registration.addRecipeTransferHandler(WoodenWorkBenchContainer.class, MenuType.CRAFTING, RecipeTypes.CRAFTING, 1, 9, 10, 36);
+            registration.addRecipeTransferHandler(WoodenWorkBenchMenu.class, MenuType.CRAFTING, RecipeTypes.CRAFTING, 1, 9, 10, 36);
         }
     }
 

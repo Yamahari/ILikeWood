@@ -1,4 +1,4 @@
-package yamahari.ilikewood.client.tileentity;
+package yamahari.ilikewood.client.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.block.WoodenCampfireBlock;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
+import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 
 import javax.annotation.Nonnull;
 
@@ -69,6 +69,6 @@ public final class WoodenCampfireBlockEntity
     @Override
     public BlockEntityType<?> getType()
     {
-        return WoodenTileEntityTypes.WOODEN_CAMPFIRE.get();
+        return WoodenBlockEntityTypes.WOODEN_CAMPFIRE.get();
     }
 }

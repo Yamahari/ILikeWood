@@ -107,6 +107,8 @@ public final class Constants
     public static final String CAMPFIRE_PLURAL = "campfires";
     public static final String SOUL_CAMPFIRE = "soul_campfire";
     public static final String SOUL_CAMPFIRE_PLURAL = "soul_campfires";
+    public static final String CRATE = "crate";
+    public static final String CRATE_PLURAL = "crates";
 
     public static final String STICK = "stick";
     public static final String STICK_PLURAL = "sticks";

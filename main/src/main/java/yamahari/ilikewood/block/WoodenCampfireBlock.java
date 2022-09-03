@@ -29,9 +29,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-import yamahari.ilikewood.client.tileentity.WoodenCampfireBlockEntity;
+import yamahari.ilikewood.client.blockentity.WoodenCampfireBlockEntity;
+import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 import yamahari.ilikewood.registry.WoodenParticleTypes;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
@@ -241,13 +241,13 @@ public class WoodenCampfireBlock
         if (level.isClientSide)
         {
             return state.getValue(LIT) ? createTickerHelper(blockEntityType,
-                (BlockEntityType<? extends WoodenCampfireBlockEntity>) WoodenTileEntityTypes.WOODEN_CAMPFIRE.get(), WoodenCampfireBlockEntity::particleTick2
+                (BlockEntityType<? extends WoodenCampfireBlockEntity>) WoodenBlockEntityTypes.WOODEN_CAMPFIRE.get(), WoodenCampfireBlockEntity::particleTick2
             ) : null;
         }
         else
         {
             return state.getValue(LIT) ? createTickerHelper(
-                blockEntityType, (BlockEntityType<? extends CampfireBlockEntity>) WoodenTileEntityTypes.WOODEN_CAMPFIRE.get(), CampfireBlockEntity::cookTick)
+                blockEntityType, (BlockEntityType<? extends CampfireBlockEntity>) WoodenBlockEntityTypes.WOODEN_CAMPFIRE.get(), CampfireBlockEntity::cookTick)
                 : createTickerHelper(blockEntityType, BlockEntityType.CAMPFIRE, CampfireBlockEntity::cooldownTick);
         }
     }

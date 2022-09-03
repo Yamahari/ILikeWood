@@ -15,7 +15,7 @@ import yamahari.ilikewood.util.Constants;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class CampfireRecipeProvider
+public final class CampfireRecipeProvider
     extends AbstractBlockItemRecipeProvider
 {
     public CampfireRecipeProvider(final DataGenerator generator)

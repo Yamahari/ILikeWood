@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
+import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
@@ -31,7 +31,7 @@ public final class WoodenLecternBlock extends LecternBlock implements IWooden {
     @Override
     @Nullable
     public BlockEntity newBlockEntity(@Nonnull final BlockPos blockPos, @Nonnull final BlockState state) {
-        return WoodenTileEntityTypes.WOODEN_LECTERN.get().create(blockPos, state);
+        return WoodenBlockEntityTypes.WOODEN_LECTERN.get().create(blockPos, state);
     }
 
     @Nonnull

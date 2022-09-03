@@ -56,6 +56,7 @@ public final class ObjectTypeValidator
         dependencies.put(WoodenBlockType.SINGLE_DRESSER, DEPENDS_ON_NONE);
         dependencies.put(WoodenBlockType.CAMPFIRE, DEPENDS_ON_STICKS);
         dependencies.put(WoodenBlockType.SOUL_CAMPFIRE, DEPENDS_ON_STICKS);
+        dependencies.put(WoodenBlockType.CRATE, Collections.singletonList(Sets.newHashSet(WoodenBlockType.BARREL, WoodenItemType.STICK)));
 
         dependencies.put(WoodenItemType.STICK, DEPENDS_ON_PANELS);
         dependencies.put(WoodenItemType.BOW, DEPENDS_ON_STICKS);

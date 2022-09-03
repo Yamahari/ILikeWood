@@ -17,10 +17,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.client.gui.screen.WoodenCrateScreen;
 import yamahari.ilikewood.client.gui.screen.WoodenSawmillScreen;
 import yamahari.ilikewood.config.ILikeWoodConfig;
-import yamahari.ilikewood.container.WoodenSawmillContainer;
-import yamahari.ilikewood.registry.WoodenContainerTypes;
+import yamahari.ilikewood.menu.WoodenCrateMenu;
+import yamahari.ilikewood.menu.WoodenSawmillMenu;
+import yamahari.ilikewood.registry.WoodenMenuTypes;
 import yamahari.ilikewood.registry.objecttype.IObjectType;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
@@ -49,19 +51,22 @@ public final class FMLClientSetupEventHandler
         ILikeWood.BLOCK_REGISTRY
             .getObjects(Stream
                 .of(WoodenBlockType.CRAFTING_TABLE, WoodenBlockType.SAWMILL, WoodenBlockType.CHAIR, WoodenBlockType.TABLE, WoodenBlockType.STOOL,
-                    WoodenBlockType.SINGLE_DRESSER, WoodenBlockType.LOG_PILE, WoodenBlockType.CAMPFIRE, WoodenBlockType.SOUL_CAMPFIRE
-                )
-                .filter(IObjectType::isEnabled))
-            .forEach(block -> ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutoutMipped()));
+                    WoodenBlockType.SINGLE_DRESSER, WoodenBlockType.LOG_PILE, WoodenBlockType.CAMPFIRE, WoodenBlockType.SOUL_CAMPFIRE, WoodenBlockType.CRATE
+                ).filter(IObjectType::isEnabled)).forEach(block -> ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutoutMipped()));
 
         if (ILikeWoodConfig.CRAFTING_TABLES_CONFIG.isEnabled())
         {
-            MenuScreens.register((MenuType<? extends CraftingMenu>) WoodenContainerTypes.WOODEN_WORK_BENCH.get(), CraftingScreen::new);
+            MenuScreens.register((MenuType<? extends CraftingMenu>) WoodenMenuTypes.WOODEN_WORK_BENCH.get(), CraftingScreen::new);
         }
 
         if (ILikeWoodConfig.SAWMILLS_CONFIG.isEnabled())
         {
-            MenuScreens.register((MenuType<? extends WoodenSawmillContainer>) WoodenContainerTypes.WOODEN_SAWMILL.get(), WoodenSawmillScreen::new);
+            MenuScreens.register((MenuType<? extends WoodenSawmillMenu>) WoodenMenuTypes.WOODEN_SAWMILL.get(), WoodenSawmillScreen::new);
+        }
+
+        if (ILikeWoodConfig.CRATE_CONFIG.isEnabled())
+        {
+            MenuScreens.register((MenuType<? extends WoodenCrateMenu>) WoodenMenuTypes.WOODEN_CRATE.get(), WoodenCrateScreen::new);
         }
 
         if (ILikeWoodConfig.BOWS_CONFIG.isEnabled())

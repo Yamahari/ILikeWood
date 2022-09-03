@@ -13,42 +13,49 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import yamahari.ilikewood.block.WoodenChestBlock;
-import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
+import yamahari.ilikewood.client.blockentity.WoodenChestBlockEntity;
 
 import javax.annotation.Nonnull;
 
-public final class WoodenChestItemStackTileEntityRenderer extends BlockEntityWithoutLevelRenderer {
+public final class WoodenChestItemStackBlockEntityRenderer
+    extends BlockEntityWithoutLevelRenderer
+{
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
-    private WoodenChestTileEntity chestTileEntity = null;
+    private WoodenChestBlockEntity chestTileEntity = null;
 
-    public WoodenChestItemStackTileEntityRenderer() {
+    public WoodenChestItemStackBlockEntityRenderer()
+    {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
         this.blockEntityRenderDispatcher = Minecraft.getInstance().getBlockEntityRenderDispatcher();
     }
 
     @Override
-    public void onResourceManagerReload(@Nonnull final ResourceManager resourceManager) {
+    public void onResourceManagerReload(@Nonnull final ResourceManager resourceManager)
+    {
         // Do nothing
     }
 
     @Override
-    public void renderByItem(final ItemStack itemStack, @Nonnull final ItemTransforms.TransformType transformType,
-                             @Nonnull final PoseStack matrixStack, @Nonnull final MultiBufferSource buffer,
-                             final int combinedLight, final int combinedOverlay) {
+    public void renderByItem(
+        final ItemStack itemStack,
+        @Nonnull final ItemTransforms.TransformType transformType,
+        @Nonnull final PoseStack matrixStack,
+        @Nonnull final MultiBufferSource buffer,
+        final int combinedLight,
+        final int combinedOverlay
+    )
+    {
         final Item item = itemStack.getItem();
-        if (item instanceof BlockItem) {
+        if (item instanceof BlockItem)
+        {
             final Block block = ((BlockItem) item).getBlock();
-            if (block instanceof WoodenChestBlock) {
-                if (this.chestTileEntity == null) {
-                    this.chestTileEntity = new WoodenChestTileEntity(((WoodenChestBlock) block).getWoodType(),
-                        BlockPos.ZERO,
-                        block.defaultBlockState());
+            if (block instanceof WoodenChestBlock)
+            {
+                if (this.chestTileEntity == null)
+                {
+                    this.chestTileEntity = new WoodenChestBlockEntity(((WoodenChestBlock) block).getWoodType(), BlockPos.ZERO, block.defaultBlockState());
                 }
-                this.blockEntityRenderDispatcher.renderItem(this.chestTileEntity,
-                    matrixStack,
-                    buffer,
-                    combinedLight,
-                    combinedOverlay);
+                this.blockEntityRenderDispatcher.renderItem(this.chestTileEntity, matrixStack, buffer, combinedLight, combinedOverlay);
             }
         }
     }

@@ -56,6 +56,7 @@ public final class ILikeWoodBlockItemRegistry
         this.registerBlockItems(WoodenBlockType.CAMPFIRE, this::registerCampfireBlockItem);
         this.registerBlockItems(WoodenBlockType.SOUL_CAMPFIRE, this::registerSoulCampfireBlockItem);
         WoodenBlockType.getBeds().forEach(bedBlockType -> this.registerBlockItems(bedBlockType, woodType -> this.registerBedBlockItem(woodType, bedBlockType)));
+        this.registerBlockItems(WoodenBlockType.CRATE, this::registerCrateBlockItem);
     }
 
     @Override
@@ -277,5 +278,10 @@ public final class ILikeWoodBlockItemRegistry
     private RegistryObject<Item> registerSoulCampfireBlockItem(final IWoodType woodType)
     {
         return this.registerDecorationBlockItem(woodType, WoodenBlockType.SOUL_CAMPFIRE);
+    }
+
+    private RegistryObject<Item> registerCrateBlockItem(final IWoodType woodType)
+    {
+        return this.registerDecorationBlockItem(woodType, WoodenBlockType.CRATE);
     }
 }

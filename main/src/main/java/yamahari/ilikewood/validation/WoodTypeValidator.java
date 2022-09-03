@@ -57,6 +57,7 @@ public final class WoodTypeValidator
         resourceRequirements.put(WoodenBlockType.SINGLE_DRESSER, REQUIRES_LOGS_BOTH);
         resourceRequirements.put(WoodenBlockType.CAMPFIRE, REQUIRES_LOGS);
         resourceRequirements.put(WoodenBlockType.SOUL_CAMPFIRE, REQUIRES_LOGS);
+        resourceRequirements.put(WoodenBlockType.CRATE, REQUIRES_NONE);
 
         resourceRequirements.put(WoodenItemType.STICK, REQUIRES_NONE);
         resourceRequirements.put(WoodenItemType.BOW, REQUIRES_NONE);

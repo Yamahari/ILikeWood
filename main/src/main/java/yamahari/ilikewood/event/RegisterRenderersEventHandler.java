@@ -12,16 +12,16 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yamahari.ilikewood.ILikeWood;
+import yamahari.ilikewood.client.blockentity.WoodenChestBlockEntity;
+import yamahari.ilikewood.client.blockentity.WoodenLecternBlockEntity;
 import yamahari.ilikewood.client.renderer.entity.WoodenChairEntityRenderer;
 import yamahari.ilikewood.client.renderer.entity.WoodenItemFrameRenderer;
 import yamahari.ilikewood.client.renderer.entity.WoodenPaintingRenderer;
-import yamahari.ilikewood.client.renderer.tileentity.WoodenChestTileEntityRenderer;
-import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
-import yamahari.ilikewood.client.tileentity.WoodenLecternTileEntity;
+import yamahari.ilikewood.client.renderer.tileentity.WoodenChestBlockEntityRenderer;
 import yamahari.ilikewood.config.ILikeWoodConfig;
 import yamahari.ilikewood.entity.WoodenChairEntity;
 import yamahari.ilikewood.entity.WoodenItemFrameEntity;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
+import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenEntityType;
 import yamahari.ilikewood.util.Constants;
 
@@ -38,12 +38,12 @@ public final class RegisterRenderersEventHandler
     {
         if (ILikeWoodConfig.CHESTS_CONFIG.isEnabled())
         {
-            event.registerBlockEntityRenderer((BlockEntityType<WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get(), WoodenChestTileEntityRenderer::new);
+            event.registerBlockEntityRenderer((BlockEntityType<WoodenChestBlockEntity>) WoodenBlockEntityTypes.WOODEN_CHEST.get(), WoodenChestBlockEntityRenderer::new);
         }
 
         if (ILikeWoodConfig.LECTERNS_CONFIG.isEnabled())
         {
-            event.registerBlockEntityRenderer((BlockEntityType<WoodenLecternTileEntity>) WoodenTileEntityTypes.WOODEN_LECTERN.get(), LecternRenderer::new);
+            event.registerBlockEntityRenderer((BlockEntityType<WoodenLecternBlockEntity>) WoodenBlockEntityTypes.WOODEN_LECTERN.get(), LecternRenderer::new);
         }
 
         if (ILikeWoodConfig.ITEM_FRAMES_CONFIG.isEnabled())
@@ -64,7 +64,7 @@ public final class RegisterRenderersEventHandler
 
         if (ILikeWoodConfig.CAMPFIRE_CONFIG.isEnabled())
         {
-            event.registerBlockEntityRenderer((BlockEntityType<? extends CampfireBlockEntity>) WoodenTileEntityTypes.WOODEN_CAMPFIRE.get(), CampfireRenderer::new);
+            event.registerBlockEntityRenderer((BlockEntityType<? extends CampfireBlockEntity>) WoodenBlockEntityTypes.WOODEN_CAMPFIRE.get(), CampfireRenderer::new);
         }
 
         if (ILikeWoodConfig.PAINTING_CONFIG.isEnabled())

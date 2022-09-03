@@ -1,4 +1,4 @@
-package yamahari.ilikewood.container;
+package yamahari.ilikewood.menu;
 
 import com.google.common.collect.Lists;
 import net.minecraft.sounds.SoundEvents;
@@ -20,14 +20,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
-import yamahari.ilikewood.registry.WoodenContainerTypes;
+import yamahari.ilikewood.registry.WoodenMenuTypes;
 import yamahari.ilikewood.registry.WoodenRecipeTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public final class WoodenSawmillContainer extends AbstractContainerMenu
+public final class WoodenSawmillMenu
+    extends AbstractContainerMenu
 {
     final Slot inputInventorySlot;
     final Slot outputInventorySlot;
@@ -44,23 +45,30 @@ public final class WoodenSawmillContainer extends AbstractContainerMenu
     public final Container inputInventory = new SimpleContainer(1)
     {
         @Override
-        public void setChanged() {
+        public void setChanged()
+        {
             super.setChanged();
-            WoodenSawmillContainer.this.slotsChanged(this);
-            WoodenSawmillContainer.this.inventoryUpdateListener.run();
+            WoodenSawmillMenu.this.slotsChanged(this);
+            WoodenSawmillMenu.this.inventoryUpdateListener.run();
         }
     };
     private final ResultContainer inventory = new ResultContainer();
 
-    public WoodenSawmillContainer(final int windowId, final Inventory playerInventory) {
+    public WoodenSawmillMenu(
+        final int windowId,
+        final Inventory playerInventory
+    )
+    {
         this(windowId, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public WoodenSawmillContainer(
-        final int windowId, final Inventory playerInventory, final ContainerLevelAccess worldPosCallable
+    public WoodenSawmillMenu(
+        final int windowId,
+        final Inventory playerInventory,
+        final ContainerLevelAccess worldPosCallable
     )
     {
-        super(WoodenContainerTypes.WOODEN_SAWMILL.get(), windowId);
+        super(WoodenMenuTypes.WOODEN_SAWMILL.get(), windowId);
         this.worldPosCallable = worldPosCallable;
         this.world = playerInventory.player.level;
         this.inputInventorySlot = this.addSlot(new Slot(this.inputInventory, 0, 20, 33));
@@ -168,7 +176,7 @@ public final class WoodenSawmillContainer extends AbstractContainerMenu
     @Nonnull
     @Override
     public MenuType<?> getType() {
-        return WoodenContainerTypes.WOODEN_SAWMILL.get();
+        return WoodenMenuTypes.WOODEN_SAWMILL.get();
     }
 
     public void setInventoryUpdateListener(final Runnable listener) {
@@ -257,14 +265,14 @@ public final class WoodenSawmillContainer extends AbstractContainerMenu
 
     private static final class WoodenSawmillContainerOutputSlot extends Slot
     {
-        private final WoodenSawmillContainer container;
+        private final WoodenSawmillMenu container;
 
         public WoodenSawmillContainerOutputSlot(
             final Container inventoryIn,
             final int index,
             final int xPosition,
             final int yPosition,
-            final WoodenSawmillContainer container
+            final WoodenSawmillMenu container
         )
         {
             super(inventoryIn, index, xPosition, yPosition);

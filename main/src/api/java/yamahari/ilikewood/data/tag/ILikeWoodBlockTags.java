@@ -35,6 +35,7 @@ public final class ILikeWoodBlockTags
     public static final TagKey<Block> LOG_PILES = create(Constants.LOG_PILE_PLURAL);
     public static final TagKey<Block> CAMPFIRES = create(Constants.CAMPFIRE_PLURAL);
     public static final TagKey<Block> SOUL_CAMPFIRES = create(Constants.SOUL_CAMPFIRE_PLURAL);
+    public static final TagKey<Block> CRATES = create(Constants.CRATE_PLURAL);
 
     private ILikeWoodBlockTags()
     {

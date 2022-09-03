@@ -5,7 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import yamahari.ilikewood.client.renderer.tileentity.WoodenChestItemStackTileEntityRenderer;
+import yamahari.ilikewood.client.renderer.tileentity.WoodenChestItemStackBlockEntityRenderer;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 
 import javax.annotation.Nonnull;
@@ -23,7 +23,7 @@ public final class WoodenChestBlockItem extends WoodenBlockItem
         {
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return new WoodenChestItemStackTileEntityRenderer();
+                return new WoodenChestItemStackBlockEntityRenderer();
             }
         });
     }

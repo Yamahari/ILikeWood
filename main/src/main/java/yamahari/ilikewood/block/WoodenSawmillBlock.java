@@ -31,7 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.StringUtils;
-import yamahari.ilikewood.container.WoodenSawmillContainer;
+import yamahari.ilikewood.menu.WoodenSawmillMenu;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -248,10 +248,7 @@ public final class WoodenSawmillBlock extends WoodenBlock
         @Nonnull final BlockState state, @Nonnull final Level world, @Nonnull final BlockPos pos
     )
     {
-        return new SimpleMenuProvider((id, inventory, player) -> new WoodenSawmillContainer(id,
-            inventory,
-            ContainerLevelAccess.create(world, pos)
-        ), containerName);
+        return new SimpleMenuProvider((id, inventory, player) -> new WoodenSawmillMenu(id, inventory, ContainerLevelAccess.create(world, pos)), containerName);
     }
 
     public enum WoodenSawmillModel implements StringRepresentable

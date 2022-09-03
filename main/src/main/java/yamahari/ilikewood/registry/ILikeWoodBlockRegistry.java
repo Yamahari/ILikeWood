@@ -15,6 +15,7 @@ import yamahari.ilikewood.block.WoodenChairBlock;
 import yamahari.ilikewood.block.WoodenChestBlock;
 import yamahari.ilikewood.block.WoodenComposterBlock;
 import yamahari.ilikewood.block.WoodenCraftingTableBlock;
+import yamahari.ilikewood.block.WoodenCrateBlock;
 import yamahari.ilikewood.block.WoodenLadderBlock;
 import yamahari.ilikewood.block.WoodenLecternBlock;
 import yamahari.ilikewood.block.WoodenLogPileBlock;
@@ -80,6 +81,7 @@ public final class ILikeWoodBlockRegistry
         this.registerBlocks(WoodenBlockType.LOG_PILE, this::registerLogPileBlock);
         this.registerBlocks(WoodenBlockType.CAMPFIRE, this::registerCampfireBlock);
         this.registerBlocks(WoodenBlockType.SOUL_CAMPFIRE, this::registerSoulCampfireBlock);
+        this.registerBlocks(WoodenBlockType.CRATE, this::registerCrateBlock);
 
         if (ILikeWoodConfig.BEDS_CONFIG.isEnabled())
         {
@@ -328,5 +330,10 @@ public final class ILikeWoodBlockRegistry
     private RegistryObject<Block> registerSoulCampfireBlock(final IWoodType woodType)
     {
         return this.register(woodType, WoodenBlockType.SOUL_CAMPFIRE, () -> WoodenCampfireBlock.soulCampfire(woodType));
+    }
+
+    private RegistryObject<Block> registerCrateBlock(final IWoodType woodType)
+    {
+        return this.register(woodType, WoodenBlockType.CRATE, () -> new WoodenCrateBlock(woodType));
     }
 }

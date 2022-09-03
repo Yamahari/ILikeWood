@@ -18,15 +18,19 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class SoulTorchRecipeProvider extends AbstractBlockItemRecipeProvider
+public final class SoulTorchRecipeProvider
+    extends AbstractBlockItemRecipeProvider
 {
-    public SoulTorchRecipeProvider(final DataGenerator generator) {
+    public SoulTorchRecipeProvider(final DataGenerator generator)
+    {
         super(generator, WoodenBlockType.SOUL_TORCH);
     }
 
     @Override
     protected void registerRecipes(
-        @Nonnull final Consumer<FinishedRecipe> consumer, final IWoodType woodType, final Block block
+        @Nonnull final Consumer<FinishedRecipe> consumer,
+        final IWoodType woodType,
+        final Block block
     )
     {
         final ItemLike stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);

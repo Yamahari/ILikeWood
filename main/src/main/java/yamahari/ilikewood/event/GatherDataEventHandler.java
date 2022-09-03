@@ -12,6 +12,7 @@ import yamahari.ilikewood.data.loot.BedLoot;
 import yamahari.ilikewood.data.loot.BookshelfLoot;
 import yamahari.ilikewood.data.loot.CampfireLoot;
 import yamahari.ilikewood.data.loot.ComposterLoot;
+import yamahari.ilikewood.data.loot.CrateLoot;
 import yamahari.ilikewood.data.loot.DropSelfLoot;
 import yamahari.ilikewood.data.loot.NameableBlockEntityLoot;
 import yamahari.ilikewood.data.loot.PanelsSlabLoot;
@@ -29,6 +30,7 @@ import yamahari.ilikewood.provider.blockstate.ChairBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.ChestBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.ComposterBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.CraftingTableBlockStateProvider;
+import yamahari.ilikewood.provider.blockstate.CrateBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.ItemFrameBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.LadderBlockStateProvider;
 import yamahari.ilikewood.provider.blockstate.LecternBlockStateProvider;
@@ -63,6 +65,7 @@ import yamahari.ilikewood.provider.itemmodel.blockitem.ChairBlockItemModelProvid
 import yamahari.ilikewood.provider.itemmodel.blockitem.ChestBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.ComposterBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.CraftingTableBlockItemModelProvider;
+import yamahari.ilikewood.provider.itemmodel.blockitem.CrateItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.LadderBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.LecternBlockItemModelProvider;
 import yamahari.ilikewood.provider.itemmodel.blockitem.LogPileBlockItemModelProvider;
@@ -100,6 +103,7 @@ import yamahari.ilikewood.provider.recipe.blockitem.ChairRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.ChestRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.ComposterRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.CraftingTableRecipeProvider;
+import yamahari.ilikewood.provider.recipe.blockitem.CrateRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.LadderRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.LecternRecipeProvider;
 import yamahari.ilikewood.provider.recipe.blockitem.LogPileRecipeProvider;
@@ -153,6 +157,7 @@ import yamahari.ilikewood.provider.texture.block.BedTextureProvider;
 import yamahari.ilikewood.provider.texture.block.BookshelfTextureProvider;
 import yamahari.ilikewood.provider.texture.block.ChestTextureProvider;
 import yamahari.ilikewood.provider.texture.block.ComposterTextureProvider;
+import yamahari.ilikewood.provider.texture.block.CrateTextureProvider;
 import yamahari.ilikewood.provider.texture.block.LadderTextureProvider;
 import yamahari.ilikewood.provider.texture.block.LecternTextureProvider;
 import yamahari.ilikewood.provider.texture.block.LogPileTextureProvider;
@@ -1205,6 +1210,38 @@ public final class GatherDataEventHandler
         generator.addProvider(event.includeClient(), new DefaultLanguageProvider(generator, WoodenItemType.PAINTING));
     }
 
+    private static void makeCrateData(
+        final GatherDataEvent event,
+        final GatherDataEvent.DataGeneratorConfig config,
+        final boolean shouldExecute,
+        final DataGenerator textureGenerator
+    )
+    {
+        final var generator = makeGenerator(config, Constants.CRATE_PLURAL, shouldExecute);
+        final var helper = event.getExistingFileHelper();
+
+        textureGenerator.addProvider(true, new CrateTextureProvider(textureGenerator, helper));
+
+        generator.addProvider(true, new PackMCMetaProvider(generator));
+
+
+        generator.addProvider(event.includeServer(), new CrateRecipeProvider(generator));
+        generator.addProvider(
+            event.includeServer(), new DefaultBlockTagsProvider(generator, helper, Constants.CRATE_PLURAL, WoodenBlockType.CRATE, ILikeWoodBlockTags.CRATES));
+        generator.addProvider(event.includeServer(),
+            new DefaultBlockItemTagsProvider(generator, new DummyBlockTagsProvider(generator, helper), helper, Constants.CRATE_PLURAL, WoodenBlockType.CRATE,
+                ILikeWoodItemTags.CRATES
+            )
+        );
+        generator.addProvider(event.includeServer(), new DefaultBlockLootTableProvider(generator, CrateLoot::new, Constants.CRATE_PLURAL));
+
+
+        generator.addProvider(event.includeClient(), new CrateBlockStateProvider(generator, helper));
+        generator.addProvider(event.includeClient(), new CrateItemModelProvider(generator, helper));
+        generator.addProvider(event.includeClient(), new ContainerBlockLanguageProvider(generator, WoodenBlockType.CRATE));
+
+    }
+
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent event)
     {
@@ -1249,6 +1286,7 @@ public final class GatherDataEventHandler
         makeFishingRodData(event, config, shouldExecute, textureGenerator);
         makeCampfireData(event, config, shouldExecute, textureGenerator);
         makePaintingData(event, config, shouldExecute, textureGenerator);
+        makeCrateData(event, config, shouldExecute, textureGenerator);
 
         if (shouldExecute)
         {

@@ -11,22 +11,27 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import yamahari.ilikewood.container.WoodenSawmillContainer;
 import yamahari.ilikewood.data.recipe.AbstractWoodenSawmillRecipe;
+import yamahari.ilikewood.menu.WoodenSawmillMenu;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class WoodenSawmillScreen extends AbstractContainerScreen<WoodenSawmillContainer> {
-    private static final ResourceLocation BACKGROUND_TEXTURE =
-        new ResourceLocation("textures/gui/container/stonecutter.png");
+public class WoodenSawmillScreen
+    extends AbstractContainerScreen<WoodenSawmillMenu>
+{
+    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation("textures/gui/container/stonecutter.png");
     private float sliderProgress;
     private boolean clickedOnScroll;
     private int recipeIndexOffset;
     private boolean hasItemsInInputSlot;
 
-    public WoodenSawmillScreen(final WoodenSawmillContainer container, final Inventory playerInventory,
-                               final Component title) {
+    public WoodenSawmillScreen(
+        final WoodenSawmillMenu container,
+        final Inventory playerInventory,
+        final Component title
+    )
+    {
         super(container, playerInventory, title);
         container.setInventoryUpdateListener(this::onInventoryUpdate);
         --this.titleLabelY;

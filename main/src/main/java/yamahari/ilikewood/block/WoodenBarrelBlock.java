@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
+import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
@@ -24,7 +24,7 @@ public final class WoodenBarrelBlock extends BarrelBlock implements IWooden {
     @Override
     @Nullable
     public BlockEntity newBlockEntity(@Nonnull final BlockPos blockPos, @Nonnull final BlockState state) {
-        return WoodenTileEntityTypes.WOODEN_BARREL.get().create(blockPos, state);
+        return WoodenBlockEntityTypes.WOODEN_BARREL.get().create(blockPos, state);
     }
 
     @Override

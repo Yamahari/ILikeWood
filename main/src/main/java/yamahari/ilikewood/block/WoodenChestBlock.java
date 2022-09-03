@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import yamahari.ilikewood.client.tileentity.WoodenChestTileEntity;
-import yamahari.ilikewood.registry.WoodenTileEntityTypes;
+import yamahari.ilikewood.client.blockentity.WoodenChestBlockEntity;
+import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.IWooden;
 
@@ -20,15 +20,14 @@ public final class WoodenChestBlock extends ChestBlock implements IWooden {
 
     @SuppressWarnings("unchecked")
     public WoodenChestBlock(final IWoodType woodType) {
-        super(Block.Properties.copy(Blocks.CHEST),
-            () -> (BlockEntityType<? extends WoodenChestTileEntity>) WoodenTileEntityTypes.WOODEN_CHEST.get());
+        super(Block.Properties.copy(Blocks.CHEST), () -> (BlockEntityType<? extends WoodenChestBlockEntity>) WoodenBlockEntityTypes.WOODEN_CHEST.get());
         this.woodType = woodType;
     }
 
     @Override
     @Nullable
     public BlockEntity newBlockEntity(@Nonnull final BlockPos blockPos, @Nonnull final BlockState state) {
-        return WoodenTileEntityTypes.WOODEN_CHEST.get().create(blockPos, state);
+        return WoodenBlockEntityTypes.WOODEN_CHEST.get().create(blockPos, state);
     }
 
     @Override

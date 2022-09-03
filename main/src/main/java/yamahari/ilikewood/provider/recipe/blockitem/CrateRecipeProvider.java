@@ -3,23 +3,23 @@ package yamahari.ilikewood.provider.recipe.blockitem;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
+import yamahari.ilikewood.util.Constants;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public final class SoulCampfireRecipeProvider
+public class CrateRecipeProvider
     extends AbstractBlockItemRecipeProvider
 {
-    public SoulCampfireRecipeProvider(final DataGenerator generator)
+    public CrateRecipeProvider(final DataGenerator generator)
     {
-        super(generator, WoodenBlockType.SOUL_CAMPFIRE);
+        super(generator, WoodenBlockType.CRATE);
     }
 
     @Override
@@ -30,18 +30,17 @@ public final class SoulCampfireRecipeProvider
     )
     {
         final ItemLike stick = ILikeWood.getItem(woodType, WoodenItemType.STICK);
-        final ItemLike logPile = ILikeWood.getBlock(woodType, WoodenBlockType.LOG_PILE);
+        final ItemLike barrel = ILikeWood.getBlock(woodType, WoodenBlockType.BARREL);
 
         ShapedRecipeBuilder
             .shaped(block)
-            .define('L', logPile)
+            .define('B', barrel)
             .define('S', stick)
-            .define('C', ItemTags.SOUL_FIRE_BASE_BLOCKS)
-            .pattern(" S ")
-            .pattern("SCS")
-            .pattern(" L ")
+            .pattern("SSS")
+            .pattern("SBS")
+            .pattern("SSS")
             .unlockedBy("has_stick", has(stick))
-            .unlockedBy("has_soul_sand", has(ItemTags.SOUL_FIRE_BASE_BLOCKS))
+            .group(String.format("%s:%s", Constants.MOD_ID, Constants.CRATE_PLURAL))
             .save(consumer);
     }
 }

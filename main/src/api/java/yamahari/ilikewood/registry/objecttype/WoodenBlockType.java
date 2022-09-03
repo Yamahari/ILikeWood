@@ -54,6 +54,8 @@ public final class WoodenBlockType
         new WoodenBlockType(Constants.SINGLE_DRESSER, Constants.SINGLE_DRESSER_PLURAL, ILikeWoodConfig.SINGLE_DRESSERS_CONFIG);
     public static final WoodenBlockType CAMPFIRE = new WoodenBlockType(Constants.CAMPFIRE, Constants.CAMPFIRE_PLURAL, ILikeWoodConfig.CAMPFIRE_CONFIG);
     public static final WoodenBlockType SOUL_CAMPFIRE = new WoodenBlockType(Constants.SOUL_CAMPFIRE, Constants.SOUL_CAMPFIRE_PLURAL, ILikeWoodConfig.CAMPFIRE_CONFIG);
+    public static final WoodenBlockType CRATE = new WoodenBlockType(Constants.CRATE, Constants.CRATE_PLURAL, ILikeWoodConfig.CRATE_CONFIG);
+
 
     private final boolean blockItem;
 
@@ -82,7 +84,7 @@ public final class WoodenBlockType
         return Stream.of(PANELS, PANELS_STAIRS, PANELS_SLAB, BARREL, WHITE_BED, ORANGE_BED, MAGENTA_BED, LIGHT_BLUE_BED, YELLOW_BED, LIME_BED, PINK_BED, GRAY_BED,
             LIGHT_GRAY_BED, CYAN_BED, PURPLE_BED, BLUE_BED, BROWN_BED, GREEN_BED, RED_BED, BLACK_BED, BOOKSHELF, COMPOSTER, CRAFTING_TABLE, CHEST, SAWMILL, LECTERN,
             LADDER, SCAFFOLDING, SOUL_TORCH, TORCH, WALL_TORCH, WALL_SOUL_TORCH, LOG_PILE, POST, STRIPPED_POST, WALL, CHAIR, TABLE, STOOL, SINGLE_DRESSER, CAMPFIRE,
-            SOUL_CAMPFIRE
+            SOUL_CAMPFIRE, CRATE
         );
     }
 
