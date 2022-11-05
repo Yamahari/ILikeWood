@@ -40,7 +40,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.blockentity.WoodenCrateBlockEntity;
-import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -269,20 +268,6 @@ public final class WoodenCrateBlock
     )
     {
         return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack getCloneItemStack(
-        @Nonnull final BlockGetter blockGetter,
-        @Nonnull final BlockPos pos,
-        @Nonnull final BlockState state
-    )
-    {
-        final var stack = super.getCloneItemStack(blockGetter, pos, state);
-        blockGetter.getBlockEntity(pos, WoodenBlockEntityTypes.WOODEN_CRATE.get()).ifPresent(blockEntity -> blockEntity.saveToItem(stack));
-
-        return stack;
     }
 
     @Nonnull
