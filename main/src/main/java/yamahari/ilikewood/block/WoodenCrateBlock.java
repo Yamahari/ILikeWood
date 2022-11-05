@@ -32,6 +32,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -40,6 +42,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.client.blockentity.WoodenCrateBlockEntity;
+import yamahari.ilikewood.registry.WoodenBlockEntityTypes;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.woodtype.IWoodType;
 import yamahari.ilikewood.util.Constants;
@@ -145,6 +148,29 @@ public final class WoodenCrateBlock
         }
 
         super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Nonnull
+    @Override
+    public List<ItemStack> getDrops(
+        final @Nonnull BlockState blockState,
+        @Nonnull LootContext.Builder builder
+    )
+    {
+        BlockEntity blockentity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (blockentity instanceof WoodenCrateBlockEntity woodenCrateBlockEntity)
+        {
+            builder = builder.withDynamicDrop(CONTENTS, (p_56218_, p_56219_) ->
+            {
+                for (int i = 0; i < woodenCrateBlockEntity.getContainerSize(); ++i)
+                {
+                    p_56219_.accept(woodenCrateBlockEntity.getItem(i));
+                }
+
+            });
+        }
+
+        return super.getDrops(blockState, builder);
     }
 
     @Override
@@ -268,6 +294,20 @@ public final class WoodenCrateBlock
     )
     {
         return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack getCloneItemStack(
+        @Nonnull final BlockGetter blockGetter,
+        @Nonnull final BlockPos pos,
+        @Nonnull final BlockState state
+    )
+    {
+        final var stack = super.getCloneItemStack(blockGetter, pos, state);
+        blockGetter.getBlockEntity(pos, WoodenBlockEntityTypes.WOODEN_CRATE.get()).ifPresent(blockEntity -> blockEntity.saveToItem(stack));
+
+        return stack;
     }
 
     @Nonnull
