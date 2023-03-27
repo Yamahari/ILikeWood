@@ -1,10 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "fire": "#fire",
-    "log_pile_end": "#log_pile_end",
-    "log_side": "#log_side",
-    "campfire_log_lit": "#campfire_log_lit",
+    "a_fire": "#fire",
+    "a_log_pile_end": "#log_pile_end",
+    "a_log_side": "#log_side",
+    "a_campfire_log_lit": "#campfire_log_lit",
     "particle": "#log_side"
   },
   "elements": [
@@ -27,7 +27,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "north"
         },
         "east": {
@@ -38,7 +38,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "south": {
           "uv": [
@@ -47,7 +47,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "south"
         },
         "west": {
@@ -58,7 +58,7 @@
             0
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "up": {
           "uv": [
@@ -67,7 +67,7 @@
             4,
             16
           ],
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "down": {
           "uv": [
@@ -76,7 +76,7 @@
             12,
             16
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "down"
         }
       }
@@ -110,7 +110,7 @@
             0
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "east": {
           "uv": [
@@ -119,7 +119,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "east"
         },
         "south": {
@@ -130,7 +130,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "west": {
           "uv": [
@@ -139,7 +139,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "west"
         },
         "up": {
@@ -150,7 +150,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "down": {
           "uv": [
@@ -160,7 +160,7 @@
             16
           ],
           "rotation": 270,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         }
       }
     },
@@ -193,7 +193,7 @@
             0
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "east": {
           "uv": [
@@ -202,7 +202,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "east"
         },
         "south": {
@@ -213,7 +213,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "west": {
           "uv": [
@@ -222,7 +222,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "west"
         },
         "up": {
@@ -233,7 +233,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "down": {
           "uv": [
@@ -243,7 +243,7 @@
             16
           ],
           "rotation": 270,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         }
       }
     },
@@ -275,7 +275,7 @@
             16,
             4
           ],
-          "texture": "#campfire_log_lit"
+          "texture": "#a_campfire_log_lit"
         }
       }
     },
@@ -308,7 +308,7 @@
             8
           ],
           "rotation": 180,
-          "texture": "#campfire_log_lit"
+          "texture": "#a_campfire_log_lit"
         }
       }
     },
@@ -341,7 +341,7 @@
             8
           ],
           "rotation": 180,
-          "texture": "#campfire_log_lit"
+          "texture": "#a_campfire_log_lit"
         }
       }
     },
@@ -373,7 +373,7 @@
             16,
             4
           ],
-          "texture": "#campfire_log_lit"
+          "texture": "#a_campfire_log_lit"
         }
       }
     },
@@ -405,7 +405,7 @@
             16,
             4
           ],
-          "texture": "#campfire_log_lit",
+          "texture": "#a_campfire_log_lit",
           "cullface": "south"
         }
       }
@@ -438,7 +438,7 @@
             16,
             4
           ],
-          "texture": "#campfire_log_lit"
+          "texture": "#a_campfire_log_lit"
         }
       }
     },
@@ -461,7 +461,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "north"
         },
         "east": {
@@ -472,7 +472,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "south": {
           "uv": [
@@ -481,7 +481,7 @@
             10,
             10
           ],
-          "texture": "#log_pile_end",
+          "texture": "#a_log_pile_end",
           "cullface": "south"
         },
         "west": {
@@ -492,7 +492,7 @@
             0
           ],
           "rotation": 90,
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "west"
         },
         "up": {
@@ -502,7 +502,7 @@
             4,
             16
           ],
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "down": {
           "uv": [
@@ -511,7 +511,7 @@
             12,
             16
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "down"
         }
       }
@@ -535,7 +535,7 @@
             6,
             16
           ],
-          "texture": "#campfire_log_lit",
+          "texture": "#a_campfire_log_lit",
           "cullface": "north"
         },
         "south": {
@@ -545,7 +545,7 @@
             13,
             16
           ],
-          "texture": "#campfire_log_lit",
+          "texture": "#a_campfire_log_lit",
           "cullface": "south"
         },
         "up": {
@@ -556,7 +556,7 @@
             14
           ],
           "rotation": 90,
-          "texture": "#campfire_log_lit"
+          "texture": "#a_campfire_log_lit"
         },
         "down": {
           "uv": [
@@ -566,7 +566,7 @@
             14
           ],
           "rotation": 90,
-          "texture": "#campfire_log_lit",
+          "texture": "#a_campfire_log_lit",
           "cullface": "down"
         }
       }
@@ -601,7 +601,7 @@
             16,
             16
           ],
-          "texture": "#fire",
+          "texture": "#a_fire",
           "cullface": "north"
         },
         "south": {
@@ -611,7 +611,7 @@
             16,
             16
           ],
-          "texture": "#fire"
+          "texture": "#a_fire"
         }
       }
     },
@@ -645,7 +645,7 @@
             16,
             16
           ],
-          "texture": "#fire"
+          "texture": "#a_fire"
         },
         "west": {
           "uv": [
@@ -654,7 +654,7 @@
             16,
             16
           ],
-          "texture": "#fire",
+          "texture": "#a_fire",
           "cullface": "west"
         }
       }

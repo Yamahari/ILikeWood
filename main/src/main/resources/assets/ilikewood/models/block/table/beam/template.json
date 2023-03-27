@@ -1,7 +1,7 @@
 {
   "textures": {
-    "log_end": "#log_end",
-    "stripped_log_side": "#stripped_log_side",
+    "a_log_end": "#log_end",
+    "a_stripped_log_side": "#stripped_log_side",
     "particle": "#stripped_log_side"
   },
   "elements": [
@@ -26,7 +26,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "east": {
           "uv": [
@@ -35,7 +35,7 @@
             9,
             9
           ],
-          "texture": "#log_end",
+          "texture": "#a_log_end",
           "cullface": "east"
         },
         "south": {
@@ -46,7 +46,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "west": {
           "uv": [
@@ -55,7 +55,7 @@
             8,
             9
           ],
-          "texture": "#log_end",
+          "texture": "#a_log_end",
           "cullface": "west"
         },
         "up": {
@@ -66,7 +66,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "down": {
           "uv": [
@@ -76,7 +76,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         }
       }
     }

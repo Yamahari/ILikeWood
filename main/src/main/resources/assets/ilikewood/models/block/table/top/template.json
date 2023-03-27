@@ -1,7 +1,7 @@
 {
   "textures": {
-    "log_side": "#log_side",
-    "log_end": "#log_end",
+    "a_log_side": "#log_side",
+    "a_log_end": "#log_end",
     "particle": "#log_side"
   },
   "elements": [
@@ -25,7 +25,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "north"
         },
         "east": {
@@ -35,7 +35,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "east"
         },
         "south": {
@@ -45,7 +45,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "south"
         },
         "west": {
@@ -55,7 +55,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "west"
         },
         "up": {
@@ -65,7 +65,7 @@
             16,
             16
           ],
-          "texture": "#log_end",
+          "texture": "#a_log_end",
           "cullface": "up"
         },
         "down": {
@@ -75,7 +75,7 @@
             16,
             16
           ],
-          "texture": "#log_end"
+          "texture": "#a_log_end"
         }
       }
     }

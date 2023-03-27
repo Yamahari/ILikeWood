@@ -1,7 +1,7 @@
 {
   "parent": "block/block",
   "textures": {
-    "planks": "#planks",
+    "a_planks": "#planks",
     "particle": "#planks"
   },
   "elements": [
@@ -25,7 +25,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "north"
         },
         "east": {
@@ -36,7 +36,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "east"
         },
         "south": {
@@ -47,7 +47,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "south"
         },
         "west": {
@@ -58,7 +58,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "west"
         },
         "up": {
@@ -69,7 +69,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "up"
         },
         "down": {
@@ -80,7 +80,7 @@
             16
           ],
           "rotation": 90,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "down"
         }
       }

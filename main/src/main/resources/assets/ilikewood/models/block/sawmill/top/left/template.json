@@ -1,7 +1,7 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "planks": "#planks",
+    "a_planks": "#planks",
     "particle": "#planks"
   },
   "elements": [
@@ -33,7 +33,7 @@
             16,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "east": {
           "uv": [
@@ -42,7 +42,7 @@
             15,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "south": {
           "uv": [
@@ -51,7 +51,7 @@
             16,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "west": {
           "uv": [
@@ -60,7 +60,7 @@
             9,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "up": {
           "uv": [
@@ -69,7 +69,7 @@
             16,
             11
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "down": {
           "uv": [
@@ -79,7 +79,7 @@
             3
           ],
           "rotation": 180,
-          "texture": "#planks"
+          "texture": "#a_planks"
         }
       }
     },
@@ -111,7 +111,7 @@
             9,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "east": {
           "uv": [
@@ -120,7 +120,7 @@
             16,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "south": {
           "uv": [
@@ -129,7 +129,7 @@
             15,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "west": {
           "uv": [
@@ -138,7 +138,7 @@
             16,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "up": {
           "uv": [
@@ -148,7 +148,7 @@
             11
           ],
           "rotation": 90,
-          "texture": "#planks"
+          "texture": "#a_planks"
         }
       }
     },
@@ -180,7 +180,7 @@
             16,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "east": {
           "uv": [
@@ -189,7 +189,7 @@
             15,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "south": {
           "uv": [
@@ -198,7 +198,7 @@
             16,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "west": {
           "uv": [
@@ -207,7 +207,7 @@
             9,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "up": {
           "uv": [
@@ -216,7 +216,7 @@
             16,
             11
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "down": {
           "uv": [
@@ -226,7 +226,7 @@
             3
           ],
           "rotation": 180,
-          "texture": "#planks"
+          "texture": "#a_planks"
         }
       }
     },
@@ -258,7 +258,7 @@
             9,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "east": {
           "uv": [
@@ -267,7 +267,7 @@
             16,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "south": {
           "uv": [
@@ -276,7 +276,7 @@
             15,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "west": {
           "uv": [
@@ -285,7 +285,7 @@
             16,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "up": {
           "uv": [
@@ -295,7 +295,7 @@
             11
           ],
           "rotation": 90,
-          "texture": "#planks"
+          "texture": "#a_planks"
         }
       }
     },
@@ -327,7 +327,7 @@
             9,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "east": {
           "uv": [
@@ -336,7 +336,7 @@
             16,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "south": {
           "uv": [
@@ -345,7 +345,7 @@
             15,
             12
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "west": {
           "uv": [
@@ -354,7 +354,7 @@
             16,
             4
           ],
-          "texture": "#planks"
+          "texture": "#a_planks"
         },
         "up": {
           "uv": [
@@ -364,7 +364,7 @@
             11
           ],
           "rotation": 90,
-          "texture": "#planks"
+          "texture": "#a_planks"
         }
       }
     }
