@@ -1,12 +1,12 @@
 {
   "parent": "block/block",
   "textures": {
-    "planks": "#planks",
+    "a_planks": "#planks",
     "particle": "#stripped_log_side",
-    "stripped_log_side": "#stripped_log_side",
-    "log_side": "#log_side",
-    "log_end": "#log_end",
-    "iron_trapdoor": "block/iron_trapdoor"
+    "a_stripped_log_side": "#stripped_log_side",
+    "a_log_side": "#log_side",
+    "a_log_end": "#log_end",
+    "a_iron_trapdoor": "block/iron_trapdoor"
   },
   "elements": [
     {
@@ -28,7 +28,7 @@
             6,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "east": {
           "uv": [
@@ -37,7 +37,7 @@
             14,
             16
           ],
-          "texture": "#stripped_log_side",
+          "texture": "#a_stripped_log_side",
           "cullface": "east"
         },
         "south": {
@@ -47,7 +47,7 @@
             16,
             16
           ],
-          "texture": "#stripped_log_side",
+          "texture": "#a_stripped_log_side",
           "cullface": "south"
         },
         "west": {
@@ -57,7 +57,7 @@
             14,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "down": {
           "uv": [
@@ -67,7 +67,7 @@
             16
           ],
           "rotation": 180,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "down"
         }
       }
@@ -91,7 +91,7 @@
             14,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "east": {
           "uv": [
@@ -100,7 +100,7 @@
             16,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "south": {
           "uv": [
@@ -109,7 +109,7 @@
             4,
             16
           ],
-          "texture": "#stripped_log_side",
+          "texture": "#a_stripped_log_side",
           "cullface": "south"
         },
         "west": {
@@ -119,7 +119,7 @@
             16,
             16
           ],
-          "texture": "#stripped_log_side",
+          "texture": "#a_stripped_log_side",
           "cullface": "west"
         },
         "down": {
@@ -130,7 +130,7 @@
             16
           ],
           "rotation": 180,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "down"
         }
       }
@@ -154,7 +154,7 @@
             12,
             16
           ],
-          "texture": "#log_side"
+          "texture": "#a_log_side"
         },
         "south": {
           "uv": [
@@ -163,7 +163,7 @@
             12,
             16
           ],
-          "texture": "#stripped_log_side",
+          "texture": "#a_stripped_log_side",
           "cullface": "south"
         },
         "down": {
@@ -174,7 +174,7 @@
             16
           ],
           "rotation": 180,
-          "texture": "#planks",
+          "texture": "#a_planks",
           "cullface": "down"
         }
       }
@@ -199,7 +199,7 @@
             13
           ],
           "rotation": 90,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "east": {
           "uv": [
@@ -208,7 +208,7 @@
             16,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "west": {
           "uv": [
@@ -217,7 +217,7 @@
             2,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "up": {
           "uv": [
@@ -227,7 +227,7 @@
             16
           ],
           "rotation": 180,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "down": {
           "uv": [
@@ -237,7 +237,7 @@
             2
           ],
           "rotation": 180,
-          "texture": "#planks"
+          "texture": "#a_planks"
         }
       }
     },
@@ -261,7 +261,7 @@
             15
           ],
           "rotation": 90,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "east": {
           "uv": [
@@ -270,7 +270,7 @@
             16,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "west": {
           "uv": [
@@ -279,7 +279,7 @@
             2,
             16
           ],
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "up": {
           "uv": [
@@ -289,7 +289,7 @@
             16
           ],
           "rotation": 180,
-          "texture": "#stripped_log_side"
+          "texture": "#a_stripped_log_side"
         },
         "down": {
           "uv": [
@@ -299,7 +299,7 @@
             2
           ],
           "rotation": 180,
-          "texture": "#planks"
+          "texture": "#a_planks"
         }
       }
     },
@@ -322,7 +322,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "north"
         },
         "east": {
@@ -332,7 +332,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "east"
         },
         "south": {
@@ -342,7 +342,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "south"
         },
         "west": {
@@ -352,7 +352,7 @@
             16,
             3
           ],
-          "texture": "#log_side",
+          "texture": "#a_log_side",
           "cullface": "west"
         },
         "up": {
@@ -363,7 +363,7 @@
             16
           ],
           "rotation": 180,
-          "texture": "#log_end",
+          "texture": "#a_log_end",
           "cullface": "up"
         },
         "down": {
@@ -374,7 +374,7 @@
             16
           ],
           "rotation": 180,
-          "texture": "#log_end"
+          "texture": "#a_log_end"
         }
       }
     },
@@ -397,7 +397,7 @@
             11,
             3
           ],
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "east": {
           "uv": [
@@ -406,7 +406,7 @@
             1,
             1
           ],
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "west": {
           "uv": [
@@ -415,7 +415,7 @@
             16,
             1
           ],
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "up": {
           "uv": [
@@ -425,7 +425,7 @@
             10
           ],
           "rotation": 180,
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "down": {
           "uv": [
@@ -435,7 +435,7 @@
             3
           ],
           "rotation": 180,
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         }
       }
     },
@@ -458,7 +458,7 @@
             11,
             3
           ],
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "east": {
           "uv": [
@@ -467,7 +467,7 @@
             1,
             1
           ],
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "west": {
           "uv": [
@@ -476,7 +476,7 @@
             16,
             1
           ],
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "up": {
           "uv": [
@@ -486,7 +486,7 @@
             10
           ],
           "rotation": 180,
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         },
         "down": {
           "uv": [
@@ -496,7 +496,7 @@
             3
           ],
           "rotation": 180,
-          "texture": "#iron_trapdoor"
+          "texture": "#a_iron_trapdoor"
         }
       }
     }

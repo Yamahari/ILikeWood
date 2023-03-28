@@ -1,8 +1,8 @@
 {
   "textures": {
     "particle": "#planks",
-    "wood": "#planks",
-    "back": "block/item_frame"
+    "a_wood": "#planks",
+    "a_back": "block/item_frame"
   },
   "elements": [
     {
@@ -24,7 +24,7 @@
             15,
             15
           ],
-          "texture": "#back"
+          "texture": "#a_back"
         },
         "south": {
           "uv": [
@@ -33,7 +33,7 @@
             15,
             15
           ],
-          "texture": "#back"
+          "texture": "#a_back"
         }
       }
     },
@@ -56,7 +56,7 @@
             16,
             1
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "up": {
           "uv": [
@@ -65,7 +65,7 @@
             16,
             16
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "north": {
           "uv": [
@@ -74,7 +74,7 @@
             16,
             16
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "south": {
           "uv": [
@@ -83,7 +83,7 @@
             16,
             16
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "west": {
           "uv": [
@@ -92,7 +92,7 @@
             16,
             16
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "east": {
           "uv": [
@@ -101,7 +101,7 @@
             1,
             16
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         }
       }
     },
@@ -124,7 +124,7 @@
             16,
             1
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "up": {
           "uv": [
@@ -133,7 +133,7 @@
             16,
             16
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "north": {
           "uv": [
@@ -142,7 +142,7 @@
             16,
             1
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "south": {
           "uv": [
@@ -151,7 +151,7 @@
             16,
             1
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "west": {
           "uv": [
@@ -160,7 +160,7 @@
             16,
             1
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "east": {
           "uv": [
@@ -169,7 +169,7 @@
             1,
             1
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         }
       }
     },
@@ -192,7 +192,7 @@
             16,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "south": {
           "uv": [
@@ -201,7 +201,7 @@
             1,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "west": {
           "uv": [
@@ -210,7 +210,7 @@
             16,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "east": {
           "uv": [
@@ -219,7 +219,7 @@
             1,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         }
       }
     },
@@ -242,7 +242,7 @@
             1,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "south": {
           "uv": [
@@ -251,7 +251,7 @@
             16,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "west": {
           "uv": [
@@ -260,7 +260,7 @@
             16,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         },
         "east": {
           "uv": [
@@ -269,7 +269,7 @@
             1,
             15
           ],
-          "texture": "#wood"
+          "texture": "#a_wood"
         }
       }
     }

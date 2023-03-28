@@ -2,7 +2,7 @@
   "ambientocclusion": false,
   "textures": {
     "particle": "#ladder",
-    "texture": "#ladder"
+    "a_texture": "#ladder"
   },
   "elements": [
     {
@@ -25,7 +25,7 @@
             16,
             16
           ],
-          "texture": "#texture"
+          "texture": "#a_texture"
         },
         "south": {
           "uv": [
@@ -34,7 +34,7 @@
             16,
             16
           ],
-          "texture": "#texture"
+          "texture": "#a_texture"
         }
       }
     }
