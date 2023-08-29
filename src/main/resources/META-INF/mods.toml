@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "${version_range_loader}"
+issueTrackerURL = "https://github.com/Yamahari/ILikeWood-1.15/issues"
+license = "MIT"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${version}"
+displayName = "I Like Wood"
+#updateJSONURL="http://myurl.me/"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/i-like-wood"
+logoFile = "../logo.png"
+credits = "Yamahari and the people of Forge"
+authors = "Yamahari"
+description = '''
+This mod adds wood variants for blocks that should have one but don't.
+It also adds a new wood related blocks.
+'''
+
+[[dependencies.ilikewood]]
+modId = "forge"
+mandatory = true
+versionRange = "${version_range_forge}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ilikewood]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${version_range_mc}"
+ordering = "NONE"
+side = "BOTH"

@@ -28,6 +28,6 @@ forge*changelog.txt
 /LICENSE.txt
 /README.txt
 
-/main/src/data/
+/src/data/
 /config/src/
-/main/src/main/resources/.cache/
+/src/main/resources/.cache/
