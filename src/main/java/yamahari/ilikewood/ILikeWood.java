@@ -35,8 +35,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Mod(Constants.MOD_ID)
-public final class ILikeWood
-{
+public final class ILikeWood {
     public static final Logger LOGGER = LogManager.getLogger(ILikeWood.class);
     public static final WoodTypeRegistry WOOD_TYPE_REGISTRY = new WoodTypeRegistry();
     public static final WoodenItemTierRegistry WOODEN_ITEM_TIER_REGISTRY = new WoodenItemTierRegistry();
@@ -49,18 +48,15 @@ public final class ILikeWood
     public static final ILikeWoodRecipeTypeRegister RECIPE_TYPE_REGISTER = new ILikeWoodRecipeTypeRegister();
     public static final List<IModPlugin> PLUGINS = new ArrayList<>();
 
-    public ILikeWood()
-    {
+    public ILikeWood() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ILikeWoodConfig.COMMON_SPEC);
         ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.COMMON, FMLPaths.CONFIGDIR.get());
 
         getPlugins();
 
-        for (final IModPlugin plugin : PLUGINS)
-        {
-            if (ModList.get().isLoaded(plugin.getModId()))
-            {
+        for (final IModPlugin plugin : PLUGINS) {
+            if (ModList.get().isLoaded(plugin.getModId())) {
                 plugin.registerWoodTypes(WOOD_TYPE_REGISTRY);
                 plugin.registerWoodenItemTiers(WOODEN_ITEM_TIER_REGISTRY);
                 plugin.registerWoodenResources(WOODEN_RESOURCE_REGISTRY);
@@ -68,8 +64,7 @@ public final class ILikeWood
         }
 
         final var builder = new StringBuilder();
-        if (!validate(builder))
-        {
+        if (!validate(builder)) {
             throw new RuntimeException("Validation failed! See log for more details." + System.lineSeparator() + builder);
         }
 
@@ -84,9 +79,9 @@ public final class ILikeWood
         ILikeWoodParticleTypeRegistry.REGISTRY.register(modEventBus);
         ILikeWoodRecipeSerializerRegistry.REGISTRY.register(modEventBus);
         ILikeWoodPaintingRegistry.REGISTRY.register(modEventBus);
+        ILikeWoodCreativeModeTabRegistry.REGISTRY.register(modEventBus);
 
-        for (final IModPlugin plugin : PLUGINS)
-        {
+        for (final IModPlugin plugin : PLUGINS) {
             plugin.acceptBlockRegistry(BLOCK_REGISTRY);
             plugin.acceptBlockItemRegistry(BLOCK_ITEM_REGISTRY);
             plugin.acceptItemRegistry(ITEM_REGISTRY);
@@ -95,62 +90,44 @@ public final class ILikeWood
         }
     }
 
-    public static Block getBlock(
-        final IWoodType woodType,
-        final WoodenBlockType blockType
-    )
-    {
-        if (woodType.getBlockTypes().contains(blockType))
-        {
+    public static Block getBlock(final IWoodType woodType, final WoodenBlockType blockType) {
+        if (woodType.getBlockTypes().contains(blockType)) {
             return BLOCK_REGISTRY.getObject(woodType, blockType);
         }
-        if (woodType.getBuiltinBlockTypes().contains(blockType))
-        {
+        if (woodType.getBuiltinBlockTypes().contains(blockType)) {
             return ForgeRegistries.BLOCKS.getValue(WOODEN_RESOURCE_REGISTRY.getBlockResource(woodType, blockType).getResource());
         }
         throw new IllegalArgumentException("");
     }
 
-    public static Stream<Block> getBlocks(final WoodenBlockType blockType)
-    {
+    public static Stream<Block> getBlocks(final WoodenBlockType blockType) {
         return WOOD_TYPE_REGISTRY.getWoodTypes().map(woodType -> getBlock(woodType, blockType));
     }
 
-    public static Stream<Block> getBlocks(Stream<WoodenBlockType> blockTypes)
-    {
+    public static Stream<Block> getBlocks(Stream<WoodenBlockType> blockTypes) {
         return blockTypes.flatMap(ILikeWood::getBlocks);
     }
 
-    public static Item getItem(
-        final IWoodType woodType,
-        final WoodenItemType itemType
-    )
-    {
-        if (woodType.getItemTypes().contains(itemType))
-        {
+    public static Item getItem(final IWoodType woodType, final WoodenItemType itemType) {
+        if (woodType.getItemTypes().contains(itemType)) {
             return ITEM_REGISTRY.getObject(woodType, itemType);
         }
-        if (woodType.getBuiltinItemTypes().contains(itemType))
-        {
+        if (woodType.getBuiltinItemTypes().contains(itemType)) {
             return ForgeRegistries.ITEMS.getValue(WOODEN_RESOURCE_REGISTRY.getItemResource(woodType, itemType).getResource());
         }
         throw new IllegalArgumentException("");
     }
 
-    public static Stream<Item> getItems(final WoodenItemType itemType)
-    {
+    public static Stream<Item> getItems(final WoodenItemType itemType) {
         return WOOD_TYPE_REGISTRY.getWoodTypes().map(woodType -> getItem(woodType, itemType));
     }
 
-    public static Stream<Item> getItems(Stream<WoodenItemType> itemTypes)
-    {
+    public static Stream<Item> getItems(Stream<WoodenItemType> itemTypes) {
         return itemTypes.flatMap(ILikeWood::getItems);
     }
 
-    private static void getPlugins()
-    {
-        final List<String> names = ModList
-            .get()
+    private static void getPlugins() {
+        final List<String> names = ModList.get()
             .getAllScanData()
             .stream()
             .flatMap(scanData -> scanData.getAnnotations().stream())
@@ -158,59 +135,49 @@ public final class ILikeWood
             .map(ModFileScanData.AnnotationData::memberName)
             .toList();
 
-        for (final String name : names)
-        {
-            try
-            {
+        for (final String name : names) {
+            try {
                 PLUGINS.add(Class.forName(name).asSubclass(IModPlugin.class).newInstance());
             }
-            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | LinkageError e)
-            {
+            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | LinkageError e) {
                 LOGGER.error("Failed to load: {}", name, e);
             }
         }
     }
 
-    private static boolean validate(final StringBuilder builder)
-    {
+    private static boolean validate(final StringBuilder builder) {
 
         final var blockTypeValidation = WoodenBlockType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
-        if (!blockTypeValidation)
-        {
+        if (!blockTypeValidation) {
             builder.append("Block type validation failed!");
             builder.append(System.lineSeparator());
         }
 
         final var itemTypeValidation = WoodenItemType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
-        if (!itemTypeValidation)
-        {
+        if (!itemTypeValidation) {
             builder.append("Item type validation failed!");
             builder.append(System.lineSeparator());
         }
 
-        final var tieredItemTypeValidation =
-            WoodenTieredItemType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
+        final var tieredItemTypeValidation = WoodenTieredItemType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
-        if (!tieredItemTypeValidation)
-        {
+        if (!tieredItemTypeValidation) {
             builder.append("Tiered item type validation failed!");
             builder.append(System.lineSeparator());
         }
 
         final var entityTypeValidation = WoodenEntityType.getAll().map(objectType -> ObjectTypeValidator.validate(builder, objectType)).reduce(true, Boolean::logicalAnd);
 
-        if (!entityTypeValidation)
-        {
+        if (!entityTypeValidation) {
             builder.append("Entity type validation failed!");
             builder.append(System.lineSeparator());
         }
 
         final var woodTypeValidation = WOOD_TYPE_REGISTRY.getWoodTypes().map(woodType -> WoodTypeValidator.validate(builder, woodType)).reduce(true, Boolean::logicalAnd);
 
-        if (!woodTypeValidation)
-        {
+        if (!woodTypeValidation) {
             builder.append("Wood type validation failed!");
             builder.append(System.lineSeparator());
         }

@@ -7,7 +7,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
-import yamahari.ilikewood.provider.tag.block.AbstractBlockTagsProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenBlockType;
 import yamahari.ilikewood.registry.objecttype.WoodenItemType;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
@@ -19,8 +18,8 @@ import java.util.concurrent.CompletableFuture;
 public abstract class AbstractItemTagsProvider extends ItemTagsProvider {
     private final String root;
 
-    public AbstractItemTagsProvider(final DataGenerator generator, final CompletableFuture<HolderLookup.Provider> lookupProvider, final AbstractBlockTagsProvider blockTagsProvider, final ExistingFileHelper existingFileHelper, final String root) {
-        super(generator.getPackOutput(), lookupProvider, blockTagsProvider.contentsGetter(), Constants.MOD_ID, existingFileHelper);
+    public AbstractItemTagsProvider(final DataGenerator generator, final CompletableFuture<HolderLookup.Provider> lookupProvider, final ExistingFileHelper existingFileHelper, final String root) {
+        super(generator.getPackOutput(), lookupProvider, CompletableFuture.completedFuture(TagLookup.empty()), Constants.MOD_ID, existingFileHelper);
         this.root = root;
     }
 

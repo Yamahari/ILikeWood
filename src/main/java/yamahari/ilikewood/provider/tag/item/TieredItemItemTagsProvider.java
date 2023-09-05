@@ -9,7 +9,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import yamahari.ilikewood.ILikeWood;
 import yamahari.ilikewood.item.tiered.IWoodenTieredItem;
 import yamahari.ilikewood.plugin.vanilla.VanillaWoodenItemTiers;
-import yamahari.ilikewood.provider.tag.block.AbstractBlockTagsProvider;
 import yamahari.ilikewood.registry.objecttype.WoodenTieredItemType;
 
 import javax.annotation.Nonnull;
@@ -19,8 +18,8 @@ public final class TieredItemItemTagsProvider extends AbstractItemTagsProvider {
     private final WoodenTieredItemType tieredItemType;
     private final TagKey<Item> tag;
 
-    public TieredItemItemTagsProvider(final DataGenerator generator, final CompletableFuture<HolderLookup.Provider> lookupProvider, final AbstractBlockTagsProvider blockTagsProvider, final ExistingFileHelper existingFileHelper, final String root, final WoodenTieredItemType tieredItemType, final TagKey<Item> tag) {
-        super(generator, lookupProvider, blockTagsProvider, existingFileHelper, root);
+    public TieredItemItemTagsProvider(final DataGenerator generator, final CompletableFuture<HolderLookup.Provider> lookupProvider, final ExistingFileHelper existingFileHelper, final String root, final WoodenTieredItemType tieredItemType, final TagKey<Item> tag) {
+        super(generator, lookupProvider, existingFileHelper, root);
         this.tieredItemType = tieredItemType;
         this.tag = tag;
     }
