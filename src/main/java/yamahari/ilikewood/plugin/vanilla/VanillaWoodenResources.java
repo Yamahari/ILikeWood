@@ -28,7 +28,7 @@ public final class VanillaWoodenResources {
     private static final Map<IWoodType, BlockBehaviour.Properties> PLANKS_PROPERTIES = new ImmutableMap.Builder<IWoodType, BlockBehaviour.Properties>().put(VanillaWoodTypes.ACACIA,
             BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS))
         .put(VanillaWoodTypes.BAMBOO, BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS))
-        .put(VanillaWoodTypes.BIRCH, BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS))
+        .put(VanillaWoodTypes.BIRCH, BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)).put(VanillaWoodTypes.CHERRY, BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS))
         .put(VanillaWoodTypes.CRIMSON, BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS))
         .put(VanillaWoodTypes.DARK_OAK, BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS))
         .put(VanillaWoodTypes.JUNGLE, BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS))

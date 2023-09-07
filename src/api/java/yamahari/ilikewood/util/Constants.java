@@ -6,6 +6,7 @@ public final class Constants {
     public static final String ACACIA = "acacia";
     public static final String BAMBOO = "bamboo";
     public static final String BIRCH = "birch";
+    public static final String CHERRY = "cherry";
     public static final String CRIMSON = "crimson";
     public static final String DARK_OAK = "dark_oak";
     public static final String JUNGLE = "jungle";
